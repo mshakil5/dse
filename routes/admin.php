@@ -30,11 +30,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/new-admin-update', [AdminController::class, 'adminUpdate']);
     Route::get('/new-admin/{id}', [AdminController::class, 'adminDelete']);
     
-    Route::get('/agent', [AgentController::class, 'index'])->name('admin.agent');
-    Route::post('/agent', [AgentController::class, 'store']);
-    Route::get('/agent/{id}/edit', [AgentController::class, 'edit']);
-    Route::post('/agent-update', [AgentController::class, 'update']);
-    Route::get('/agent/{id}', [AgentController::class, 'delete']);
+    Route::get('/line-manager', [AgentController::class, 'index'])->name('admin.linemanager');
+    Route::post('/line-manager', [AgentController::class, 'store']);
+    Route::get('/line-manager/{id}/edit', [AgentController::class, 'edit']);
+    Route::post('/line-manager-update', [AgentController::class, 'update']);
+    Route::get('/line-manager/{id}', [AgentController::class, 'delete']);
 
     Route::get('/country', [CountryController::class, 'index'])->name('admin.country');
     Route::post('/country', [CountryController::class, 'store']);

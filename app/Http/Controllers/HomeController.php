@@ -46,4 +46,19 @@ class HomeController extends Controller
     {
         return view('manager.dashboard');
     }
+
+    public function userDashboard(): View
+    {
+        return view('user.dashboard');
+    }
+
+    public function expertHome(): View
+    {
+        return view('expert.dashboard');
+    }
+
+    public function expertManagerHome(): View
+    {
+        return view('expertmanager.dashboard');
+    }
 }

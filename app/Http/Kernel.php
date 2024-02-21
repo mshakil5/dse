@@ -80,5 +80,7 @@ class Kernel extends HttpKernel
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'is_user' => \App\Http\Middleware\IsUser::class,
         'is_manager' => \App\Http\Middleware\IsManager::class,
+        'is_expert' => \App\Http\Middleware\Expert::class,
+        'is_expertlinemanager' => \App\Http\Middleware\ExpertLineManager::class,
     ];
 }

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsUser
+class ExpertLineManager
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,11 @@ class IsUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(auth()->user()->is_type == '0'){
+        
+        if(auth()->user()->is_type == '4'){
             return $next($request);
         }
 
-        return redirect('login')->with('error',"You don't have user access.");
+        return redirect('login')->with('error',"You don't have expert line manager access.");
     }
 }

@@ -21,10 +21,10 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('admin.agent')}}" class="nav-link {{ (request()->is('admin/agent*')) ? 'active' : '' }}">
+        <a href="{{route('admin.linemanager')}}" class="nav-link {{ (request()->is('admin/line-manager*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
-            Agent
+            Line Manager
           </p>
         </a>
       </li>

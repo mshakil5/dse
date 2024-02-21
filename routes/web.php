@@ -32,6 +32,7 @@ Route::get('/clear', function() {
   
 Auth::routes();
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
+Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::get('/session-clear', [FrontendController::class, 'sessionClear']);
   
 /*------------------------------------------
@@ -41,17 +42,39 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function(){
   
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
 });
   
 
 /*------------------------------------------
 --------------------------------------------
-All Admin Routes List
+All manager Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'managerHome'])->name('manager.dashboard');
+});
+
+
+/*------------------------------------------
+--------------------------------------------
+All expert Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], function(){
+  
+    Route::get('/dashboard', [HomeController::class, 'expertHome'])->name('expert.dashboard');
+});
+
+
+/*------------------------------------------
+--------------------------------------------
+All expert manager Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::group(['prefix' =>'expert-manager/', 'middleware' => ['auth', 'is_expertlinemanager']], function(){
+  
+    Route::get('/dashboard', [HomeController::class, 'expertManagerHome'])->name('expertmanager.dashboard');
 });
  
