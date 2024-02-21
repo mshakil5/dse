@@ -11,4 +11,11 @@ class FrontendController extends Controller
         // return view('frontend.index');
         return view('auth.register');
     }
+
+    public function sessionClear()
+    {
+        session()->flush();
+        session()->regenerate();
+        return redirect()->back();
+    }
 }
