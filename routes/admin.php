@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\DivisionController;
 
 
 /*------------------------------------------
@@ -39,6 +41,22 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/country/{id}/edit', [CountryController::class, 'edit']);
     Route::post('/country-update', [CountryController::class, 'update']);
     Route::get('/country/{id}', [CountryController::class, 'delete']);
+
+    
+
+    Route::get('/department', [DepartmentController::class, 'index'])->name('admin.department');
+    Route::post('/department', [DepartmentController::class, 'store']);
+    Route::get('/department/{id}/edit', [DepartmentController::class, 'edit']);
+    Route::post('/department-update', [DepartmentController::class, 'update']);
+    Route::get('/department/{id}', [DepartmentController::class, 'delete']);
+
+    
+
+    Route::get('/division', [DivisionController::class, 'index'])->name('admin.division');
+    Route::post('/division', [DivisionController::class, 'store']);
+    Route::get('/division/{id}/edit', [DivisionController::class, 'edit']);
+    Route::post('/division-update', [DivisionController::class, 'update']);
+    Route::get('/division/{id}', [DivisionController::class, 'delete']);
 
     
 });

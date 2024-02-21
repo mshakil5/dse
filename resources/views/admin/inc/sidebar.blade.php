@@ -36,6 +36,26 @@
           </p>
         </a>
       </li>
+
+      
+      <li class="nav-item">
+        <a href="{{route('admin.department')}}" class="nav-link {{ (request()->is('admin/department*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Department
+          </p>
+        </a>
+      </li>
+
+      
+      <li class="nav-item">
+        <a href="{{route('admin.division')}}" class="nav-link {{ (request()->is('admin/division*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Division
+          </p>
+        </a>
+      </li>
       
       
       
