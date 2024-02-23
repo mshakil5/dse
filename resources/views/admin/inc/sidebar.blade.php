@@ -29,6 +29,14 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{route('admin.user')}}" class="nav-link {{ (request()->is('admin/user*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            User
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="{{route('admin.country')}}" class="nav-link {{ (request()->is('admin/country*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
