@@ -3,20 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\Loan;
-use App\Models\LoanTransaction;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
-class AgentController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        $data = User::where('is_type', '2')->orderby('id','DESC')->get();
-        return view('admin.agent.index', compact('data'));
+        $data = User::where('is_type', '0')->orderby('id','DESC')->get();
+        return view('admin.user.index', compact('data'));
     }
 
     public function store(Request $request)
