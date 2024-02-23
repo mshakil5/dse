@@ -64,6 +64,46 @@
                   </div>
 
                   <div class="row">
+
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Line Manager</label>
+                        <select name="line_manager" id="line_manager" class="form-control">
+                          <option value="">Select</option>
+                          @foreach ($linemanagers as $linemanager)
+                            <option value="{{$linemanager->id}}">{{$linemanager->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Division</label>
+                        <select name="division_id" id="division_id" class="form-control">
+                          <option value="">Select</option>
+                          @foreach ($devisions as $devision)
+                            <option value="{{$devision->id}}">{{$devision->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Department</label>
+                        <select name="department_id" id="department_id" class="form-control">
+                          <option value="">Select</option>
+                          @foreach ($departments as $department)
+                            <option value="{{$department->id}}">{{$department->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label>Password</label>
@@ -204,6 +244,9 @@
               form_data.append("email", $("#email").val());
               form_data.append("phone", $("#phone").val());
               form_data.append("surname", $("#surname").val());
+              form_data.append("department_id", $("#department_id").val());
+              form_data.append("division_id", $("#division_id").val());
+              form_data.append("line_manager", $("#line_manager").val());
               form_data.append("password", $("#password").val());
               form_data.append("confirm_password", $("#confirm_password").val());
               $.ajax({
@@ -234,6 +277,9 @@
               form_data.append("email", $("#email").val());
               form_data.append("phone", $("#phone").val());
               form_data.append("surname", $("#surname").val());
+              form_data.append("department_id", $("#department_id").val());
+              form_data.append("division_id", $("#division_id").val());
+              form_data.append("line_manager", $("#line_manager").val());
               form_data.append("password", $("#password").val());
               form_data.append("confirm_password", $("#confirm_password").val());
               form_data.append("codeid", $("#codeid").val());
@@ -305,6 +351,9 @@
           $("#surname").val(data.surname);
           $("#phone").val(data.phone);
           $("#email").val(data.email);
+          $("#line_manager").val(data.line_manager);
+          $("#division_id").val(data.division_id);
+          $("#department_id").val(data.department_id);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
           $("#addBtn").html('Update');

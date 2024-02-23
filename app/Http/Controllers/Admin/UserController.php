@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
+use App\Models\Division;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +15,10 @@ class UserController extends Controller
     public function index()
     {
         $data = User::where('is_type', '0')->orderby('id','DESC')->get();
-        return view('admin.user.index', compact('data'));
+        $linemanagers = User::select('id','name','email')->where('is_type', '2')->orderby('id','DESC')->get();
+        $departments = Department::select('id', 'name')->get();
+        $devisions = Division::select('id', 'name')->get();
+        return view('admin.user.index', compact('data','linemanagers','departments','devisions'));
     }
 
     public function store(Request $request)
@@ -33,6 +38,21 @@ class UserController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        // if(empty($request->line_manager)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Line manager \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
+        // if(empty($request->division_id)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Division \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
+        // if(empty($request->department_id)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Department \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
         if(empty($request->password)){            
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Password\" field..!</b></div>"; 
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -57,7 +77,10 @@ class UserController extends Controller
         $data->house_number = $request->house_number;
         $data->street_name = $request->street_name;
         $data->town = $request->town;
-        $data->is_type = "2";
+        $data->line_manager = $request->line_manager;
+        $data->department_id = $request->department_id;
+        $data->division_id = $request->division_id;
+        $data->is_type = "0";
         $data->postcode = $request->postcode;
         if(isset($request->password)){
             $data->password = Hash::make($request->password);
@@ -99,6 +122,21 @@ class UserController extends Controller
             exit();
         }
         
+        // if(empty($request->line_manager)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Line manager \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
+        // if(empty($request->division_id)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Division \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
+        // if(empty($request->department_id)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Department \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
         if(isset($request->password) && ($request->password != $request->confirm_password)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Password doesn't match.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -122,6 +160,9 @@ class UserController extends Controller
         $data->street_name = $request->street_name;
         $data->town = $request->town;
         $data->postcode = $request->postcode;
+        $data->line_manager = $request->line_manager;
+        $data->department_id = $request->department_id;
+        $data->division_id = $request->division_id;
         if(isset($request->password)){
             $data->password = Hash::make($request->password);
         }
