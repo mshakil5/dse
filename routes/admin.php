@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\QnCategoryController;
 
 
 /*------------------------------------------
@@ -49,21 +50,24 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/country-update', [CountryController::class, 'update']);
     Route::get('/country/{id}', [CountryController::class, 'delete']);
 
-    
-
     Route::get('/department', [DepartmentController::class, 'index'])->name('admin.department');
     Route::post('/department', [DepartmentController::class, 'store']);
     Route::get('/department/{id}/edit', [DepartmentController::class, 'edit']);
     Route::post('/department-update', [DepartmentController::class, 'update']);
     Route::get('/department/{id}', [DepartmentController::class, 'delete']);
 
-    
-
     Route::get('/division', [DivisionController::class, 'index'])->name('admin.division');
     Route::post('/division', [DivisionController::class, 'store']);
     Route::get('/division/{id}/edit', [DivisionController::class, 'edit']);
     Route::post('/division-update', [DivisionController::class, 'update']);
     Route::get('/division/{id}', [DivisionController::class, 'delete']);
+
+    
+    Route::get('/qn-category', [QnCategoryController::class, 'index'])->name('admin.qncategory');
+    Route::post('/qn-category', [QnCategoryController::class, 'store']);
+    Route::get('/qn-category/{id}/edit', [QnCategoryController::class, 'edit']);
+    Route::post('/qn-category-update', [QnCategoryController::class, 'update']);
+    Route::get('/qn-category/{id}', [QnCategoryController::class, 'delete']);
 
     
 });
