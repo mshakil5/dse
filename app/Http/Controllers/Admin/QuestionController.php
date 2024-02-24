@@ -1,0 +1,95 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\QnCategory;
+use App\Models\Question;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class QuestionController extends Controller
+{
+    public function index()
+    {
+        $cats = QnCategory::orderby('id','DESC')->get();
+        $data = Question::orderby('id','DESC')->get();
+        return view('admin.question.index', compact('data','cats'));
+    }
+
+    public function store(Request $request)
+    {
+        if(empty($request->qn_category_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Category \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->question)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"question \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        $data = new Question;
+        $data->question = $request->question;
+        $data->qn_category_id = $request->qn_category_id;
+        $data->created_by = Auth::user()->id;
+        if ($data->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function edit($id)
+    {
+        $where = [
+            'id'=>$id
+        ];
+        $info = Question::where($where)->get()->first();
+        return response()->json($info);
+    }
+
+    public function update(Request $request)
+    {
+
+        
+        if(empty($request->qn_category_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Category \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if(empty($request->question)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"question \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+
+        $data = Question::find($request->codeid);
+        $data->question = $request->question;
+        $data->qn_category_id = $request->qn_category_id;
+        $data->updated_by = Auth::user()->id;
+        if ($data->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }
+        else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        } 
+    }
+
+    public function delete($id)
+    {
+
+        if(Question::destroy($id)){
+            return response()->json(['success'=>true,'message'=>'Data has been deleted successfully']);
+        }else{
+            return response()->json(['success'=>false,'message'=>'Delete Failed']);
+        }
+    }
+}

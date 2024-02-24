@@ -74,6 +74,15 @@
           </p>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a href="{{route('admin.question')}}" class="nav-link {{ (request()->is('admin/question*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Question
+          </p>
+        </a>
+      </li>
       
       
       

@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('qn_controllers', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->bigInteger('qn_category_id')->unsigned()->nullable();
+            $table->foreign('qn_category_id')->references('id')->on('qn_categories')->onDelete('cascade');
+            $table->longText('question');
+            $table->longText('option')->nullable();
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('qn_controllers');
+        Schema::dropIfExists('questions');
     }
 };

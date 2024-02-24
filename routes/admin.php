@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\QnCategoryController;
+use App\Http\Controllers\Admin\QuestionController;
 
 
 /*------------------------------------------
@@ -68,6 +69,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/qn-category/{id}/edit', [QnCategoryController::class, 'edit']);
     Route::post('/qn-category-update', [QnCategoryController::class, 'update']);
     Route::get('/qn-category/{id}', [QnCategoryController::class, 'delete']);
+
+    
+    Route::get('/question', [QuestionController::class, 'index'])->name('admin.question');
+    Route::post('/question', [QuestionController::class, 'store']);
+    Route::get('/question/{id}/edit', [QuestionController::class, 'edit']);
+    Route::post('/question-update', [QuestionController::class, 'update']);
+    Route::get('/question/{id}', [QuestionController::class, 'delete']);
 
     
 });
