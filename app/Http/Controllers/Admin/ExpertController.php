@@ -3,20 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\Loan;
-use App\Models\LoanTransaction;
-use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Department;
+use App\Models\Division;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
-class AgentController extends Controller
+class ExpertController extends Controller
 {
     public function index()
     {
-        $data = User::where('is_type', '2')->orderby('id','DESC')->get();
-        return view('admin.agent.index', compact('data'));
+        $data = User::where('is_type', '3')->orderby('id','DESC')->get();
+        return view('admin.expert.index', compact('data'));
     }
 
     public function store(Request $request)
@@ -36,6 +35,7 @@ class AgentController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        
         if(empty($request->password)){            
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Password\" field..!</b></div>"; 
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -60,7 +60,7 @@ class AgentController extends Controller
         $data->house_number = $request->house_number;
         $data->street_name = $request->street_name;
         $data->town = $request->town;
-        $data->is_type = "2";
+        $data->is_type = "3";
         $data->postcode = $request->postcode;
         if(isset($request->password)){
             $data->password = Hash::make($request->password);

@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\DivisionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\QnCategoryController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\ExpertController;
+use App\Http\Controllers\Admin\SubQuestionController;
 
 
 /*------------------------------------------
@@ -45,6 +47,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/user-update', [UserController::class, 'update']);
     Route::get('/user/{id}', [UserController::class, 'delete']);
 
+    
+    Route::get('/expert', [ExpertController::class, 'index'])->name('admin.expert');
+    Route::post('/expert', [ExpertController::class, 'store']);
+    Route::get('/expert/{id}/edit', [ExpertController::class, 'edit']);
+    Route::post('/expert-update', [ExpertController::class, 'update']);
+    Route::get('/expert/{id}', [ExpertController::class, 'delete']);
+
     Route::get('/country', [CountryController::class, 'index'])->name('admin.country');
     Route::post('/country', [CountryController::class, 'store']);
     Route::get('/country/{id}/edit', [CountryController::class, 'edit']);
@@ -76,6 +85,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/question/{id}/edit', [QuestionController::class, 'edit']);
     Route::post('/question-update', [QuestionController::class, 'update']);
     Route::get('/question/{id}', [QuestionController::class, 'delete']);
+
+    
+    Route::get('/sub-question', [SubQuestionController::class, 'index'])->name('admin.subquestion');
+    Route::post('/sub-question', [SubQuestionController::class, 'store']);
+    Route::get('/sub-question/{id}/edit', [SubQuestionController::class, 'edit']);
+    Route::post('/sub-question-update', [SubQuestionController::class, 'update']);
+    Route::get('/sub-question/{id}', [SubQuestionController::class, 'delete']);
 
     
 });

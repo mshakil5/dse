@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('sub_questions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('qn_category_id')->unsigned()->nullable();
-            $table->foreign('qn_category_id')->references('id')->on('qn_categories')->onDelete('cascade');
+            $table->bigInteger('question_id')->unsigned()->nullable();
+            $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->longText('question');
             $table->longText('option')->nullable();
             $table->string('image')->nullable();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('sub_questions');
     }
 };

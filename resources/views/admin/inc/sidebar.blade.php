@@ -36,6 +36,16 @@
           </p>
         </a>
       </li>
+      
+      <li class="nav-item">
+        <a href="{{route('admin.expert')}}" class="nav-link {{ (request()->is('admin/expert*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Expert 
+          </p>
+        </a>
+      </li>
+
       <li class="nav-item">
         <a href="{{route('admin.country')}}" class="nav-link {{ (request()->is('admin/country*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
@@ -80,6 +90,15 @@
           <i class="nav-icon fas fa-th"></i>
           <p>
             Question
+          </p>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="{{route('admin.subquestion')}}" class="nav-link {{ (request()->is('admin/sub-question*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Sub Question
           </p>
         </a>
       </li>
