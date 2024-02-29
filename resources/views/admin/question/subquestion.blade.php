@@ -36,11 +36,11 @@
                   <div class="row">
                     <div class="col-sm-12">
                       <div class="form-group">
-                        <label>Category</label>
-                        <select name="qn_category_id" id="qn_category_id" class="form-control">
+                        <label>Question</label>
+                        <select name="question_id" id="question_id" class="form-control">
                           <option value="">Please Select</option>
-                          @foreach ($cats as $cat)
-                          <option value="{{$cat->id}}">{{$cat->name}}</option>
+                          @foreach ($questions as $question)
+                          <option value="{{$question->id}}">{{$question->question}}</option>
                           @endforeach
                         </select>
                       </div>
@@ -93,8 +93,8 @@
                 <thead>
                 <tr>
                   <th>Sl</th>
-                  <th>Category</th>
                   <th>Question</th>
+                  <th>Sub Question</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -103,7 +103,7 @@
                   <tr>
                     <td style="text-align: center">{{ $key + 1 }}</td>
                     <td style="text-align: center">
-                      {{ \App\Models\QnCategory::where('id',$data->qn_category_id)->first()->name }}
+                      {{ \App\Models\Question::where('id',$data->question_id)->first()->question }}
                     </td>
                     {{-- <td style="text-align: center">{{$data->qncat->name}}</td> --}}
                     <td style="text-align: center">{{$data->question}}</td>
@@ -167,15 +167,15 @@
       //header for csrf-token is must in laravel
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
       //
-      var url = "{{URL::to('/admin/question')}}";
-      var upurl = "{{URL::to('/admin/question-update')}}";
+      var url = "{{URL::to('/admin/sub-question')}}";
+      var upurl = "{{URL::to('/admin/sub-question-update')}}";
       // console.log(url);
       $("#addBtn").click(function(){
       //   alert("#addBtn");
           if($(this).val() == 'Create') {
               var form_data = new FormData();
               form_data.append("question", $("#question").val());
-              form_data.append("qn_category_id", $("#qn_category_id").val());
+              form_data.append("question_id", $("#question_id").val());
               $.ajax({
                 url: url,
                 method: "POST",
@@ -200,7 +200,7 @@
           if($(this).val() == 'Update'){
               var form_data = new FormData();
               form_data.append("question", $("#question").val());
-              form_data.append("qn_category_id", $("#qn_category_id").val());
+              form_data.append("question_id", $("#question_id").val());
               form_data.append("codeid", $("#codeid").val());
               
               $.ajax({
@@ -265,7 +265,7 @@
       //Delete  
       function populateForm(data){
           $("#question").val(data.question);
-          $("#qn_category_id").val(data.qn_category_id);
+          $("#question_id").val(data.question_id);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
           $("#addBtn").html('Update');

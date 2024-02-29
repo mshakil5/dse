@@ -13,11 +13,9 @@
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
-                            <button
-                                class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2">
-                                <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
+                            <a href="{{route('user.dashboard')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                 Exit
-                            </button>
+                            </a>
                         </div>
                     </div>
                     <div class="row">
