@@ -19,5 +19,10 @@ class Question extends Model
         return $this->belongsTo(QnCategory::class)->select(['id', 'name']);
     }
 
+    public function subquestion()
+    {
+        return $this->hasMany(SubQuestion::class);
+    }
+
 
 }

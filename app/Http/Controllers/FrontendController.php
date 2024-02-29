@@ -9,7 +9,7 @@ class FrontendController extends Controller
     public function index()
     {
         // return view('frontend.index');
-        return view('auth.register');
+        return view('auth.login');
     }
 
     public function sessionClear()
