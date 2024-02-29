@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
   
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\SurveyController;
   
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ All Normal Users Routes List
 Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
+    Route::get('/survey', [SurveyController::class, 'survey'])->name('user.survey');
+
 });
   
 
