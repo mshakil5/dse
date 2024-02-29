@@ -32,7 +32,8 @@ Route::get('/clear', function() {
   
 Auth::routes();
 Route::get('/', [FrontendController::class, 'index'])->name('homepage');
-Route::get('/', [FrontendController::class, 'index'])->name('home');
+// Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/session-clear', [FrontendController::class, 'sessionClear']);
   
 /*------------------------------------------
