@@ -48,6 +48,13 @@
 
                     <div class="col-sm-12">
                       <div class="form-group">
+                        <label>Image</label>
+                        <input type="file" name="image" id="image" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <div class="form-group">
                         <label>Question</label>
                         <textarea  class="form-control" id="question" name="question" cols="30" rows="3"></textarea>
                       </div>
@@ -95,6 +102,7 @@
                   <th>Sl</th>
                   <th>Category</th>
                   <th>Question</th>
+                  <th style="text-align: center">Image</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -107,6 +115,13 @@
                     </td>
                     {{-- <td style="text-align: center">{{$data->qncat->name}}</td> --}}
                     <td style="text-align: center">{{$data->question}}</td>
+                    
+                    <td style="text-align: center">
+                        @if ($data->image)
+                        <img src="{{asset('images/question/'.$data->image)}}" height="120px" width="220px" alt="">
+                        @endif
+                    </td>
+
                     <td style="text-align: center">
                       <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                       <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
@@ -173,7 +188,13 @@
       $("#addBtn").click(function(){
       //   alert("#addBtn");
           if($(this).val() == 'Create') {
+              var file_data = $('#image').prop('files')[0];
+                if(typeof file_data === 'undefined'){
+                    file_data = 'null';
+                }
+
               var form_data = new FormData();
+              form_data.append('image', file_data);
               form_data.append("question", $("#question").val());
               form_data.append("qn_category_id", $("#qn_category_id").val());
               $.ajax({
@@ -198,7 +219,14 @@
           //create  end
           //Update
           if($(this).val() == 'Update'){
+            var file_data = $('#image').prop('files')[0];
+                if(typeof file_data === 'undefined'){
+                    file_data = 'null';
+                }
+
+
               var form_data = new FormData();
+              form_data.append('image', file_data);
               form_data.append("question", $("#question").val());
               form_data.append("qn_category_id", $("#qn_category_id").val());
               form_data.append("codeid", $("#codeid").val());

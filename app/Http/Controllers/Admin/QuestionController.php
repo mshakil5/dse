@@ -33,6 +33,19 @@ class QuestionController extends Controller
 
         
         $data = new Question;
+        
+        // image
+        if ($request->image != 'null') {
+            $request->validate([
+                'image' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->image->extension();
+            $request->image->move(public_path('images/question'), $imageName);
+            $data->image = $imageName;
+        }
+        // end
+
         $data->question = $request->question;
         $data->qn_category_id = $request->qn_category_id;
         $data->created_by = Auth::user()->id;
@@ -71,6 +84,18 @@ class QuestionController extends Controller
 
 
         $data = Question::find($request->codeid);
+        // image
+        if ($request->image != 'null') {
+            $request->validate([
+                'image' => 'required|mimes:jpeg,png,jpg,gif,svg,pdf|max:8048',
+            ]);
+            $rand = mt_rand(100000, 999999);
+            $imageName = time(). $rand .'.'.$request->image->extension();
+            $request->image->move(public_path('images/question'), $imageName);
+            $data->image = $imageName;
+        }
+        // end
+        
         $data->question = $request->question;
         $data->qn_category_id = $request->qn_category_id;
         $data->updated_by = Auth::user()->id;
