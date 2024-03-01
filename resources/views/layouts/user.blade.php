@@ -7,16 +7,13 @@
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{ asset('frontend/css/app.css')}}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
 </head>
 
 <body>
 
+    @include('user.inc.header')
     @yield('content')
+    @include('user.inc.footer')
 
     <!-- jQuery -->
     <script src="{{ asset('assets/admin/js/jquery.min.js')}}"></script>

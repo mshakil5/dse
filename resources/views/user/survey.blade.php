@@ -70,8 +70,7 @@
                     <div class="row mt-3 ">
                         <div class="col-lg-12">
                             <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated w-75 bg-warning" role="progressbar" aria-label="Basic example" aria-valuenow="75"
-                                    aria-valuemin="0" aria-valuemax="100"></div>
+                                <div class="progress-bar progress-bar-striped progress-bar-animated w-75 bg-warning" role="progressbar" aria-label="Basic example"  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
                             </div>
                         </div>
                     </div>
@@ -89,12 +88,11 @@
                         {{$question->question}}
                     </h3>
                     <div class="d-flex">
-
                         <label for="yes" class="me-3 fw-bold text-success">
-                            YES <input type="radio" name="query{{$question->id}}" class="form-check-input" id="yes{{$question->id}}">
+                            YES <input type="radio" name="query{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" value="Yes">
                         </label>
                         <label for="no" class="me-3 fw-bold text-danger">
-                            NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}">
+                            NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}" value="No">
                         </label>
                     </div>
                 </div>
