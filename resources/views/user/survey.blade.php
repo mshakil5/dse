@@ -31,7 +31,9 @@
                                         <select name="line_manager" id="line_manager" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Line Manager</option>
                                             @foreach ($linemanagers as $linemanager)
-                                                <option value="{{$linemanager->id}}">{{$linemanager->name}}</option>
+                                                <option value="{{$linemanager->id}}" @if (isset($assesment))
+                                                    @if ($assesment->line_manager_id == $linemanager->id) selected @endif
+                                                @endif>{{$linemanager->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -39,7 +41,9 @@
                                         <select name="department_id" id="department_id" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Department</option>
                                             @foreach ($departments as $department)
-                                                <option value="{{$department->id}}">{{$department->name}}</option>
+                                                <option value="{{$department->id}}"  @if (isset($assesment))
+                                                    @if ($assesment->department_id == $department->id) selected @endif
+                                                @endif>{{$department->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -47,7 +51,9 @@
                                         <select name="division_id" id="division_id" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Division</option>
                                             @foreach ($divisions as $division)
-                                                <option value="{{$division->id}}">{{$division->name}}</option>
+                                                <option value="{{$division->id}}"  @if (isset($assesment))
+                                                    @if ($assesment->division_id == $division->id) selected @endif
+                                                @endif>{{$division->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -92,7 +98,7 @@
                             YES <input type="radio" name="query{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" data-qid="{{$question->id}}" value="Yes" onclick="toggleFields(this)">
                         </label>
                         <label for="no" class="me-3 fw-bold text-danger">
-                            NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}" data-qid="{{$question->id}}" value="No" onclick="toggleFields(this)">
+                            NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}" data-qid="{{$question->id}}" data-key="{{$key + 1}}" value="No" onclick="toggleFields(this)">
                         </label>
                     </div>
 
@@ -193,28 +199,37 @@
             
             var subqnurl = "{{URL::to('/user/get-sub-question')}}";
             var id = element.getAttribute('data-qid');
+            var key = element.getAttribute('data-key');
             var value = element.getAttribute('value');
-            console.log(value);
-            var form_data = new FormData();			
-            form_data.append("id", id);
-            form_data.append("value", value);
 
-            $.ajax({
-                url:subqnurl,
-                method: "POST",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                data:form_data,
-                success: function(d){
-                    
-                    $("#subqnDiv"+id).html(d.subquery);
-                    console.log(d);
-                },
-                error:function(d){
-                    console.log(d);
-                }
-            });
+            if (value == "No") {
+                var form_data = new FormData();			
+                form_data.append("id", id);
+                form_data.append("value", value);
+                form_data.append("key", key);
+
+                $.ajax({
+                    url:subqnurl,
+                    method: "POST",
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data:form_data,
+                    success: function(d){
+                        
+                        $("#subqnDiv"+id).html(d.subquery);
+                        console.log(d);
+                    },
+                    error:function(d){
+                        console.log(d);
+                    }
+                });
+            } else {
+                
+                $("#subqnDiv"+id).html("");
+            }
+            
+            
             
         }
 
@@ -222,24 +237,63 @@
 
 
 <script>
-    $(document).ready(function() {
-        // Select2 Multiple
-        $('#division_id').select2({
-            placeholder: "Division",
-            allowClear: true
-        });
-
-        $('#department_id').select2({
-            placeholder: "Department",
-            allowClear: true
-        });
-
-        $('#line_manager').select2({
-            placeholder: "Line Manager",
-            allowClear: true
-        });
-
+$(document).ready(function() {
+    // Select2 Multiple
+    $('#division_id').select2({
+        placeholder: "Division",
+        allowClear: true
     });
+
+    $('#department_id').select2({
+        placeholder: "Department",
+        allowClear: true
+    });
+
+    $('#line_manager').select2({
+        placeholder: "Line Manager",
+        allowClear: true
+    });
+
+
+
+    var url = "{{URL::to('/user/add-assesment')}}";
+    $("#division_id, #department_id, #line_manager").change(function(){
+        var id =  $(this).val();
+        var fieldname =  $(this).attr('name');
+        var line_manager = $("#line_manager").val();
+        var department_id = $("#department_id").val();
+        var division_id = $("#division_id").val();
+        // console.log(line_manager, department_id, division_id);
+        
+        $.ajax({
+            url: url,
+            method: "POST",
+            data: {line_manager, department_id, division_id},
+
+            success: function (d) {
+                
+                console.log(d);
+            },
+            error: function (d) {
+                console.log(d);
+            }
+        }); 
+            
+
+        
+    });
+        
+
+
+
+
+
+
+
+
+
+
+});
 
 </script>
 @endsection

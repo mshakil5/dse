@@ -6,8 +6,10 @@ use App\Models\Department;
 use App\Models\Division;
 use App\Models\Question;
 use App\Models\SubQuestion;
+use App\Models\Assesment;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\support\Facades\Auth;
 
 class SurveyController extends Controller
 {
@@ -17,8 +19,10 @@ class SurveyController extends Controller
         $departments = Department::select('id','name')->get();
         $divisions = Division::select('id','name')->get();
         $questions = Question::with('subquestion')->get();
+        $assesment = Assesment::whereUserId(Auth::user()->id)->first();
+
         // dd($questions);
-        return view('user.survey', compact('linemanagers','departments','divisions','questions'));
+        return view('user.survey', compact('linemanagers','departments','divisions','questions','assesment'));
     }
 
     //    search property start
@@ -26,11 +30,10 @@ class SurveyController extends Controller
     public function getSubQuery(Request $request){
 
         $id = $request->id;
-        $products = SubQuestion::where('question_id', $id)->get();
+        $subqn = SubQuestion::where('question_id', $id)->first();
         
         $prop = '<div class="col-lg-12 mb-4">
-                <h6 class="mb-3"><iconify-icon class="text-warning" icon="ci:arrow-sub-down-right"></iconify-icon> 1.1 Is threr enough space for
-                    your desk for all of your equipment ?</h6>
+                <h6 class="mb-3"><iconify-icon class="text-warning" icon="ci:arrow-sub-down-right"></iconify-icon> '.$request->key.'.1 '.$subqn->question.'</h6>
                 <label for="yes" class="mx-2">
                     <input id="yes" type="radio" name="subqn" class="form-check-input me-1"
                         value="yes">Yes
@@ -60,7 +63,7 @@ class SurveyController extends Controller
             </div>';
         
 
-            return response()->json(['status'=> 303,'subquery'=>$prop]);
+            return response()->json(['status'=> 303,'subquery'=>$prop,'subqn'=>$subqn]);
 
         }
     // end search 
