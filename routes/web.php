@@ -37,6 +37,11 @@ Route::get('/', [FrontendController::class, 'index'])->name('homepage');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/session-clear', [FrontendController::class, 'sessionClear']);
   
+
+
+
+
+
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
@@ -46,6 +51,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
   
     Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
     Route::get('/survey', [SurveyController::class, 'survey'])->name('user.survey');
+    Route::post('/get-sub-question', [SurveyController::class, 'getSubQuery']);
 
 });
   

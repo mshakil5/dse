@@ -89,12 +89,66 @@
                     </h3>
                     <div class="d-flex">
                         <label for="yes" class="me-3 fw-bold text-success">
-                            YES <input type="radio" name="query{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" value="Yes">
+                            YES <input type="radio" name="query{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" data-qid="{{$question->id}}" value="Yes" onclick="toggleFields(this)">
                         </label>
                         <label for="no" class="me-3 fw-bold text-danger">
-                            NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}" value="No">
+                            NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}" data-qid="{{$question->id}}" value="No" onclick="toggleFields(this)">
                         </label>
                     </div>
+
+                    <div id="subqnDiv{{$question->id}}">
+
+                    </div>
+                    
+
+                    {{-- test  --}}
+
+
+                    {{-- <div class="col-lg-12 mb-4">
+                        <h6 class="mb-3"><iconify-icon class="text-warning" icon="ci:arrow-sub-down-right"></iconify-icon> 1.1 Is threr enough space for
+                            your desk for all of your equipment ?</h6>
+                        <label for="yes" class="mx-2">
+                            <input id="yes" type="radio" name="subqn" class="form-check-input me-1"
+                                value="yes">Yes
+                        </label>
+                        <label for="no" class="mx-2">
+                            <input id="no" type="radio" name="subqn" class="form-check-input me-1"
+                                value="yes">No
+                        </label>
+                    </div>
+                    <div class="col-lg-12">
+                        <textarea name="message" class="form-control" placeholder="Comments Here"></textarea>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="row py-3 ">
+                            <div class="col-lg-5 d-flex align-items-center">
+                                <small class="text-muted mb-0">76 charachter remaining</small>
+                            </div>
+                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                <button class="btn btn-success d-flex align-items-center"> <iconify-icon
+                                        icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as
+                                    resolved</button>
+                                <button class="btn btn-warning d-flex align-items-center"> <iconify-icon
+                                        icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                </button>
+                            </div>
+                        </div>
+                    </div> --}}
+
+
+                    {{-- test end --}}
+                    
+
+
+
+
+
+
+
+
+
+
+
                 </div>
                 <div class="col-lg-6 px-0 shadow-sm border rounded-0 bg-light">
                     <img src="{{asset('images/question/'.$question->image)}}" class="img-fluid" alt="">
@@ -114,6 +168,59 @@
 @endsection
 
 @section('script')
+<script>
+    function showFields() {
+        var id = $(this).attr('qid');
+        console.log(id);
+        document.getElementById("additionalFields").classList.remove("hidden");
+    }
+
+    function hideFields() {
+        document.getElementById("additionalFields").classList.add("hidden");
+    }
+
+    
+</script>
+
+<script>
+
+        //header for csrf-token is must in laravel
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+        //
+
+
+        function toggleFields(element) {
+            
+            var subqnurl = "{{URL::to('/user/get-sub-question')}}";
+            var id = element.getAttribute('data-qid');
+            var value = element.getAttribute('value');
+            console.log(value);
+            var form_data = new FormData();			
+            form_data.append("id", id);
+            form_data.append("value", value);
+
+            $.ajax({
+                url:subqnurl,
+                method: "POST",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data:form_data,
+                success: function(d){
+                    
+                    $("#subqnDiv"+id).html(d.subquery);
+                    console.log(d);
+                },
+                error:function(d){
+                    console.log(d);
+                }
+            });
+            
+        }
+
+</script>
+
+
 <script>
     $(document).ready(function() {
         // Select2 Multiple
