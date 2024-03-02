@@ -52,7 +52,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
   
     Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
     Route::get('/survey', [SurveyController::class, 'survey'])->name('user.survey');
-    Route::post('/get-sub-question', [SurveyController::class, 'getSubQuery']);
+    Route::post('/assesment-answer-store', [AssesmentController::class, 'assesmentAnswerStore']);
     Route::post('/add-assesment', [AssesmentController::class, 'assesmentStore']);
 
 });

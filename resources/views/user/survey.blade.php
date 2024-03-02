@@ -27,6 +27,7 @@
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                 </p>
                                 <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
+                                    <input type="hidden" id="assesment_id" name="assesment_id" value="@if(isset($assesment)){{$assesment->id}}@endif">
                                     <div class="dropdown">
                                         <select name="line_manager" id="line_manager" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Line Manager</option>
@@ -196,38 +197,67 @@
 
 
         function toggleFields(element) {
+
+            // var del = document.getElementById("delivery");
+            // var col = document.getElementById("collection");
+
             
-            var subqnurl = "{{URL::to('/user/get-sub-question')}}";
+            var line_manager = $("#line_manager").val();
+            var department_id = $("#department_id").val();
+            var division_id = $("#division_id").val();
+            var assesment_id = $("#assesment_id").val();
+
+            if (line_manager == '') {
+                alert('Please, select a line manager!!');
+                return;
+            }
+
+            if (department_id == '') {
+                alert('Please, select a Department!!');
+                return;
+            }
+
+            if (division_id == '') {
+                alert('Please, select a Division!!');
+                return;
+            }
+            
+            var ansurl = "{{URL::to('/user/assesment-answer-store')}}";
             var id = element.getAttribute('data-qid');
             var key = element.getAttribute('data-key');
             var value = element.getAttribute('value');
 
-            if (value == "No") {
-                var form_data = new FormData();			
-                form_data.append("id", id);
-                form_data.append("value", value);
-                form_data.append("key", key);
+            
+            var form_data = new FormData();			
+            form_data.append("qid", id);
+            form_data.append("answer", value);
+            form_data.append("key", key);
+            form_data.append("line_manager", line_manager);
+            form_data.append("department_id", department_id);
+            form_data.append("division_id", division_id);
+            form_data.append("assesment_id", assesment_id);
 
-                $.ajax({
-                    url:subqnurl,
+            $.ajax({
+                    url:ansurl,
                     method: "POST",
                     type: "POST",
                     contentType: false,
                     processData: false,
                     data:form_data,
                     success: function(d){
-                        
-                        $("#subqnDiv"+id).html(d.subquery);
                         console.log(d);
+                        if (value == "No") {
+                            $("#subqnDiv"+id).html(d.subquery);
+                        } else {
+                            $("#subqnDiv"+id).html("");
+                        }
                     },
                     error:function(d){
                         console.log(d);
                     }
                 });
-            } else {
-                
-                $("#subqnDiv"+id).html("");
-            }
+
+            
             
             
             
