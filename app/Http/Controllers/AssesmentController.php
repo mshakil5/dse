@@ -4,12 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Assesment;
 use App\Models\AssesmentAnswer;
+use App\Models\Department;
+use App\Models\Division;
+use App\Models\Question;
 use App\Models\SubQuestion;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
 
 class AssesmentController extends Controller
 {
+
+    public function getAssesmentbyLineManager()
+    {
+        $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
+        $departments = Department::select('id','name')->get();
+        $divisions = Division::select('id','name')->get();
+        $questions = Question::with('subquestion')->get();
+        $assesments = Assesment::where('line_manager_id',Auth::user()->id)->pluck('user_id');
+
+        $users = User::where('id',$assesments)->get();
+        // dd($assesments);
+        return view('manager.assesment', compact('assesments','users'));
+    }
+
+
+
     public function assesmentStore(Request $request)
     {
 

@@ -66,6 +66,7 @@ All manager Routes List
 Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'managerHome'])->name('manager.dashboard');
+    Route::get('/get-assesment', [AssesmentController::class, 'getAssesmentbyLineManager'])->name('manager.assesment');
 });
 
 
