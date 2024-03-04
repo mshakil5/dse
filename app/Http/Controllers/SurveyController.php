@@ -17,6 +17,7 @@ class SurveyController extends Controller
 {
     public function survey()
     {
+        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
         $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
         $departments = Department::select('id','name')->get();
         $divisions = Division::select('id','name')->get();
@@ -42,12 +43,21 @@ class SurveyController extends Controller
 
     public function determiningQuestionStore(Request $request)
     {
+        
 
-        $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
-        $departments = Department::select('id','name')->get();
-        $divisions = Division::select('id','name')->get();
-        $questions = Question::with('subquestion')->get();
-        $assesment = Assesment::whereUserId(Auth::user()->id)->first();
+        $validatedData = $request->validate([
+            'line_manager' => 'required',
+            'department_id' => 'required',
+            'division_id' => 'required',
+            'work_hour' => ['required', 'in:Yes,No'],
+            'wow_system' => ['required', 'in:Yes,No']
+        ], [
+            'line_manager.required' => 'Please Select a Line manager.',
+            'department_id.required' => 'Please Select a department.',
+            'division_id.required' => 'Please Select a Division.',
+            'work_hour.required' => 'Please, choose an option.',
+            'wow_system.required' => 'Please, choose an option.'
+        ]);
 
         $chkDtid = DeterminigAnswer::where('user_id',Auth::user()->id)->first();
 

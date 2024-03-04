@@ -19,26 +19,28 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 border-md-end d-flex align-items-center justify-content-center">
+                        <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
 
                             <div class="py-3">
-                                <h2 class="text-danger text-center ">Dislay screen equipment assesment</h2>
+                                <h2 class="text-success text-left ">Appendix 3</h2>
+                                <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h2>
                                 <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                    You are asked to complete the enclosed form to assess that you are using your computer and workstation in the ‘optimum’ way, so that you suffer no ill-effects from your work.  Read the ‘things to consider’ column and assess yourself against the photographs.  Try to adjust your position or items of equipment.  Once you have completed your form, contact your manager to discuss your assessment who will complete the right hand column on the form and make additional notes for further action if this is required on the DSE Risk Assessment action plan.
                                 </p>
+                                <p>
+                                    DSE = 	visual display unit (VDU) / screen, stand & central processing unit (CPU) / box. <br>
+                                    Workstation  = 	Dictaphone, telephone, table, chair, document holder, footstool, mouse.
+                                </p>
+
+                                
                                 <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
                                     <input type="hidden" id="assesment_id" name="assesment_id" value="@if(isset($assesment)){{$assesment->id}}@endif">
                                     <div class="dropdown">
-                                        <select name="line_manager" id="line_manager" class="btn btn-secondary dropdown-toggle select2">
-                                            <option value="">Line Manager</option>
-                                            @foreach ($linemanagers as $linemanager)
-                                                <option value="{{$linemanager->id}}" @if (isset($assesment))
-                                                    @if ($assesment->line_manager_id == $linemanager->id) selected @endif
-                                                @endif>{{$linemanager->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="">Work Station Number</label>
+                                        <input type="number" id="work_station_number" name="work_station_number" class="form-control">
                                     </div>
                                     <div class="dropdown">
+                                        <label for="">Department</label><br>
                                         <select name="department_id" id="department_id" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Department</option>
                                             @foreach ($departments as $department)
@@ -48,43 +50,100 @@
                                             @endforeach
                                         </select>
                                     </div>
+
+
                                     <div class="dropdown">
-                                        <select name="division_id" id="division_id" class="btn btn-secondary dropdown-toggle select2">
-                                            <option value="">Division</option>
-                                            @foreach ($divisions as $division)
-                                                <option value="{{$division->id}}"  @if (isset($assesment))
-                                                    @if ($assesment->division_id == $division->id) selected @endif
-                                                @endif>{{$division->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="user_name">User Name</label>
+                                        <input type="text" id="user_name" name="user_name" class="form-control" value="{{Auth::user()->name}}" readonly>
                                     </div>
+
+                                    <div class="dropdown">
+                                        <label for="date">Date</label>
+                                        <input type="date" id="date" name="date" class="form-control" value="{{ date('Y-m-d')}}" readonly>
+                                    </div>
+
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 d-flex justify-content-end align-items-end flex-column p-4">
 
 
-                            <div class="text-dark">
-                                <div class="border-bottom pb-2 w-100 mb-3">
-                                    <iconify-icon icon="clarity:help-line"></iconify-icon> Help <br>
+
+                                <div class="d-flex gap-3  mt-4">
+
+                                    <div class="row">
+                                        <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" id="" value="full_time"> or Part time <input type="radio" class="form-check-input" name="job_type" id="" value="part_time"> ?  <br> 
+                                            <span style="color: red"> *** If part time how many hours a week do you work: 27.5  hours.</span>
+                                        </p>
+                                    </div>
+
                                 </div>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt laudantium
-                                nostrum laboriosam blanditiis iste nisi, recusandae ab consequatur a commodi culpa
-                                suscipit quasi ipsam aliquid!
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mt-3 ">
-                        <div class="col-lg-12">
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated w-75 bg-warning" role="progressbar" aria-label="Basic example"  aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+
+                                
+                                <div class="row">
+
+                                    <div class="col-lg-12 mb-4">
+                                        <h6 class="mb-3">Do you normally use your DSE for continuous spells of an hour or more at a time?
+                                        </h6>
+                                        <label for="yes" class="mx-2">
+                                            <input id="yes" type="radio" name="equipment" class="form-check-input me-1"
+                                                value="yes">Yes
+                                        </label>
+                                        <label for="no" class="mx-2">
+                                            <input id="no" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseExample" name="equipment" class="form-check-input me-1"
+                                                value="yes">No
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-12 mb-4">
+                                        <h6 class="mb-3">If ‘Yes’ do you do this more or less daily ?     
+                                        </h6>
+                                        <label for="yes" class="mx-2">
+                                            <input id="yes" type="radio" name="equipment" class="form-check-input me-1"
+                                                value="yes">Yes
+                                        </label>
+                                        <label for="no" class="mx-2">
+                                            <input id="no" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseExample" name="equipment" class="form-check-input me-1"
+                                                value="yes">No
+                                        </label>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-4">
+                                        <h6 class="mb-3">How many hours on average daily do you spend using your DSE?   </h6>
+                                        
+                                        <input id="yes" type="number" name="equipment" class="form-control me-1" >
+                                    </div>
+
+                                    <div class="col-lg-12 mb-4">
+                                        <h6 class="mb-3">What Software do you use? </h6>
+                                        <label for="yes" class="mx-2">
+                                            <input id="yes" type="checkbox" name="equipment" class="form-check-input me-1" value="yes">Word 
+                                        </label>
+                                        <label for="no" class="mx-2">
+                                            <input id="no" type="checkbox" name="equipment" class="form-check-input me-1" value="yes">Excel 
+                                        </label>
+                                        <label for="no" class="mx-2">
+                                            <input id="no" type="checkbox" name="equipment" class="form-check-input me-1" value="yes">Access 
+                                        </label>
+                                        <label for="no" class="mx-2">
+                                            <input id="no" type="checkbox" name="equipment" class="form-check-input me-1" value="yes">PowerPoint 
+                                        </label>
+                                        <label for="no" class="mx-2">
+                                            <input id="no" type="checkbox" name="equipment" class="form-check-input me-1" value="yes">Others 
+                                        </label>
+                                        <label for="no" class="">
+                                            <input id="yes" type="text" name="equipment" class="form-control" placeholder="Somerset, EPT, ERS, Cerner" >
+                                        </label>
+                                    </div>
+
+                                </div>
+
+
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            @foreach ($questions as $key => $question)
+            {{-- @foreach ($questions as $key => $question)
             <div class="row mt-1">
                 <div class="col-lg-6 shadow-sm border rounded-0 bg-light d-flex flex-column  justify-content-center align-items-center position-relative">
 
@@ -108,61 +167,13 @@
                     </div>
                     
 
-                    {{-- test  --}}
-
-
-                    {{-- <div class="col-lg-12 mb-4">
-                        <h6 class="mb-3"><iconify-icon class="text-warning" icon="ci:arrow-sub-down-right"></iconify-icon> 1.1 Is threr enough space for
-                            your desk for all of your equipment ?</h6>
-                        <label for="yes" class="mx-2">
-                            <input id="yes" type="radio" name="subqn" class="form-check-input me-1"
-                                value="yes">Yes
-                        </label>
-                        <label for="no" class="mx-2">
-                            <input id="no" type="radio" name="subqn" class="form-check-input me-1"
-                                value="yes">No
-                        </label>
-                    </div>
-                    <div class="col-lg-12">
-                        <textarea name="message" class="form-control" placeholder="Comments Here"></textarea>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="row py-3 ">
-                            <div class="col-lg-5 d-flex align-items-center">
-                                <small class="text-muted mb-0">76 charachter remaining</small>
-                            </div>
-                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                <button class="btn btn-success d-flex align-items-center"> <iconify-icon
-                                        icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as
-                                    resolved</button>
-                                <button class="btn btn-warning d-flex align-items-center"> <iconify-icon
-                                        icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                </button>
-                            </div>
-                        </div>
-                    </div> --}}
-
-
-                    {{-- test end --}}
-                    
-
-
-
-
-
-
-
-
-
-
-
                 </div>
                 <div class="col-lg-6 px-0 shadow-sm border rounded-0 bg-light">
                     <img src="{{asset('images/question/'.$question->image)}}" class="img-fluid" alt="">
                 </div>
 
             </div>
-            @endforeach
+            @endforeach --}}
 
 
             
