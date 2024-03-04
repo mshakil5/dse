@@ -53,9 +53,10 @@
                                 @csrf
                                     <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
                                         <input type="hidden" id="assesment_id" name="assesment_id" value="@if(isset($assesment)){{$assesment->id}}@endif">
+                                        <input type="hidden" id="determinig_answer_id" name="determinig_answer_id" value="@if(isset($determiningans)){{$determiningans->id}}@endif">
                                         <div class="dropdown">
                                             <label for="">Work Station Number</label>
-                                            <input type="number" id="work_station_number" name="work_station_number" class="form-control">
+                                            <input type="number" id="work_station_number" name="work_station_number" class="form-control" value="@if(isset($data)){{$data->work_station_number}}@endif">
                                         </div>
                                         <div class="dropdown">
                                             <label for="">Department</label><br>
@@ -70,20 +71,22 @@
 
                                         <div class="dropdown">
                                             <label for="date">Date</label>
-                                            <input type="date" id="date" name="date" class="form-control" value="{{ date('Y-m-d')}}" readonly>
+                                            <input type="date" id="date" name="date" class="form-control" value="@if(isset($data)){{$data->date}}@else{{ date('Y-m-d')}}@endif" readonly>
                                         </div>
 
                                     </div>
 
                                     <div class="row mt-3">
                                         <div class="col-lg-12">
-                                            <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" value="Full time"> or Part time <input type="radio" id="part_time" class="form-check-input" name="job_type" value="Part time"> ? 
+                                            <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" value="Full time" @if(isset($data)) @if ($data->job_type == "Full time") checked @endif @endif> or Part time <input type="radio" id="part_time" class="form-check-input" name="job_type" value="Part time" @if(isset($data)) @if ($data->job_type == "Part time") checked @endif @endif> ? 
                                             </p>
                                         </div>
 
-                                        <div class="col-lg-6 mb-4" id="part_time_work_div">
+                                        <div class="col-lg-6 mb-4" id="part_time_work_div" @if (isset($data))
+                                        @if ($data->job_type == "Part time") @else style="display:none"   @endif
+                                        @endif>
                                             <h6 class="mb-3">If part time how many hours a week do you work?   </h6>
-                                            <input id="part_time_work_hour" type="number" name="part_time_work_hour" class="form-control me-1" >
+                                            <input id="part_time_work_hour" type="number" name="part_time_work_hour" class="form-control me-1" value="@if(isset($data)){{$data->part_time_work_hour}}@endif">
                                         </div>
 
 
@@ -91,10 +94,10 @@
                                             <h6 class="mb-3">Do you normally use your DSE for continuous spells of an hour or more at a time?
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes">Yes
+                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes" @if(isset($data)) @if ($data->continuous_spell == "Yes") checked @endif @endif>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No">No
+                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell == "No") checked @endif @endif>No
                                             </label>
                                         </div>
 
@@ -102,37 +105,37 @@
                                             <h6 class="mb-3">If ‘Yes’ do you do this more or less daily ?     
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes">Yes
+                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes"@if(isset($data)) @if ($data->continuous_spell_time == "Yes") checked @endif @endif>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No">No
+                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell_time == "No") checked @endif @endif>No
                                             </label>
                                         </div>
 
                                         <div class="col-lg-6 mb-4">
                                             <h6 class="mb-3">How many hours on average daily do you spend using your DSE?   </h6>
-                                            <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1" >
+                                            <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1"  value="@if(isset($data)){{$data->average_using_dse}}@endif">
                                         </div>
 
                                         <div class="col-lg-12 mb-4">
                                             <h6 class="mb-3">What Software do you use? </h6>
                                             <label class="mx-2">
-                                                <input id="ms_word" type="checkbox" name="software[]" class="form-check-input me-1" value="Word">Word 
+                                                <input id="ms_word" type="checkbox" name="software[]" class="form-check-input me-1" value="Word" @if (isset($data)) @foreach (json_decode($data->software) as $software) @if ($software == "Word") checked @endif @endforeach @endif>Word 
                                             </label>
                                             <label class="mx-2">
-                                                <input id="ms_excel" type="checkbox" name="software[]" class="form-check-input me-1" value="Excel">Excel 
+                                                <input id="ms_excel" type="checkbox" name="software[]" class="form-check-input me-1" value="Excel" @if (isset($data)) @foreach (json_decode($data->software) as $software) @if ($software == "Excel") checked @endif @endforeach @endif>Excel 
                                             </label>
                                             <label for="ms_access" class="mx-2">
-                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="Access">Access 
+                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="Access"  @if (isset($data)) @foreach (json_decode($data->software) as $software) @if ($software == "Access") checked @endif @endforeach @endif>Access 
                                             </label>
                                             <label for="ms_powerpoint" class="mx-2">
-                                                <input id="ms_powerpoint" type="checkbox" name="software[]" class="form-check-input me-1" value="PowerPoint">PowerPoint 
+                                                <input id="ms_powerpoint" type="checkbox" name="software[]" class="form-check-input me-1" value="Powerpoint" @if (isset($data)) @foreach (json_decode($data->software) as $software) @if ($software == "Powerpoint") checked @endif @endforeach @endif>Powerpoint 
                                             </label>
                                             <label for="others" class="mx-2">
-                                                <input id="others" type="checkbox" name="software[]" class="form-check-input me-1" value="Others">Others 
+                                                <input id="others" type="checkbox" name="software[]" class="form-check-input me-1" value="Others" @if (isset($data)) @foreach (json_decode($data->software) as $software) @if ($software == "Others") checked @endif @endforeach @endif>Others 
                                             </label>
                                             <label class="">
-                                                <input id="others_software" type="text" name="others_software" class="form-control" placeholder="Somerset, EPT, ERS, Cerner" >
+                                                <input id="others_software" type="text" name="others_software" class="form-control" placeholder="Somerset, EPT, ERS, Cerner" value="@if(isset($data)){{$data->others_software}}@endif" >
                                             </label>
                                         </div>
 
@@ -158,7 +161,7 @@
                 </div>
             </div>
 
-            {{-- @foreach ($questions as $key => $question)
+            @foreach ($questions as $key => $question)
             <div class="row mt-1">
                 <div class="col-lg-6 shadow-sm border rounded-0 bg-light d-flex flex-column  justify-content-center align-items-center position-relative">
 
@@ -188,7 +191,7 @@
                 </div>
 
             </div>
-            @endforeach --}}
+            @endforeach
 
 
             
@@ -216,8 +219,8 @@
 </script>
 
 <script>
-    $("#part_time_work_div").hide();
-    $("#others_software").hide();
+    // $("#part_time_work_div").hide();
+    // $("#others_software").hide();
     $("#others").click(function() {
         if($(this).is(":checked")) {
             $("#others_software").show();
