@@ -28,7 +28,7 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link  d-flex align-items-center text-info" href="{{route('user.survey')}}" >
+                                <a class="nav-link  d-flex align-items-center text-info" href="{{route('user.determinigQn')}}" >
                                     <iconify-icon class="me-1 fs-3 " icon="iconoir:reports"></iconify-icon> Learning
                                 </a>
                             </li>

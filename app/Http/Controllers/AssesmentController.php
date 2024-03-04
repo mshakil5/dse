@@ -22,9 +22,9 @@ class AssesmentController extends Controller
         $divisions = Division::select('id','name')->get();
         $questions = Question::with('subquestion')->get();
         $assesments = Assesment::where('line_manager_id',Auth::user()->id)->pluck('user_id');
-
-        $users = User::where('id',$assesments)->get();
-        // dd($assesments);
+        
+        $users = User::whereIn('id',$assesments)->get();
+        // dd($users);
         return view('manager.assesment', compact('assesments','users'));
     }
 
@@ -47,7 +47,7 @@ class AssesmentController extends Controller
         $data->user_id = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
+            return response()->json(['status'=> 300,'message'=>$message,'assesmentid'=>$data->id]);
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
