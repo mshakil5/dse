@@ -9,6 +9,7 @@ use App\Models\SubQuestion;
 use App\Models\Assesment;
 use App\Models\DeterminigAnswer;
 use App\Models\User;
+use App\Models\WorkStationAssesment;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -86,6 +87,56 @@ class SurveyController extends Controller
 
             return back()->with('error', 'There was an error to store data!!');
             
+            
+        }
+        
+
+        // dd($questions);
+        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment','data'));
+    }
+
+    public function workStationAssesmentStore(Request $request)
+    {
+        // dd($request->all());
+
+        $validatedData = $request->validate([
+            'work_station_number' => 'required',
+            'date' => 'required',
+            'job_type' => 'required',
+            'software' => 'required',
+            'continuous_spell' => ['required', 'in:Yes,No']
+        ], [
+            'work_station_number.required' => 'Work station number field required.',
+            'date.required' => 'Date field required.',
+            'continuous_spell.required' => 'Please, choose necessary options.',
+            'job_type.required' => 'Please, choose Part time or Full time option.',
+            'software.required' => 'Please, select a software which you use.'
+        ]);
+
+        $chkDtid = WorkStationAssesment::where('user_id',Auth::user()->id)->first();
+
+        if (isset($chkDtid)) {
+            $data = WorkStationAssesment::find($chkDtid->id);
+        } else {
+            $data = new WorkStationAssesment();
+            $data->user_id = Auth::user()->id;
+        }
+        $data->date = $request->date;
+        $data->work_station_number = $request->work_station_number;
+        $data->job_type = $request->job_type;
+        // $data->software = $request->software;
+        $data->continuous_spell = $request->continuous_spell;
+        $data->continuous_spell_time = $request->continuous_spell_time;
+        $data->part_time_work_hour = $request->part_time_work_hour;
+        $data->average_using_dse = $request->average_using_dse;
+        $data->others_software = $request->others_software;
+        if ($data->save()) {
+            
+            return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
+           
+        } else {
+
+            return back()->with('error', 'There was an error to store data!!');
             
         }
         

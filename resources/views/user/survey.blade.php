@@ -20,8 +20,25 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
-
                             <div class="py-3">
+
+                                @if(session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+
+
                                 <h2 class="text-success text-left ">Appendix 3</h2>
                                 <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h2>
                                 <p>
@@ -32,7 +49,7 @@
                                     Workstation  = 	Dictaphone, telephone, table, chair, document holder, footstool, mouse.
                                 </p>
 
-                                <form action="{{route('')}}"  method="POST">
+                                <form action="{{route('user.workStationAssesmentStore')}}"  method="POST">
                                 @csrf
                                     <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
                                         <input type="hidden" id="assesment_id" name="assesment_id" value="@if(isset($assesment)){{$assesment->id}}@endif">
@@ -106,7 +123,7 @@
                                                 <input id="ms_excel" type="checkbox" name="software[]" class="form-check-input me-1" value="Excel">Excel 
                                             </label>
                                             <label for="ms_access" class="mx-2">
-                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="yes">Access 
+                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="Access">Access 
                                             </label>
                                             <label for="ms_powerpoint" class="mx-2">
                                                 <input id="ms_powerpoint" type="checkbox" name="software[]" class="form-check-input me-1" value="PowerPoint">PowerPoint 
