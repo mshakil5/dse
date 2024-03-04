@@ -47,6 +47,7 @@ class QuestionController extends Controller
         // end
 
         $data->question = $request->question;
+        $data->tips = $request->tips;
         $data->qn_category_id = $request->qn_category_id;
         $data->created_by = Auth::user()->id;
         if ($data->save()) {
@@ -97,6 +98,7 @@ class QuestionController extends Controller
         // end
         
         $data->question = $request->question;
+        $data->tips = $request->tips;
         $data->qn_category_id = $request->qn_category_id;
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {

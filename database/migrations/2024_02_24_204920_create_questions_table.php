@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('qn_category_id')->references('id')->on('qn_categories')->onDelete('cascade');
             $table->longText('question');
             $table->longText('option')->nullable();
+            $table->longText('tips')->nullable();
             $table->string('image')->nullable();
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();
