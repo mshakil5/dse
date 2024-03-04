@@ -19,12 +19,12 @@ class SurveyController extends Controller
     {
         $data = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
         $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
-        $departments = Department::select('id','name')->get();
+        $departments = Department::whereId($data->department_id)->first();
         $divisions = Division::select('id','name')->get();
         $questions = Question::with('subquestion')->get();
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
 
-        // dd($questions);
+        // dd($departments);
         return view('user.survey', compact('linemanagers','departments','divisions','questions','assesment'));
     }
 
