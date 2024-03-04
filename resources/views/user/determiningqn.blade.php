@@ -29,15 +29,14 @@
                                 <form action="{{route('user.determinigQnStore')}}" method="POST">
                                     @csrf
                                 <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
-                                    <input type="hidden" id="assesment_id" name="assesment_id" value="@if(isset($assesment)){{$assesment->id}}@endif">
 
                                     <div class="dropdown">
                                         <label for=""> Line Manager</label> <br>
                                         <select name="line_manager" id="line_manager" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Line Manager</option>
                                             @foreach ($linemanagers as $linemanager)
-                                                <option value="{{$linemanager->id}}" @if (isset($assesment))
-                                                    @if ($assesment->line_manager_id == $linemanager->id) selected @endif
+                                                <option value="{{$linemanager->id}}" @if (isset($data))
+                                                    @if ($data->line_manager_id == $linemanager->id) selected @endif
                                                 @endif>{{$linemanager->name}}</option>
                                             @endforeach
                                         </select>
@@ -47,8 +46,8 @@
                                         <select name="department_id" id="department_id" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Department</option>
                                             @foreach ($departments as $department)
-                                                <option value="{{$department->id}}"  @if (isset($assesment))
-                                                    @if ($assesment->department_id == $department->id) selected @endif
+                                                <option value="{{$department->id}}"  @if (isset($data))
+                                                    @if ($data->department_id == $department->id) selected @endif
                                                 @endif>{{$department->name}}</option>
                                             @endforeach
                                         </select>
@@ -58,8 +57,8 @@
                                         <select name="division_id" id="division_id" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Division</option>
                                             @foreach ($divisions as $division)
-                                                <option value="{{$division->id}}"  @if (isset($assesment))
-                                                    @if ($assesment->division_id == $division->id) selected @endif
+                                                <option value="{{$division->id}}"  @if (isset($data))
+                                                    @if ($data->division_id == $division->id) selected @endif
                                                 @endif>{{$division->name}}</option>
                                             @endforeach
                                         </select>
@@ -76,22 +75,34 @@
                 <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                     <div class="row pt-5 px-4">
 
+                        @if(session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                             <div class="col-lg-12 mb-4">
                                 <h6 class="mb-3">1. Do you work with DSE for 1 hrs or more ? </h6>
                                 <label for="yes" class="mx-2">
-                                    <input id="work_hour_yes" type="radio" name="work_hour"  class="form-check-input me-1" value="Yes">Yes
+                                    <input id="work_hour_yes" type="radio" name="work_hour"  class="form-check-input me-1" value="Yes"@if (isset($data)) @if ($data->work_hour == "Yes") checked @endif @endif>Yes
                                 </label>
                                 <label for="no" class="mx-2">
-                                    <input id="work_hour_no" type="radio" name="work_hour" class="form-check-input me-1" value="No">No
+                                    <input id="work_hour_no" type="radio" name="work_hour" class="form-check-input me-1" value="No"@if (isset($data)) @if ($data->work_hour == "No") checked @endif @endif>No
                                 </label>
                             </div>
                             <div class="col-lg-12 mb-4">
                                 <h6 class="mb-3">2. Do you use WoW system through your shift ? </h6>
                                 <label for="yes" class="mx-2">
-                                    <input id="wow_system_yes" type="radio" name="wow_system" class="form-check-input me-1" value="Yes">Yes
+                                    <input id="wow_system_yes" type="radio" name="wow_system" class="form-check-input me-1" value="Yes" @if (isset($data)) @if ($data->wow_system == "Yes") checked @endif @endif>Yes
                                 </label>
                                 <label for="no" class="mx-2">
-                                    <input id="wow_system_no" type="radio" name="wow_system" class="form-check-input me-1" value="No">No
+                                    <input id="wow_system_no" type="radio" name="wow_system" class="form-check-input me-1" value="No" @if (isset($data)) @if ($data->wow_system == "No") checked @endif @endif>No
                                 </label>
                             </div>
                             <div class="col-lg-12">

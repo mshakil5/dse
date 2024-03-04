@@ -7,9 +7,11 @@ use App\Models\Division;
 use App\Models\Question;
 use App\Models\SubQuestion;
 use App\Models\Assesment;
+use App\Models\DeterminigAnswer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class SurveyController extends Controller
 {
@@ -32,25 +34,54 @@ class SurveyController extends Controller
         $divisions = Division::select('id','name')->get();
         $questions = Question::with('subquestion')->get();
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
+        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
 
-        // dd($questions);
-        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment'));
+        // dd($data);
+        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment','data'));
     }
 
     public function determiningQuestionStore(Request $request)
     {
 
-        dd($request->all());
         $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
         $departments = Department::select('id','name')->get();
         $divisions = Division::select('id','name')->get();
         $questions = Question::with('subquestion')->get();
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
 
+        $chkDtid = DeterminigAnswer::where('user_id',Auth::user()->id)->first();
+
+        if (isset($chkDtid)) {
+            $data = DeterminigAnswer::find($chkDtid->id);
+        } else {
+            $data = new DeterminigAnswer();
+            $data->date = date('Y-m-d');
+            $data->user_id = Auth::user()->id;
+        }
+        
+        $data->line_manager_id = $request->line_manager;
+        $data->department_id = $request->department_id;
+        $data->division_id = $request->division_id;
+        $data->work_hour = $request->work_hour;
+        $data->wow_system = $request->wow_system;
+        if ($data->save()) {
+            if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
+                return Redirect::route('user.survey')->with('success', 'Your response successfully saved. Thank you for your response.!!');
+            } else {
+                return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
+            }
+            
+            
+        } else {
+
+            return back()->with('error', 'There was an error to store data!!');
+            
+            
+        }
         
 
         // dd($questions);
-        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment'));
+        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment','data'));
     }
     
 
