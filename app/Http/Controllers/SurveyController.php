@@ -36,6 +36,22 @@ class SurveyController extends Controller
         // dd($questions);
         return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment'));
     }
+
+    public function determiningQuestionStore(Request $request)
+    {
+
+        dd($request->all());
+        $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
+        $departments = Department::select('id','name')->get();
+        $divisions = Division::select('id','name')->get();
+        $questions = Question::with('subquestion')->get();
+        $assesment = Assesment::whereUserId(Auth::user()->id)->first();
+
+        
+
+        // dd($questions);
+        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment'));
+    }
     
 
     //    search property start

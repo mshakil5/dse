@@ -26,9 +26,13 @@
                                 <p>
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                 </p>
+                                <form action="{{route('user.determinigQnStore')}}" method="POST">
+                                    @csrf
                                 <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
                                     <input type="hidden" id="assesment_id" name="assesment_id" value="@if(isset($assesment)){{$assesment->id}}@endif">
+
                                     <div class="dropdown">
+                                        <label for=""> Line Manager</label> <br>
                                         <select name="line_manager" id="line_manager" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Line Manager</option>
                                             @foreach ($linemanagers as $linemanager)
@@ -39,6 +43,7 @@
                                         </select>
                                     </div>
                                     <div class="dropdown">
+                                        <label for=""> Department</label> <br>
                                         <select name="department_id" id="department_id" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Department</option>
                                             @foreach ($departments as $department)
@@ -49,6 +54,7 @@
                                         </select>
                                     </div>
                                     <div class="dropdown">
+                                        <label for=""> Division</label> <br>
                                         <select name="division_id" id="division_id" class="btn btn-secondary dropdown-toggle select2">
                                             <option value="">Division</option>
                                             @foreach ($divisions as $division)
@@ -67,105 +73,41 @@
             </div>
 
             <div class="row ">
-                <div class="col-lg-8 shadow-sm border rounded-0 bg-light ">
+                <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                     <div class="row pt-5 px-4">
-                        <div class="col-lg-12 mb-4">
-                            <h6 class="mb-3">1.1 Is threr enough space for your desk for all of your equipment ?
-                            </h6>
-                            <label for="yes" class="mx-2">
-                                <input id="yes" type="radio" name="equipment" class="form-check-input me-1"
-                                    value="yes">Yes
-                            </label>
-                            <label for="no" class="mx-2">
-                                <input id="no" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseExample" name="equipment" class="form-check-input me-1"
-                                    value="yes">No
-                            </label>
-                        </div>
-                        <div class="collapse" id="collapseExample">
-                            <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">1.1 Is threr enough space for your desk for all of your equipment ?
-                                </h6>
-                                <div class="col-lg-12">
-                                    <textarea name="" class="form-control" placeholder="Comments Here"></textarea>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="row py-3 ">
-                                        <div class="col-lg-5 d-flex align-items-center">
-                                            
-                                        </div>
-                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                             
-                                            <button class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
 
-                          <div class="row">
-                            <div class="col-lg-4"></div>
-                            <div class="col-lg-8 p-2 alert alert-secondary   mb-3 rounded-3 text-dark">user side message</div>
-                          </div>
-                          <div class="row">
-                              <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">line manager side message</div>
-                            <div class="col-lg-4"></div>
-                          </div>
-                          <div class="row">
-                            <div class="col-lg-6"></div>
-                            <div class="col-lg-6 p-2 alert alert-secondary   mb-3 rounded-3 text-dark">user side message</div>
-                          </div>
-                          <div class="row">
-                              <div class="col-lg-6 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">line manager side message</div>
-                            <div class="col-lg-6"></div>
-                          </div>
-                        <!-- <div class="col-lg-12 mb-4">
-                            <h6 class="mb-3"><iconify-icon class="text-warning"
-                                    icon="ci:arrow-sub-down-right"></iconify-icon> 1.1.1 Is threr enough space for
-                                your desk for all of your equipment ?</h6>
-                            <label for="yes" class="mx-2">
-                                <input id="yes" type="radio" name="equipment" class="form-check-input me-1"
-                                    value="yes">Yes
-                            </label>
-                            <label for="no" class="mx-2">
-                                <input id="no" type="radio" name="equipment" class="form-check-input me-1"
-                                    value="yes">No
-                            </label>
-                        </div> -->
-                        
-                        <div class="col-lg-12">
-                            <textarea name="" class="form-control" placeholder="Comments Here"></textarea>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="row py-3 ">
-                                <div class="col-lg-5 d-flex align-items-center">
-                                    <small class="text-muted mb-0">76 charachter remaining</small>
-                                </div>
-                                <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                    <button class="btn btn-success d-flex align-items-center"> <iconify-icon
-                                            icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as
-                                        resolved</button>
-                                    <button class="btn btn-warning d-flex align-items-center"> <iconify-icon
-                                            icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                    </button>
+                            <div class="col-lg-12 mb-4">
+                                <h6 class="mb-3">1. Do you work with DSE for 1 hrs or more ? </h6>
+                                <label for="yes" class="mx-2">
+                                    <input id="work_hour_yes" type="radio" name="work_hour"  class="form-check-input me-1" value="Yes">Yes
+                                </label>
+                                <label for="no" class="mx-2">
+                                    <input id="work_hour_no" type="radio" name="work_hour" class="form-check-input me-1" value="No">No
+                                </label>
+                            </div>
+                            <div class="col-lg-12 mb-4">
+                                <h6 class="mb-3">2. Do you use WoW system through your shift ? </h6>
+                                <label for="yes" class="mx-2">
+                                    <input id="wow_system_yes" type="radio" name="wow_system" class="form-check-input me-1" value="Yes">Yes
+                                </label>
+                                <label for="no" class="mx-2">
+                                    <input id="wow_system_no" type="radio" name="wow_system" class="form-check-input me-1" value="No">No
+                                </label>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row py-3 ">
+                                    <div class="col-lg-5 d-flex align-items-center">
+                                        <button type="submit" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
+
                     </div>
                 </div>
-                <div class="col-lg-4 shadow-sm border rounded-0 bg-light">
-                    <div class="py-4">
-                        <ol class="custom-list">
-                            <li><a href="">1. work equipment </a></li>
-                            <li><a href="">2. Chair </a></li>
-                            <li><a href="">3. Standing desk </a></li>
-                            <li><a href="">4. Visual & screens</a></li>
-                            <li><a href="">5. Multiple screens</a></li>
-                            <li><a href="">6. Portable Devices </a></li>
-                            <li><a href="">7. Additional Concerns </a></li>
-                        </ol>
-                    </div>
-                </div>
+                
             </div>
 
 
