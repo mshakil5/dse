@@ -145,7 +145,7 @@
                                     <div class="col-lg-12">
                                         <div class="row py-3 ">
                                             <div class="col-lg-5 d-flex align-items-center">
-                                                <button type="submit" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> @if(isset($data)) Update @else Save @endif
+                                                <button type="submit" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
                                                 </button>
                                             </div>
                                             <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
@@ -163,17 +163,48 @@
 
             @foreach ($questions as $key => $question)
             <div class="row mt-1">
+                {{-- <div class="col-lg-12 shadow-sm border rounded-0 bg-light d-flex flex-column  justify-content-center align-items-center position-relative">
+
+                    <div class="counter bg-danger">
+                        {{$key + 1}}
+                    </div>
+                    <h3 class="d-block text-left">
+                        {{$question->question}}
+                    </h3>
+                    <div class="d-flex">
+                        <label for="yes" class="me-3 fw-bold text-success">
+                            YES <input type="radio" name="query{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" data-qid="{{$question->id}}" value="Yes" onclick="toggleFields(this)">
+                        </label>
+                        <label for="no" class="me-3 fw-bold text-danger">
+                            NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}" data-qid="{{$question->id}}" data-key="{{$key + 1}}" value="No" onclick="toggleFields(this)">
+                        </label>
+                    </div>
+
+                    <div id="subqnDiv{{$question->id}}">
+
+                    </div>
+                    
+
+                </div> --}}
+                {{-- <div class="col-lg-6 px-0 shadow-sm border rounded-0 bg-light">
+                    <img src="{{asset('images/question/'.$question->image)}}" class="img-fluid" alt="">
+                </div> --}}
+
+                
+
+            </div>
+            <div class="row ">
                 <div class="col-lg-8 shadow-sm border rounded-0 bg-light ">
                     <div class="row pt-5 px-4">
                         <div class="col-lg-12 mb-4">
                             <h6 class="mb-3">{{$key + 1}}. {{$question->question}} </h6>
                             
                             <div class="d-flex">
-                                <label for="yes" class="mx-4 fw-bold text-success">
-                                    YES <input type="radio" name="{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" value="Yes">
+                                <label for="yes" class="me-3 fw-bold text-success">
+                                    YES <input type="radio" name="query{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" data-qid="{{$question->id}}" value="Yes" onclick="toggleFields(this)">
                                 </label>
                                 <label for="no" class="me-3 fw-bold text-danger">
-                                    NO <input type="radio" name="{{$question->id}}" class="form-check-input" id="no{{$question->id}}" value="No">
+                                    NO <input type="radio" name="query{{$question->id}}" class="form-check-input" id="no{{$question->id}}" data-qid="{{$question->id}}" data-key="{{$key + 1}}" value="No" onclick="toggleFields(this)">
                                 </label>
                             </div>
                         </div>
@@ -187,16 +218,6 @@
             </div>
             @endforeach
 
-            <div class="col-lg-12">
-                <div class="row py-3 ">
-                    <div class="col-lg-5 d-flex align-items-center">
-                        <button type="submit" class="btn btn-success d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
-                        </button>
-                    </div>
-                    <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
-                </div>
-            </div>
-
 
             
         </div>
@@ -208,6 +229,19 @@
 @endsection
 
 @section('script')
+<script>
+    function showFields() {
+        var id = $(this).attr('qid');
+        console.log(id);
+        document.getElementById("additionalFields").classList.remove("hidden");
+    }
+
+    function hideFields() {
+        document.getElementById("additionalFields").classList.add("hidden");
+    }
+
+    
+</script>
 
 <script>
     // $("#part_time_work_div").hide();
@@ -232,18 +266,101 @@
         }
         });
     });
-    
+
+
+        //header for csrf-token is must in laravel
+        $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+        //
+
+
+        function toggleFields(element) {
+
+            // var del = document.getElementById("delivery");
+            // var col = document.getElementById("collection");
+
+            
+            var line_manager = $("#line_manager").val();
+            var department_id = $("#department_id").val();
+            var division_id = $("#division_id").val();
+            var assesment_id = $("#assesment_id").val();
+
+            if (line_manager == '') {
+                alert('Please, select a line manager!!');
+                return;
+            }
+
+            if (department_id == '') {
+                alert('Please, select a Department!!');
+                return;
+            }
+
+            if (division_id == '') {
+                alert('Please, select a Division!!');
+                return;
+            }
+            
+            var ansurl = "{{URL::to('/user/assesment-answer-store')}}";
+            var id = element.getAttribute('data-qid');
+            var key = element.getAttribute('data-key');
+            var value = element.getAttribute('value');
+
+            
+            var form_data = new FormData();			
+            form_data.append("qid", id);
+            form_data.append("answer", value);
+            form_data.append("key", key);
+            form_data.append("line_manager", line_manager);
+            form_data.append("department_id", department_id);
+            form_data.append("division_id", division_id);
+            form_data.append("assesment_id", assesment_id);
+
+            $.ajax({
+                    url:ansurl,
+                    method: "POST",
+                    type: "POST",
+                    contentType: false,
+                    processData: false,
+                    data:form_data,
+                    success: function(d){
+                        console.log(d);
+                        if (value == "No") {
+                            $("#subqnDiv"+id).html(d.subquery);
+                        } else {
+                            $("#subqnDiv"+id).html("");
+                        }
+                    },
+                    error:function(d){
+                        console.log(d);
+                    }
+                });
+
+            
+            
+            
+            
+        }
+
 </script>
 
 
 <script>
 $(document).ready(function() {
-    
-    
+    // Select2 Multiple
+    $('#division_id').select2({
+        placeholder: "Division",
+        allowClear: true
+    });
 
-    //header for csrf-token is must in laravel
-    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
-    //
+    $('#department_id').select2({
+        placeholder: "Department",
+        allowClear: true
+    });
+
+    $('#line_manager').select2({
+        placeholder: "Line Manager",
+        allowClear: true
+    });
+
 
 
     var url = "{{URL::to('/user/add-assesment')}}";
@@ -273,6 +390,14 @@ $(document).ready(function() {
         
     });
         
+
+
+
+
+
+
+
+
 
 
 });
