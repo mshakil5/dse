@@ -136,7 +136,7 @@ class SurveyController extends Controller
            
         } else {
 
-            return back()->with('error', 'There was an error to store data!!');
+            return back()->withInput()->with('error', 'There was an error to store data!!');
             
         }
         

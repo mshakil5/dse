@@ -55,7 +55,7 @@
                                         <input type="hidden" id="assesment_id" name="assesment_id" value="@if(isset($assesment)){{$assesment->id}}@endif">
                                         <div class="dropdown">
                                             <label for="">Work Station Number</label>
-                                            <input type="number" id="work_station_number" name="work_station_number" class="form-control">
+                                            <input type="number" id="work_station_number" name="work_station_number" class="form-control" value="{{ old('work_station_number') }}">
                                         </div>
                                         <div class="dropdown">
                                             <label for="">Department</label><br>
@@ -77,7 +77,7 @@
 
                                     <div class="row mt-3">
                                         <div class="col-lg-12">
-                                            <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" value="Full time"> or Part time <input type="radio" id="part_time" class="form-check-input" name="job_type" value="Part time"> ? 
+                                            <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" value="Full time" {{ old('job_type') == 'Full time' ? 'checked' : '' }}> or Part time <input type="radio" id="part_time" class="form-check-input" name="job_type" value="Part time" {{ old('job_type') == 'Part time' ? 'checked' : '' }}> ? 
                                             </p>
                                         </div>
 
@@ -91,10 +91,12 @@
                                             <h6 class="mb-3">Do you normally use your DSE for continuous spells of an hour or more at a time?
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes">Yes
+                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes" {{
+                                                    old('continuous_spell')=='Yes' ? 'checked' : '' }}>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No">No
+                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No" {{
+                                                    old('continuous_spell')=='No' ? 'checked' : '' }}>No
                                             </label>
                                         </div>
 
@@ -102,16 +104,19 @@
                                             <h6 class="mb-3">If ‘Yes’ do you do this more or less daily ?     
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes">Yes
+                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes" {{
+                                                    old('continuous_spell_time')=='Yes' ? 'checked' : '' }}>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No">No
+                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No" {{
+                                                    old('continuous_spell_time')=='No' ? 'checked' : '' }}>No
                                             </label>
                                         </div>
 
                                         <div class="col-lg-6 mb-4">
-                                            <h6 class="mb-3">How many hours on average daily do you spend using your DSE?   </h6>
-                                            <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1" >
+                                            <h6 class="mb-3">How many hours on average daily do you spend using your DSE? </h6>
+                                            <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1"
+                                                value="{{ old('average_using_dse') }}">
                                         </div>
 
                                         <div class="col-lg-12 mb-4">
