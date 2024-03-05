@@ -39,6 +39,9 @@ class SurveyController extends Controller
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
 
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
+
+    //    dd($selectedLineManager);
+
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
 
         // dd($selectedDivision);

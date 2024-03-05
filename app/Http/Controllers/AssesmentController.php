@@ -33,6 +33,8 @@ class AssesmentController extends Controller
     public function assesmentStore(Request $request)
     {
 
+        dd($request->all());
+
         $chkassesment = Assesment::whereUserId(Auth::user()->id)->first();
         if (isset($chkassesment)) {
             $data = Assesment::find($chkassesment->id);
@@ -41,13 +43,19 @@ class AssesmentController extends Controller
             $data->date = date('Y-m-d');
             $data->assesmentid = date('his').Auth::user()->id;
         }
-        $data->line_manager_id = $request->line_manager;
+        $data->line_manager_id = $request->line_manager_id;
         $data->department_id = $request->department_id;
         $data->division_id = $request->division_id;
         $data->user_id = Auth::user()->id;
         if ($data->save()) {
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message,'assesmentid'=>$data->id]);
+            
+            
+
+
+
+
+
+
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }

@@ -58,7 +58,8 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::post('/determining-question', [SurveyController::class, 'determiningQuestionStore'])->name('user.determinigQnStore');
     Route::post('/work-station-assesment-store', [SurveyController::class, 'workStationAssesmentStore'])->name('user.workStationAssesmentStore');
     Route::post('/assesment-answer-store', [AssesmentController::class, 'assesmentAnswerStore'])->name('assesment.answer.store');
-    Route::post('/add-assesment', [AssesmentController::class, 'assesmentStore']);
+    Route::post('/add-assesment', [AssesmentController::class, 'assesmentStore'])->name('add.assessment');
+
 
 });
   

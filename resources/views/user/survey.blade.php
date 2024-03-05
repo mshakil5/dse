@@ -202,7 +202,7 @@
 
 
 
-            <form action="" method="POST">
+            <form action="{{ route('add.assessment') }}" method="POST">
                 @csrf
                 <input type="hidden" name="line_manager_id" value="{{ $selectedLineManager->id }}">
                 <input type="hidden" name="department_id" value="{{ $departments->id }}">
@@ -219,11 +219,10 @@
 
                                 <div class="d-flex">
                                     <label for="yes" class="mx-4 fw-bold text-success">
-                                        YES <input type="radio" name="{{$question->id}}" class="form-check-input"
-                                            id="yes{{$question->id}}" value="Yes">
+                                        YES <input type="radio" name="assesmentanswer{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" value="Yes">
                                     </label>
                                     <label for="no" class="me-3 fw-bold text-danger">
-                                        NO <input type="radio" name="{{$question->id}}" class="form-check-input"
+                                        NO <input type="radio" name="assesmentanswer{{$question->id}}" class="form-check-input"
                                             id="no{{$question->id}}" value="No">
                                     </label>
                                 </div>
