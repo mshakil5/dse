@@ -69,148 +69,128 @@
                                             value="@if(isset($determiningans)){{$determiningans->id}}@endif">
                                         <div class="dropdown">
                                             <label for="">Work Station Number</label>
-                                            <input type="number" id="work_station_number" name="work_station_number"
-                                                class="form-control" value="{{ old('work_station_number') }}">
+                                            <input type="number" id="work_station_number" name="work_station_number" class="form-control"
+                                                value="{{ old('work_station_number') }}">
                                         </div>
                                         <div class="dropdown">
                                             <label for="">Department</label><br>
-                                            <input type="text" id="department" name="department" class="form-control"
-                                                value="{{$departments->name}}" readonly>
+                                            <input type="text" id="department" name="department" class="form-control" value="{{$departments->name}}"
+                                                readonly>
                                         </div>
-
-
+                                
+                                
                                         <div class="dropdown">
                                             <label for="user_name">User Name</label>
-                                            <input type="text" id="user_name" name="user_name" class="form-control"
-                                                value="{{Auth::user()->name}}" readonly>
+                                            <input type="text" id="user_name" name="user_name" class="form-control" value="{{Auth::user()->name}}"
+                                                readonly>
                                         </div>
-
+                                
                                         <div class="dropdown">
                                             <label for="date">Date</label>
                                             <input type="date" id="date" name="date" class="form-control"
-                                                value="@if(isset($data)){{$data->date}}@else{{ date('Y-m-d')}}@endif"
-                                                readonly>
+                                                value="@if(isset($data)){{$data->date}}@else{{ date('Y-m-d')}}@endif" readonly>
                                         </div>
-
+                                
                                     </div>
-
+                                
                                     <div class="row mt-3">
                                         <div class="col-lg-12">
-                                            <p for="">Are you Full time <input type="radio" class="form-check-input"
-                                                    name="job_type" value="Full time" {{ old('job_type')=='Full time'
-                                                    ? 'checked' : '' }}> or Part time <input type="radio" id="part_time"
-                                                    class="form-check-input" name="job_type" value="Part time" {{
-                                                    old('job_type')=='Part time' ? 'checked' : '' }}> ?
+                                            <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" value="Full time"
+                                                    {{ old('job_type')=='Full time' ? 'checked' : '' }}> or Part time <input type="radio" id="part_time"
+                                                    class="form-check-input" name="job_type" value="Part time" {{ old('job_type')=='Part time'
+                                                    ? 'checked' : '' }}> ?
                                             </p>
                                         </div>
-
-                                        <div class="col-lg-6 mb-4" id="part_time_work_div" @if (isset($data)) @if
-                                            ($data->job_type == "Part time") @else style="display:none" @endif
+                                
+                                        <div class="col-lg-6 mb-4" id="part_time_work_div" @if (isset($data)) @if ($data->job_type == "Part time") @else
+                                            style="display:none" @endif
                                             @endif>
                                             <h6 class="mb-3">If part time how many hours a week do you work? </h6>
-                                            <input id="part_time_work_hour" type="number" name="part_time_work_hour"
-                                                class="form-control me-1"
+                                            <input id="part_time_work_hour" type="number" name="part_time_work_hour" class="form-control me-1"
                                                 value="@if(isset($data)){{$data->part_time_work_hour}}@endif">
                                         </div>
-
-
+                                
+                                
                                         <div class="col-lg-12 mb-4">
-                                            <h6 class="mb-3">Do you normally use your DSE for continuous spells of an
-                                                hour or more at a time?
+                                            <h6 class="mb-3">Do you normally use your DSE for continuous spells of an hour or more at a time?
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell"
-                                                    class="form-check-input me-1" value="Yes" {{
+                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes" {{
                                                     old('continuous_spell')=='Yes' ? 'checked' : '' }}>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell"
-                                                    class="form-check-input me-1" value="No" {{
+                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No" {{
                                                     old('continuous_spell')=='No' ? 'checked' : '' }}>No
                                             </label>
                                         </div>
-
+                                
                                         <div class="col-lg-12 mb-4">
                                             <h6 class="mb-3">If ‘Yes’ do you do this more or less daily ?
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time"
-                                                    class="form-check-input me-1" value="Yes" {{
+                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes" {{
                                                     old('continuous_spell_time')=='Yes' ? 'checked' : '' }}>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time"
-                                                    class="form-check-input me-1" value="No" {{
+                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No" {{
                                                     old('continuous_spell_time')=='No' ? 'checked' : '' }}>No
                                             </label>
                                         </div>
-
+                                
                                         <div class="col-lg-6 mb-4">
-                                            <h6 class="mb-3">How many hours on average daily do you spend using your
-                                                DSE? </h6>
-                                            <input id="average_using_dse" type="number" name="average_using_dse"
-                                                class="form-control me-1" value="{{ old('average_using_dse') }}">
+                                            <h6 class="mb-3">How many hours on average daily do you spend using your DSE? </h6>
+                                            <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1"
+                                                value="{{ old('average_using_dse') }}">
                                         </div>
-
-                                        <div class="col-lg-12 mb-4">
+                                
+                                        {{-- <div class="col-lg-12 mb-4">
                                             <h6 class="mb-3">What Software do you use? </h6>
                                             <label class="mx-2">
-                                                <input id="ms_word" type="checkbox" name="software[]"
-                                                    class="form-check-input me-1" value="Word" @if
-                                                    (isset($data->software)) @foreach (json_decode($data->software) as
-                                                $software) @if ($software == "Word") checked @endif @endforeach
-                                                @endif>Word
+                                                <input id="ms_word" type="checkbox" name="software[]" class="form-check-input me-1" value="Word" @if
+                                                    (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Word")
+                                                checked @endif @endforeach @endif>Word
                                             </label>
                                             <label class="mx-2">
-                                                <input id="ms_excel" type="checkbox" name="software[]"
-                                                    class="form-check-input me-1" value="Excel" @if
-                                                    (isset($data->software)) @foreach (json_decode($data->software) as
-                                                $software) @if ($software == "Excel") checked @endif @endforeach
-                                                @endif>Excel
+                                                <input id="ms_excel" type="checkbox" name="software[]" class="form-check-input me-1" value="Excel" @if
+                                                    (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Excel")
+                                                checked @endif @endforeach @endif>Excel
                                             </label>
                                             <label for="ms_access" class="mx-2">
-                                                <input id="ms_access" type="checkbox" name="software[]"
-                                                    class="form-check-input me-1" value="Access" @if
-                                                    (isset($data->software)) @foreach (json_decode($data->software) as
-                                                $software) @if ($software == "Access") checked @endif @endforeach
-                                                @endif>Access
+                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="Access" @if
+                                                    (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Access")
+                                                checked @endif @endforeach @endif>Access
                                             </label>
                                             <label for="ms_powerpoint" class="mx-2">
-                                                <input id="ms_powerpoint" type="checkbox" name="software[]"
-                                                    class="form-check-input me-1" value="Powerpoint" @if
-                                                    (isset($data->software)) @foreach (json_decode($data->software) as
-                                                $software) @if ($software == "Powerpoint") checked @endif @endforeach
-                                                @endif>Powerpoint
+                                                <input id="ms_powerpoint" type="checkbox" name="software[]" class="form-check-input me-1" value="Powerpoint" @if
+                                                    (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software ==
+                                                "Powerpoint") checked @endif @endforeach @endif>Powerpoint
                                             </label>
                                             <label for="others" class="mx-2">
-                                                <input id="others" type="checkbox" name="software[]"
-                                                    class="form-check-input me-1" value="Others" @if
-                                                    (isset($data->software)) @foreach (json_decode($data->software) as
-                                                $software) @if ($software == "Others") checked @endif @endforeach
-                                                @endif>Others
+                                                <input id="others" type="checkbox" name="software[]" class="form-check-input me-1" value="Others" @if
+                                                    (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Others")
+                                                checked @endif @endforeach @endif>Others
                                             </label>
                                             <label class="">
-                                                <input id="others_software" type="text" name="others_software"
-                                                    class="form-control" placeholder="Somerset, EPT, ERS, Cerner"
-                                                    value="@if(isset($data)){{$data->others_software}}@endif">
+                                                <input id="others_software" type="text" name="others_software" class="form-control"
+                                                    placeholder="Somerset, EPT, ERS, Cerner" value="@if(isset($data)){{$data->others_software}}@endif">
                                             </label>
-                                        </div>
-
+                                        </div> --}}
+                                
                                     </div>
-
-
+                                
+                                
                                     <div class="col-lg-12">
                                         <div class="row py-3 ">
                                             <div class="col-lg-5 d-flex align-items-center">
                                                 <button type="submit" class="btn btn-warning d-flex align-items-center">
-                                                    <iconify-icon icon="akar-icons:check-box-fill" class="me-1">
-                                                    </iconify-icon> @if(isset($data)) Update @else Save @endif
+                                                    <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> @if(isset($data)) Update
+                                                    @else Save @endif
                                                 </button>
                                             </div>
                                             <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
                                         </div>
                                     </div>
-
+                                
                                 </form>
 
 
@@ -220,12 +200,14 @@
                 </div>
             </div>
 
+
+
             <form action="" method="POST">
                 @csrf
                 <input type="hidden" name="line_manager_id" value="{{ $selectedLineManager->id }}">
                 <input type="hidden" name="department_id" value="{{ $departments->id }}">
                 <input type="hidden" name="division_id" value="{{ $selectedDivision->id }}">
-            
+
 
 
                 @foreach ($questions as $key => $question)
@@ -256,17 +238,20 @@
                 </div>
                 @endforeach
 
-            <div class="col-lg-12">
-                <div class="row py-3 ">
-                    <div class="col-lg-5 d-flex align-items-center">
-                        <button type="submit" class="btn btn-success d-flex align-items-center">
-                            <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
-                        </button>
+                <div class="col-lg-12">
+                    <div class="row py-3 ">
+                        <div class="col-lg-5 d-flex align-items-center">
+                            <button type="submit" class="btn btn-success d-flex align-items-center">
+                                <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
+                            </button>
+                        </div>
+                        <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
                     </div>
-                    <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
                 </div>
-            </div>
             </form>
+
+
+
 
         </div>
     </div>

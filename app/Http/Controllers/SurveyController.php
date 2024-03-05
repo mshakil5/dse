@@ -16,6 +16,20 @@ use Illuminate\Support\Facades\Redirect;
 
 class SurveyController extends Controller
 {
+    // public function survey()
+    // {
+    //     $determiningans = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
+    //     $departments = Department::whereId($determiningans->department_id)->first();
+    //     $questions = Question::with('subquestion')->get();
+    //     $assesment = Assesment::whereUserId(Auth::user()->id)->first();
+    //     $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
+    //     $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
+    //     $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
+
+    //     // dd($selectedDivision);
+    //     return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision'));
+    // }
+
     public function survey()
     {
         $determiningans = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
@@ -23,6 +37,7 @@ class SurveyController extends Controller
         $questions = Question::with('subquestion')->get();
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
+
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
 
