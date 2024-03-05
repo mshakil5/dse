@@ -23,9 +23,11 @@ class SurveyController extends Controller
         $questions = Question::with('subquestion')->get();
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
+        $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
+        $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
 
-        // dd($departments);
-        return view('user.survey', compact('departments','questions','assesment','determiningans','data'));
+        // dd($selectedDivision);
+        return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision'));
     }
 
     public function determiningQuestion()

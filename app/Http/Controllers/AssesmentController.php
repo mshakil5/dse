@@ -57,6 +57,8 @@ class AssesmentController extends Controller
 
     public function assesmentAnswerStore(Request $request)
     {
+        // $user = User::findOrFail(Auth::id());
+
         $assesmnt = Assesment::whereId($request->assesment_id)->first();
         $chkasmnt = AssesmentAnswer::whereUserId(Auth::user()->id)->where('assesment_id', $request->assesment_id)->where('question_id', $request->qid)->first();
         if (isset($chkasmnt)) {
