@@ -59,6 +59,13 @@
                         <textarea  class="form-control" id="question" name="question" cols="30" rows="3"></textarea>
                       </div>
                     </div>
+
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Tips</label>
+                        <textarea  class="form-control" id="tips" name="tips" cols="30" rows="3"></textarea>
+                      </div>
+                    </div>
                   </div>
 
                   
@@ -102,6 +109,7 @@
                   <th>Sl</th>
                   <th>Category</th>
                   <th>Question</th>
+                  <th>Tips</th>
                   <th style="text-align: center">Image</th>
                   <th>Action</th>
                 </tr>
@@ -115,6 +123,7 @@
                     </td>
                     {{-- <td style="text-align: center">{{$data->qncat->name}}</td> --}}
                     <td style="text-align: center">{{$data->question}}</td>
+                    <td style="text-align: center">{{$data->tips}}</td>
                     
                     <td style="text-align: center">
                         @if ($data->image)
@@ -196,6 +205,7 @@
               var form_data = new FormData();
               form_data.append('image', file_data);
               form_data.append("question", $("#question").val());
+              form_data.append("tips", $("#tips").val());
               form_data.append("qn_category_id", $("#qn_category_id").val());
               $.ajax({
                 url: url,
@@ -228,6 +238,7 @@
               var form_data = new FormData();
               form_data.append('image', file_data);
               form_data.append("question", $("#question").val());
+              form_data.append("tips", $("#tips").val());
               form_data.append("qn_category_id", $("#qn_category_id").val());
               form_data.append("codeid", $("#codeid").val());
               
@@ -293,6 +304,7 @@
       //Delete  
       function populateForm(data){
           $("#question").val(data.question);
+          $("#tips").val(data.tips);
           $("#qn_category_id").val(data.qn_category_id);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');

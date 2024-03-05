@@ -18,15 +18,14 @@ class SurveyController extends Controller
 {
     public function survey()
     {
-        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
-        $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
-        $departments = Department::whereId($data->department_id)->first();
-        $divisions = Division::select('id','name')->get();
+        $determiningans = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
+        $departments = Department::whereId($determiningans->department_id)->first();
         $questions = Question::with('subquestion')->get();
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
+        $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
 
         // dd($departments);
-        return view('user.survey', compact('linemanagers','departments','divisions','questions','assesment'));
+        return view('user.survey', compact('departments','questions','assesment','determiningans','data'));
     }
 
     public function determiningQuestion()
@@ -124,7 +123,7 @@ class SurveyController extends Controller
         $data->date = $request->date;
         $data->work_station_number = $request->work_station_number;
         $data->job_type = $request->job_type;
-        // $data->software = $request->software;
+        $data->software = json_encode($request->software);
         $data->continuous_spell = $request->continuous_spell;
         $data->continuous_spell_time = $request->continuous_spell_time;
         $data->part_time_work_hour = $request->part_time_work_hour;
