@@ -200,14 +200,24 @@
                 </div>
             </div>
 
+<<<<<<< Updated upstream
 
 
             <form action="{{ route('add.assessment') }}" method="POST">
+=======
+            
+
+            <form action="" method="POST">
+>>>>>>> Stashed changes
                 @csrf
                 <input type="hidden" name="line_manager_id" value="{{ $selectedLineManager->id }}">
                 <input type="hidden" name="department_id" value="{{ $departments->id }}">
                 <input type="hidden" name="division_id" value="{{ $selectedDivision->id }}">
+<<<<<<< Updated upstream
 
+=======
+            
+>>>>>>> Stashed changes
 
 
                 @foreach ($questions as $key => $question)
@@ -219,10 +229,18 @@
 
                                 <div class="d-flex">
                                     <label for="yes" class="mx-4 fw-bold text-success">
+<<<<<<< Updated upstream
                                         YES <input type="radio" name="assesmentanswer{{$question->id}}" class="form-check-input" id="yes{{$question->id}}" value="Yes">
                                     </label>
                                     <label for="no" class="me-3 fw-bold text-danger">
                                         NO <input type="radio" name="assesmentanswer{{$question->id}}" class="form-check-input"
+=======
+                                        YES <input type="radio" name="{{$question->id}}" class="form-check-input"
+                                            id="yes{{$question->id}}" value="Yes">
+                                    </label>
+                                    <label for="no" class="me-3 fw-bold text-danger">
+                                        NO <input type="radio" name="{{$question->id}}" class="form-check-input"
+>>>>>>> Stashed changes
                                             id="no{{$question->id}}" value="No">
                                     </label>
                                 </div>
@@ -249,7 +267,10 @@
                 </div>
             </form>
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
 
         </div>
