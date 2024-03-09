@@ -133,7 +133,7 @@
                                         <div class="col-lg-6 mb-4">
                                             <h6 class="mb-3">How many hours on average daily do you spend using your DSE? </h6>
                                             <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1"
-                                                value="{{ old('average_using_dse') }}">
+                                                value="@if(isset($data)){{$data->average_using_dse}}@endif">
                                         </div>
                                 
                                         <div class="col-lg-12 mb-4">
@@ -182,25 +182,13 @@
                 </div>
             </div>
 
-<<<<<<< Updated upstream
              @if($data)
             <form action="{{ route('add.assessment') }}" method="POST">
-=======
-            
-
-            <form action="" method="POST">
->>>>>>> Stashed changes
                 @csrf
 
                 <input type="hidden" name="line_manager_id" value="{{ $selectedLineManager->id }}">
                 <input type="hidden" name="department_id" value="{{ $departments->id }}">
                 <input type="hidden" name="division_id" value="{{ $selectedDivision->id }}">
-<<<<<<< Updated upstream
-
-=======
-            
->>>>>>> Stashed changes
-
 
                     @foreach ($questions as $key => $question)
 
@@ -211,19 +199,11 @@
                                         <h6 class="mb-3">{{ $key + 1 }}. {{ $question->question }}</h6>
                                         <div class="d-flex">
                                             <label for="yes" class="mx-4 fw-bold text-success">
-        <<<<<<< Updated upstream
-                                        YES <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" id="yes{{ $question->id }}" value="Yes" required="required" @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'Yes') ? 'checked' : '' }} @endif >
+                                                YES <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" id="yes{{ $question->id }}" value="Yes" required="required" @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'Yes') ? 'checked' : '' }} @endif >
                                             </label>
 
                                             <label for="NO" class="me-3 fw-bold text-danger">
                                                 NO <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" value="No" required="required" 
-=======
-                                        YES <input type="radio" name="{{$question->id}}" class="form-check-input"
-                                            id="yes{{$question->id}}" value="Yes">
-                                    </label>
-                                    <label for="no" class="me-3 fw-bold text-danger">
-                                        NO <input type="radio" name="{{$question->id}}" class="form-check-input"
->>>>>>> Stashed changes
                                                  @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'No') ? 'checked' : '' }} @endif>
                                             </label>
                                         </div>
