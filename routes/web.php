@@ -73,6 +73,11 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
   
     Route::get('/dashboard', [HomeController::class, 'managerHome'])->name('manager.dashboard');
     Route::get('/get-assesment', [AssesmentController::class, 'getAssesmentbyLineManager'])->name('manager.assesment');
+    Route::get('/assessment/user/{id}', [AssesmentController::class,'showAssessmentUserDetails'])->name('assessment.user.details');
+
+    Route::post('/getQuestionsByCategory/{id}', [AssesmentController::class, 'getQuestionsByCategory'])->name('getQuestionsByCategory');
+
+
 });
 
 

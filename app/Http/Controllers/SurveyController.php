@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+use App\Models\User;
 use App\Models\Division;
 use App\Models\Question;
-use App\Models\SubQuestion;
 use App\Models\Assesment;
-use App\Models\DeterminigAnswer;
-use App\Models\User;
-use App\Models\WorkStationAssesment;
+use App\Models\Department;
+use App\Models\SubQuestion;
 use Illuminate\Http\Request;
+use App\Models\AssesmentAnswer;
+use App\Models\DeterminigAnswer;
+use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
@@ -34,17 +35,24 @@ class SurveyController extends Controller
     {
         $determiningans = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
         $departments = Department::whereId($determiningans->department_id)->first();
-        $questions = Question::with('subquestion')->get();
+        $chkassesmentanswer = AssesmentAnswer::where('user_id', Auth::user()->id)->count();
+        if ($chkassesmentanswer > 0) {
+            $questions = Question::with('subquestion', 'assesmentAnswers')
+                        ->where(function ($query) {
+                            $query->whereHas('assesmentAnswers', function ($query) {
+                                $userId = Auth::id();
+                                $query->where('user_id', $userId);
+                                });
+                        })
+                        ->get();
+        } else {
+            $questions = Question::with('subquestion')->get();
+        }
+
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
-
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
-
-    //    dd($selectedLineManager);
-
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
-
-        // dd($selectedDivision);
         return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision'));
     }
 
@@ -56,8 +64,6 @@ class SurveyController extends Controller
         $questions = Question::with('subquestion')->get();
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
-
-        // dd($data);
         return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment','data'));
     }
 
@@ -140,7 +146,9 @@ class SurveyController extends Controller
             $data = new WorkStationAssesment();
             $data->user_id = Auth::user()->id;
         }
+
         $data->date = $request->date;
+        $data->determinig_answer_id = $request->determinig_answer_id;
         $data->work_station_number = $request->work_station_number;
         $data->job_type = $request->job_type;
         $data->software = json_encode($request->software);
@@ -150,20 +158,94 @@ class SurveyController extends Controller
         $data->average_using_dse = $request->average_using_dse;
         $data->others_software = $request->others_software;
         if ($data->save()) {
-            
+
             return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
-           
+
         } else {
 
             return back()->withInput()->with('error', 'There was an error to store data!!');
-            
+
         }
-        
+
 
         // dd($questions);
         return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment','data'));
     }
-    
+
+
+
+    // public function workStationAssesmentStore(Request $request)
+    // {
+    //     // Validate incoming data
+    //     $validatedData = $request->validate([
+    //         'work_station_number' => 'required',
+    //         'date' => 'required',
+    //         'job_type' => 'required',
+    //         'software' => 'required',
+    //         'continuous_spell' => ['required', 'in:Yes,No']
+    //     ], [
+    //         'work_station_number.required' => 'Work station number field required.',
+    //         'date.required' => 'Date field required.',
+    //         'continuous_spell.required' => 'Please, choose necessary options.',
+    //         'job_type.required' => 'Please, choose Part time or Full time option.',
+    //         'software.required' => 'Please, select a software which you use.'
+    //     ]);
+
+    //     // Retrieve the determinig answer for the current user
+    //     $determinigAnswer = DeterminigAnswer::where('user_id', Auth::user()->id)->first();
+
+    //     // Check if a record already exists for the current user in the work_station_assesments table
+    //     $workStationAssesment = WorkStationAssesment::where('user_id', Auth::user()->id)->first();
+
+    //     // If the record exists, update it; otherwise, create a new one
+    //     if ($workStationAssesment) {
+    //         $workStationAssesment->fill($request->only([
+    //             'work_station_number',
+    //             'date',
+    //             'job_type',
+    //             'software',
+    //             'continuous_spell',
+    //             'continuous_spell_time',
+    //             'part_time_work_hour',
+    //             'average_using_dse',
+    //             'others_software'
+    //         ]));
+    //     } else {
+    //         $workStationAssesment = new WorkStationAssesment($request->only([
+    //             'work_station_number',
+    //             'date',
+    //             'job_type',
+    //             'software',
+    //             'continuous_spell',
+    //             'continuous_spell_time',
+    //             'part_time_work_hour',
+    //             'average_using_dse',
+    //             'others_software'
+    //         ]));
+    //         $workStationAssesment->user_id = Auth::user()->id;
+    //     }
+
+    //     // If determinig answer exists, populate relevant fields in work station assessment
+    //     if ($determinigAnswer) {
+    //         $workStationAssesment->division_id = $determinigAnswer->division_id;
+    //         $workStationAssesment->department_id = $determinigAnswer->department_id;
+    //         $workStationAssesment->work_hour = $determinigAnswer->work_hour;
+    //         $workStationAssesment->wow_system = $determinigAnswer->wow_system;
+    //     }
+
+
+    //     dd($workStationAssesment);
+
+    //     // Save the work station assessment
+    //     if ($workStationAssesment->save()) {
+    //         return back()->with('success', 'Your response was successfully saved. Thank you for your response!');
+    //     } else {
+    //         return back()->withInput()->with('error', 'There was an error saving your response.');
+    //     }
+    // }
+
+
+
 
     //    search property start
 

@@ -38,20 +38,15 @@
                         <td>{{$data->updated_at}}</td>
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
-                                <a href="#"><iconify-icon class="text-warning"
-                                        icon="solar:pen-bold"></iconify-icon></a>
-                                <a href="#"><iconify-icon class="text-danger"
-                                        icon="tabler:trash-filled"></iconify-icon></a>
-                            </div>
+                            <a href="{{ route('assessment.user.details', $data->id) }}">
+                                <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
+                            </a>
+                        </div>
+                        
                         </td>
                     </tr>
                     @endforeach
                       
-
-                      
-                      
-                      
-
                   </tbody>
               </table>
           </div>

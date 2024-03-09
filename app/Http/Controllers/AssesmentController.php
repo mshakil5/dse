@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Assesment;
-use App\Models\AssesmentAnswer;
-use App\Models\Department;
+use Exception;
+use App\Models\User;
 use App\Models\Division;
 use App\Models\Question;
+use App\Models\Assesment;
+use App\Models\Department;
+use App\Models\QnCategory;
 use App\Models\SubQuestion;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\AssesmentAnswer;
+use Illuminate\Support\Facades\DB;
+use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AssesmentController extends Controller
 {
@@ -24,7 +29,9 @@ class AssesmentController extends Controller
         $assesments = Assesment::where('line_manager_id',Auth::user()->id)->pluck('user_id');
         
         $users = User::whereIn('id',$assesments)->get();
+        // $users = User::all();
         // dd($users);
+        // dd($request->all());
         return view('manager.assesment', compact('assesments','users'));
     }
 
@@ -33,7 +40,14 @@ class AssesmentController extends Controller
     public function assesmentStore(Request $request)
     {
 
-        dd($request->all());
+        $messages = [
+            'answers.*' => 'Each answer must be either "yes" or "no".',
+        ];
+        
+        $validatedData = $request->validate([
+            'answers.*' => 'required',
+        ], $messages);
+        
 
         $chkassesment = Assesment::whereUserId(Auth::user()->id)->first();
         if (isset($chkassesment)) {
@@ -49,11 +63,36 @@ class AssesmentController extends Controller
         $data->user_id = Auth::user()->id;
         if ($data->save()) {
             
-            
+        
+            foreach ($request->answers as $question_id => $answer) {
+
+                $existingAnswer = AssesmentAnswer::where('user_id', Auth::user()->id)
+
+                ->where('assesment_id', $data->id)
+                ->where('question_id', $question_id)
+                ->first();
+
+                // dd($existingAnswer);
+
+                if ($existingAnswer) {
+                    // Update existing answer
+                    $existingAnswer->answer = $answer;
+                    $existingAnswer->save();
+                }
+                else{
+                    $question = new AssesmentAnswer();
+                    $question->date = date('Y-m-d');
+                    $question->user_id = Auth::user()->id;
+                    $question->assesmentid = $data->assesmentid;
+                    $question->assesment_id = $data->id;
+                    $question->question_id = $question_id;
+                    $question->answer = $answer;
+                    $question->save();
+                }
+            }
 
 
-
-
+            return Redirect::route('user.survey')->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
 
 
         }else{
@@ -66,6 +105,7 @@ class AssesmentController extends Controller
     public function assesmentAnswerStore(Request $request)
     {
         // $user = User::findOrFail(Auth::id());
+        // dd($request->all());
 
         $assesmnt = Assesment::whereId($request->assesment_id)->first();
         $chkasmnt = AssesmentAnswer::whereUserId(Auth::user()->id)->where('assesment_id', $request->assesment_id)->where('question_id', $request->qid)->first();
@@ -84,49 +124,44 @@ class AssesmentController extends Controller
 
             if ($data->answer == "No") {
                 $id = $request->qid;
-        $subqn = SubQuestion::where('question_id', $id)->first();
-        
-        $prop = '<div class="col-lg-12 mb-4">
-                <h6 class="mb-3"><iconify-icon class="text-warning" icon="ci:arrow-sub-down-right"></iconify-icon> '.$request->key.'.1 '.$subqn->question.'</h6>
-                <label for="yes" class="mx-2">
-                    <input id="yes" type="radio" name="subqn" class="form-check-input me-1"
-                        value="yes">Yes
-                </label>
-                <label for="no" class="mx-2">
-                    <input id="no" type="radio" name="subqn" class="form-check-input me-1"
-                        value="yes">No
-                </label>
-            </div>
-            <div class="col-lg-12">
-                <textarea name="message" class="form-control" placeholder="Comments Here"></textarea>
-            </div>
-            <div class="col-lg-12">
-                <div class="row py-3 ">
-                    <div class="col-lg-5 d-flex align-items-center">
-                        <small class="text-muted mb-0">76 charachter remaining</small>
-                    </div>
-                    <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                        <button class="btn btn-success d-flex align-items-center"> <iconify-icon
-                                icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as
-                            resolved</button>
-                        <button class="btn btn-warning d-flex align-items-center"> <iconify-icon
-                                icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                        </button>
-                    </div>
-                </div>
-            </div>';
-            return response()->json(['status'=> 303,'subquery'=>$prop,'subqn'=>$subqn]);
-
-
-            } else {
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
-            }
+                $subqn = SubQuestion::where('question_id', $id)->first();
+             }
+             return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
             
         }else{
-            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+             return back()->withInput()->with('error', 'There was an error to store data!!');
         }
         
 
     }
+
+    public function showAssessmentUserDetails($id)
+    {
+
+        $assesment = Assesment::where('user_id', $id)->first();
+        // dd($assesment);
+        $data = WorkStationAssesment::where('user_id', $id)->first();
+        // dd($data);
+        $user = User::where('id', $id)->first();
+        $department = Department::where('id', $assesment->department_id)->first();
+        $questionCategories = QnCategory::all();
+        // $questions = Question::all();
+        // dd($questionCategories,$questions);
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories'));
+    }
+
+    
+    public function getQuestionsByCategory($id) 
+    {    
+        try {
+            $questions = Question::where('qn_category_id', $id)->get();
+            // dd($questions);
+            return response()->json(['questions' => $questions]);
+        } 
+        catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\AssesmentAnswer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Question extends Model
 {
@@ -22,6 +23,11 @@ class Question extends Model
     public function subquestion()
     {
         return $this->hasMany(SubQuestion::class);
+    }
+
+    public function assesmentAnswers()
+    {
+        return $this->hasMany(AssesmentAnswer::class);
     }
 
 
