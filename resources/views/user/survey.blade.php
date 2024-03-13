@@ -70,7 +70,7 @@
                                         <div class="dropdown">
                                             <label for="">Work Station Number</label>
                                             <input type="number" id="work_station_number" name="work_station_number" class="form-control"
-                                                value="@if(isset($data)){{$data->work_station_number}}@endif"">
+                                                value="@if(isset($data)){{$data->work_station_number}}@endif">
                                         </div>
                                         <div class="dropdown">
                                             <label for="">Department</label><br>

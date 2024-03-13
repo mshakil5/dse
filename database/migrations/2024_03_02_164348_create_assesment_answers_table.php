@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('assesment_id')->references('id')->on('assesments')->onDelete('cascade');
             $table->bigInteger('question_id')->unsigned()->nullable();
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
+            $table->bigInteger('qn_category_id')->unsigned()->nullable();
+            $table->foreign('qn_category_id')->references('id')->on('qn_categories')->onDelete('cascade');
             $table->string('answer')->nullable();
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();

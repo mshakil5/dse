@@ -139,14 +139,21 @@ class AssesmentController extends Controller
     {
 
         $assesment = Assesment::where('user_id', $id)->first();
-        // dd($assesment);
         $data = WorkStationAssesment::where('user_id', $id)->first();
-        // dd($data);
+        $assesmentanswer = AssesmentAnswer::where('line_manager_id', Auth::user()->id)->where('user_id', $id)->get();
+
+        $questions = Question::with('subquestion', 'assesmentAnswers')
+                        ->where(function ($query) {
+                            $query->whereHas('assesmentAnswers', function ($query) {
+                                $userId = $id;
+                                $query->where('user_id', $userId);
+                                });
+                        })
+                        ->get();
+                        dd($questions);
         $user = User::where('id', $id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
         $questionCategories = QnCategory::all();
-        // $questions = Question::all();
-        // dd($questionCategories,$questions);
         return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories'));
     }
 
