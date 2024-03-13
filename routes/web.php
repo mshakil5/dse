@@ -75,7 +75,8 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
     Route::get('/get-assesment', [AssesmentController::class, 'getAssesmentbyLineManager'])->name('manager.assesment');
     Route::get('/assessment/user/{id}', [AssesmentController::class,'showAssessmentUserDetails'])->name('assessment.user.details');
 
-    Route::post('/getQuestionsByCategory/{id}', [AssesmentController::class, 'getQuestionsByCategory'])->name('getQuestionsByCategory');
+    Route::post('/get-question-by-cat', [AssesmentController::class, 'getQuestionByCat']);
+    Route::post('/manager-comment', [AssesmentController::class, 'managerCommentStore'])->name('question.managercomment');
 
 
 });

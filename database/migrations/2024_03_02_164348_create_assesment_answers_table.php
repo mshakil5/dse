@@ -23,7 +23,8 @@ return new class extends Migration
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
             $table->bigInteger('qn_category_id')->unsigned()->nullable();
             $table->foreign('qn_category_id')->references('id')->on('qn_categories')->onDelete('cascade');
-            $table->string('answer')->nullable();
+            $table->string('received_by')->default('manager');
+            $table->boolean('solved')->default(0);
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();

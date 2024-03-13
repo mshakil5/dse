@@ -101,25 +101,29 @@
                                 </div>
 
 
+                                <form action="{{route('question.managercomment')}}" method="POST">
+                                    @csrf
+
                                 <!-- Buttons -->
-                            <div class="col-lg-12">
-                                <textarea name="" class="form-control" placeholder="Comments Here"></textarea>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="row py-3 ">
-                                    <div class="col-lg-5 d-flex align-items-center">
-                                        <small class="text-muted mb-0">76 charachter remaining</small>
+                                    <div class="col-lg-12">
+                                        <textarea name="manager_comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                        <input type="hidden" name="assans_id" value="{{ $assanswer->id }}">
                                     </div>
-                                    <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                        <button class="btn btn-success d-flex align-items-center"> <iconify-icon
-                                                icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as
-                                            resolved</button>
-                                        <button class="btn btn-warning d-flex align-items-center"> <iconify-icon
-                                                icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                        </button>
+                                    <div class="col-lg-12">
+                                        <div class="row py-3 ">
+                                            <div class="col-lg-5 d-flex align-items-center">
+                                                {{-- <small class="text-muted mb-0">76 charachter remaining</small> --}}
+                                            </div>
+                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                <button type="submit" class="btn btn-success d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
+                                                <button type="button" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
+
+                                    
+                                </form>
                             </div>
                             @endif
                             @endforeach
@@ -168,4 +172,40 @@
 
 
 
+@endsection
+
+@section('script')
+
+<script>
+     // header for csrf-token is must in laravel
+     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+        // 
+
+        // category wise product show
+        $("body").delegate(".getsrchval","click",function () {
+            var searchurl = "{{URL::to('/manager/get-question-by-cat')}}";
+            var id = $(this).attr('data-category-id');
+            console.log(id);
+            var form_data = new FormData();			
+            form_data.append("id", id);
+
+            $.ajax({
+                url:searchurl,
+                method: "POST",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data:form_data,
+                success: function(d){
+                    $("#get_product").html(d.product);
+                    // console.log((d.min));
+                },
+                error:function(d){
+                    console.log(d);
+                }
+            });
+        });
+        // category wise product show
+</script>
+    
 @endsection
