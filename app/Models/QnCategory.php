@@ -13,5 +13,9 @@ class QnCategory extends Model
     {
         return $this->hasMany(Question::class);
     }
-    
+
+    public function assesmentAnswers()
+    {
+        return $this->hasMany(AssesmentAnswer::class);
+    }
 }

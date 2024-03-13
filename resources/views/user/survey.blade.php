@@ -199,14 +199,21 @@
                                         <h6 class="mb-3">{{ $key + 1 }}. {{ $question->question }}</h6>
                                         <div class="d-flex">
                                             <label for="yes" class="mx-4 fw-bold text-success">
-                                                YES <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" id="yes{{ $question->id }}" value="Yes" required="required" @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'Yes') ? 'checked' : '' }} @endif >
+                                                YES <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" id="yes{{ $question->id }}" value="Yes" required="required" @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'Yes') ? 'checked' : '' }} @endif onclick="toggleFields(this)" data-qid="{{$question->id}}">
                                             </label>
 
                                             <label for="NO" class="me-3 fw-bold text-danger">
                                                 NO <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" value="No" required="required" 
-                                                 @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'No') ? 'checked' : '' }} @endif>
+                                                 @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'No') ? 'checked' : '' }} @endif onclick="toggleFields(this)" data-qid="{{$question->id}}">
                                             </label>
                                         </div>
+
+                                        <div class="row" id="subqnDiv{{$question->id}}" style="@if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'No') ? '' : 'display:none' }} @endif">
+                                            <div class="col-lg-12 p-2 alert alert-danger mb-3 rounded-3 text-dark">{{$question->tips ? $question->tips : 'Tips coming soon...'}}</div>
+                                        </div>
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -240,8 +247,18 @@
 @endsection
 
 @section('script')
-
+<script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
 <script>
+    function showFields() {
+        var id = $(this).attr('qid');
+        console.log(id);
+        document.getElementById("additionalFields").classList.remove("hidden");
+    }
+
+    function hideFields() {
+        document.getElementById("additionalFields").classList.add("hidden");
+    }
+
     // $("#part_time_work_div").hide();
     // $("#others_software").hide();
     $("#others").click(function() {
@@ -269,45 +286,20 @@
 
 
 <script>
-    $(document).ready(function() {
-    
-    
-
     //header for csrf-token is must in laravel
     $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
     //
 
-
-    var url = "{{URL::to('/user/add-assesment')}}";
-    $("#division_id, #department_id, #line_manager").change(function(){
-        var id =  $(this).val();
-        var fieldname =  $(this).attr('name');
-        var line_manager = $("#line_manager").val();
-        var department_id = $("#department_id").val();
-        var division_id = $("#division_id").val();
-        // console.log(line_manager, department_id, division_id);
-        
-        $.ajax({
-            url: url,
-            method: "POST",
-            data: {line_manager, department_id, division_id},
-
-            success: function (d) {
-                
-                $("#assesment_id").val(d.assesmentid);
-            },
-            error: function (d) {
-                console.log(d);
-            }
-        }); 
-            
-
-        
-    });
-        
-
-
-});
-
+    function toggleFields(element) {
+        var id = element.getAttribute('data-qid');
+        var key = element.getAttribute('data-key');
+        var value = element.getAttribute('value');
+        if (value == "No") {
+            $("#subqnDiv"+id).show();
+        } else {
+            $("#subqnDiv"+id).hide();
+        }
+    }
+       
 </script>
 @endsection

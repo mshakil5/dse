@@ -65,7 +65,7 @@ class AssesmentController extends Controller
             
         
             foreach ($request->answers as $question_id => $answer) {
-
+                $chkqncat = Question::whereId($question_id)->first();
                 $existingAnswer = AssesmentAnswer::where('user_id', Auth::user()->id)
 
                 ->where('assesment_id', $data->id)
@@ -77,6 +77,7 @@ class AssesmentController extends Controller
                 if ($existingAnswer) {
                     // Update existing answer
                     $existingAnswer->answer = $answer;
+                    $existingAnswer->qn_category_id = $chkqncat->qn_category_id;
                     $existingAnswer->save();
                 }
                 else{
@@ -86,6 +87,7 @@ class AssesmentController extends Controller
                     $question->assesmentid = $data->assesmentid;
                     $question->assesment_id = $data->id;
                     $question->question_id = $question_id;
+                    $question->qn_category_id = $chkqncat->qn_category_id;
                     $question->answer = $answer;
                     $question->save();
                 }
@@ -140,21 +142,16 @@ class AssesmentController extends Controller
 
         $assesment = Assesment::where('user_id', $id)->first();
         $data = WorkStationAssesment::where('user_id', $id)->first();
-        $assesmentanswer = AssesmentAnswer::where('line_manager_id', Auth::user()->id)->where('user_id', $id)->get();
+        $assesmentanswers = AssesmentAnswer::where('user_id', $id)->get();
 
-        $questions = Question::with('subquestion', 'assesmentAnswers')
-                        ->where(function ($query) {
-                            $query->whereHas('assesmentAnswers', function ($query) {
-                                $userId = $id;
-                                $query->where('user_id', $userId);
-                                });
-                        })
+        $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) {
+                            $query->where('answer', 'No');
+                        }])->orderby('no_count','DESC')
                         ->get();
-                        dd($questions);
+        // dd($questionCategories);
         $user = User::where('id', $id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
-        $questionCategories = QnCategory::all();
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories'));
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers'));
     }
 
     

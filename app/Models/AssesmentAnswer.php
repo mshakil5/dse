@@ -14,4 +14,9 @@ class AssesmentAnswer extends Model
     {
         return $this->belongsTo(Question::class);
     }
+
+    public function qncategory()
+    {
+        return $this->belongsTo(QnCategory::class);
+    }
 }
