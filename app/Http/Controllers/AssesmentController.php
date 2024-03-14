@@ -41,6 +41,7 @@ class AssesmentController extends Controller
 
     public function assesmentStore(Request $request)
     {
+        
 
         $messages = [
             'answers.*' => 'Each answer must be either "yes" or "no".',
@@ -315,6 +316,41 @@ class AssesmentController extends Controller
         $data->assesment_answer_id = $request->assans_id;
         $data->user_id = $request->user_id;
         $data->created_by = "Manager";
+        if ($data->save()) {
+            
+            $assesmentans = AssesmentAnswer::find($request->assans_id);
+            $assesmentans->solved = "1";
+            $assesmentans->save();
+
+            return back()->with('success', 'Your comment successfully saved. Thank you for your response.');
+
+
+        }else{
+            return back()->with('error', 'Server error!!');
+        }
+        
+
+    }
+
+    public function userCommentStore(Request $request)
+    {
+
+        $messages = [
+            'comment' => 'Comment required.',
+        ];
+        
+        $validatedData = $request->validate([
+            'comment' => 'required',
+        ], $messages);
+        
+        dd($request->all());
+        $data = new AssesmentAnswerComment();
+        $data->date = date('Y-m-d');
+        $data->line_manager_id = $request->line_manager_id;
+        $data->comment = $request->comment;
+        $data->assesment_answer_id = $request->assans_id;
+        $data->user_id = Auth::user()->id;
+        $data->created_by = "User";
         if ($data->save()) {
             
             $assesmentans = AssesmentAnswer::find($request->assans_id);

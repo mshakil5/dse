@@ -60,6 +60,9 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::post('/assesment-answer-store', [AssesmentController::class, 'assesmentAnswerStore'])->name('assesment.answer.store');
     Route::post('/add-assesment', [AssesmentController::class, 'assesmentStore'])->name('add.assessment');
 
+    
+    Route::post('/user-comment', [AssesmentController::class, 'userCommentStore'])->name('question.usercomment');
+
 
 });
   

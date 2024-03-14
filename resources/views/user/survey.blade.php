@@ -212,6 +212,54 @@
                                             <div class="col-lg-12 p-2 alert alert-danger mb-3 rounded-3 text-dark">{{$question->tips ? $question->tips : 'Tips coming soon...'}}</div>
                                         </div>
 
+                                        @foreach ($question->assesmentAnswers as $answers)
+                                        @foreach ($answers->assesmentAnswerComments as $comment)
+                                            @if ($comment->created_by == "Manager")
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark  align-items-right">{{$comment->comment}}
+                                                        <br>
+                                                    <small>Date: {{$comment->date}}</small>
+                                                    </div>
+                                                </div>
+                                            @else
+
+                                                <div class="row">
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                                        <br>
+                                                        <small>Date: {{$comment->date}}</small>
+                                                    </div>
+                                                    <div class="col-lg-4"></div>
+                                                </div>
+                                                
+                                            @endif
+                                        @endforeach
+
+                                        @if ($answers->assesmentAnswerComments->count() > 0)
+                                        
+                                            <div class="col-lg-12">
+                                                <textarea name="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                <input type="hidden" name="assans_id" value="{{ $answers->id }}">
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="row py-3 ">
+                                                    <div class="col-lg-7 d-flex gap-3">
+                                                        <button type="button" class="btn btn-success d-flex align-items-center" for="commentForm{{$answers->id}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
+                                                        <button type="button" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                        </button>
+                                                    </div>
+                                                    
+                                                    <div class="col-lg-5 d-flex align-items-center">
+                                                        {{-- <small class="text-muted mb-0">76 charachter remaining</small> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            
+                                        @endif
+                                        
+                                    @endforeach
+
 
 
                                     </div>

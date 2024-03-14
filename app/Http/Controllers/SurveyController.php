@@ -35,19 +35,19 @@ class SurveyController extends Controller
     {
         $determiningans = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
         $departments = Department::whereId($determiningans->department_id)->first();
-        $chkassesmentanswer = AssesmentAnswer::where('user_id', Auth::user()->id)->count();
+        $chkassesmentanswer = AssesmentAnswer::whereUserId(Auth::user()->id)->count();
+        
         if ($chkassesmentanswer > 0) {
-            $questions = Question::with('subquestion', 'assesmentAnswers')
-                        ->where(function ($query) {
-                            $query->whereHas('assesmentAnswers', function ($query) {
-                                $userId = Auth::id();
-                                $query->where('user_id', $userId);
-                                });
-                        })
-                        ->get();
+            $questions = Question::with(['assesmentAnswers' => function($query) {
+                // Filter assessment answers by user_id
+                $query->where('user_id', auth()->id())
+                     ->with('assesmentAnswerComments'); // Eager load assessment answer comments
+            }])->get();
+            
         } else {
             $questions = Question::with('subquestion')->get();
         }
+
 
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
