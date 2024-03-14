@@ -181,7 +181,7 @@
                                 <div class="py-4">
                                     <ol class="custom-list">
                                         @foreach($questionCategories as $key => $category)
-                                            <li ><a  class="category-link getsrchval" data-category-id="{{ $category->id }}" uid="{{$user->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a>
+                                            <li ><a href="{{route('assessment.details.category', ['uid' => $user->id, 'cat_id' => $category->id ])}}" class="category-link getsrchval" data-category-id="{{ $category->id }}" uid="{{$user->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a>
                                             </li>
                                         @endforeach
                                     </ol>
