@@ -100,10 +100,35 @@
                                     </div>
                                 </div>
 
+                                @foreach ($assanswer->assesmentAnswerComments as $comment)
+                                    @if ($comment->created_by == "Manager")
+                                        <div class="row">
+                                            <div class="col-lg-4"></div>
+                                            <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">{{$comment->comment}}
+                                                <br>
+                                            <small>Date: {{$comment->date}}</small>
+                                            </div>
+                                        </div>
+                                    @else
+
+                                        <div class="row">
+                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                                <br>
+                                                <small>Date: {{$comment->date}}</small>
+                                            </div>
+                                            <div class="col-lg-4"></div>
+                                        </div>
+                                        
+                                    @endif
+                                @endforeach
+
+                                
+                                
+
 
                                 <form action="{{route('question.managercomment')}}" method="POST">
                                     @csrf
-
+                                    <input type="hidden" name="user_id" value="{{$user->id}}">
                                 <!-- Buttons -->
                                     <div class="col-lg-12">
                                         <textarea name="manager_comment" class="form-control" placeholder="Comments Here" required></textarea>
@@ -156,7 +181,7 @@
                                 <div class="py-4">
                                     <ol class="custom-list">
                                         @foreach($questionCategories as $key => $category)
-                                            <li ><a  class="category-link getsrchval" data-category-id="{{ $category->id }}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a>
+                                            <li ><a  class="category-link getsrchval" data-category-id="{{ $category->id }}" uid="{{$user->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a>
                                             </li>
                                         @endforeach
                                     </ol>
@@ -185,9 +210,11 @@
         $("body").delegate(".getsrchval","click",function () {
             var searchurl = "{{URL::to('/manager/get-question-by-cat')}}";
             var id = $(this).attr('data-category-id');
-            console.log(id);
+            var uid = $(this).attr('uid');
+            console.log(uid);
             var form_data = new FormData();			
             form_data.append("id", id);
+            form_data.append("uid", uid);
 
             $.ajax({
                 url:searchurl,
@@ -197,7 +224,7 @@
                 processData: false,
                 data:form_data,
                 success: function(d){
-                    $("#get_product").html(d.product);
+                    $("#questions-container").html(d.question);
                     // console.log((d.min));
                 },
                 error:function(d){

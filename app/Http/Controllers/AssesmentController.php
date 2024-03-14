@@ -12,10 +12,12 @@ use App\Models\QnCategory;
 use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
+use App\Models\AssesmentAnswerComment;
 use Illuminate\Support\Facades\DB;
 use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use PHPUnit\TextUI\Configuration\Php;
 
 class AssesmentController extends Controller
 {
@@ -142,7 +144,7 @@ class AssesmentController extends Controller
 
         $assesment = Assesment::where('user_id', $id)->first();
         $data = WorkStationAssesment::where('user_id', $id)->first();
-        $assesmentanswers = AssesmentAnswer::where('user_id', $id)->get();
+        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('user_id', $id)->get();
 
         $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) {
                             $query->where('answer', 'No');
@@ -159,44 +161,124 @@ class AssesmentController extends Controller
 
     //    search property start
 
-    public function searchproduct(Request $request){
+    public function getQuestionByCat(Request $request)
+    {
 
         $id = $request->id;
+        $user = User::where('id', $request->uid)->first();
         $questions = Question::where('qn_category_id', $id)->get();
-        $assesmentanswers = AssesmentAnswer::where('qn_category_id', $id)->get();
+        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('qn_category_id', $id)->where('user_id', $user->id)->get();
         
         $prop = '';
-        
-            foreach ($assesmentanswers as $product){
-                // <!-- Single Property Start -->
-                $prop.= '<div class="col-md-12 box-custom mb-4 rounded-3">
-                            <div class="row">
-                                <div class="col-md-8 col-xs-12">
-                                    <h4 style="margin-top: 0px" class="fw-bold text-primary">'.$product->product_name.'</h4>
-                                    <p>'.$product->description.'</p>
+            $count = 0;
+            foreach ($assesmentanswers as $key => $assanswer) {
+                $count = $count + 1;
+                if ($assanswer->answer != "Yes") {
+                    $prop.= '<div class="row pt-5 px-4">
+                        <div class="col-lg-12 mb-4">
+                            <h6 class="mb-3">'.$count.'. '.$assanswer->question->question.'</h6>
+                            <div class="d-flex">
+                                <label for="yes" class="mx-4 fw-bold text-success">
+                                    YES <input type="radio" name="answers['.$assanswer->id.']" class="form-check-input" id="yes'.$assanswer->id.'" value="Yes" required="required" ';
+                                     if(isset($assanswer->answer)) {
+                                        if ($assanswer->answer == 'Yes') {
+                                            $prop.= 'checked';
+                                        }
+                                    } 
+
+                                    $prop.= '></label>
+    
+                                    <label for="NO" class="me-3 fw-bold text-danger">
+                                        NO<input type="radio" name="answers['.$assanswer->id.']" class="form-check-input" value="No" required="required" ';
+                                        if(isset($assanswer->answer)) {
+                                            if ($assanswer->answer == 'No') {
+                                                $prop.= 'checked';
+                                            }
+                                        } 
+                                        
+                                    $prop.= '>
+                                    </label>
                                 </div>
-                                <div class="col-md-2 col-xs-6">£'.number_format($product->price, 2).'</div>
+                            </div>';
 
-
-                                <div class="col-md-2 col-xs-6">';
-
-                            if ($product->assign == 1) {
-                                
-                                $prop.= '<button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
-
-                            } else {
-                                
-                                $prop.= '<button class="btn btn-primary text-uppercase btn-sm btn-modal" data-toggle="modal" data-target="#additemModal" style="margin-left: -7px;" pid="'.$product->id.'" pname="'.$product->product_name.'" pdesc="'.$product->description.'" price="'.number_format($product->price, 2).'"> add </button>';
+                            $cmnt = '';
+                            foreach ($assanswer->assesmentAnswerComments as $comment) {
+                                if ($comment->created_by == "Manager") {
+                                    $cmnt.= '<div class="row">
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">'.$comment->comment.'
+                                                    <br>
+                                                    <small>Date: '.$comment->date.'</small>
+                                                </div>
+                                            </div>';
+                                } else {
+                                    $cmnt.= '<div class="row">
+                                                <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">'.$comment->comment.'
+                                                    <br>
+                                                    <small>Date: '.$comment->date.'</small>
+                                                </div>
+                                                <div class="col-lg-4"></div>
+                                            </div>';
+                                }
                             }
-                            
-                            $prop.='</div></div></div>';
+
+                            $prop.= '<form action="" method="POST">
+
+                            <input type="hidden" name="user_id" value="'.$user->id.'">
+                            <div class="col-lg-12">
+                                <textarea name="manager_comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                <input type="hidden" name="assans_id" value="'.$assanswer->id.'">
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row py-3 ">
+                                    <div class="col-lg-5 d-flex align-items-center">
+                                    </div>
+                                    <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                        <button type="button" id="resolvedBtn" class="btn btn-success d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
+                                        <button type="button" id="sendBtn" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form></div>';
+                                    
+                } 
             }
 
+            foreach ($assesmentanswers as $key => $assanswer) {
+                $count = $count + 1;
+                if ($assanswer->answer != "No") {
+                    $prop.= '<div class="row pt-5 px-4">
+                                <div class="col-lg-12 mb-4">
+                                    <h6 class="mb-3">'.$count.'. '.$assanswer->question->question.'</h6>
+                                    <div class="d-flex">
+                                        <label for="yes" class="mx-4 fw-bold text-success"> YES <input type="radio" name="answers['.$assanswer->id.']"  class="form-check-input" id="yes'.$assanswer->id.'" value="Yes" required="required" ';
 
+                                        if(isset($assanswer->answer)) {
+                                            if ($assanswer->answer == 'Yes') {
+                                                $prop.= 'checked';
+                                            }
+                                        } 
 
-            return response()->json(['status'=> 303,'product'=>$prop]);
+                                    $prop.= '></label>
+    
+                                        <label for="NO" class="me-3 fw-bold text-danger"> NO<input type="radio" name="answers['.$assanswer->id.']" class="form-check-input" value="No" required="required" ';
 
-        }
+                                        if(isset($assanswer->answer)) {
+                                            if ($assanswer->answer == 'No') {
+                                                $prop.= 'checked';
+                                            }
+                                        } 
+                                        
+                                    $prop.= '>
+                                    </label>
+                                </div>
+                            </div>';
+                    
+                } 
+            }
+        return response()->json(['status'=> 303,'question'=>$prop]);
+    }
     // end search 
 
 
@@ -211,28 +293,25 @@ class AssesmentController extends Controller
             'manager_comment' => 'required',
         ], $messages);
         
-
-        dd($request->all());
-        
-        $chkassesment = Assesment::whereUserId(Auth::user()->id)->first();
-        if (isset($chkassesment)) {
-            $data = Assesment::find($chkassesment->id);
-        } else {
-            $data = new Assesment;
-            $data->date = date('Y-m-d');
-            $data->assesmentid = date('his').Auth::user()->id;
-        }
-        $data->line_manager_id = $request->line_manager_id;
-        $data->department_id = $request->department_id;
-        $data->division_id = $request->division_id;
-        $data->user_id = Auth::user()->id;
+        // dd($request->all());
+        $data = new AssesmentAnswerComment();
+        $data->date = date('Y-m-d');
+        $data->line_manager_id = Auth::user()->id;
+        $data->comment = $request->manager_comment;
+        $data->assesment_answer_id = $request->assans_id;
+        $data->user_id = $request->user_id;
+        $data->created_by = "Manager";
         if ($data->save()) {
             
-            return Redirect::route('user.survey')->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
+            $assesmentans = AssesmentAnswer::find($request->assans_id);
+            $assesmentans->solved = "1";
+            $assesmentans->save();
+
+            return back()->with('success', 'Your comment successfully saved. Thank you for your response.');
 
 
         }else{
-            
+            return back()->with('error', 'Server error!!');
         }
         
 

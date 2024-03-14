@@ -19,4 +19,9 @@ class AssesmentAnswer extends Model
     {
         return $this->belongsTo(QnCategory::class);
     }
+
+    public function assesmentAnswerComments()
+    {
+        return $this->hasMany(AssesmentAnswerComment::class);
+    }
 }
