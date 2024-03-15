@@ -21,7 +21,7 @@
   line-height: 2;
   font-weight: 600;
 }
-.custom-list li a:hover {
+.custom-list li:hover {
   background-color: rgba(211, 211, 211, 0.2588235294);
   color: #dd9509;
 }

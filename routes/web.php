@@ -83,6 +83,7 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
 
     // Route::post('/get-question-by-cat', [AssesmentController::class, 'getQuestionByCat']);
     Route::post('/manager-comment', [AssesmentController::class, 'managerCommentStore'])->name('question.managercomment');
+    Route::post('/managers-comment', [AssesmentController::class, 'managerMessageStore']);
 
 
 });

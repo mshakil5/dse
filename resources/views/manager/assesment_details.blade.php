@@ -84,7 +84,7 @@
                             
 
                             @foreach ($assesmentanswers as $key => $assanswer)
-                            @if ($assanswer->answer != "Yes")
+                            @if($assanswer->answer != "Yes" && $assanswer->solved == 0)
                             <div class="row pt-5 px-4">
                                 <div class="col-lg-12 mb-4">
                                     <h6 class="mb-3">{{ $key + 1 }}. {{ $assanswer->question->question }}</h6>
@@ -125,13 +125,12 @@
                                 
                                 
 
-
+                                @if ($assanswer->solved == 0)
                                 <form action="{{route('question.managercomment')}}" method="POST">
                                     @csrf
                                     <input type="hidden" name="user_id" value="{{$user->id}}">
-                                <!-- Buttons -->
                                     <div class="col-lg-12">
-                                        <textarea name="manager_comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                        <textarea name="manager_comment" id="comment{{$assanswer->id}}" class="form-control" placeholder="Comments Here" required></textarea>
                                         <input type="hidden" name="assans_id" value="{{ $assanswer->id }}">
                                     </div>
                                     <div class="col-lg-12">
@@ -141,7 +140,9 @@
                                             </div>
                                             <div class="col-lg-7 d-flex gap-3 justify-content-end">
                                                 <button type="submit" class="btn btn-success d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
-                                                <button type="button" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+
+
+                                                <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="{{$user->id}}" assans_id="{{ $assanswer->id }}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                 </button>
                                             </div>
                                         </div>
@@ -149,12 +150,18 @@
 
                                     
                                 </form>
+                                @endif
+
+                                
+
+
+
                             </div>
                             @endif
                             @endforeach
 
                             @foreach ($assesmentanswers as $key => $assanswer)
-                            @if ($assanswer->answer != "No")
+                            @if ($assanswer->answer != "No" || $assanswer->solved == 1)
                             <div class="row pt-5 px-4">
                                 <div class="col-lg-12 mb-4">
                                     <h6 class="mb-3">{{ $key + 1 }}. {{ $assanswer->question->question }}</h6>
@@ -169,6 +176,32 @@
                                         </label>
                                     </div>
                                 </div>
+
+                                @foreach ($assanswer->assesmentAnswerComments as $comment)
+                                    @if ($comment->created_by == "Manager")
+                                        <div class="row">
+                                            <div class="col-lg-4"></div>
+                                            <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">{{$comment->comment}}
+                                                <br>
+                                            <small>Date: {{$comment->date}}</small>
+                                            </div>
+                                        </div>
+                                    @else
+
+                                        <div class="row">
+                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                                <br>
+                                                <small>Date: {{$comment->date}}</small>
+                                            </div>
+                                            <div class="col-lg-4"></div>
+                                        </div>
+                                        
+                                    @endif
+                                @endforeach
+
+
+
+
                             </div>
                             @endif
                             @endforeach
@@ -179,9 +212,9 @@
                         <!-- Categories -->
                             <div class="col-lg-4 shadow-sm border rounded-0 bg-light">
                                 <div class="py-4">
-                                    <ol class="custom-list">
+                                    <ol class="custom-list w-100">
                                         @foreach($questionCategories as $key => $category)
-                                            <li ><a href="{{route('assessment.details.category', ['uid' => $user->id, 'cat_id' => $category->id ])}}" class="category-link getsrchval" data-category-id="{{ $category->id }}" uid="{{$user->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a>
+                                            <li class="d-flex justify-content-between align-items-center pe-2 rounded-2"><a href="{{route('assessment.details.category', ['uid' => $user->id, 'cat_id' => $category->id ])}}" class="d-block category-link getsrchval" data-category-id="{{ $category->id }}" uid="{{$user->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a><span class="badge text-bg-warning">{{$category->no_count}}</span>
                                             </li>
                                         @endforeach
                                     </ol>
@@ -206,33 +239,37 @@
      $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         // 
 
-        // category wise product show
-        $("body").delegate(".getsrchval","click",function () {
-            var searchurl = "{{URL::to('/manager/get-question-by-cat')}}";
-            var id = $(this).attr('data-category-id');
-            var uid = $(this).attr('uid');
-            console.log(uid);
-            var form_data = new FormData();			
-            form_data.append("id", id);
-            form_data.append("uid", uid);
+        
+        // comment store 
+    $("body").delegate(".addcomment","click",function () {
+        var commenturl = "{{URL::to('/manager/managers-comment')}}";
 
-            $.ajax({
-                url:searchurl,
-                method: "POST",
-                type: "POST",
-                contentType: false,
-                processData: false,
-                data:form_data,
-                success: function(d){
-                    $("#questions-container").html(d.question);
-                    // console.log((d.min));
-                },
-                error:function(d){
-                    console.log(d);
-                }
-            });
+        var assans_id = $(this).attr('assans_id');
+        var user = $(this).attr('user');
+        var comment = $("#comment"+assans_id).val();
+        console.log(user, comment, assans_id);
+        var form_data = new FormData();		
+        form_data.append("assans_id", assans_id);
+        form_data.append("user_id", user);
+        form_data.append("comment", comment);
+
+        $.ajax({
+            url:commenturl,
+            method: "POST",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data:form_data,
+            success: function(d){
+                window.setTimeout(function(){location.reload()},2000)
+                // console.log((d.min));
+            },
+            error:function(d){
+                console.log(d);
+            }
         });
-        // category wise product show
+    });
+    // comment store 
 </script>
     
 @endsection

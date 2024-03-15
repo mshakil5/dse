@@ -145,9 +145,9 @@ class AssesmentController extends Controller
         $assesment = Assesment::where('user_id', $id)->first();
         $data = WorkStationAssesment::where('user_id', $id)->first();
         $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('user_id', $id)->get();
-
-        $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) {
-                            $query->where('answer', 'No');
+        $userId = $id;
+        $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($userId) {
+                            $query->where('answer', 'No')->where('solved','0')->where('user_id', $userId);
                         }])->orderby('no_count','DESC')
                         ->get();
         // dd($questionCategories);
@@ -323,14 +323,45 @@ class AssesmentController extends Controller
             $assesmentans->save();
 
             return back()->with('success', 'Your comment successfully saved. Thank you for your response.');
-
-
         }else{
             return back()->with('error', 'Server error!!');
+        }
+    }
+
+    public function managerMessageStore(Request $request)
+    {
+
+        if(empty($request->comment)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        $data = new AssesmentAnswerComment();
+        $data->date = date('Y-m-d');
+        $data->line_manager_id = Auth::user()->id;
+        $data->comment = $request->comment;
+        $data->assesment_answer_id = $request->assans_id;
+        $data->user_id = $request->user_id;
+        $data->created_by = "Manager";
+        if ($data->save()) {
+            $assesmentans = AssesmentAnswer::find($request->assans_id);
+            $assesmentans->solved = "0";
+            $assesmentans->save();
+            
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
         
 
     }
+
+
+
+
 
     public function userCommentStore(Request $request)
     {
@@ -343,7 +374,7 @@ class AssesmentController extends Controller
             'comment' => 'required',
         ], $messages);
         
-        dd($request->all());
+        
         $data = new AssesmentAnswerComment();
         $data->date = date('Y-m-d');
         $data->line_manager_id = $request->line_manager_id;
@@ -352,16 +383,15 @@ class AssesmentController extends Controller
         $data->user_id = Auth::user()->id;
         $data->created_by = "User";
         if ($data->save()) {
-            
             $assesmentans = AssesmentAnswer::find($request->assans_id);
             $assesmentans->solved = "1";
             $assesmentans->save();
-
-            return back()->with('success', 'Your comment successfully saved. Thank you for your response.');
-
+            
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
 
         }else{
-            return back()->with('error', 'Server error!!');
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
         
 
