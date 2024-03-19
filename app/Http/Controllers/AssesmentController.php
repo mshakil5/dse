@@ -13,6 +13,7 @@ use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
 use App\Models\AssesmentAnswerComment;
+use App\Models\DeterminigAnswer;
 use Illuminate\Support\Facades\DB;
 use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
@@ -28,7 +29,7 @@ class AssesmentController extends Controller
         $departments = Department::select('id','name')->get();
         $divisions = Division::select('id','name')->get();
         $questions = Question::with('subquestion')->get();
-        $assesments = Assesment::where('line_manager_id',Auth::user()->id)->pluck('user_id');
+        $assesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->pluck('user_id');
         
         $users = User::whereIn('id',$assesments)->get();
         // $users = User::all();

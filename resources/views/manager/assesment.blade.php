@@ -13,7 +13,8 @@
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
                           <th scope="col">Surname</th>
-                          <th scope="col">Progress</th>
+                          <th scope="col">Count</th>
+                          <th scope="col">Test</th>
                           <th scope="col">Created</th>
                           <th scope="col">Updated</th>
                           <th scope="col" class="text-center">Action</th>
@@ -28,12 +29,9 @@
                         <td>{{$data->name}}</td>
                         <td>{{$data->surname}}</td>
                         <td>
-                            <div class="progress">
-                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info"
-                                    role="progressbar" aria-label="Animated striped example" aria-valuenow="75"
-                                    aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
-                            </div>
+                            <span class="badge text-bg-warning">100</span>
                         </td>
+                        <td></td>
                         <td>{{$data->created_at}}</td>
                         <td>{{$data->updated_at}}</td>
                         <td>

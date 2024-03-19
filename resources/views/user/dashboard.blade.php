@@ -11,12 +11,12 @@
                     <a href="{{route('user.determinigQn')}}">
                       <div class="col-lg-4">
                           <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                              <h4 class=" text-center py-3 position-absolute top-50 start-50 translate-middle w-100" style="z-index: 1;">
-                                  some text goes here</h4>
+                              {{-- <h4 class=" text-center py-3 position-absolute top-50 start-50 translate-middle w-100" style="z-index: 1;">
+                                  some text goes here</h4> --}}
                               <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
                               <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
                                   <input type="radio">
-                                  somener
+                                  Ongoing
                               </div>
                           </label>
                       </div>
