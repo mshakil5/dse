@@ -12,7 +12,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center text-danger" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <iconify-icon class="me-1 fs-3 " icon="ph:users-light"></iconify-icon>  Users
@@ -25,7 +25,7 @@
                                     </li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link  d-flex align-items-center text-info" href="{{route('user.determinigQn')}}" >
@@ -33,7 +33,7 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item dropdown">
+                            {{-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle  d-flex align-items-center text-warning" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Assesments
@@ -46,7 +46,7 @@
                                     </li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <!-- <li class="nav-item">
                                 <a class="nav-link  " aria-current="page" href="#">Insights</a>
                             </li>
@@ -55,11 +55,11 @@
                             </li> -->
                         </ul>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="#" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" 
                                         icon="ph:gear-light"></iconify-icon> Settings
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">

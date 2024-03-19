@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\LinemanagerController;
 use App\Http\Controllers\AssesmentController;
   
 /*
@@ -75,15 +76,18 @@ All manager Routes List
 Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'managerHome'])->name('manager.dashboard');
+    
+    Route::get('/get-active-users', [LinemanagerController::class, 'getAllUsers'])->name('linemanager.userlist');
+    Route::get('/get-users-determining-answer/{id}', [LinemanagerController::class, 'getUsersDeterminingAnswer'])->name('linemanager.determiniganswer');
+
     Route::get('/get-assesment', [AssesmentController::class, 'getAssesmentbyLineManager'])->name('manager.assesment');
     Route::get('/assessment/user/{id}', [AssesmentController::class,'showAssessmentUserDetails'])->name('assessment.user.details');
 
     Route::get('/assessment/user/{uid}/{cat_id}', [AssesmentController::class,'showAssessmentUserDetailsbyCategory'])->name('assessment.details.category');
 
-
-    // Route::post('/get-question-by-cat', [AssesmentController::class, 'getQuestionByCat']);
     Route::post('/manager-comment', [AssesmentController::class, 'managerCommentStore'])->name('question.managercomment');
     Route::post('/managers-comment', [AssesmentController::class, 'managerMessageStore']);
+    Route::post('/add-new-schedule', [LinemanagerController::class, 'addNewSchedule']);
 
 
 });

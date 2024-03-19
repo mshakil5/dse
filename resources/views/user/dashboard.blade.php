@@ -15,7 +15,7 @@
                                   some text goes here</h4> --}}
                               <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
                               <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
-                                  <input type="radio">
+                                  {{-- <input type="radio"> --}}
                                   Ongoing
                               </div>
                           </label>

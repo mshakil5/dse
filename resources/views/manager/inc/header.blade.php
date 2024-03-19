@@ -18,12 +18,7 @@
                                     <iconify-icon class="me-1 fs-3 " icon="ph:users-light"></iconify-icon>  Users
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a class="dropdown-item" href="{{route('linemanager.userlist')}}">User list</a></li>
                                 </ul>
                             </li>
 

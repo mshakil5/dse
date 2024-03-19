@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
+use App\Models\AssesmentSchedule;
 use App\Models\DeterminigAnswer;
 use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
@@ -85,6 +86,8 @@ class SurveyController extends Controller
             'wow_system.required' => 'Please, choose an option.'
         ]);
 
+        
+
         $chkDtid = DeterminigAnswer::where('user_id',Auth::user()->id)->first();
 
         if (isset($chkDtid)) {
@@ -94,19 +97,21 @@ class SurveyController extends Controller
             $data->date = date('Y-m-d');
             $data->user_id = Auth::user()->id;
         }
-        
+
         $data->line_manager_id = $request->line_manager;
         $data->department_id = $request->department_id;
         $data->division_id = $request->division_id;
         $data->work_hour = $request->work_hour;
         $data->wow_system = $request->wow_system;
         if ($data->save()) {
+
             if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
-                return Redirect::route('user.survey')->with('success', 'Your response successfully saved. Thank you for your response.!!');
+                // return Redirect::route('user.survey')->with('success', 'Your response successfully saved. Thank you for your response.!!');
+                
+                return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
             } else {
                 return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
             }
-            
             
         } else {
 
