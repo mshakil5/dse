@@ -22,7 +22,7 @@
                         <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
 
                             <div class="py-3">
-                                <h2 class="text-danger text-center ">Dislay screen equipment assesment</h2>
+                                <h2 class="text-danger text-center ">Display screen equipment assesment</h2>
 
                                 @if(session('success'))
                                     <div class="alert alert-success">
