@@ -14,4 +14,9 @@ class DeterminigAnswer extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function assesmentSchedule()
+    {
+        return $this->hasMany(AssesmentSchedule::class);
+    }
 }

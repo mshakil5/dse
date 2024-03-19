@@ -26,6 +26,7 @@
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
                           <th scope="col">Surname</th>
+                          <th scope="col">Assesment Start Date</th>
                           <th scope="col" class="text-center">Action</th>
                       </tr>
                   </thead>
@@ -44,6 +45,7 @@
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
+                        <td> @if (isset($chkschedule)){{$chkschedule->start_date }}@endif</td>
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <a href="{{ route('linemanager.determiniganswer', $data->id) }}">

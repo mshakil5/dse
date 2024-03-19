@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class AssesmentSchedule extends Model
 {
     use HasFactory;
+
+    public function determinigAnswer()
+    {
+        return $this->belongsTo(DeterminigAnswer::class);
+    }
 }
