@@ -254,45 +254,6 @@ $(document).ready(function() {
         allowClear: true
     });
 
-
-
-    var url = "{{URL::to('/user/add-assesment')}}";
-    $("#division_id, #department_id, #line_manager").change(function(){
-        var id =  $(this).val();
-        var fieldname =  $(this).attr('name');
-        var line_manager = $("#line_manager").val();
-        var department_id = $("#department_id").val();
-        var division_id = $("#division_id").val();
-        // console.log(line_manager, department_id, division_id);
-        
-        $.ajax({
-            url: url,
-            method: "POST",
-            data: {line_manager, department_id, division_id},
-
-            success: function (d) {
-                
-                $("#assesment_id").val(d.assesmentid);
-            },
-            error: function (d) {
-                console.log(d);
-            }
-        }); 
-            
-
-        
-    });
-        
-
-
-
-
-
-
-
-
-
-
 });
 
 </script>

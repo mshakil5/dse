@@ -1,9 +1,12 @@
 <?php
   
 namespace App\Http\Controllers;
- 
+
+use App\Models\AssesmentSchedule;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Carbon;
+use Illuminate\support\Facades\Auth;
   
 class HomeController extends Controller
 {
@@ -64,7 +67,10 @@ class HomeController extends Controller
 
     public function userDashboard(): View
     {
-        return view('user.dashboard');
+        $dateToday = Carbon::now()->toDateString();
+        // dd($ldate);
+        $assesment = AssesmentSchedule::where('user_id', Auth::user()->id)->where('start_date', '<=', $dateToday)->where('status', 0)->get();
+        return view('user.dashboard', compact('assesment'));
     }
 
     public function expertHome(): View

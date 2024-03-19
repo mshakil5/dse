@@ -63,6 +63,8 @@
                                 <form action="{{route('user.workStationAssesmentStore')}}" method="POST">
                                     @csrf
                                     <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
+                                        <input type="hidden" id="program_number" name="program_number"
+                                            value="{{$programNumber}}">
                                         <input type="hidden" id="assesment_id" name="assesment_id"
                                             value="@if(isset($assesment)){{$assesment->id}}@endif">
                                         <input type="hidden" id="determinig_answer_id" name="determinig_answer_id"

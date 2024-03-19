@@ -32,8 +32,9 @@ class SurveyController extends Controller
     //     return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision'));
     // }
 
-    public function survey()
+    public function survey($programNumber)
     {
+        
         $determiningans = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
         $departments = Department::whereId($determiningans->department_id)->first();
         $chkassesmentanswer = AssesmentAnswer::whereUserId(Auth::user()->id)->count();
@@ -51,10 +52,10 @@ class SurveyController extends Controller
 
 
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
-        $data = WorkStationAssesment::whereUserId(Auth::user()->id)->first();
+        $data = WorkStationAssesment::whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
-        return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision'));
+        return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber'));
     }
 
     public function determiningQuestion()
@@ -152,6 +153,7 @@ class SurveyController extends Controller
             $data->user_id = Auth::user()->id;
         }
 
+        $data->program_number = $request->program_number;
         $data->date = $request->date;
         $data->determinig_answer_id = $request->determinig_answer_id;
         $data->work_station_number = $request->work_station_number;

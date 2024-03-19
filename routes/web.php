@@ -54,7 +54,7 @@ All Normal Users Routes List
 Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
-    Route::get('/survey', [SurveyController::class, 'survey'])->name('user.survey');
+    Route::get('/survey/{program_number}', [SurveyController::class, 'survey'])->name('user.survey');
     Route::get('/determining-question', [SurveyController::class, 'determiningQuestion'])->name('user.determinigQn');
     Route::post('/determining-question', [SurveyController::class, 'determiningQuestionStore'])->name('user.determinigQnStore');
     Route::post('/work-station-assesment-store', [SurveyController::class, 'workStationAssesmentStore'])->name('user.workStationAssesmentStore');

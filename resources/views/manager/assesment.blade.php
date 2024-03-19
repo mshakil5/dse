@@ -15,8 +15,6 @@
                           <th scope="col">Surname</th>
                           <th scope="col">Count</th>
                           <th scope="col">Test</th>
-                          <th scope="col">Created</th>
-                          <th scope="col">Updated</th>
                           <th scope="col" class="text-center">Action</th>
                       </tr>
                   </thead>
@@ -32,8 +30,8 @@
                             <span class="badge text-bg-warning">100</span>
                         </td>
                         <td></td>
-                        <td>{{$data->created_at}}</td>
-                        <td>{{$data->updated_at}}</td>
+                        {{-- <td>{{$data->created_at}}</td>
+                        <td>{{$data->updated_at}}</td> --}}
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                             <a href="{{ route('assessment.user.details', $data->id) }}">
