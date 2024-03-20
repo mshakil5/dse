@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AssesmentSchedule;
+use App\Models\DeterminigAnswer;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Carbon;
@@ -62,7 +63,8 @@ class HomeController extends Controller
      */
     public function managerHome(): View
     {
-        return view('manager.dashboard');
+        $dusers = DeterminigAnswer::where('line_manager_id', Auth::user()->id)->where('status', 0)->get();
+        return view('manager.dashboard', compact('dusers'));
     }
 
     public function userDashboard(): View
