@@ -142,16 +142,18 @@ class AssesmentController extends Controller
 
     public function showAssessmentUserDetails(Request $request, $id)
     {
-        $assesment = Assesment::where('user_id', $id)->first();
-        $data = WorkStationAssesment::where('user_id', $id)->first();
-        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('user_id', $id)->get();
-        $userId = $id;
-        $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($userId) {
-                            $query->where('answer', 'No')->where('solved','0')->where('user_id', $userId);
+
+        // dd($id);
+        $assesment = Assesment::where('program_number', $id)->first();
+        $data = WorkStationAssesment::where('program_number', $id)->first();
+        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->get();
+        // dd($assesmentanswers);
+        $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($id) {
+                            $query->where('answer', 'No')->where('solved','0')->where('program_number', $id);
                         }])->orderby('no_count','DESC')
                         ->get();
         // dd($questionCategories);
-        $user = User::where('id', $id)->first();
+        $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
         return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers'));
     }

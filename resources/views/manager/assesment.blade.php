@@ -50,22 +50,19 @@
                         <td></td>
                         <td>
 
-                          @if ($chkSchedule->status == 1)
-                          <span class="badge text-bg-warning">Completed</span>
-                          @else
-                          <a data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
-                            <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Next date</span>
-                          </a>
-                          @endif
+                            @if ($chkSchedule->status == 1)
+                            <span class="badge text-bg-warning">Completed</span>
+                            @else
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
+                              <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Next date</span>
+                            </a>
+                            @endif
 
-
-
-                            
                         </td>
                         
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
-                            <a href="{{ route('assessment.user.details', $data->user_id) }}">
+                            <a href="{{ route('assessment.user.details', $data->program_number) }}">
                                 <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
                             </a>
                         </div>
