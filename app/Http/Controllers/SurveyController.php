@@ -40,9 +40,9 @@ class SurveyController extends Controller
         $chkassesmentanswer = AssesmentAnswer::whereUserId(Auth::user()->id)->count();
         
         if ($chkassesmentanswer > 0) {
-            $questions = Question::with(['assesmentAnswers' => function($query) {
+            $questions = Question::with(['assesmentAnswers' => function($query) use ($programNumber) {
                 // Filter assessment answers by user_id
-                $query->where('user_id', auth()->id())
+                $query->where('user_id', auth()->id())->where('program_number', $programNumber)
                      ->with('assesmentAnswerComments'); // Eager load assessment answer comments
             }])->get();
             
@@ -144,7 +144,7 @@ class SurveyController extends Controller
             'software.required' => 'Please, select a software which you use.'
         ]);
 
-        $chkDtid = WorkStationAssesment::where('user_id',Auth::user()->id)->first();
+        $chkDtid = WorkStationAssesment::where('user_id',Auth::user()->id)->where('program_number', $request->program_number)->first();
 
         if (isset($chkDtid)) {
             $data = WorkStationAssesment::find($chkDtid->id);

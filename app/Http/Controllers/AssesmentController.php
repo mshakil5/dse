@@ -50,7 +50,7 @@ class AssesmentController extends Controller
         ], $messages);
         
 
-        $chkassesment = Assesment::whereUserId(Auth::user()->id)->first();
+        $chkassesment = Assesment::whereUserId(Auth::user()->id)->where('program_number',$request->pnumber)->first();
         if (isset($chkassesment)) {
             $data = Assesment::find($chkassesment->id);
         } else {
