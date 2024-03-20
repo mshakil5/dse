@@ -35,7 +35,7 @@
                     @foreach ($users as $key => $data)
 
                     @php
-                        $chkschedule = \App\Models\AssesmentSchedule::where('user_id', $data->user_id)->first();
+                        $chkschedule = \App\Models\AssesmentSchedule::where('user_id', $data->user_id)->where('status', 0)->orderby('id','DESC')->first();
                     @endphp
 
 

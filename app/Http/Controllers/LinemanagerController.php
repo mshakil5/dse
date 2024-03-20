@@ -38,6 +38,12 @@ class LinemanagerController extends Controller
             exit();
         }
 
+        if ($request->prgmnumber) {
+            $oldSchedule = AssesmentSchedule::where('program_number', $request->prgmnumber)->where('line_manager_id', Auth::user()->id)->first();
+            $oldSchedule->status = 1;
+            $oldSchedule->save();
+        }
+
         $newschedule = new AssesmentSchedule();
         $newschedule->user_id = $request->uid;
         $newschedule->line_manager_id = Auth::user()->id;

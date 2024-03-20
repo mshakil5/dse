@@ -25,13 +25,10 @@ class AssesmentController extends Controller
 
     public function getAssesmentbyLineManager()
     {
-        $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
-        $departments = Department::select('id','name')->get();
-        $divisions = Division::select('id','name')->get();
-        $questions = Question::with('subquestion')->get();
-        $assesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->pluck('user_id');
+        $assesment = Assesment::where('line_manager_id',Auth::user()->id)->pluck('user_id');
+        $assesments = Assesment::where('line_manager_id',Auth::user()->id)->get();
         
-        $users = User::whereIn('id',$assesments)->get();
+        $users = User::whereIn('id',$assesment)->get();
         // $users = User::all();
         // dd($users);
         // dd($request->all());

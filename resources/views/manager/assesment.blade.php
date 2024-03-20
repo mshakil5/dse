@@ -29,30 +29,43 @@
                           <th scope="col">Surname</th>
                           <th scope="col">Count</th>
                           <th scope="col">Test</th>
-                          <th scope="col">Close</th>
+                          <th scope="col">Action</th>
                           <th scope="col" class="text-center">Action</th>
                       </tr>
                   </thead>
                   <tbody>
 
-                    @foreach ($users as $key => $data)
+                    @foreach ($assesments as $key => $data)
+                    @php
+                        $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
+                    @endphp
                       <tr>
                         <th scope="row">{{$key+1}}</th>
-                        <td>{{$data->email}}</td>
-                        <td>{{$data->name}}</td>
-                        <td>{{$data->surname}}</td>
+                        <td>{{$data->user->email}}</td>
+                        <td>{{$data->user->name}}</td>
+                        <td>{{$data->user->surname}}</td>
                         <td>
                             <span class="badge text-bg-warning">100</span>
                         </td>
                         <td></td>
-                        <td><a data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
+                        <td>
+
+                          @if ($chkSchedule->status == 1)
+                          <span class="badge text-bg-warning">Completed</span>
+                          @else
+                          <a data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
+                            <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Next date</span>
+                          </a>
+                          @endif
+
+
+
                             
-                            <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> New date</span>
-                        </a></td>
+                        </td>
                         
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
-                            <a href="{{ route('assessment.user.details', $data->id) }}">
+                            <a href="{{ route('assessment.user.details', $data->user_id) }}">
                                 <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
                             </a>
                         </div>
@@ -71,7 +84,7 @@
                                 </div>
                                 <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary schedule" uid="{{$data->user_id}}" data-id="{{$data->id}}">Save</button>
+                                <button type="button" class="btn btn-primary schedule" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
                                 </div>
                             </div>
                             </div>
@@ -107,13 +120,15 @@
   
           var did = $(this).attr("data-id");
           var uid = $(this).attr("uid");
+          var prgmnumber = $(this).attr("prgmnumber");
           var date = $("#date"+did).val();
+          var status = 1;
           
           
           $.ajax({
               url: url,
               method: "POST",
-              data: {uid:uid,date:date},
+              data: {uid:uid,date:date,status:status,prgmnumber:prgmnumber},
               success: function (d) {
                   if (d.status == 303) {
                       $(".ermsgod").html(d.message);
