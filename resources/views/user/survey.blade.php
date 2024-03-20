@@ -251,9 +251,9 @@
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-7 d-flex gap-3">
 
-                                                            <button type="button" class="btn btn-success d-flex align-items-center addcomment" for="commentForm{{$answers->id}}" qnid="{{$question->id}}" assans_id="{{ $answers->id }}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
+                                                            <button type="button" class="btn btn-success d-flex align-items-center addcomment" for="commentForm{{$answers->id}}" qnid="{{$question->id}}" assans_id="{{ $answers->id }}" solved="1"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
 
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center sendmsg" qnid="{{$question->id}}" assans_id="{{ $answers->id }}" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
 
                                                         </div>
@@ -361,9 +361,10 @@
 
 
     // comment store 
-    $("body").delegate(".addcomment","click",function () {
+    $("body").delegate(".addcomment, .sendmsg","click",function () {
         var commenturl = "{{URL::to('/user/user-comment')}}";
 
+        var solved = $(this).attr('solved');
         var qnid = $(this).attr('qnid');
         var assans_id = $(this).attr('assans_id');
         var line_manager_id = $("#line_manager_id").val();
@@ -371,6 +372,7 @@
         console.log(qnid, line_manager_id, comment);
         var form_data = new FormData();			
         form_data.append("qnid", qnid);
+        form_data.append("solved", solved);
         form_data.append("assans_id", assans_id);
         form_data.append("line_manager_id", line_manager_id);
         form_data.append("comment", comment);

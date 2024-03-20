@@ -368,14 +368,11 @@ class AssesmentController extends Controller
     public function userCommentStore(Request $request)
     {
 
-        $messages = [
-            'comment' => 'Comment required.',
-        ];
-        
-        $validatedData = $request->validate([
-            'comment' => 'required',
-        ], $messages);
-        
+        if(empty($request->comment)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         
         $data = new AssesmentAnswerComment();
         $data->date = date('Y-m-d');
@@ -386,7 +383,7 @@ class AssesmentController extends Controller
         $data->created_by = "User";
         if ($data->save()) {
             $assesmentans = AssesmentAnswer::find($request->assans_id);
-            $assesmentans->solved = "1";
+            $assesmentans->solved = $request->solved;
             $assesmentans->save();
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
