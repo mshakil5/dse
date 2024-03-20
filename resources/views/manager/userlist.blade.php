@@ -45,17 +45,18 @@
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
-                        <td> @if (isset($chkschedule)){{$chkschedule->start_date }}@endif</td>
+                        <td> @if (isset($chkschedule)){{$chkschedule->start_date }}@else 
+                            @if (empty($chkschedule))
+                            <a type="button" class="" data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
+                                <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> New date</span>
+                            </a>
+                        @endif @endif</td>
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
                                     <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
                                 </a>
-                                @if (empty($chkschedule))
-                                    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
-                                        <iconify-icon class="text-primary" icon="bi:plus"></iconify-icon>
-                                    </button>
-                                @endif
+                                
                             </div>
 
                             <!-- Modal -->

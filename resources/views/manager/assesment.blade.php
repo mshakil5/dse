@@ -49,8 +49,7 @@
                             
                             <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> New date</span>
                         </a></td>
-                        {{-- <td>{{$data->created_at}}</td>
-                        <td>{{$data->updated_at}}</td> --}}
+                        
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                             <a href="{{ route('assessment.user.details', $data->id) }}">
@@ -89,4 +88,47 @@
   </div>
 </section>
   
+@endsection
+@section('script')
+
+<script>
+
+  $(document).ready(function () {
+  
+      //header for csrf-token is must in laravel
+      $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+      //
+  
+  
+  
+      var url = "{{URL::to('/manager/add-new-schedule')}}";
+  
+      $(".schedule").click(function(){
+  
+          var did = $(this).attr("data-id");
+          var uid = $(this).attr("uid");
+          var date = $("#date"+did).val();
+          
+          
+          $.ajax({
+              url: url,
+              method: "POST",
+              data: {uid:uid,date:date},
+              success: function (d) {
+                  if (d.status == 303) {
+                      $(".ermsgod").html(d.message);
+                  }else if(d.status == 300){
+                      $(".ermsgod").html(d.message);
+                      location.reload();
+                  }
+              },
+              error: function (d) {
+                  console.log(d);
+              }
+          });
+  
+      });
+  });
+  </script>
+    
 @endsection
