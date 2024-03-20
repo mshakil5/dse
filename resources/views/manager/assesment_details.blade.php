@@ -239,14 +239,6 @@
 
 <script>
 
-$(window).load(function() {
-    window.scrollTo({
-        top: 1000,
-        behavior: 'smooth',
-    });
-});
-
-
      // header for csrf-token is must in laravel
      $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         // 

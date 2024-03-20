@@ -38,6 +38,7 @@
                     @foreach ($assesments as $key => $data)
                     @php
                         $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
+                        $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->count();
                     @endphp
                       <tr>
                         <th scope="row">{{$key+1}}</th>
@@ -45,13 +46,13 @@
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
                         <td>
-                            <span class="badge text-bg-warning">100</span>
+                            <span class="badge text-bg-warning">{{$count}}</span>
                         </td>
                         <td></td>
                         <td>
 
                             @if ($chkSchedule->status == 1)
-                            <span class="badge text-bg-warning">Completed</span>
+                            <span class="badge text-bg-success">Completed</span>
                             @else
                             <a data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
                               <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Next date</span>
