@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
-                                <a href="{{route('user.dashboard')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
+                                <a href="{{route('manager.assesment')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                     Exit
                                 </a>
                             </div>
@@ -85,7 +85,7 @@
 
                             @foreach ($assesmentanswers as $key => $assanswer)
                             @if($assanswer->answer != "Yes" && $assanswer->solved == 0)
-                            <div class="row pt-5 px-4">
+                            <div class="row pt-5 px-4" data-category="{{ $assanswer->question->qn_category_id }}">
                                 <div class="col-lg-12 mb-4">
                                     <h6 class="mb-3">{{ $key + 1 }}. {{ $assanswer->question->question }}</h6>
                                     <div class="d-flex">
@@ -214,8 +214,11 @@
                                 <div class="py-4">
                                     <ol class="custom-list w-100">
                                         @foreach($questionCategories as $key => $category)
-                                            <li class="d-flex justify-content-between align-items-center pe-2 rounded-2"><a href="{{route('assessment.details.category', ['uid' => $user->id, 'cat_id' => $category->id ])}}" class="d-block category-link getsrchval" data-category-id="{{ $category->id }}" uid="{{$user->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a><span class="badge text-bg-warning">{{$category->no_count}}</span>
+                                            <li class="d-flex justify-content-between align-items-center pe-2 rounded-2"><a href="{{route('assessment.details.category', ['uid' => $user->id, 'cat_id' => $category->id ])}}" class="d-block category-link getsrchval" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a><span class="badge text-bg-warning">{{$category->no_count}}</span>
                                             </li>
+
+                                            {{-- <li class="d-flex justify-content-between align-items-center pe-2 rounded-2" data-category="{{$category->id}}">{{ $key + 1 }}. {{ $category->name }}<span class="badge text-bg-warning">{{$category->no_count}}</span>
+                                            </li> --}}
                                         @endforeach
                                     </ol>
                                 </div>
@@ -235,6 +238,15 @@
 @section('script')
 
 <script>
+
+$(window).load(function() {
+    window.scrollTo({
+        top: 1000,
+        behavior: 'smooth',
+    });
+});
+
+
      // header for csrf-token is must in laravel
      $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         // 

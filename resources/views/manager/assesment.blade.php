@@ -1,6 +1,20 @@
 @extends('manager.layouts.manager')
 @section('content')
-
+<style>
+    /* Custom CSS to style the black modal */
+    .black-modal .modal-content {
+      background-color: black;
+      color: white;
+    }
+    .black-modal .modal-header {
+      border-bottom: none;
+    }
+    .black-modal .modal-footer {
+      border-top: none;
+    }
+    
+    a { cursor: pointer; }
+  </style>
 <section>
   <div class="container-fluid">
 
@@ -15,6 +29,7 @@
                           <th scope="col">Surname</th>
                           <th scope="col">Count</th>
                           <th scope="col">Test</th>
+                          <th scope="col">Close</th>
                           <th scope="col" class="text-center">Action</th>
                       </tr>
                   </thead>
@@ -30,6 +45,10 @@
                             <span class="badge text-bg-warning">100</span>
                         </td>
                         <td></td>
+                        <td><a data-bs-toggle="modal" data-bs-target="#exampleModal{{$data->id}}">
+                            
+                            <span class="badge text-bg-warning"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> New date</span>
+                        </a></td>
                         {{-- <td>{{$data->created_at}}</td>
                         <td>{{$data->updated_at}}</td> --}}
                         <td>
@@ -37,6 +56,26 @@
                             <a href="{{ route('assessment.user.details', $data->id) }}">
                                 <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
                             </a>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade black-modal" id="exampleModal{{$data->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Add next assesment date</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="user_id" id="user_id{{$data->id}}" value="{{$data->user_id}}">
+                                    <input type="date" class="form-control" id="date{{$data->id}}">
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary schedule" uid="{{$data->user_id}}" data-id="{{$data->id}}">Save</button>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                         
                         </td>

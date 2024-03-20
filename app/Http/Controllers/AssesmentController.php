@@ -42,7 +42,7 @@ class AssesmentController extends Controller
 
     public function assesmentStore(Request $request)
     {
-        
+        // dd($request->all());
 
         $messages = [
             'answers.*' => 'Each answer must be either "yes" or "no".',
@@ -60,6 +60,7 @@ class AssesmentController extends Controller
             $data = new Assesment;
             $data->date = date('Y-m-d');
             $data->assesmentid = date('his').Auth::user()->id;
+            $data->program_number = $request->pnumber;
         }
         $data->line_manager_id = $request->line_manager_id;
         $data->department_id = $request->department_id;
@@ -71,9 +72,9 @@ class AssesmentController extends Controller
             foreach ($request->answers as $question_id => $answer) {
                 $chkqncat = Question::whereId($question_id)->first();
                 $existingAnswer = AssesmentAnswer::where('user_id', Auth::user()->id)
-
                 ->where('assesment_id', $data->id)
                 ->where('question_id', $question_id)
+                ->where('program_number', $request->pnumber)
                 ->first();
 
                 // dd($existingAnswer);
@@ -89,6 +90,7 @@ class AssesmentController extends Controller
                     $question->date = date('Y-m-d');
                     $question->user_id = Auth::user()->id;
                     $question->assesmentid = $data->assesmentid;
+                    $question->program_number = $request->pnumber;
                     $question->assesment_id = $data->id;
                     $question->question_id = $question_id;
                     $question->qn_category_id = $chkqncat->qn_category_id;
@@ -98,7 +100,7 @@ class AssesmentController extends Controller
             }
 
 
-            return Redirect::route('user.survey')->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
+            return Redirect::route('user.survey', $request->pnumber)->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
 
 
         }else{

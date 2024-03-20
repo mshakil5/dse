@@ -191,6 +191,9 @@
                 <input type="hidden" name="line_manager_id" id="line_manager_id" value="{{ $selectedLineManager->id }}">
                 <input type="hidden" name="department_id" value="{{ $departments->id }}">
                 <input type="hidden" name="division_id" value="{{ $selectedDivision->id }}">
+                
+                <input type="hidden" id="pnumber" name="pnumber"
+                value="{{$programNumber}}">
 
                     @foreach ($questions as $key => $question)
 
