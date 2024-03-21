@@ -14,8 +14,7 @@ class LinemanagerController extends Controller
 {
     public function getAllUsers()
     {
-        $users = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->get();
-        
+        $users = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Manager')->get();
         return view('manager.userlist', compact('users'));
     }
 

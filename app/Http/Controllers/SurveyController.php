@@ -87,18 +87,22 @@ class SurveyController extends Controller
             'wow_system.required' => 'Please, choose an option.'
         ]);
 
+        $newschedule = new AssesmentSchedule();
+        $newschedule->user_id = Auth::user()->id; 
+        $newschedule->line_manager_id = $request->line_manager;
+        $newschedule->start_date = date('Y-m-d');
+        $newschedule->program_number = rand(100000, 9999999);
+        $newschedule->assign_account = "Manager";
+        $newschedule->created_by = Auth::user()->id;
+        $newschedule->save();
         
 
-        $chkDtid = DeterminigAnswer::where('user_id',Auth::user()->id)->first();
-
-        if (isset($chkDtid)) {
-            $data = DeterminigAnswer::find($chkDtid->id);
-        } else {
-            $data = new DeterminigAnswer();
-            $data->date = date('Y-m-d');
-            $data->user_id = Auth::user()->id;
-        }
-
+        
+        $data = new DeterminigAnswer();
+        $data->date = date('Y-m-d');
+        $data->user_id = Auth::user()->id;
+        $data->assesment_schedule_id  = $newschedule->id;
+        $data->program_number = $newschedule->program_number;
         $data->line_manager_id = $request->line_manager;
         $data->department_id = $request->department_id;
         $data->division_id = $request->division_id;
@@ -107,9 +111,8 @@ class SurveyController extends Controller
         if ($data->save()) {
 
             if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
-                // return Redirect::route('user.survey')->with('success', 'Your response successfully saved. Thank you for your response.!!');
+                return Redirect::route('user.survey',$newschedule->program_number)->with('success', 'Your response successfully saved. Thank you for your response.!!');
                 
-                return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
             } else {
                 return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
             }
