@@ -22,6 +22,9 @@ return new class extends Migration
             $table->foreign('division_id')->references('id')->on('divisions')->onDelete('cascade');
             $table->bigInteger('department_id')->unsigned()->nullable();
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->bigInteger('assesment_schedule_id')->unsigned()->nullable();
+            $table->foreign('assesment_schedule_id')->references('id')->on('assesment_schedules')->onDelete('cascade');
+            $table->string('program_number')->nullable();
             $table->string('work_hour')->nullable();
             $table->string('wow_system')->nullable();
             $table->boolean('status')->default(1);

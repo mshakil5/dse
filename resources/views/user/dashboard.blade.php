@@ -7,18 +7,15 @@
           <div class="row">
 
               <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light  ">
-                  <div class="row ">
-                    @if (isset($assesment))
+                  <div class=" ">
+                    {{-- @if (isset($assesment))
 
                     @foreach ($assesment as $item)
                     <a href="{{route('user.survey',$item->program_number)}}">
                         <div class="col-lg-4">
                             <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                                {{-- <h4 class=" text-center py-3 position-absolute top-50 start-50 translate-middle w-100" style="z-index: 1;">
-                                    some text goes here</h4> --}}
                                 <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
                                 <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
-                                    {{-- <input type="radio"> --}}
                                     Ongoing
                                 </div>
                             </label>
@@ -26,7 +23,28 @@
                       </a>
                     @endforeach
                         
-                    @endif
+                    @endif --}}
+
+                    <a href="{{route('user.determinigQn')}}">
+                        <div class="col-lg-4">
+                            <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
+                                <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
+                                <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
+                                    DSE Self Assesment
+                                </div>
+                            </label>
+                        </div>
+                    </a>
+
+                      <div class="col-lg-4">
+                        <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
+                            <div class="embed-responsive embed-responsive-16by9"><iframe width="1280" height="720" src="https://www.youtube.com/embed/_BtYctonMTQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+                            <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
+                                DSE Self Assesment
+                            </div>
+                        </label>
+                    </div>
                     
                   </div>
               </div>

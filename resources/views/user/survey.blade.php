@@ -41,24 +41,7 @@
                                 @endif
 
 
-                                <h2 class="text-success text-left ">Appendix 3</h2>
-                                <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation
-                                    self-assessment</h2>
-                                <p>
-                                    You are asked to complete the enclosed form to assess that you are using your
-                                    computer and workstation in the ‘optimum’ way, so that you suffer no ill-effects
-                                    from your work. Read the ‘things to consider’ column and assess yourself against the
-                                    photographs. Try to adjust your position or items of equipment. Once you have
-                                    completed your form, contact your manager to discuss your assessment who will
-                                    complete the right hand column on the form and make additional notes for further
-                                    action if this is required on the DSE Risk Assessment action plan.
-                                </p>
-                                <p>
-                                    DSE = visual display unit (VDU) / screen, stand & central processing unit (CPU) /
-                                    box. <br>
-                                    Workstation = Dictaphone, telephone, table, chair, document holder, footstool,
-                                    mouse.
-                                </p>
+                                <h2 class="text-danger text-center ">Display screen equipment assesment</h2>
 
                                 <form action="{{route('user.workStationAssesmentStore')}}" method="POST">
                                     @csrf
