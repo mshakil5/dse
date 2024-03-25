@@ -1,4 +1,4 @@
-@extends('manager.layouts.manager')
+@extends('manager.layouts.master')
 @section('content')
 
 <section class="header-main py-5">
@@ -13,8 +13,9 @@
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
-                            <a href="{{route('linemanager.userlist')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
-                                Exit
+                            
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 m-3" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Approved
                             </a>
                             <a href="{{route('linemanager.userlist')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                 Exit
@@ -28,10 +29,6 @@
                                 <h2 class="text-danger text-center ">Display screen equipment assesment</h2>
 
                                
-
-
-                                <form>
-                                    
                                 <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
 
                                     <div class="dropdown">
@@ -101,9 +98,6 @@
                             </div>
                             
 
-
-                        </form>
-
                     </div>
                 </div>
                 
@@ -114,5 +108,25 @@
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade black-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add next assesment date</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="user_id" id="user_id" value="{{$data->user_id}}">
+            <input type="date" class="form-control" id="date">
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary schedule" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
+        </div>
+    </div>
+    </div>
+</div>
   
 @endsection

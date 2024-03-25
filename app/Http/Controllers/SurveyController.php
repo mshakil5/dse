@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
+use App\Models\AssesmentLog;
 use App\Models\AssesmentSchedule;
 use App\Models\DetermingAnswerLog;
 use App\Models\DeterminigAnswer;
@@ -97,8 +98,6 @@ class SurveyController extends Controller
         $newschedule->created_by = Auth::user()->id;
         $newschedule->save();
         
-
-        
         $data = new DeterminigAnswer();
         $data->date = date('Y-m-d');
         $data->user_id = Auth::user()->id;
@@ -108,17 +107,20 @@ class SurveyController extends Controller
         $data->department_id = $request->department_id;
         $data->division_id = $request->division_id;
         $data->work_hour = $request->work_hour;
+        $data->wow_system = $request->wow_system;
         $data->assign_account = "Manager";
         $data->line_manager_notification = "1";
         if ($data->save()) {
 
-            $logs = new DetermingAnswerLog();
+            $logs = new AssesmentLog();
             $logs->date = date('Y-m-d');
             $logs->user_id = Auth::user()->id;
             $logs->line_manager_id = $request->line_manager;
+            $logs->assesment_schedule_id = $newschedule->id;
             $logs->assign_to = "Manager";
             $logs->assign_from = "User";
-            $logs->status_title = "New answer store";
+            $logs->status_title = "Determining Answer";
+            $logs->status = "1";
             $logs->save();
 
             if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
