@@ -11,6 +11,7 @@ use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
 use App\Models\AssesmentSchedule;
+use App\Models\DetermingAnswerLog;
 use App\Models\DeterminigAnswer;
 use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
@@ -107,8 +108,18 @@ class SurveyController extends Controller
         $data->department_id = $request->department_id;
         $data->division_id = $request->division_id;
         $data->work_hour = $request->work_hour;
-        $data->wow_system = $request->wow_system;
+        $data->assign_account = "Manager";
+        $data->line_manager_notification = "1";
         if ($data->save()) {
+
+            $logs = new DetermingAnswerLog();
+            $logs->date = date('Y-m-d');
+            $logs->user_id = Auth::user()->id;
+            $logs->line_manager_id = $request->line_manager;
+            $logs->assign_to = "Manager";
+            $logs->assign_from = "User";
+            $logs->status_title = "New answer store";
+            $logs->save();
 
             if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
                 return Redirect::route('user.survey',$newschedule->program_number)->with('success', 'Your response successfully saved. Thank you for your response.!!');
