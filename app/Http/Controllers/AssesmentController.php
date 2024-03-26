@@ -98,6 +98,12 @@ class AssesmentController extends Controller
                 }
             }
 
+            $updanswer = DeterminigAnswer::where('program_number', $request->pnumber)->first();
+            $updanswer->assign_account = "Manager";
+            $updanswer->line_manager_notification = "1";
+            $updanswer->user_notification = "0";
+            $updanswer->save();
+
 
             return Redirect::route('user.survey', $request->pnumber)->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
 
