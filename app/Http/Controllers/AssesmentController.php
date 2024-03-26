@@ -404,6 +404,10 @@ class AssesmentController extends Controller
         $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
         $closeSchedule->status = 1;
         $closeSchedule->save();
+
+        $danswer = DeterminigAnswer::where('program_number',$request->prgmnumber)->first();
+        $danswer->line_manager_notification = 0;
+        $danswer->save();
        
         // dd($request->all());
         $data = new AssesmentSchedule();
