@@ -69,7 +69,9 @@ class SurveyController extends Controller
         $schedule = AssesmentSchedule::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
         // dd($schedule);
         $data = DeterminigAnswer::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
-        return view('user.determiningqn', compact('linemanagers','departments','divisions','data'));
+
+    
+        return view('user.determiningqn', compact('linemanagers','departments','divisions','data','schedule'));
     }
 
     public function determiningQuestionStore(Request $request)
@@ -136,6 +138,60 @@ class SurveyController extends Controller
         } else {
 
             return back()->with('error', 'There was an error to store data!!');
+            
+            
+        }
+        
+
+        // dd($questions);
+        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment','data'));
+    }
+
+
+    public function determiningQuestionUpdate(Request $request)
+    {
+        // if(empty($request->comment)){
+        //     $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
+
+        
+        
+        $newschedule = AssesmentSchedule::find($request->assesment_schedule_id);
+        $newschedule->status = "0";
+        $newschedule->updated_by = Auth::user()->id;
+        $newschedule->save();
+        
+        $data = DeterminigAnswer::find($request->determining_answer_id);
+        $data->line_manager_id = $request->line_manager;
+        $data->department_id = $request->department_id;
+        $data->division_id = $request->division_id;
+        $data->work_hour = $request->work_hour;
+        $data->wow_system = $request->wow_system;
+        $data->assign_account = "Manager";
+        $data->line_manager_notification = "1";
+        if ($data->save()) {
+
+            $logs = new AssesmentLog();
+            $logs->date = date('Y-m-d');
+            $logs->user_id = Auth::user()->id;
+            $logs->line_manager_id = $request->line_manager;
+            $logs->determinig_answer_id = $data->id;
+            $logs->assesment_schedule_id = $newschedule->id;
+            $logs->program_number = $newschedule->program_number;
+            $logs->assign_to = "Manager";
+            $logs->assign_from = "User";
+            $logs->status_title = "Determining Answer";
+            $logs->status = "1";
+            $logs->save();
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Update Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message,'data'=>$data,'program_number'=>$newschedule->program_number]);
+            
+        } else {
+
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
             
             
         }

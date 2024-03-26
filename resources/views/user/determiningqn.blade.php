@@ -113,8 +113,6 @@
                 <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                     <div class="row pt-5 px-4">
 
-                        
-
                             <div class="col-lg-12 mb-4">
                                 <h6 class="mb-3">1. Do you work with DSE for 1 hrs or more ? </h6>
                                 <label for="yes" class="mx-2">
@@ -148,6 +146,25 @@
                                 </div>
                             </div>
                             @endif
+
+                            @if (isset($data))
+
+                            @if ($data->assign_account == "User")
+                            {{-- for update  --}}
+                            <input type="hidden" id="assesment_schedule_id" value="{{$schedule->id}}">
+                            <input type="hidden" id="determining_answer_id" value="{{$data->id}}">
+                            <div class="col-lg-12">
+                                <div class="row py-3">
+                                    <div class="col-lg-5 d-flex align-items-center">
+                                        <button type="button" id="update" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Update
+                                        </button>
+                                    </div>
+                                    <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
+                                </div>
+                            </div>
+                            @endif
+                                
+                            @endif
                             
                         </form>
 
@@ -177,72 +194,50 @@
         //
 
 
-        function toggleFields(element) {
+        var upurl = "{{URL::to('/user/determining-answer-update')}}";
+      // console.log(url);
 
-            // var del = document.getElementById("delivery");
-            // var col = document.getElementById("collection");
 
-            
-            var line_manager = $("#line_manager").val();
-            var department_id = $("#department_id").val();
-            var division_id = $("#division_id").val();
-            var assesment_id = $("#assesment_id").val();
-
-            if (line_manager == '') {
-                alert('Please, select a line manager!!');
-                return;
-            }
-
-            if (department_id == '') {
-                alert('Please, select a Department!!');
-                return;
-            }
-
-            if (division_id == '') {
-                alert('Please, select a Division!!');
-                return;
-            }
-            
-            var ansurl = "{{URL::to('/user/assesment-answer-store')}}";
-            var id = element.getAttribute('data-qid');
-            var key = element.getAttribute('data-key');
-            var value = element.getAttribute('value');
-
-            
-            var form_data = new FormData();			
-            form_data.append("qid", id);
-            form_data.append("answer", value);
-            form_data.append("key", key);
-            form_data.append("line_manager", line_manager);
-            form_data.append("department_id", department_id);
-            form_data.append("division_id", division_id);
-            form_data.append("assesment_id", assesment_id);
+      $("#update").click(function(){
+        
+            var form_data = new FormData();
+            form_data.append("determining_answer_id", $("#determining_answer_id").val());
+            form_data.append("assesment_schedule_id", $("#assesment_schedule_id").val());
+            form_data.append("division_id", $("#division_id").val());
+            form_data.append("department_id", $("#department_id").val());
+            form_data.append("line_manager", $("#line_manager").val());
+            form_data.append("line_manager", $("#line_manager").val());
+            form_data.append("work_hour", $('input[name="work_hour"]:checked').val());
+            form_data.append("wow_system", $('input[name="wow_system"]:checked').val());
 
             $.ajax({
-                    url:ansurl,
-                    method: "POST",
-                    type: "POST",
-                    contentType: false,
-                    processData: false,
-                    data:form_data,
-                    success: function(d){
-                        console.log(d);
-                        if (value == "No") {
-                            $("#subqnDiv"+id).html(d.subquery);
-                        } else {
-                            $("#subqnDiv"+id).html("");
-                        }
-                    },
-                    error:function(d){
-                        console.log(d);
-                    }
-                });
+            url: upurl,
+            method: "POST",
+            contentType: false,
+            processData: false,
+            data:form_data,
+            success: function (d) {
+                console.log(d);
+                if (d.status == 303) {
+                    $(".ermsg").html(d.message);
+                }else if(d.status == 300){
+                    $(".ermsg").html(d.message);
+                    
+                    var program_number = d.program_number; 
+                    var redirecturl = "{{ route('user.survey', ':id') }}";
+                    redirecturl = redirecturl.replace(':id', program_number);
+                    window.open(redirecturl);
+                }
+            },
+            error: function (d) {
+                console.log(d);
+            }
+        });
+          
+      });
 
-            
-            
-            
-            
-        }
+
+      
 
 </script>
 
