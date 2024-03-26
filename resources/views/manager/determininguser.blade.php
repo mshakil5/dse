@@ -14,12 +14,20 @@
                         </div>
                         <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
                             
-                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 m-3" >
+                            @if ($schedule->status == 1)
+                            <a  class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 m-3" >
                                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Approved
                             </a>
+                            @else
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-sm btn-primary d-block float-end fs-5 d-flex align-items-center gap-2 m-3" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>Approve
+                            </a>
+                            @endif
+
                             <a href="{{route('linemanager.userlist')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                 Exit
                             </a>
+
                         </div>
                     </div>
                     <div class="row">
@@ -118,15 +126,71 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
+
+            <div class="dropdown">
+                <label for="comment">Comment</label>
+                <textarea name="comment" id="comment" class="form-control" cols="30" rows="3"></textarea>
+            </div>
+    
+            <div class="dropdown">
+                <label for="date">Date</label>
+                <input type="date" class="form-control" id="date">
+            </div>
+
+
             <input type="hidden" name="user_id" id="user_id" value="{{$data->user_id}}">
-            <input type="date" class="form-control" id="date">
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary schedule" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
+        <button type="button" class="btn btn-primary schedule" id="addcomment" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
         </div>
     </div>
     </div>
 </div>
   
+@endsection
+
+@section('script')
+    
+<script>
+
+    // header for csrf-token is must in laravel
+    $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
+       // 
+
+       
+       // comment store 
+   $("body").delegate("#addcomment","click",function () {
+       var commenturl = "{{URL::to('/manager/assesment-approved')}}";
+
+       var prgmnumber = $(this).attr('prgmnumber');
+       var user = $(this).attr('uid');
+       var comment = $("#comment").val();
+       var date = $("#date").val();
+       console.log(user, comment, prgmnumber);
+       var form_data = new FormData();		
+       form_data.append("prgmnumber", prgmnumber);
+       form_data.append("user_id", user);
+       form_data.append("comment", comment);
+       form_data.append("date", date);
+
+       $.ajax({
+           url:commenturl,
+           method: "POST",
+           type: "POST",
+           contentType: false,
+           processData: false,
+           data:form_data,
+           success: function(d){
+               window.setTimeout(function(){location.reload()},2000)
+               // console.log((d.min));
+           },
+           error:function(d){
+               console.log(d);
+           }
+       });
+   });
+   // comment store 
+</script>
 @endsection

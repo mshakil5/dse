@@ -23,8 +23,8 @@ class LinemanagerController extends Controller
         $departments = Department::select('id','name')->get();
         $divisions = Division::select('id','name')->get();
         $data = DeterminigAnswer::where('id',$id)->first();
-        
-        return view('manager.determininguser', compact('data','divisions','departments'));
+        $schedule = AssesmentSchedule::where('program_number', $data->program_number)->first();
+        return view('manager.determininguser', compact('data','divisions','departments','schedule'));
     }
 
     public function addNewSchedule(Request $request)

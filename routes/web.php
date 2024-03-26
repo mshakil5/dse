@@ -86,6 +86,7 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
     Route::get('/assessment/user/{uid}/{cat_id}', [AssesmentController::class,'showAssessmentUserDetailsbyCategory'])->name('assessment.details.category');
 
     Route::post('/manager-comment', [AssesmentController::class, 'managerCommentStore'])->name('question.managercomment');
+    Route::post('/assesment-approved', [AssesmentController::class, 'managerAssesmentApproved']);
     Route::post('/managers-comment', [AssesmentController::class, 'managerMessageStore']);
     Route::post('/add-new-schedule', [LinemanagerController::class, 'addNewSchedule']);
 

@@ -13,6 +13,8 @@ use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
 use App\Models\AssesmentAnswerComment;
+use App\Models\AssesmentLog;
+use App\Models\AssesmentSchedule;
 use App\Models\DeterminigAnswer;
 use Illuminate\Support\Facades\DB;
 use App\Models\WorkStationAssesment;
@@ -394,6 +396,46 @@ class AssesmentController extends Controller
         }
         
 
+    }
+
+    public function managerAssesmentApproved(Request $request)
+    {
+
+        $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
+        $closeSchedule->status = 1;
+        $closeSchedule->save();
+       
+        // dd($request->all());
+        $data = new AssesmentSchedule();
+        $data->end_date = $request->date;
+        $data->line_manager_id = Auth::user()->id;
+        $data->program_number = rand(100000, 9999999);
+        $data->user_id = $request->user_id;
+        $data->assign_account = "User";
+        $data->status = "0";
+        $data->created_by = Auth::user()->id;
+        if ($data->save()) {
+
+            $logs = new AssesmentLog();
+            $logs->date = date('Y-m-d');
+            $logs->user_id = $request->user_id;
+            $logs->line_manager_id = Auth::user()->id;
+            $logs->assesment_schedule_id = $data->id;
+            $logs->comment = $request->comment;
+            $logs->assign_to = "User";
+            $logs->assign_from = "Manager";
+            $logs->status_title = "";
+            $logs->status = "1";
+            $data->created_by = Auth::user()->id;
+            $logs->save();
+
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+            
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
     }
 
 

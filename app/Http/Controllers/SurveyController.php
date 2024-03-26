@@ -65,10 +65,11 @@ class SurveyController extends Controller
         $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
         $departments = Department::select('id','name')->get();
         $divisions = Division::select('id','name')->get();
-        $questions = Question::with('subquestion')->get();
-        $assesment = Assesment::whereUserId(Auth::user()->id)->first();
-        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->first();
-        return view('user.determiningqn', compact('linemanagers','departments','divisions','questions','assesment','data'));
+        // $assesment = Assesment::whereUserId(Auth::user()->id)->first();
+        $schedule = AssesmentSchedule::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
+        // dd($schedule);
+        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->where('program_number', $schedule->program_number)->first();
+        return view('user.determiningqn', compact('linemanagers','departments','divisions','data'));
     }
 
     public function determiningQuestionStore(Request $request)
