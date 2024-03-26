@@ -68,7 +68,7 @@ class SurveyController extends Controller
         // $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $schedule = AssesmentSchedule::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
         // dd($schedule);
-        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->where('program_number', $schedule->program_number)->first();
+        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
         return view('user.determiningqn', compact('linemanagers','departments','divisions','data'));
     }
 
@@ -117,7 +117,9 @@ class SurveyController extends Controller
             $logs->date = date('Y-m-d');
             $logs->user_id = Auth::user()->id;
             $logs->line_manager_id = $request->line_manager;
+            $logs->determinig_answer_id = $data->id;
             $logs->assesment_schedule_id = $newschedule->id;
+            $logs->program_number = $newschedule->program_number;
             $logs->assign_to = "Manager";
             $logs->assign_from = "User";
             $logs->status_title = "Determining Answer";

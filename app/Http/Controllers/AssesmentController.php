@@ -492,6 +492,7 @@ class AssesmentController extends Controller
         $logs->line_manager_id = Auth::user()->id;
         $logs->assesment_schedule_id = $danswer->assesment_schedule_id;
         $logs->comment = $request->comment;
+        $logs->program_number = $request->program_number;
         $logs->assign_to = "User";
         $logs->assign_from = "Manager";
         $logs->status_title = "";

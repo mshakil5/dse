@@ -167,19 +167,8 @@
 @endsection
 
 @section('script')
-<script>
-    function showFields() {
-        var id = $(this).attr('qid');
-        console.log(id);
-        document.getElementById("additionalFields").classList.remove("hidden");
-    }
 
-    function hideFields() {
-        document.getElementById("additionalFields").classList.add("hidden");
-    }
 
-    
-</script>
 
 <script>
 
