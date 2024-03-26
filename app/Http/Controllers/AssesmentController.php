@@ -356,11 +356,11 @@ class AssesmentController extends Controller
         $data->created_by = "Manager";
         if ($data->save()) {
             $assesmentans = AssesmentAnswer::find($request->assans_id);
-            $assesmentans->solved = "0";
+            $assesmentans->solved = $request->solved;
             $assesmentans->save();
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
+            return response()->json(['status'=> 300,'message'=>$message,'date'=>$data->date]);
 
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);

@@ -82,15 +82,12 @@
                 <div class="row">
                         <div id="questions-container" class="col-lg-8 shadow-sm border rounded-0 bg-light">
                             
-                            @php
-                                $sl = 1;
-                            @endphp
 
                             @foreach ($assesmentanswers as $key => $assanswer)
                             @if($assanswer->answer != "Yes" && $assanswer->solved == 0)
                             <div class="row pt-5 px-4" data-category="{{ $assanswer->question->qn_category_id }}">
                                 <div class="col-lg-12 mb-4">
-                                    <h6 class="mb-3">{{ $sl }}. {{ $assanswer->question->question }}</h6>
+                                    <h6 class="mb-3">{{ $key + 1 }}. {{ $assanswer->question->question }}</h6>
                                     <div class="d-flex">
                                         <label for="yes" class="mx-4 fw-bold text-success">
                                             YES <input type="radio" name="answers[{{ $assanswer->id }}]" class="form-check-input" id="yes{{ $assanswer->id }}" value="Yes" required="required" @if(isset($assanswer->answer)) {{ $assanswer->answer == 'Yes' ? 'checked' : '' }} @endif >
@@ -125,39 +122,40 @@
                                     @endif
                                 @endforeach
 
-                                <div class="row" id="reply{{$assanswer->id}}">
-
-                                </div>
-
                                 
                                 
 
                                 @if ($assanswer->solved == 0)
-                                
+                                <form action="{{route('question.managercomment')}}" method="POST">
+                                    @csrf
                                     <input type="hidden" name="user_id" value="{{$user->id}}">
-                                    <div class="col-lg-12" id="replycmnt{{$assanswer->id}}">
+                                    <div class="col-lg-12">
                                         <textarea name="manager_comment" id="comment{{$assanswer->id}}" class="form-control" placeholder="Comments Here" required></textarea>
                                         <input type="hidden" name="assans_id" value="{{ $assanswer->id }}">
                                     </div>
-                                    <div class="col-lg-12" id="replybtn{{$assanswer->id}}">
+                                    <div class="col-lg-12">
                                         <div class="row py-3 ">
                                             <div class="col-lg-5 d-flex align-items-center">
                                                 {{-- <small class="text-muted mb-0">76 charachter remaining</small> --}}
                                             </div>
                                             <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                <button type="button" class="btn btn-success d-flex align-items-center addcomment" user="{{$user->id}}" assans_id="{{ $assanswer->id }}" solved="1"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
+                                                <button type="submit" class="btn btn-success d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
 
 
-                                                <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="{{$user->id}}" assans_id="{{ $assanswer->id }}" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="{{$user->id}}" assans_id="{{ $assanswer->id }}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
 
+                                    
+                                </form>
                                 @endif
-                                    @php
-                                        $sl = $sl + 1;
-                                    @endphp
+
+                                
+
+
+
                             </div>
                             @endif
                             @endforeach
@@ -166,7 +164,7 @@
                             @if ($assanswer->answer != "No" || $assanswer->solved == 1)
                             <div class="row pt-5 px-4">
                                 <div class="col-lg-12 mb-4">
-                                    <h6 class="mb-3">{{ $sl}}. {{ $assanswer->question->question }}</h6>
+                                    <h6 class="mb-3">{{ $key + 1 }}. {{ $assanswer->question->question }}</h6>
                                     <div class="d-flex">
                                         <label for="yes" class="mx-4 fw-bold text-success">
                                             YES <input type="radio" name="answers[{{ $assanswer->id }}]" class="form-check-input" id="yes{{ $assanswer->id }}" value="Yes" required="required" @if(isset($assanswer->answer)) {{ $assanswer->answer == 'Yes' ? 'checked' : '' }} @endif >
@@ -206,9 +204,6 @@
 
                             </div>
                             @endif
-                            @php
-                                $sl = $sl + 1;
-                            @endphp
                             @endforeach
 
                     
@@ -255,15 +250,12 @@
 
         var assans_id = $(this).attr('assans_id');
         var user = $(this).attr('user');
-        var solved = $(this).attr('solved');
         var comment = $("#comment"+assans_id).val();
-        
-
+        console.log(user, comment, assans_id);
         var form_data = new FormData();		
         form_data.append("assans_id", assans_id);
         form_data.append("user_id", user);
         form_data.append("comment", comment);
-        form_data.append("solved", solved);
 
         $.ajax({
             url:commenturl,
@@ -273,15 +265,8 @@
             processData: false,
             data:form_data,
             success: function(d){
-                // window.setTimeout(function(){location.reload()},2000)
+                window.setTimeout(function(){location.reload()},2000)
                 // console.log((d.min));
-                     var newcmnt = $("#reply"+assans_id);
-                     newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
-                    $("#comment"+assans_id).val('');
-                    if (solved == 1) {
-                        $("#replycmnt"+assans_id).html('');
-                        $("#replybtn"+assans_id).html('');
-                    }
             },
             error:function(d){
                 console.log(d);
