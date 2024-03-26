@@ -26,8 +26,25 @@
                         <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
 
                             <div class="py-3">
-                                <h2 class="text-danger text-center ">Display screen equipment assesment</h2>
-
+                                
+                                <h2 class="text-success text-left ">Appendix 3</h2>
+                                <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation
+                                    self-assessment</h2>
+                                <p>
+                                    You are asked to complete the enclosed form to assess that you are using your
+                                    computer and workstation in the ‘optimum’ way, so that you suffer no ill-effects
+                                    from your work. Read the ‘things to consider’ column and assess yourself against the
+                                    photographs. Try to adjust your position or items of equipment. Once you have
+                                    completed your form, contact your manager to discuss your assessment who will
+                                    complete the right hand column on the form and make additional notes for further
+                                    action if this is required on the DSE Risk Assessment action plan.
+                                </p>
+                                <p>
+                                    DSE = visual display unit (VDU) / screen, stand & central processing unit (CPU) /
+                                    box. <br>
+                                    Workstation = Dictaphone, telephone, table, chair, document holder, footstool,
+                                    mouse.
+                                </p>
                                
                                 <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
 
@@ -99,7 +116,7 @@
 
                             <div class="col-lg-12">
                                 <div class="row py-3 ">
-                                    <div class="col-lg-5 d-flex align-items-center">
+                                    <div class="col-lg-7 d-flex align-items-center">
                                         
                                         @if ($schedule->status == 1)
                                         <a  class="btn btn-warning d-flex align-items-center m-2" >
@@ -114,8 +131,20 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Change Status
                                         </a>
                                         @endif
+
+
+                                        @if ($data->work_hour == "Yes" || $data->wow_system == "Yes")
+                                        <a href="{{route('assessment.user.details', $data->program_number)}}" class="btn btn-success d-flex align-items-center m-2" >
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M16 8v8M8 8v8l7-4z"/><circle cx="12" cy="12" r="10"/></g></svg> Go to Answer
+                                        </a>
+                                        @endif
+                                        
+
+
+
+
                                     </div>
-                                    <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
+                                    <div class="col-lg-5 d-flex gap-3 justify-content-end"> </div>
                                 </div>
                             </div>
                             
