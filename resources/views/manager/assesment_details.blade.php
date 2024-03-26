@@ -219,10 +219,10 @@
                                 <div class="py-4">
                                     <ol class="custom-list w-100">
                                         @foreach($questionCategories as $key => $category)
-                                            <li class="d-flex justify-content-between align-items-center pe-2 rounded-2"><a href="{{route('assessment.details.category', ['uid' => $user->id, 'cat_id' => $category->id ])}}" class="d-block category-link getsrchval" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a><span class="badge text-bg-warning">{{$category->no_count}}</span>
+                                            <li class="d-flex justify-content-between align-items-center pe-2 rounded-2 @if ($category->id == $catid) active @endif"><a href="{{route('assessment.details.category', ['uid' => $pnumber, 'cat_id' => $category->id ])}}" class="d-block category-link getsrchval" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}</a><span class="badge text-bg-warning">{{$category->no_count}}</span>
                                             </li>
 
-                                            {{-- <li class="d-flex justify-content-between align-items-center pe-2 rounded-2" data-category="{{$category->id}}">{{ $key + 1 }}. {{ $category->name }}<span class="badge text-bg-warning">{{$category->no_count}}</span>
+                                            {{-- <li class="d-flex justify-content-between align-items-center pe-2 rounded-2 d-block category-link getsrchval" data-category="{{$category->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}<span class="badge text-bg-warning">{{$category->no_count}}</span>
                                             </li> --}}
                                         @endforeach
                                     </ol>
@@ -289,6 +289,10 @@
         });
     });
     // comment store 
+
+
+
+    
 </script>
     
 @endsection

@@ -21,7 +21,21 @@
   line-height: 2;
   font-weight: 600;
 }
+.custom-list li {
+  text-decoration: none;
+  padding: 5px 15px;
+  display: block;
+  color: #34342f;
+  text-transform: capitalize;
+  line-height: 2;
+  font-weight: 600;
+}
 .custom-list li:hover {
+  background-color: rgba(211, 211, 211, 0.2588235294);
+  color: #dd9509;
+}
+
+.custom-list .active {
   background-color: rgba(211, 211, 211, 0.2588235294);
   color: #dd9509;
 }

@@ -163,23 +163,27 @@ class AssesmentController extends Controller
         // dd($questionCategories);
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers'));
+        $pnumber = $id;
+        $catid = '0';
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid'));
     }
 
     public function showAssessmentUserDetailsbyCategory(Request $request, $uid, $cat_id)
     {
-        $assesment = Assesment::where('user_id', $uid)->first();
-        $data = WorkStationAssesment::where('user_id', $uid)->first();
-        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('user_id', $uid)->where('qn_category_id', $cat_id)->get();
+        $assesment = Assesment::where('program_number', $uid)->first();
+        $data = WorkStationAssesment::where('program_number', $uid)->first();
+        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $uid)->where('qn_category_id', $cat_id)->get();
 
-        $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) {
-                            $query->where('answer', 'No');
+        $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($uid)  {
+                            $query->where('answer', 'No')->where('solved','0')->where('program_number', $uid);
                         }])->orderby('no_count','DESC')
                         ->get();
         // dd($questionCategories);
-        $user = User::where('id', $uid)->first();
+        $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers'));
+        $pnumber = $uid;
+        $catid = $cat_id;
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid'));
     }
 
     
