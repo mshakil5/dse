@@ -70,8 +70,13 @@ class SurveyController extends Controller
         // dd($schedule);
         $data = DeterminigAnswer::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
 
+        if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
+            return Redirect::route('user.survey',$schedule->program_number);
+            
+        } else {
+            return view('user.determiningqn', compact('linemanagers','departments','divisions','data','schedule'));
+        }
     
-        return view('user.determiningqn', compact('linemanagers','departments','divisions','data','schedule'));
     }
 
     public function determiningQuestionStore(Request $request)
@@ -169,8 +174,17 @@ class SurveyController extends Controller
         $data->division_id = $request->division_id;
         $data->work_hour = $request->work_hour;
         $data->wow_system = $request->wow_system;
-        $data->assign_account = "Manager";
-        $data->line_manager_notification = "1";
+
+        if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
+            $data->assign_account = "User";
+            $data->line_manager_notification = "0";
+        } else {
+            $data->assign_account = "Manager";
+            $data->line_manager_notification = "1";
+        }
+        
+
+
         if ($data->save()) {
 
             $logs = new AssesmentLog();
@@ -182,7 +196,7 @@ class SurveyController extends Controller
             $logs->program_number = $newschedule->program_number;
             $logs->assign_to = "Manager";
             $logs->assign_from = "User";
-            $logs->status_title = "Determining Answer";
+            $logs->status_title = "Determining Answer Update";
             $logs->status = "1";
             $logs->save();
 
