@@ -7,12 +7,17 @@
                 <div class="row">
                     <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light pt-0">
                         <div class="row border-bottom border-dashed">
-                            <div class="col-6 col-sm-6 col-lg-10">
+                            <div class="col-6 col-sm-6 col-lg-6">
                                 <div class="brand">
                                     <img src="{{ asset('frontend/images/logo-design.gif')}}" width="90px" alt="">
                                 </div>
                             </div>
-                            <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
+                            <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center justify-content-end">
+                                
+                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning d-flex align-items-center m-2" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Change Status
+                                </a>
+
                                 <a href="{{route('manager.assesment')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                     Exit
                                 </a>
@@ -236,7 +241,54 @@
 
 </section>
 
+<!-- Modal -->
+<div class="modal fade black-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add next assesment date</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="ermsg"></div>
 
+
+            <div class="row">
+
+                <div class="col-lg-6">
+                    <img src="{{ asset('risk.png')}}" class="img-responsive opacity-75" alt="" style="width: 370px;">
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="dropdown">
+                        <label for="risk_rating_point">Risk rating number</label>
+                        <input type="number" id="risk_rating_point" name="risk_rating_point" class="form-control">
+                    </div>
+        
+                    <div class="dropdown">
+                        <label for="comment">Comment</label>
+                        <textarea name="comment" id="comment" class="form-control" cols="30" rows="3"></textarea>
+                    </div>
+            
+                    <div class="dropdown">
+                        <label for="date">Next Assesment Date</label>
+                        <input type="date" class="form-control" id="date">
+                    </div>
+        
+                </div>
+
+
+            </div>
+
+            <input type="hidden" name="user_id" id="user_id" value="{{$data->user_id}}">
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary schedule" id="addcomment" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
+        </div>
+    </div>
+    </div>
+</div>
 
 @endsection
 

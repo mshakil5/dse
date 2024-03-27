@@ -70,12 +70,16 @@ class SurveyController extends Controller
         // dd($schedule);
         $data = DeterminigAnswer::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
 
-        if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
-            return Redirect::route('user.survey',$schedule->program_number);
-            
+        if (isset($data)) {
+            if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
+                return Redirect::route('user.survey',$schedule->program_number);
+            } else {
+                return view('user.determiningqn', compact('linemanagers','departments','divisions','data','schedule'));
+            } 
         } else {
             return view('user.determiningqn', compact('linemanagers','departments','divisions','data','schedule'));
-        }
+        } 
+        
     
     }
 
