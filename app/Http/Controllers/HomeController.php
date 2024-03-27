@@ -64,6 +64,8 @@ class HomeController extends Controller
     public function managerHome(): View
     {
         $dusers = DeterminigAnswer::where('line_manager_id', Auth::user()->id)->where('status', 0)->get();
+        
+        
         return view('manager.dashboard', compact('dusers'));
     }
 
@@ -77,6 +79,7 @@ class HomeController extends Controller
 
     public function expertHome(): View
     {
+        
         return view('expert.dashboard');
     }
 

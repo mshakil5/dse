@@ -13,9 +13,9 @@
 
 <body>
 
-    @include('manager.inc.header')
+    @include('expert.inc.header')
     @yield('content')
-    @include('manager.inc.footer')
+    @include('expert.inc.footer')
 
     <!-- jQuery -->
     <script src="{{ asset('assets/admin/js/jquery.min.js')}}"></script>

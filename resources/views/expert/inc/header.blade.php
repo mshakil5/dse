@@ -1,9 +1,10 @@
+
 <section>
     <div class="container-fluid">
         <div class="row">
             <nav class="navbar navbar-expand-lg   navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Navbar</a>
+                    <a class="navbar-brand" href="{{route('expert.dashboard')}}">Navbar</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -12,44 +13,13 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle d-flex align-items-center text-danger" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <iconify-icon class="me-1 fs-3 " icon="ph:users-light"></iconify-icon>  Users
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="{{route('linemanager.userlist')}}">User list</a></li>
-                                </ul>
-                            </li>
-
-                            {{-- <li class="nav-item dropdown">
-                                <a class="nav-link  d-flex align-items-center text-info" href="{{route('user.survey')}}" >
-                                    <iconify-icon class="me-1 fs-3 " icon="iconoir:reports"></iconify-icon> Learning
-                                </a>
-                            </li> --}}
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle  d-flex align-items-center text-warning" href="#" role="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Assesments
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li><a class="dropdown-item" href="{{route('manager.assesment')}}">Display Screen Assesment</a></li>
-                                </ul>
-                            </li>
                             <li class="nav-item">
-                                <a class="nav-link text-success " aria-current="page" href="{{route('manager.complinedassesment')}}">Complined</a>
+                                <a class="nav-link text-success " aria-current="page" href="">Assesments</a>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link  " aria-current="page" href="#">Course Library</a>
-                            </li> -->
+                            
                         </ul>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" 
-                                        icon="ph:gear-light"></iconify-icon> Settings
-                                </a>
-                            </li>
+                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
