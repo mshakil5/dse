@@ -65,4 +65,31 @@ class LinemanagerController extends Controller
         $users = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Manager')->where('complined', 1)->get();
         return view('manager.complined', compact('users'));
     }
+
+    public function transferToHealth2(Request $request)
+    {
+
+
+
+        if ($request->prgmnumber) {
+            $oldSchedule = AssesmentSchedule::where('program_number', $request->prgmnumber)->where('line_manager_id', Auth::user()->id)->first();
+            $oldSchedule->status = 1;
+            $oldSchedule->save();
+        }
+
+        $newschedule = new AssesmentSchedule();
+        $newschedule->user_id = $request->uid;
+        $newschedule->line_manager_id = Auth::user()->id;
+        $newschedule->start_date = $request->date;
+        $newschedule->program_number = rand(100000, 9999999);
+        $newschedule->assign_account = "Manager";
+        $newschedule->save();
+
+        if($newschedule->save()){
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Schedule create successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }
+
+    }
 }
