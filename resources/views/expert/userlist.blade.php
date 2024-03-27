@@ -46,7 +46,7 @@
                         <td>{{$data->user->surname}}</td>
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
-                                <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
+                                <a href="{{ route('health.determiniganswer', $data->id) }}">
                                     <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
                                 </a>
 
