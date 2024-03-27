@@ -26,6 +26,7 @@
                           <th scope="col">Name</th>
                           <th scope="col">Surname</th>
                           <th scope="col">Count</th>
+                          <th scope="col">Risk Rating</th>
                           <th scope="col">Position</th>
                           
                           <th scope="col" class="text-center">Action</th>
@@ -37,6 +38,7 @@
 
                     @php
                     $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->where('solved', 0)->count();
+                    $risk = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
                     @endphp
 
 
@@ -46,6 +48,7 @@
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
                         <td><span class="badge text-bg-warning">{{$count}}</span></td>
+                        <td><span class="badge text-bg-warning">{{$risk->risk_rating_point}}</span></td>
                         <td>{{$data->assign_account}}</td>
                         
                         <td>

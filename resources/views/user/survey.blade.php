@@ -272,7 +272,7 @@
                         </div>
                     @endforeach
 
-                    @if(empty($question->assesmentAnswers)) 
+                    @if($determiningans->line_manager_notification == "0") 
                     <div class="col-lg-12">
                         <div class="row py-3 ">
                             <div class="col-lg-5 d-flex align-items-center">
