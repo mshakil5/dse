@@ -19,6 +19,8 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('line_manager_id')->unsigned()->nullable();
             $table->foreign('line_manager_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('health_safety_id')->unsigned()->nullable();
+            $table->foreign('health_safety_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('program_number')->nullable();
             $table->string('assign_account')->nullable();
             $table->integer('risk_rating_point',20)->nullable();
