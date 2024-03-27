@@ -39,6 +39,7 @@
                                     </div>
                                 @endif
 
+                                    <div class="ermsg"></div>
                                 
                                 <h2 class="text-success text-left ">Appendix 3</h2>
                                 <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation
@@ -222,11 +223,15 @@
                     $(".ermsg").html(d.message);
                 }else if(d.status == 300){
                     $(".ermsg").html(d.message);
+                    if (d.data.work_hour == "Yes" || d.data.wow_system == "Yes") {
+                        var program_number = d.program_number; 
+                        var redirecturl = "{{ route('user.survey', ':id') }}";
+                        redirecturl = redirecturl.replace(':id', program_number);
+                        window.open(redirecturl);
+                    } else {
+                        window.setTimeout(function(){location.reload()},2000)
+                    }
                     
-                    var program_number = d.program_number; 
-                    var redirecturl = "{{ route('user.survey', ':id') }}";
-                    redirecturl = redirecturl.replace(':id', program_number);
-                    window.open(redirecturl);
                 }
             },
             error: function (d) {
