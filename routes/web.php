@@ -112,6 +112,7 @@ Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], func
   
     Route::get('/dashboard', [HomeController::class, 'expertHome'])->name('expert.dashboard');
     Route::get('/get-active-users', [HealthSafetyController::class, 'getAllUsers'])->name('health.userlist');
+    Route::get('/get-complined-assesment', [HealthSafetyController::class, 'getComplinedbyLineManager'])->name('health.complinedassesment');
     Route::get('/get-users-determining-answer/{id}', [HealthSafetyController::class, 'getUsersDeterminingAnswer'])->name('health.determiniganswer');
     
     Route::get('/assessment/user/{id}', [HealthSafetyController::class,'showAssessmentUserDetails'])->name('health.assessment.details');

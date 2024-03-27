@@ -23,6 +23,12 @@ class HealthSafetyController extends Controller
         return view('expert.userlist', compact('users'));
     }
 
+    public function getComplinedbyLineManager()
+    {
+        $users = DeterminigAnswer::where('health_safety_id',Auth::user()->id)->orderby('id', 'DESC')->where('complined', 1)->get();
+        return view('expert.complined', compact('users'));
+    }
+
     public function getUsersDeterminingAnswer($id)
     {
         $departments = Department::select('id','name')->get();

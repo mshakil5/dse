@@ -16,6 +16,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-success " aria-current="page" href="{{route('health.userlist')}}">Assesments</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-warning " aria-current="page" href="{{route('health.complinedassesment')}}">Complined</a>
+                            </li>
                             
                         </ul>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
