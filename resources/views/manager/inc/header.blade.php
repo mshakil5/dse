@@ -37,10 +37,10 @@
                                     <li><a class="dropdown-item" href="{{route('manager.assesment')}}">Display Screen Assesment</a></li>
                                 </ul>
                             </li>
-                            <!-- <li class="nav-item">
-                                <a class="nav-link  " aria-current="page" href="#">Insights</a>
-                            </li>
                             <li class="nav-item">
+                                <a class="nav-link text-success " aria-current="page" href="{{route('manager.complinedassesment')}}">Complined</a>
+                            </li>
+                            <!-- <li class="nav-item">
                                 <a class="nav-link  " aria-current="page" href="#">Course Library</a>
                             </li> -->
                         </ul>
