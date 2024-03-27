@@ -41,7 +41,7 @@
         <a href="{{route('admin.expert')}}" class="nav-link {{ (request()->is('admin/expert*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
-            Expert 
+            Health & Safety 
           </p>
         </a>
       </li>

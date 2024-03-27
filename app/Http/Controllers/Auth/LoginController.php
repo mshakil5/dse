@@ -60,7 +60,7 @@ class LoginController extends Controller
                         }else if (auth()->user()->is_type == '2') {
                             return redirect()->route('manager.dashboard');
                         }else if (auth()->user()->is_type == '3') {
-                            return redirect()->route('expert.home');
+                            return redirect()->route('expert.dashboard');
                         }else if (auth()->user()->is_type == '4') {
                             return redirect()->route('expertmanager.home');
                         }else if (auth()->user()->is_type == '0') {
