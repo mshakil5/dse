@@ -134,7 +134,7 @@ $(document).ready(function () {
 
     });
 
-    var url = "{{URL::to('/manager/transfer-to-health')}}";
+    var expurl = "{{URL::to('/manager/transfer-to-health')}}";
 
     $(".transferbtn").click(function(){
 
@@ -143,12 +143,12 @@ $(document).ready(function () {
             var prgm = $(this).attr("prgmnumber");
             var health_id = $("#health_id"+determiningAnswerId).val();
             
-            console.log(determiningAnswerId, uid, prgm, health_id);
+            // console.log(determiningAnswerId, uid, prgm, health_id);
 
             $.ajax({
                 url: expurl,
                 method: "POST",
-                data: {uid:uid,date:date},
+                data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm,health_id:health_id},
                 success: function (d) {
                     if (d.status == 303) {
                         $(".ermsgod").html(d.message);
