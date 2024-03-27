@@ -430,10 +430,13 @@ class AssesmentController extends Controller
 
         $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
         $closeSchedule->status = 1;
+        $closeSchedule->status_title = "Approved";
+        $closeSchedule->complined = 1;
         $closeSchedule->save();
 
         $danswer = DeterminigAnswer::where('program_number',$request->prgmnumber)->first();
         $danswer->line_manager_notification = 0;
+        $danswer->complined = 1;
         $danswer->save();
        
         // dd($request->all());

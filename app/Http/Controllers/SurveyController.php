@@ -68,7 +68,13 @@ class SurveyController extends Controller
         // $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $schedule = AssesmentSchedule::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
         // dd($schedule);
-        $data = DeterminigAnswer::whereUserId(Auth::user()->id)->where('program_number', $schedule->program_number)->orderby('id', 'DESC')->first();
+
+        if ($schedule) {
+            $data = DeterminigAnswer::whereUserId(Auth::user()->id)->where('program_number', $schedule->program_number)->orderby('id', 'DESC')->first();
+        } else {
+            $data = DeterminigAnswer::whereUserId(Auth::user()->id)->orderby('id', 'DESC')->first();
+        }
+        
 
         if (isset($data)) {
             if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
