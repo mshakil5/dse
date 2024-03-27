@@ -136,8 +136,16 @@ class SurveyController extends Controller
         $data->division_id = $request->division_id;
         $data->work_hour = $request->work_hour;
         $data->wow_system = $request->wow_system;
-        $data->assign_account = "Manager";
-        $data->line_manager_notification = "1";
+
+        if ($request->work_hour == "Yes" || $request->wow_system == "Yes") {
+            $data->assign_account = "User";
+            $data->line_manager_notification = "0";
+        } else {
+            $data->assign_account = "Manager";
+            $data->line_manager_notification = "1";
+        }
+        
+
         if ($data->save()) {
 
             $logs = new AssesmentLog();
