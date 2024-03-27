@@ -107,20 +107,30 @@ class SurveyController extends Controller
             'wow_system.required' => 'Please, choose an option.'
         ]);
 
-        $newschedule = new AssesmentSchedule();
-        $newschedule->user_id = Auth::user()->id; 
-        $newschedule->line_manager_id = $request->line_manager;
-        $newschedule->start_date = date('Y-m-d');
-        $newschedule->program_number = rand(100000, 9999999);
-        $newschedule->assign_account = "Manager";
-        $newschedule->created_by = Auth::user()->id;
-        $newschedule->save();
-        
+        $chkschedule = AssesmentSchedule::whereNotNull('end_date')->where('status',0)->orderBy('id','DESC')->first();
+
+        if (empty($chkschedule)) {
+            $newschedule = new AssesmentSchedule();
+            $newschedule->user_id = Auth::user()->id; 
+            $newschedule->line_manager_id = $request->line_manager;
+            $newschedule->start_date = date('Y-m-d');
+            $newschedule->program_number = rand(100000, 9999999);
+            $newschedule->assign_account = "Manager";
+            $newschedule->created_by = Auth::user()->id;
+            $newschedule->save();
+        }
+
         $data = new DeterminigAnswer();
         $data->date = date('Y-m-d');
         $data->user_id = Auth::user()->id;
-        $data->assesment_schedule_id  = $newschedule->id;
-        $data->program_number = $newschedule->program_number;
+        if (empty($chkschedule)) {
+            $data->assesment_schedule_id  = $newschedule->id;
+            $data->program_number = $newschedule->program_number;
+        } else {
+            $data->assesment_schedule_id  = $chkschedule->id;
+            $data->program_number = $chkschedule->program_number;
+        }
+        
         $data->line_manager_id = $request->line_manager;
         $data->department_id = $request->department_id;
         $data->division_id = $request->division_id;
@@ -135,8 +145,8 @@ class SurveyController extends Controller
             $logs->user_id = Auth::user()->id;
             $logs->line_manager_id = $request->line_manager;
             $logs->determinig_answer_id = $data->id;
-            $logs->assesment_schedule_id = $newschedule->id;
-            $logs->program_number = $newschedule->program_number;
+            $logs->assesment_schedule_id = $data->id;
+            $logs->program_number = $data->program_number;
             $logs->assign_to = "Manager";
             $logs->assign_from = "User";
             $logs->status_title = "Determining Answer";
@@ -144,7 +154,7 @@ class SurveyController extends Controller
             $logs->save();
 
             if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
-                return Redirect::route('user.survey',$newschedule->program_number)->with('success', 'Your response successfully saved. Thank you for your response.!!');
+                return Redirect::route('user.survey',$data->program_number)->with('success', 'Your response successfully saved. Thank you for your response.!!');
                 
             } else {
                 return back()->with('success', 'Your response successfully saved. Thank you for your response.!!');
