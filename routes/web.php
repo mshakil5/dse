@@ -9,6 +9,7 @@ use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\LinemanagerController;
 use App\Http\Controllers\AssesmentController;
+use App\Http\Controllers\HealthSafetyController;
   
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +111,8 @@ All expert Routes List
 Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'expertHome'])->name('expert.dashboard');
+    Route::get('/get-active-users', [HealthSafetyController::class, 'getAllUsers'])->name('health.userlist');
+    
 });
 
 

@@ -35,9 +35,9 @@ class HomeController extends Controller
         }else if (auth()->user()->is_type == '2') {
             return redirect()->route('manager.dashboard');
         }else if (auth()->user()->is_type == '3') {
-            return redirect()->route('expert.home');
+            return redirect()->route('expert.dashboard');
         }else if (auth()->user()->is_type == '4') {
-            return redirect()->route('expertmanager.home');
+            return redirect()->route('expertmanager.dashboard');
         }else if (auth()->user()->is_type == '0') {
             return redirect()->route('user.dashboard');
         }else{
