@@ -357,7 +357,7 @@
     
         var status = $("#status").val();
 
-        var commenturl = "{{URL::to('/manager/add-rating')}}";
+        var commenturl = "{{URL::to('/expert/add-rating')}}";
         
 
         var prgmnumber = $(this).attr('prgmnumber');

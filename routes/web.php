@@ -117,6 +117,7 @@ Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], func
     Route::get('/assessment/user/{id}', [HealthSafetyController::class,'showAssessmentUserDetails'])->name('health.assessment.details');
     
     Route::get('/assessment/user/{uid}/{cat_id}', [HealthSafetyController::class,'showAssessmentUserDetailsbyCategory'])->name('health.assessment.details.category');
+    Route::post('/add-rating', [HealthSafetyController::class, 'addRating']);
 
 });
 

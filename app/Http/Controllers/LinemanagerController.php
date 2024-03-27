@@ -63,7 +63,7 @@ class LinemanagerController extends Controller
 
     public function getComplinedbyLineManager()
     {
-        $users = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Manager')->where('complined', 1)->get();
+        $users = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('complined', 1)->get();
         return view('manager.complined', compact('users'));
     }
 
