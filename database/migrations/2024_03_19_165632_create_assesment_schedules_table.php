@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('line_manager_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('program_number')->nullable();
             $table->string('assign_account')->nullable();
+            $table->integer('risk_rating_point',20)->nullable();
+            $table->string('status_title')->nullable();
             $table->boolean('status')->default(0);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();

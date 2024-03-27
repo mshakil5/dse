@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('assign_account')->nullable();
             $table->boolean('user_notification')->default(0);
             $table->boolean('line_manager_notification')->default(0);
+            $table->boolean('complined')->nullable();
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();

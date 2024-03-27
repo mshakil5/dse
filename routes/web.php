@@ -91,6 +91,7 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
     Route::post('/manager-comment', [AssesmentController::class, 'managerCommentStore'])->name('question.managercomment');
     Route::post('/assesment-approved', [AssesmentController::class, 'managerAssesmentApproved']);
     Route::post('/assesment-reject', [AssesmentController::class, 'managerAssesmentReject']);
+    Route::post('/add-rating', [AssesmentController::class, 'managerAddRating']);
     Route::post('/managers-comment', [AssesmentController::class, 'managerMessageStore']);
     Route::post('/add-new-schedule', [LinemanagerController::class, 'addNewSchedule']);
 

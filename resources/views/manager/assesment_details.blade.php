@@ -1,6 +1,8 @@
 @extends('layouts.master')
 @section('content')
-
+@php
+    $chksts = \App\Models\DeterminigAnswer::where('program_number', $pnumber)->first();
+@endphp
 <section class="header-main py-5">
         <div class="container ">
             <div class="col-lg-10 mx-auto px-4">
@@ -13,10 +15,16 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center justify-content-end">
-                                
+                                @if (isset($chksts))
+
+                                @if ($chksts->line_manager_notification == 1)
                                 <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning d-flex align-items-center m-2" >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Change Status
                                 </a>
+                                @endif
+                                    
+                                @endif
+                                
 
                                 <a href="{{route('manager.assesment')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                     Exit
@@ -246,7 +254,7 @@
     <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add next assesment date</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Title will be there</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -271,8 +279,8 @@
                     </div>
             
                     <div class="dropdown">
-                        <label for="date">Next Assesment Date</label>
-                        <input type="date" class="form-control" id="date">
+                        <label for="next_date">Next Assesment Date</label>
+                        <input type="date" class="form-control" id="next_date">
                     </div>
         
                 </div>
@@ -284,7 +292,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary schedule" id="addcomment" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
+        <button type="button" class="btn btn-primary schedule" id="addriskpoint" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
         </div>
     </div>
     </div>
@@ -344,6 +352,46 @@
 
 
 
+       // comment store 
+   $("body").delegate("#addriskpoint","click",function () {
+    
+        var status = $("#status").val();
+
+        var commenturl = "{{URL::to('/manager/add-rating')}}";
+        
+
+        var prgmnumber = $(this).attr('prgmnumber');
+        var user = $(this).attr('uid');
+        var comment = $("#comment").val();
+        var date = $("#next_date").val();
+        var risk_rating_point = $("#risk_rating_point").val();
+        console.log(user, comment, prgmnumber);
+
+        var form_data = new FormData();		
+        form_data.append("prgmnumber", prgmnumber);
+        form_data.append("user_id", user);
+        form_data.append("comment", comment);
+        form_data.append("date", date);
+        form_data.append("risk_rating_point", risk_rating_point);
+
+        $.ajax({
+            url:commenturl,
+            method: "POST",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data:form_data,
+            success: function(d){
+                    $(".ermsg").html(d.message);
+                window.setTimeout(function(){location.reload()},2000)
+                // console.log((d.min));
+            },
+            error:function(d){
+                console.log(d);
+            }
+        });
+    });
+    // comment store 
     
 </script>
     
