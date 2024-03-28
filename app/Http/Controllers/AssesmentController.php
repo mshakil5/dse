@@ -27,14 +27,13 @@ class AssesmentController extends Controller
 
     public function getAssesmentbyLineManager()
     {
-        $assesment = Assesment::where('line_manager_id',Auth::user()->id)->pluck('user_id');
-        $assesments = Assesment::where('line_manager_id',Auth::user()->id)->get();
-        
-        $users = User::whereIn('id',$assesment)->get();
-        // $users = User::all();
-        // dd($users);
-        // dd($request->all());
-        return view('manager.assesment', compact('assesments','users'));
+        // $assesment = Assesment::where('line_manager_id',Auth::user()->id)->pluck('user_id');
+        // $assesments = Assesment::where('line_manager_id',Auth::user()->id)->get();
+        // $users = User::whereIn('id',$assesment)->get();
+        // return view('manager.assesment', compact('assesments','users'));
+
+        $users = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Manager')->where('line_manager_notification', 1)->get();
+        return view('manager.userlist', compact('users'));
     }
 
 

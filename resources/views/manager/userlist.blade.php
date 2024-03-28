@@ -26,6 +26,9 @@
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
                           <th scope="col">Surname</th>
+                          <th scope="col">Count</th>
+                          <th scope="col">Rating</th>
+                          <th scope="col">Location</th>
                           <th scope="col" class="text-center">Action</th>
                       </tr>
                   </thead>
@@ -33,8 +36,14 @@
 
                     @foreach ($users as $key => $data)
 
-                    @php
+                    {{-- @php
                         $chkschedule = \App\Models\AssesmentSchedule::where('user_id', $data->user_id)->where('status', 0)->orderby('id','DESC')->first();
+                    @endphp --}}
+
+                    
+                    @php
+                    $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
+                    $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->count();
                     @endphp
 
 
@@ -44,6 +53,12 @@
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
+                        <td>
+                            <span class="badge text-bg-warning">{{$count}}</span>
+                        </td>
+                        <td><span class="badge text-bg-warning">{{$chkSchedule->risk_rating_point}}</span></td>
+                        
+                        <td>{{$data->assign_account}}</td>
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
