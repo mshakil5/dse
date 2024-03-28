@@ -104,24 +104,7 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
 });
 
 
-/*------------------------------------------
---------------------------------------------
-All expert Routes List
---------------------------------------------
---------------------------------------------*/
-Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], function(){
-  
-    Route::get('/dashboard', [HomeController::class, 'expertHome'])->name('expert.dashboard');
-    Route::get('/get-active-users', [HealthSafetyController::class, 'getAllUsers'])->name('health.userlist');
-    Route::get('/get-complined-assesment', [HealthSafetyController::class, 'getComplinedbyLineManager'])->name('health.complinedassesment');
-    Route::get('/get-users-determining-answer/{id}', [HealthSafetyController::class, 'getUsersDeterminingAnswer'])->name('health.determiniganswer');
-    
-    Route::get('/assessment/user/{id}', [HealthSafetyController::class,'showAssessmentUserDetails'])->name('health.assessment.details');
-    
-    Route::get('/assessment/user/{uid}/{cat_id}', [HealthSafetyController::class,'showAssessmentUserDetailsbyCategory'])->name('health.assessment.details.category');
-    Route::post('/add-rating', [HealthSafetyController::class, 'addRating']);
 
-});
 
 
 /*------------------------------------------
