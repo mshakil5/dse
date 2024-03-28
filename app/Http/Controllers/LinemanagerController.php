@@ -90,14 +90,14 @@ class LinemanagerController extends Controller
 
         if ($request->prgm) {
             $schedule = AssesmentSchedule::where('program_number', $request->prgm)->first();
-            $schedule->health_safety_id = $request->health_id;
+            $schedule->occupational_health_id = $request->health_id;
             $schedule->assign_account = "Health";
             $schedule->save();
         }
 
 
         $data = DeterminigAnswer::find($request->determiningAnswerId);
-        $data->health_safety_id = $request->health_id;
+        $data->occupational_health_id = $request->health_id;
         $data->assign_account = "Health";
         $data->save();
 
@@ -108,7 +108,7 @@ class LinemanagerController extends Controller
             $logs->user_id = $request->uid;
             $logs->line_manager_id = Auth::user()->id;
             $logs->assesment_schedule_id = $schedule->id;
-            $logs->health_safety_id = $request->health_id;
+            $logs->occupational_health_id = $request->health_id;
             $logs->program_number = $request->prgm;
             // $logs->comment = $request->comment;
             $logs->assign_to = "Manager";

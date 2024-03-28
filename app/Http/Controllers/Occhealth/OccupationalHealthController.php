@@ -20,14 +20,14 @@ class OccupationalHealthController extends Controller
 {
     public function getAllUsers()
     {
-        $users = DeterminigAnswer::where('health_safety_id',Auth::user()->id)->orderby('id', 'DESC')->whereNull('complined')->get();
+        $users = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->orderby('id', 'DESC')->whereNull('complined')->get();
         
         return view('expert.userlist', compact('users'));
     }
 
     public function getComplinedbyOH()
     {
-        $users = DeterminigAnswer::where('health_safety_id',Auth::user()->id)->orderby('id', 'DESC')->where('complined', 1)->get();
+        $users = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->orderby('id', 'DESC')->where('complined', 1)->get();
         return view('expert.complined', compact('users'));
     }
 
@@ -112,7 +112,7 @@ class OccupationalHealthController extends Controller
         // dd($request->all());
         $data = new AssesmentSchedule();
         $data->end_date = $request->date;
-        $data->health_safety_id = Auth::user()->id;
+        $data->occupational_health_id = Auth::user()->id;
         $data->program_number = rand(100000, 9999999);
         $data->user_id = $request->user_id;
         $data->assign_account = "User";
@@ -123,7 +123,7 @@ class OccupationalHealthController extends Controller
             $logs = new AssesmentLog();
             $logs->date = date('Y-m-d');
             $logs->user_id = $request->user_id;
-            $logs->health_safety_id = Auth::user()->id;
+            $logs->occupational_health_id = Auth::user()->id;
             $logs->assesment_schedule_id = $data->id;
             $logs->program_number = $data->program_number;
             $logs->comment = $request->comment;
@@ -171,7 +171,7 @@ class OccupationalHealthController extends Controller
             $logs->user_id = $request->uid;
             $logs->line_manager_id = $request->line_manager_id;
             $logs->assesment_schedule_id = $schedule->id;
-            $logs->health_safety_id = Auth::user()->id;
+            $logs->occupational_health_id = Auth::user()->id;
             $logs->program_number = $request->prgm;
             // $logs->comment = $request->comment;
             $logs->assign_to = "Health";
