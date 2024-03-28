@@ -20,6 +20,8 @@ return new class extends Migration
             $table->foreign('line_manager_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('health_safety_id')->unsigned()->nullable();
             $table->foreign('health_safety_id')->references('id')->on('users')->onDelete('cascade');
+            $table->bigInteger('occupational_health_id')->unsigned()->nullable();
+            $table->foreign('occupational_health_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('determinig_answer_id')->unsigned()->nullable();
             $table->foreign('determinig_answer_id')->references('id')->on('determinig_answers')->onDelete('cascade');
             $table->bigInteger('assesment_schedule_id')->unsigned()->nullable();
