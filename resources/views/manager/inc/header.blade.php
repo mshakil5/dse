@@ -30,6 +30,13 @@
                             <li class="nav-item">
                                 <a class="nav-link d-flex align-items-center text-success " aria-current="page" href="{{route('manager.complinedassesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Complined</a>
                             </li>
+
+                            
+                            <li class="nav-item">
+                                <a class="nav-link d-flex align-items-center text-danger " aria-current="page" href="{{route('manager.dueassesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Due</a>
+                            </li>
+
+
                             <!-- <li class="nav-item">
                                 <a class="nav-link  " aria-current="page" href="#">Course Library</a>
                             </li> -->

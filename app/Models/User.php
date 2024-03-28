@@ -80,5 +80,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Assesment::class);
     }
+
+    public function assesmentSchedule()
+    {
+        return $this->hasMany(AssesmentSchedule::class);
+    }
     
 }

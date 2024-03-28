@@ -13,4 +13,9 @@ class AssesmentSchedule extends Model
     {
         return $this->belongsTo(DeterminigAnswer::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

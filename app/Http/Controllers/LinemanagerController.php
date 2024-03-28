@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DeterminigAnswer;
 use App\Models\Division;
+use Illuminate\Support\Carbon;
 use Illuminate\support\Facades\Auth;
 
 class LinemanagerController extends Controller
@@ -65,6 +66,18 @@ class LinemanagerController extends Controller
     {
         $users = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('complined', 1)->get();
         return view('manager.complined', compact('users'));
+    }
+
+    public function getDueAssesment()
+    {
+
+        $users = AssesmentSchedule::where('line_manager_id', Auth::user()->id)
+                            ->where('end_date', '<=', Carbon::now()->addMonth())
+                            ->where('end_date', '>=', Carbon::now())
+                            ->orderby('id','DESC')
+                            ->get();
+
+        return view('manager.due', compact('users'));
     }
 
     public function transferToHealth(Request $request)
