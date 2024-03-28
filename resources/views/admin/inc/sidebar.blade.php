@@ -16,7 +16,7 @@
         <a href="{{route('alladmin')}}" class="nav-link {{ (request()->is('admin/new-admin*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
-            Admin
+            Health & Safety 
           </p>
         </a>
       </li>
@@ -41,7 +41,7 @@
         <a href="{{route('admin.expert')}}" class="nav-link {{ (request()->is('admin/expert*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
-            Health & Safety 
+            Occupational Health
           </p>
         </a>
       </li>
