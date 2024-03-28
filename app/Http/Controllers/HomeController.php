@@ -73,8 +73,17 @@ class HomeController extends Controller
     {
         $dateToday = Carbon::now()->toDateString();
         // dd($ldate);
-        $assesment = AssesmentSchedule::where('user_id', Auth::user()->id)->where('start_date', '<=', $dateToday)->where('status', 0)->get();
-        return view('user.dashboard', compact('assesment'));
+        $assesment = AssesmentSchedule::where('user_id', Auth::user()->id)->where('start_date', '<=', $dateToday)->get();
+
+        $dueRecords = AssesmentSchedule::where('user_id', Auth::user()->id)
+                            ->where('end_date', '<=', Carbon::now()->addMonth())
+                            ->where('end_date', '>=', Carbon::now())
+                            ->orderby('id','DESC')
+                            ->first();
+
+
+
+        return view('user.dashboard', compact('assesment','dueRecords'));
     }
 
     public function expertHome(): View
