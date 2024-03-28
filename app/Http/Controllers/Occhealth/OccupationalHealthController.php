@@ -20,7 +20,8 @@ class OccupationalHealthController extends Controller
 {
     public function getAllUsers()
     {
-        $users = DeterminigAnswer::where('health_safety_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Health')->where('complined', '0')->get();
+        $users = DeterminigAnswer::where('health_safety_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Health')->whereNull('complined')->get();
+        
         return view('expert.userlist', compact('users'));
     }
 
