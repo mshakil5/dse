@@ -28,6 +28,7 @@
                           <th scope="col">Count</th>
                           <th scope="col">Risk Rating</th>
                           <th scope="col">Position</th>
+                          <th scope="col">Report</th>
                           
                           <th scope="col" class="text-center">Action</th>
                       </tr>
@@ -51,6 +52,10 @@
                         <td><span class="badge text-bg-warning">{{$risk->risk_rating_point}}</span></td>
                         <td>{{$data->assign_account}}</td>
                         
+                        <td>
+                            <a href="{{ route('manager.assesment.report', $data->program_number) }}" class="nav-link text-warning d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" icon="ph:gear-light"></iconify-icon> Report
+                            </a>
+                        </td>
                         <td>
                             <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <a href="{{ route('linemanager.determiniganswer', $data->id) }}">

@@ -40,8 +40,7 @@ class AssesmentController extends Controller
 
     public function assesmentStore(Request $request)
     {
-        // dd($request->all());
-
+        
         $messages = [
             'answers.*' => 'Each answer must be either "yes" or "no".',
         ];

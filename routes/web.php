@@ -9,7 +9,7 @@ use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\LinemanagerController;
 use App\Http\Controllers\AssesmentController;
-use App\Http\Controllers\HealthSafetyController;
+use App\Http\Controllers\ReportController;
   
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +99,9 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
     Route::post('/managers-comment', [AssesmentController::class, 'managerMessageStore']);
     Route::post('/add-new-schedule', [LinemanagerController::class, 'addNewSchedule']);
     Route::post('/transfer-to-health', [LinemanagerController::class, 'transferToHealth']);
+
+    // report part start here
+    Route::get('/assessment/report/{id}', [ReportController::class,'getAllAssesmentReportByManagger'])->name('manager.assesment.report');
 
 
 });
