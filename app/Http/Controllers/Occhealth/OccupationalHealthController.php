@@ -20,7 +20,7 @@ class OccupationalHealthController extends Controller
 {
     public function getAllUsers()
     {
-        $users = DeterminigAnswer::where('health_safety_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Health')->whereNull('complined')->get();
+        $users = DeterminigAnswer::where('health_safety_id',Auth::user()->id)->orderby('id', 'DESC')->whereNull('complined')->get();
         
         return view('expert.userlist', compact('users'));
     }
@@ -141,5 +141,49 @@ class OccupationalHealthController extends Controller
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
+    }
+
+    public function transferToManager(Request $request)
+    {
+        if(empty($request->line_manager_id)){
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select Line Manager Field.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        if ($request->prgm) {
+            $schedule = AssesmentSchedule::where('program_number', $request->prgm)->first();
+            $schedule->line_manager_id = $request->line_manager_id;
+            $schedule->assign_account = "Manager";
+            $schedule->save();
+        }
+
+
+        $data = DeterminigAnswer::find($request->determiningAnswerId);
+        $data->line_manager_id = $request->line_manager_id;
+        $data->assign_account = "Manager";
+        $data->save();
+
+        if($data->save()){
+
+            $logs = new AssesmentLog();
+            $logs->date = date('Y-m-d');
+            $logs->user_id = $request->uid;
+            $logs->line_manager_id = $request->line_manager_id;
+            $logs->assesment_schedule_id = $schedule->id;
+            $logs->health_safety_id = Auth::user()->id;
+            $logs->program_number = $request->prgm;
+            // $logs->comment = $request->comment;
+            $logs->assign_to = "Health";
+            $logs->assign_from = "Manager";
+            $logs->status_title = "Transfer";
+            $logs->status = "1";
+            $logs->created_by = Auth::user()->id;
+            $logs->save();
+
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Schedule create successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }
+
     }
 }

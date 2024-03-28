@@ -23,5 +23,8 @@ Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], func
     Route::get('/assessment/user/{uid}/{cat_id}', [OccupationalHealthController::class,'showAssessmentUserDetailsbyCategory'])->name('health.assessment.details.category');
     Route::post('/add-rating', [OccupationalHealthController::class, 'addRating']);
 
+    
+    Route::post('/transfer-to-manager', [OccupationalHealthController::class, 'transferToManager']);
+
 });
   
