@@ -25,6 +25,7 @@ Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], func
 
     
     Route::post('/transfer-to-manager', [OccupationalHealthController::class, 'transferToManager']);
+    Route::post('/occhealth-comment', [OccupationalHealthController::class, 'expertMessageStore']);
 
 });
   

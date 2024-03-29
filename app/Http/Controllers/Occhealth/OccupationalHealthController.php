@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Assesment;
 use App\Models\AssesmentAnswer;
+use App\Models\AssesmentAnswerComment;
 use App\Models\AssesmentLog;
 use App\Models\AssesmentSchedule;
 use App\Models\Department;
@@ -184,6 +185,38 @@ class OccupationalHealthController extends Controller
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Schedule create successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }
+
+    }
+
+
+    public function expertMessageStore(Request $request)
+    {
+
+        if(empty($request->comment)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        $data = new AssesmentAnswerComment();
+        $data->date = date('Y-m-d');
+        $data->occupational_health_id = Auth::user()->id;
+        $data->comment = $request->comment;
+        $data->assesment_answer_id = $request->assans_id;
+        $data->user_id = $request->user_id;
+        $data->created_by = "Health";
+        if ($data->save()) {
+            $assesmentans = AssesmentAnswer::find($request->assans_id);
+            $assesmentans->solved = $request->solved;
+            $assesmentans->save();
+            
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message,'date'=>$data->date]);
+
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+        
 
     }
 }
