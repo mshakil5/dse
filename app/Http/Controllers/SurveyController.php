@@ -107,7 +107,7 @@ class SurveyController extends Controller
             'wow_system.required' => 'Please, choose an option.'
         ]);
 
-        $chkschedule = AssesmentSchedule::whereNotNull('end_date')->where('status',0)->orderBy('id','DESC')->first();
+        $chkschedule = AssesmentSchedule::whereNotNull('end_date')->where('user_id',Auth::user()->id)->where('status',0)->orderBy('id','DESC')->first();
 
         if (empty($chkschedule)) {
             $newschedule = new AssesmentSchedule();
@@ -153,7 +153,11 @@ class SurveyController extends Controller
             $logs->user_id = Auth::user()->id;
             $logs->line_manager_id = $request->line_manager;
             $logs->determinig_answer_id = $data->id;
-            $logs->assesment_schedule_id = $data->id;
+            if (empty($chkschedule)) {
+                $logs->assesment_schedule_id = $newschedule->id;
+            } else {
+                $logs->assesment_schedule_id = $chkschedule->id;
+            }
             $logs->program_number = $data->program_number;
             $logs->assign_to = "Manager";
             $logs->assign_from = "User";
