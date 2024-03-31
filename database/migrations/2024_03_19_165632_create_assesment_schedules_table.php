@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('start_date')->nullable();
             $table->string('end_date')->nullable();
+            $table->string('compiled_date')->nullable();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->bigInteger('line_manager_id')->unsigned()->nullable();

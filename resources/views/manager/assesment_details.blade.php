@@ -269,6 +269,11 @@
 
                 <div class="col-lg-6">
                     <div class="dropdown">
+                        <label for="initial_risk">Initial degree of risk</label>
+                        <input type="number" id="initial_risk" name="initial_risk" class="form-control">
+                    </div>
+
+                    <div class="dropdown">
                         <label for="risk_rating_point">Risk rating number</label>
                         <input type="number" id="risk_rating_point" name="risk_rating_point" class="form-control">
                     </div>
@@ -282,7 +287,22 @@
                         <label for="next_date">Next Assesment Date</label>
                         <input type="date" class="form-control" id="next_date">
                     </div>
+
+                    <div class="dropdown mt-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary schedule" id="addriskpoint" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
+                    </div>
+
+                    
         
+                </div>
+
+                <div class="col-lg-12">
+                    <img src="{{ asset('keytool.png')}}" class="img-responsive opacity-75" alt="" style="width: 100%;">
+                </div>
+
+                <div class="col-lg-12">
+                    <img src="{{ asset('rating.png')}}" class="img-responsive opacity-75" alt="" style="width: 100%;">
                 </div>
 
 
@@ -291,8 +311,9 @@
             <input type="hidden" name="user_id" id="user_id" value="{{$data->user_id}}">
         </div>
         <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary schedule" id="addriskpoint" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
+
+
+
         </div>
     </div>
     </div>
@@ -365,6 +386,7 @@
         var comment = $("#comment").val();
         var date = $("#next_date").val();
         var risk_rating_point = $("#risk_rating_point").val();
+        var initial_risk = $("#initial_risk").val();
         console.log(user, comment, prgmnumber);
 
         var form_data = new FormData();		
@@ -373,6 +395,7 @@
         form_data.append("comment", comment);
         form_data.append("date", date);
         form_data.append("risk_rating_point", risk_rating_point);
+        form_data.append("initial_risk", initial_risk);
 
         $.ajax({
             url:commenturl,
@@ -382,9 +405,12 @@
             processData: false,
             data:form_data,
             success: function(d){
+                if (d.status == 303) {
                     $(".ermsg").html(d.message);
-                window.setTimeout(function(){location.reload()},2000)
-                // console.log((d.min));
+                }else if(d.status == 300){
+                    $(".ermsg").html(d.message);
+                    window.setTimeout(function(){location.reload()},2000)
+                }
             },
             error:function(d){
                 console.log(d);

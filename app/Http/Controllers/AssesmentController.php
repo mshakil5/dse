@@ -527,6 +527,15 @@ class AssesmentController extends Controller
 
     public function managerAddRating(Request $request)
     {
+
+        $noCount = AssesmentAnswer::where('program_number',$request->prgmnumber)->where('solved', 0)->count();
+
+        if ($noCount > 0) {
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please solved all  \"assesment answer\"..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         if(empty($request->comment)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -547,7 +556,9 @@ class AssesmentController extends Controller
 
         $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
         $closeSchedule->status = 1;
+        $closeSchedule->initial_risk = $request->initial_risk;
         $closeSchedule->risk_rating_point = $request->risk_rating_point;
+        $closeSchedule->compiled_date = date('Y-m-d');
         $closeSchedule->status_title = "Approved";
         $closeSchedule->save();
 
