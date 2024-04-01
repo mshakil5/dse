@@ -13,6 +13,7 @@ use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
 use App\Models\AssesmentAnswerComment;
+use App\Models\AssesmentHealthProblem;
 use App\Models\AssesmentLog;
 use App\Models\AssesmentSchedule;
 use App\Models\DeterminigAnswer;
@@ -101,6 +102,23 @@ class AssesmentController extends Controller
             $updanswer->line_manager_notification = "1";
             $updanswer->user_notification = "0";
             $updanswer->save();
+
+            $newproblem = new AssesmentHealthProblem();
+            $newproblem->date = date('Y-m-d');
+            $newproblem->user_id = Auth::user()->id;
+            $newproblem->program_number = $request->pnumber;
+            $newproblem->determinig_answer_id = $updanswer->id;
+            $newproblem->otherqn = $request->otherqn;
+            $newproblem->question = $request->newqn;
+            $newproblem->lowback = $request->lowback;
+            $newproblem->upperback = $request->upperback;
+            $newproblem->neck = $request->neck;
+            $newproblem->shoulders = $request->shoulders;
+            $newproblem->arms = $request->arms;
+            $newproblem->hand_fingers = $request->hand_fingers;
+            $newproblem->exercise = $request->exercise;
+            $newproblem->taught_exercise = $request->taught_exercise;
+            $newproblem->save();
 
 
             return Redirect::route('user.survey', $request->pnumber)->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');

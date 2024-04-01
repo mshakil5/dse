@@ -427,10 +427,10 @@
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3">Do you do any stretching exercises during the day to prevent muscular tension? </h6>
                                                 <label class="mx-2">
-                                                    <input type="radio" name="muscular" class="form-check-input me-1" value="Yes" required>Yes
+                                                    <input type="radio" name="exercise" class="form-check-input me-1" value="Yes" required>Yes
                                                 </label>
                                                 <label class="mx-2">
-                                                    <input type="radio"  name="muscular" class="form-check-input me-1" value="No" required>No
+                                                    <input type="radio"  name="exercise" class="form-check-input me-1" value="No" required>No
                                                 </label>
                                             </td>
                                         </tr>
@@ -439,10 +439,10 @@
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3"> Would you like to be taught some exercises? </h6>
                                                 <label  class="mx-2">
-                                                    <input type="radio" name="exercises" class="form-check-input me-1" value="Yes" required>Yes
+                                                    <input type="radio" name="taught_exercise" class="form-check-input me-1" value="Yes" required>Yes
                                                 </label>
                                                 <label  class="mx-2">
-                                                    <input  type="radio"  name="exercises" class="form-check-input me-1" value="No" required>No
+                                                    <input  type="radio"  name="taught_exercise" class="form-check-input me-1" value="No" required>No
                                                 </label>
                                             </td>
                                         </tr>
