@@ -39,17 +39,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center justify-content-end">
-                                @if (isset($chksts))
-
-                                @if ($chksts->line_manager_notification == 1)
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning d-flex align-items-center m-2" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Change Status
-                                </a>
-                                @endif
-                                    
-                                @endif
-                                
-
+                               
                                 <a href="{{route('manager.dashboard')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                     Exit
                                 </a>
@@ -58,23 +48,6 @@
                         <div class="row">
                             <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
                                 <div class="py-3">
-
-                                    @if(session('success'))
-                                        <div class="alert alert-success">
-                                            {{ session('success') }}
-                                        </div>
-                                    @endif
-
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <ul>
-                                                @foreach ($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
-                                    @endif
-
 
                                     <h2 class="text-success text-left ">Appendix 3</h2>
                                     <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h2>
@@ -88,6 +61,7 @@
                                         
                                     <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
 
+                                        <p>Work Station Number: {{$data->work_station_number}}</p>
 
                                         <div class="dropdown">
                                             <label for="work_station_number">Work Station Number</label>
@@ -109,74 +83,6 @@
                                             <input type="date" id="date" name="date" class="form-control" value="{{ $assesment->date }}" readonly>
                                         </div>
 
-                                    </div>
-
-                                    
-                                    <div class="row mt-3">
-                                        <div class="col-lg-12">
-                                            <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" value="Full time" @if(isset($data)) @if ($data->job_type == "Full time") checked @endif @endif> or Part time <input type="radio" id="part_time" class="form-check-input" name="job_type" value="Part time" @if(isset($data)) @if ($data->job_type == "Part time") checked @endif @endif> ? 
-                                            </p>
-                                        </div>
-                                
-                                        <div class="col-lg-6 mb-4" id="part_time_work_div" @if (isset($data)) @if ($data->job_type == "Part time") @else
-                                            style="display:none" @endif
-                                            @endif>
-                                            <h6 class="mb-3">If part time how many hours a week do you work? </h6>
-                                            <input id="part_time_work_hour" type="number" name="part_time_work_hour" class="form-control me-1"
-                                                value="@if(isset($data)){{$data->part_time_work_hour}}@endif">
-                                        </div>
-                                
-                                
-                                        <div class="col-lg-12 mb-4">
-                                            <h6 class="mb-3">Do you normally use your DSE for continuous spells of an hour or more at a time?
-                                            </h6>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes" @if(isset($data)) @if ($data->continuous_spell == "Yes") checked @endif @endif>Yes
-                                            </label>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell == "No") checked @endif @endif>No
-                                            </label>
-                                        </div>
-                                
-                                        <div class="col-lg-12 mb-4">
-                                            <h6 class="mb-3">If ‘Yes’ do you do this more or less daily ?     
-                                            </h6>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes"@if(isset($data)) @if ($data->continuous_spell_time == "Yes") checked @endif @endif>Yes
-                                            </label>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell_time == "No") checked @endif @endif>No
-                                            </label>
-                                        </div>
-                                
-                                        <div class="col-lg-6 mb-4">
-                                            <h6 class="mb-3">How many hours on average daily do you spend using your DSE? </h6>
-                                            <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1"
-                                                value="@if(isset($data)){{$data->average_using_dse}}@endif">
-                                        </div>
-                                
-                                        <div class="col-lg-12 mb-4">
-                                            <h6 class="mb-3">What Software do you use? </h6>
-                                            <label class="mx-2">
-                                                <input id="ms_word" type="checkbox" name="software[]" class="form-check-input me-1" value="Word" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Word") checked @endif @endforeach @endif>Word
-                                            </label>
-                                            <label class="mx-2">
-                                                <input id="ms_excel" type="checkbox" name="software[]" class="form-check-input me-1" value="Excel" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Excel") checked @endif @endforeach @endif>Excel
-                                            </label>
-                                            <label for="ms_access" class="mx-2">
-                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="Access" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Access") checked @endif @endforeach @endif>Access
-                                            </label>
-                                            <label for="ms_powerpoint" class="mx-2">
-                                                <input id="ms_powerpoint" type="checkbox" name="software[]" class="form-check-input me-1" value="Powerpoint" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Powerpoint") checked @endif @endforeach @endif>Powerpoint
-                                            </label>
-                                            <label for="others" class="mx-2">
-                                                <input id="others" type="checkbox" name="software[]" class="form-check-input me-1" value="Others" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Others") checked @endif @endforeach @endif>Others
-                                            </label>
-                                            <label class="">
-                                                <input id="others_software" type="text" name="others_software" class="form-control" placeholder="Somerset, EPT, ERS, Cerner" value="@if(isset($data)){{$data->others_software}}@endif">
-                                            </label>
-                                        </div>
-                                
                                     </div>
 
                                 </div>
@@ -491,75 +397,6 @@
 
 </section>
 
-<!-- Modal -->
-<div class="modal fade black-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Title will be there</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="ermsg"></div>
-
-
-            <div class="row">
-
-                <div class="col-lg-6">
-                    <img src="{{ asset('risk.png')}}" class="img-responsive opacity-75" alt="" style="width: 370px;">
-                </div>
-
-                <div class="col-lg-6">
-                    <div class="dropdown">
-                        <label for="initial_risk">Initial degree of risk</label>
-                        <input type="number" id="initial_risk" name="initial_risk" class="form-control">
-                    </div>
-
-                    <div class="dropdown">
-                        <label for="risk_rating_point">Risk rating number</label>
-                        <input type="number" id="risk_rating_point" name="risk_rating_point" class="form-control">
-                    </div>
-        
-                    <div class="dropdown">
-                        <label for="comment">Comment</label>
-                        <textarea name="comment" id="comment" class="form-control" cols="30" rows="3"></textarea>
-                    </div>
-            
-                    <div class="dropdown">
-                        <label for="next_date">Next Assesment Date</label>
-                        <input type="date" class="form-control" id="next_date">
-                    </div>
-
-                    <div class="dropdown mt-2">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary schedule" id="addriskpoint" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
-                    </div>
-
-                    
-        
-                </div>
-
-                <div class="col-lg-12">
-                    <img src="{{ asset('keytool.png')}}" class="img-responsive opacity-75" alt="" style="width: 100%;">
-                </div>
-
-                <div class="col-lg-12">
-                    <img src="{{ asset('rating.png')}}" class="img-responsive opacity-75" alt="" style="width: 100%;">
-                </div>
-
-
-            </div>
-
-            <input type="hidden" name="user_id" id="user_id" value="{{$data->user_id}}">
-        </div>
-        <div class="modal-footer">
-
-
-
-        </div>
-    </div>
-    </div>
-</div>
 
 @endsection
 
@@ -571,98 +408,6 @@
      $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
         // 
 
-        
-        // comment store 
-    $("body").delegate(".addcomment","click",function () {
-        var commenturl = "{{URL::to('/manager/managers-comment')}}";
-
-        var assans_id = $(this).attr('assans_id');
-        var user = $(this).attr('user');
-        var solved = $(this).attr('solved');
-        var comment = $("#comment"+assans_id).val();
-        
-
-        var form_data = new FormData();		
-        form_data.append("assans_id", assans_id);
-        form_data.append("user_id", user);
-        form_data.append("comment", comment);
-        form_data.append("solved", solved);
-
-        $.ajax({
-            url:commenturl,
-            method: "POST",
-            type: "POST",
-            contentType: false,
-            processData: false,
-            data:form_data,
-            success: function(d){
-
-                if (d.status == 303) {
-                    $(".cmntermsg"+assans_id).html(d.message);
-                }else if(d.status == 300){
-                    var newcmnt = $("#reply"+assans_id);
-                    newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
-                    $("#comment"+assans_id).val('');
-                    if (solved == 1) {
-                        $("#replycmnt"+assans_id).html('');
-                        $("#replybtn"+assans_id).html('');
-                    }
-                }
-            },
-            error:function(d){
-                console.log(d);
-            }
-        });
-    });
-    // comment store 
-
-
-
-       // comment store 
-   $("body").delegate("#addriskpoint","click",function () {
-    
-        var status = $("#status").val();
-
-        var ratingurl = "{{URL::to('/manager/add-rating')}}";
-        
-
-        var prgmnumber = $(this).attr('prgmnumber');
-        var user = $(this).attr('uid');
-        var comment = $("#comment").val();
-        var date = $("#next_date").val();
-        var risk_rating_point = $("#risk_rating_point").val();
-        var initial_risk = $("#initial_risk").val();
-        console.log(user, comment, prgmnumber);
-
-        var form_data = new FormData();		
-        form_data.append("prgmnumber", prgmnumber);
-        form_data.append("user_id", user);
-        form_data.append("comment", comment);
-        form_data.append("date", date);
-        form_data.append("risk_rating_point", risk_rating_point);
-        form_data.append("initial_risk", initial_risk);
-
-        $.ajax({
-            url:ratingurl,
-            method: "POST",
-            type: "POST",
-            contentType: false,
-            processData: false,
-            data:form_data,
-            success: function(d){
-                if (d.status == 303) {
-                    $(".ermsg").html(d.message);
-                }else if(d.status == 300){
-                    $(".ermsg").html(d.message);
-                    window.setTimeout(function(){location.reload()},2000)
-                }
-            },
-            error:function(d){
-                console.log(d);
-            }
-        });
-    });
-    // comment store 
     
 </script>
     

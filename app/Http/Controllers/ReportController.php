@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Assesment;
 use App\Models\AssesmentAnswer;
+use App\Models\AssesmentHealthProblem;
+use App\Models\AssesmentSchedule;
 use App\Models\Department;
 use App\Models\DeterminigAnswer;
 use App\Models\QnCategory;
@@ -23,8 +25,6 @@ class ReportController extends Controller
 
     public function getAllAssesmentReportByManagger(Request $request, $id)
     {
-
-        
         $assesment = Assesment::where('program_number', $id)->first();
         $data = WorkStationAssesment::where('program_number', $id)->first();
         $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->get();
@@ -36,8 +36,12 @@ class ReportController extends Controller
                         
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
-        $pnumber = $id;
-        $catid = '0';
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid'));
+        $opms = AssesmentHealthProblem::where('program_number', $id)->first();
+        
+        $oldschedule = AssesmentSchedule::where('program_number', $id)->first();
+        $newschedule = AssesmentSchedule::where('user_id', $assesment->user_id)->latest()->first();
+        // dd($newschedule);
+        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule'));
+
     }
 }
