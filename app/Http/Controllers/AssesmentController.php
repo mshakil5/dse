@@ -528,7 +528,7 @@ class AssesmentController extends Controller
     public function managerAddRating(Request $request)
     {
 
-        $noCount = AssesmentAnswer::where('program_number',$request->prgmnumber)->where('solved', 0)->count();
+        $noCount = AssesmentAnswer::where('program_number',$request->prgmnumber)->where('answer', 'No')->where('solved', 0)->count();
 
         if ($noCount > 0) {
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please solved all  \"assesment answer\"..!</b></div>";

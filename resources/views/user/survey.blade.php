@@ -1,6 +1,29 @@
 @extends('layouts.master')
 @section('content')
+<style>
+    input.custom-checkbox {
+      width: 25px;
+      height: 25px;
+    }
 
+    input.custom-checkbox {
+        width: 25px;
+        height: 25px;
+        background-color: white;
+        border-radius: 5%;
+        vertical-align: middle;
+        border: 1px solid #9c9999;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+    }
+
+    .custom-checkbox:checked {
+        background-color: #193d5b;
+    }
+
+  </style>
 <section class="header-main py-5">
     <div class="container ">
         <div class="col-lg-10 mx-auto px-4 ">
@@ -271,6 +294,166 @@
                             </div>
                         </div>
                     @endforeach
+
+                    
+                <div class="row mt-2">
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                        <div class="row pt-5 px-4">
+                            <div class="col-lg-12 mb-4">
+                                <h6 class="mb-3">Any other question?
+                                </h6>
+                                <label for="otherqnyes" class="mx-2">
+                                    <input id="otherqnyes" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseExample" name="otherqn" class="form-check-input me-1"
+                                        value="yes">Yes
+                                </label>
+                                <label for="otherqnno" class="mx-2">
+                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="no">No
+                                </label>
+                            </div>
+
+                            
+                            <div class="collapse" id="collapseExample">
+                                <div class="col-lg-12 mb-4">
+
+                                    <div class="col-lg-12">
+                                        <textarea name="newqn" class="form-control" placeholder="Make a question here"></textarea>
+                                    </div>
+                                    {{-- <div class="col-lg-12">
+                                        <div class="row py-3 ">
+                                            <div class="col-lg-5 d-flex align-items-center">
+                                                
+                                                <button class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                 
+                                            </div>
+                                        </div>
+                                    </div> --}}
+                                </div>
+                              </div>
+                            
+                              {{-- <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-8 p-2 alert alert-secondary   mb-3 rounded-3 text-dark">user side message</div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">line manager side message</div>
+                                <div class="col-lg-4"></div>
+                              </div> --}}
+                              
+                        </div>
+                    </div>
+                    
+
+
+
+                </div>
+
+                <h2>Tick to confirm location & type of health problem's experienced</h2>
+
+                <div class="row mt-2">
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                        <div class="row pt-5 px-4">
+                            <div class="col-lg-12 mb-4">
+                                
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>(Tick if present)</th>
+                                            <th style="text-align: center">None</th>
+                                            <th style="text-align: center">Ache</th>
+                                            <th style="text-align: center">Pain</th>
+                                            <th style="text-align: center">Pins and needles</th>
+                                            <th style="text-align: center">Numbness</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="text-align: left">Low back</td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Pins and needles" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Numbness" required></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align: left">Upper back</td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="None" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Ache" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pain" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pins and needles" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Numbness" required class="custom-checkbox"></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align: left">Neck</td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Pins and needles" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Numbness" required></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td style="text-align: left">Shoulders</td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="None" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Ache" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pain" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pins and needles" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Numbness" required class="custom-checkbox"></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left">Arms</td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Pins and needles" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Numbness" required></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left">Hand/fingers</td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Pins and needles" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Numbness" required></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <h6 class="mb-3">Do you do any stretching exercises during the day to prevent muscular tension? </h6>
+                                                <label class="mx-2">
+                                                    <input type="radio" name="muscular" class="form-check-input me-1" value="Yes" required>Yes
+                                                </label>
+                                                <label class="mx-2">
+                                                    <input type="radio"  name="muscular" class="form-check-input me-1" value="No" required>No
+                                                </label>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <h6 class="mb-3"> Would you like to be taught some exercises? </h6>
+                                                <label  class="mx-2">
+                                                    <input type="radio" name="exercises" class="form-check-input me-1" value="Yes" required>Yes
+                                                </label>
+                                                <label  class="mx-2">
+                                                    <input  type="radio"  name="exercises" class="form-check-input me-1" value="No" required>No
+                                                </label>
+                                            </td>
+                                        </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                     @if($determiningans->line_manager_notification == "0") 
                     <div class="col-lg-12">
