@@ -303,33 +303,26 @@
                                 <h6 class="mb-3">Any other question?
                                 </h6>
                                 <label for="otherqnyes" class="mx-2">
-                                    <input id="otherqnyes" type="radio" data-bs-toggle="collapse" data-bs-target="#collapseExample" name="otherqn" class="form-check-input me-1"
-                                        value="yes">Yes
+                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
+                                        value="Yes" @if(isset($opms)) @if ($opms->otherqn == "Yes") checked @endif @endif>Yes
                                 </label>
                                 <label for="otherqnno" class="mx-2">
-                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="no">No
+                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->otherqn == "No") checked @endif @endif>No
                                 </label>
                             </div>
 
                             
-                            <div class="collapse" id="collapseExample">
+                            
+                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
                                 <div class="col-lg-12 mb-4">
-
+                                    @if(isset($opms)) 
+                                    <h6 class="mb-3">{{$opms->question}}</h6>
+                                    @else
                                     <div class="col-lg-12">
-                                        <textarea name="newqn" class="form-control" placeholder="Make a question here"></textarea>
+                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
                                     </div>
-                                    {{-- <div class="col-lg-12">
-                                        <div class="row py-3 ">
-                                            <div class="col-lg-5 d-flex align-items-center">
-                                                
-                                                <button class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                </button>
-                                            </div>
-                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                 
-                                            </div>
-                                        </div>
-                                    </div> --}}
+                                    @endif
+                                    
                                 </div>
                               </div>
                             
@@ -371,66 +364,66 @@
                                     <tbody>
                                         <tr>
                                             <td style="text-align: left">Low back</td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Pins and needles" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox" value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "None") checked @endif @endif value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Ache") checked @endif @endif value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Pain") checked @endif @endif value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Pins and needles") checked @endif @endif value="Pins and needles" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Numbness") checked @endif @endif value="Numbness" required></td>
                                         </tr>
                                         
                                         <tr>
                                             <td style="text-align: left">Upper back</td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="None" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Ache" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pain" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pins and needles" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Numbness" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="None"  @if(isset($opms)) @if ($opms->upperback == "None") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Ache"  @if(isset($opms)) @if ($opms->upperback == "Ache") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pain"  @if(isset($opms)) @if ($opms->upperback == "Pain") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pins and needles"  @if(isset($opms)) @if ($opms->upperback == "Pins and needles") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Numbness" @if(isset($opms)) @if ($opms->upperback == "Numbness") checked @endif @endif  required class="custom-checkbox"></td>
                                         </tr>
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Pins and needles" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "None") checked @endif @endif  value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "Ache") checked @endif @endif  value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "Pain") checked @endif @endif  value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "Pins and needles") checked @endif @endif  value="Pins and needles" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" @if(isset($opms)) @if ($opms->neck == "Numbness") checked @endif @endif  value="Numbness" required></td>
                                         </tr>
                                         
                                         <tr>
                                             <td style="text-align: left">Shoulders</td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="None" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Ache" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pain" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pins and needles" required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Numbness" required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="None"  @if(isset($opms)) @if ($opms->shoulders == "None") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Ache"  @if(isset($opms)) @if ($opms->shoulders == "Ache") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pain"  @if(isset($opms)) @if ($opms->shoulders == "Pain") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pins and needles"  @if(isset($opms)) @if ($opms->shoulders == "Pins and needles") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Numbness" @if(isset($opms)) @if ($opms->shoulders == "Numbness") checked @endif @endif  required class="custom-checkbox"></td>
                                         </tr>
 
                                         <tr>
                                             <td style="text-align: left">Arms</td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Pins and needles" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "None") checked @endif @endif  value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "Ache") checked @endif @endif  value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "Pain") checked @endif @endif  value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Pins and needles"  @if(isset($opms)) @if ($opms->arms == "Pins and needles") checked @endif @endif  required></td>
+                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "Numbness") checked @endif @endif value="Numbness" required></td>
                                         </tr>
 
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Pins and needles" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox"  @if(isset($opms)) @if ($opms->hand_fingers == "None") checked @endif @endif  value="None" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox"  @if(isset($opms)) @if ($opms->hand_fingers == "Ache") checked @endif @endif  value="Ache" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox"  @if(isset($opms)) @if ($opms->hand_fingers == "Pain") checked @endif @endif  value="Pain" required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Pins and needles"  @if(isset($opms)) @if ($opms->hand_fingers == "Pins and needles") checked @endif @endif  required></td>
+                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" @if(isset($opms)) @if ($opms->hand_fingers == "Numbness") checked @endif @endif  value="Numbness" required></td>
                                         </tr>
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3">Do you do any stretching exercises during the day to prevent muscular tension? </h6>
                                                 <label class="mx-2">
-                                                    <input type="radio" name="exercise" class="form-check-input me-1" value="Yes" required>Yes
+                                                    <input type="radio" name="exercise" class="form-check-input me-1" value="Yes" @if(isset($opms)) @if ($opms->exercise == "Yes") checked @endif @endif  required>Yes
                                                 </label>
                                                 <label class="mx-2">
-                                                    <input type="radio"  name="exercise" class="form-check-input me-1" value="No" required>No
+                                                    <input type="radio"  name="exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->exercise == "No") checked @endif @endif  required>No
                                                 </label>
                                             </td>
                                         </tr>
@@ -439,10 +432,10 @@
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3"> Would you like to be taught some exercises? </h6>
                                                 <label  class="mx-2">
-                                                    <input type="radio" name="taught_exercise" class="form-check-input me-1" value="Yes" required>Yes
+                                                    <input type="radio" name="taught_exercise" class="form-check-input me-1" value="Yes" @if(isset($opms)) @if ($opms->taught_exercise == "Yes") checked @endif @endif  required>Yes
                                                 </label>
                                                 <label  class="mx-2">
-                                                    <input  type="radio"  name="taught_exercise" class="form-check-input me-1" value="No" required>No
+                                                    <input  type="radio"  name="taught_exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->taught_exercise == "No") checked @endif @endif  required>No
                                                 </label>
                                             </td>
                                         </tr>
@@ -502,6 +495,15 @@
         } else {
             $("#others_software").hide();
             $("#others_software").val('');
+        }
+    });
+
+    $("#otherqnyes").click(function() {
+        if($(this).is(":checked")) {
+            $("#additionalqn").show();
+        } else {
+            $("#additionalqn").hide();
+            $("#newqn").val('');
         }
     });
 

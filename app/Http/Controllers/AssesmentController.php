@@ -108,6 +108,7 @@ class AssesmentController extends Controller
             $newproblem->user_id = Auth::user()->id;
             $newproblem->program_number = $request->pnumber;
             $newproblem->determinig_answer_id = $updanswer->id;
+            $newproblem->assesment_schedule_id = $updanswer->assesment_schedule_id;
             $newproblem->otherqn = $request->otherqn;
             $newproblem->question = $request->newqn;
             $newproblem->lowback = $request->lowback;
