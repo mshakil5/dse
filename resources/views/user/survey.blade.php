@@ -337,10 +337,6 @@
                               
                         </div>
                     </div>
-                    
-
-
-
                 </div>
 
                 <h2>Tick to confirm location & type of health problem's experienced</h2>

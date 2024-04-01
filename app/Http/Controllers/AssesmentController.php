@@ -180,9 +180,10 @@ class AssesmentController extends Controller
                         
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
+        $opms = AssesmentHealthProblem::where('program_number', $id)->first();
         $pnumber = $id;
         $catid = '0';
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid'));
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
     }
 
     public function showAssessmentUserDetailsbyCategory(Request $request, $uid, $cat_id)
@@ -198,9 +199,10 @@ class AssesmentController extends Controller
         // dd($questionCategories);
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
+        $opms = AssesmentHealthProblem::where('program_number', $uid)->first();
         $pnumber = $uid;
         $catid = $cat_id;
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid'));
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
     }
 
     
