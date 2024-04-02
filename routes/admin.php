@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AgentController;
 use App\Http\Controllers\Admin\CountryController;
@@ -28,6 +29,9 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('changepassword', [AdminController::class, 'changeAdminPassword']);
     Route::put('image/{id}', [AdminController::class, 'adminImageUpload']);
     //profile end
+
+    
+    Route::get('/menu', [DashboardController::class, 'getAllMenu'])->name('allmenu');
 
     Route::get('/new-admin', [AdminController::class, 'getAdmin'])->name('alladmin');
     Route::post('/new-admin', [AdminController::class, 'adminStore']);
