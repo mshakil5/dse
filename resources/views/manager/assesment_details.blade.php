@@ -209,22 +209,22 @@
                                 </div>
 
                                 @foreach ($assanswer->assesmentAnswerComments as $comment)
-                                    @if ($comment->created_by == "Manager")
+                                    @if ($comment->created_by == "User")
                                         <div class="row">
-                                            <div class="col-lg-4"></div>
                                             <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">{{$comment->comment}}
                                                 <br>
                                             <small>Date: {{$comment->date}}</small>
                                             </div>
+                                            <div class="col-lg-4"></div>
                                         </div>
                                     @else
 
                                         <div class="row">
+                                            <div class="col-lg-4"></div>
                                             <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
                                                 <br>
                                                 <small>Date: {{$comment->date}}</small>
                                             </div>
-                                            <div class="col-lg-4"></div>
                                         </div>
                                         
                                     @endif

@@ -395,7 +395,6 @@
                             <thead>
                                 <tr>
                                     <th>Risk factors</th>
-                                    <th>Answer</th>
                                     <th>Conversation</th>
                                 </tr>
                             </thead>
@@ -406,30 +405,28 @@
                                     
                                 <tr>
                                     <td>{{ $assanswer->question->question }}
-                                        <div class="py-4">
+                                        <div>
                                             <img src="{{ asset('images/question/'.$assanswer->question->image) }}" class="img-fluid" alt="">
                                         </div>
                                     </td>
-                                    <td>{{ $assanswer->answer }} </td>
-
-                                    <td style="width: 60%">  
+                                    <td style="width: 70%" class="p-2">  
                                         @foreach ($assanswer->assesmentAnswerComments as $comment)
-                                                @if ($comment->created_by == "Manager")
+                                                @if ($comment->created_by == "User")
                                                     <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark  align-items-right">{{$comment->comment}}
+                                                        <div class="col-lg-8 alert alert-secondary  rounded-3 text-dark  align-items-right">{{$comment->comment}}
                                                             <br>
                                                         <small>Date: {{$comment->date}}</small>
                                                         </div>
+                                                        <div class="col-lg-4"></div>
                                                     </div>
                                                 @else
 
                                                     <div class="row">
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                                        <div class="col-lg-4"></div>
+                                                        <div class="col-lg-8 alert alert-secondary text-start rounded-3 text-dark">{{$comment->comment}}
                                                             <br>
                                                             <small>Date: {{$comment->date}}</small>
                                                         </div>
-                                                        <div class="col-lg-4"></div>
                                                     </div>
                                                     
                                                 @endif
