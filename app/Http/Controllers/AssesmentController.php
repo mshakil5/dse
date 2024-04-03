@@ -579,6 +579,7 @@ class AssesmentController extends Controller
         $closeSchedule->status = 1;
         $closeSchedule->initial_risk = $request->initial_risk;
         $closeSchedule->risk_rating_point = $request->risk_rating_point;
+        $closeSchedule->comment = $request->comment;
         $closeSchedule->compiled_date = date('Y-m-d');
         $closeSchedule->status_title = "Approved";
         $closeSchedule->save();

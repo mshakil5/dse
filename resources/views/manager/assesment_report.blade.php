@@ -137,14 +137,13 @@
                     
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                         
-                        <table class="table">
+                        <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Risk factors</th>
                                     <th>Tick Yes</th>
                                     <th>Tick No</th>
                                     <th>Things to consider</th>
-                                    <th>Action needed</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,7 +161,6 @@
                                     <td>
                                         <input type="radio" class="custom-checkbox"  value="Yes" {{ $assanswer->answer == 'No' ? 'checked' : '' }} ></td>
                                     <td>{{ $assanswer->question->tips }}</td>
-                                    <td></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -239,7 +237,7 @@
                         <div class="row pt-5 px-4">
                             <div class="col-lg-12 mb-4">
                                 
-                                <table class="table">
+                                <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>(Tick if present)</th>
@@ -354,7 +352,7 @@
                         <h4>DSE Risk Assessment Action Plan</h4>
                         <h6>To be completed by Manager / Health and Safety Lead and DSE User</h6>
                         
-                        <table class="table p-2">
+                        <table class="table table-bordered table-striped p-2">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -371,7 +369,7 @@
                                 <tr>
                                     <td> @if (isset($oldschedule->start_date)) {{$oldschedule->start_date}} @else {{$oldschedule->end_date}} @endif</td>
                                     <td>{{$oldschedule->initial_risk}}</td>
-                                    <td></td>
+                                    <td>{{$oldschedule->comment}}</td>
                                     <td>{{$newschedule->end_date}}</td>
                                     <td>{{$oldschedule->compiled_date}}</td>
                                     <td>{{$oldschedule->risk_rating_point}}</td>
@@ -387,7 +385,71 @@
                         
                     </div>
                 </div>
+
+
+                <div class="row mt-2">
+                    
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                        
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Risk factors</th>
+                                    <th>Answer</th>
+                                    <th>Conversation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($comments as $key => $assanswer)
+                                
+                                    
+                                <tr>
+                                    <td>{{ $assanswer->question->question }}
+                                        <div class="py-4">
+                                            <img src="{{ asset('images/question/'.$assanswer->question->image) }}" class="img-fluid" alt="">
+                                        </div>
+                                    </td>
+                                    <td>{{ $assanswer->answer }} </td>
+
+                                    <td style="width: 60%">  
+                                        @foreach ($assanswer->assesmentAnswerComments as $comment)
+                                                @if ($comment->created_by == "Manager")
+                                                    <div class="row">
+                                                        <div class="col-lg-4"></div>
+                                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark  align-items-right">{{$comment->comment}}
+                                                            <br>
+                                                        <small>Date: {{$comment->date}}</small>
+                                                        </div>
+                                                    </div>
+                                                @else
+
+                                                    <div class="row">
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                                            <br>
+                                                            <small>Date: {{$comment->date}}</small>
+                                                        </div>
+                                                        <div class="col-lg-4"></div>
+                                                    </div>
+                                                    
+                                                @endif
+                                            @endforeach
+                                    </td>
+                                </tr>
+                                
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
+
                 
+
+
+
+
             </div>
         </div>
 

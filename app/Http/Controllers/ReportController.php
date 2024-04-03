@@ -9,6 +9,7 @@ use App\Models\AssesmentSchedule;
 use App\Models\Department;
 use App\Models\DeterminigAnswer;
 use App\Models\QnCategory;
+use App\Models\Question;
 use App\Models\User;
 use App\Models\WorkStationAssesment;
 use Illuminate\Http\Request;
@@ -40,8 +41,10 @@ class ReportController extends Controller
         
         $oldschedule = AssesmentSchedule::where('program_number', $id)->first();
         $newschedule = AssesmentSchedule::where('user_id', $assesment->user_id)->latest()->first();
-        // dd($newschedule);
-        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule'));
+
+        $comments = AssesmentAnswer::whereHas('assesmentAnswerComments')->where('program_number', $id)->get();;
+        // dd($comments);
+        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments'));
 
     }
 }

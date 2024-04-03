@@ -313,7 +313,7 @@
 
                             
                             
-                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
+                            <div id="additionalqn" style="@if(isset($opms)) @if($opms->otherqn == "Yes") @else display:none @endif @else display:none @endif">
                                 <div class="col-lg-12 mb-4">
                                     @if(isset($opms)) 
                                     <h6 class="mb-3">{{$opms->question}}</h6>
@@ -494,15 +494,6 @@
         }
     });
 
-    $("#otherqnyes").click(function() {
-        if($(this).is(":checked")) {
-            $("#additionalqn").show();
-        } else {
-            $("#additionalqn").hide();
-            $("#newqn").val('');
-        }
-    });
-
     $(document).ready(function(){
         $('input[name="job_type"]').change(function(){
         var value = $(this).val();
@@ -511,6 +502,16 @@
         } else {
             $('#part_time_work_div').hide();
             $("#part_time_work_hour").val('');
+        }
+        });
+
+        $('input[name="otherqn"]').change(function(){
+        var value = $(this).val();
+        if(value === 'Yes') {
+            $('#additionalqn').show();
+        } else {
+            $('#additionalqn').hide();
+            $("#newqn").val('');
         }
         });
     });
