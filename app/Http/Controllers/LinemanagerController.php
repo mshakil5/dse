@@ -71,7 +71,7 @@ class LinemanagerController extends Controller
     public function getDueAssesment()
     {
 
-        $users = AssesmentSchedule::where('line_manager_id', Auth::user()->id)
+        $users = AssesmentSchedule::where('line_manager_id', Auth::user()->id)->whereNull('compiled_date')
                             ->where('end_date', '<=', Carbon::now()->addMonth())
                             ->where('end_date', '>=', Carbon::now())
                             ->orderby('id','DESC')
