@@ -137,7 +137,7 @@
                     
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                         
-                        <table class="table table-bordered table-striped">
+                        {{-- <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Risk factors</th>
@@ -162,6 +162,51 @@
                                         <input type="radio" class="custom-checkbox"  value="Yes" {{ $assanswer->answer == 'No' ? 'checked' : '' }} ></td>
                                     <td>{{ $assanswer->question->tips }}</td>
                                 </tr>
+                                @endforeach
+                            </tbody>
+                        </table> --}}
+
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Risk factors</th>
+                                    <th>Tick Yes</th>
+                                    <th>Tick No</th>
+                                    <th>Things to consider</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($category as $key => $category)
+
+                                <tr>
+                                    <td colspan="4">
+                                        <span class="px-2 text-success">{{$category->name}}
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                @foreach ($category->question as $question)
+                                    
+                                <tr>
+                                    <td>{{ $question->question }}
+                                        <div class="py-4">
+                                            <img src="{{ asset('images/question/'.$question->image) }}" class="img-fluid" alt="">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        
+                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $question->assesmentAnswers->answer == 'Yes' ? 'checked' : '' }} >
+                                    </td>
+                                    <td>
+                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $question->assesmentAnswers->answer == 'No' ? 'checked' : '' }} >
+                                    </td>
+                                    <td>{{ $question->tips }}</td>
+                                </tr>
+                                @endforeach
+
+
+
                                 @endforeach
                             </tbody>
                         </table>
@@ -440,6 +485,28 @@
 
                     </div>
                 </div>
+
+
+
+                {{-- this part is for testing --}}
+
+                
+                <div class="row">
+
+
+                    
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                        
+                        
+
+                    </div>
+
+                    
+                    
+                </div>
+
+
+                {{-- this part is for testing --}}
 
 
                 

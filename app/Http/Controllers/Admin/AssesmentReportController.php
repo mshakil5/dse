@@ -41,9 +41,22 @@ class AssesmentReportController extends Controller
         $oldschedule = AssesmentSchedule::where('program_number', $id)->first();
         $newschedule = AssesmentSchedule::where('user_id', $assesment->user_id)->latest()->first();
 
-        $comments = AssesmentAnswer::whereHas('assesmentAnswerComments')->where('program_number', $id)->get();;
-        // dd($comments);
-        return view('admin.report.report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments'));
+        $comments = AssesmentAnswer::whereHas('assesmentAnswerComments')->where('program_number', $id)->get();
+
+        $category = QnCategory::whereHas('question.assesmentAnswers', function ($query) use ($id) {
+            $query->where('program_number', $id);
+        })->with(['question' => function ($query) use ($id){
+            $query->whereHas('assesmentAnswers', function ($query) use ($id) {
+                $query->where('program_number', $id);
+            });
+            $query->with(['assesmentAnswers' => function ($query) use ($id){
+                $query->where('program_number', $id);
+            }]);
+        }])->get();
+
+
+        // dd($category);
+        return view('admin.report.report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category'));
 
     }
 }

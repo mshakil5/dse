@@ -27,7 +27,7 @@ class Question extends Model
 
     public function assesmentAnswers()
     {
-        return $this->hasMany(AssesmentAnswer::class);
+        return $this->hasOne(AssesmentAnswer::class);
     }
 
 
