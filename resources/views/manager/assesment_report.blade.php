@@ -148,20 +148,36 @@
                             </thead>
                             <tbody>
 
-                                @foreach ($assesmentanswers as $key => $assanswer)
+                                @foreach ($category as $key => $category)
+
                                 <tr>
-                                    <td>{{ $assanswer->question->question }}
+                                    <td colspan="4">
+                                        <span class="px-2 text-success">{{$category->name}}
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                @foreach ($category->question as $question)
+                                    
+                                <tr>
+                                    <td>{{ $question->question }}
                                         <div class="py-4">
-                                            <img src="{{ asset('images/question/'.$assanswer->question->image) }}" class="img-fluid" alt="">
+                                            <img src="{{ asset('images/question/'.$question->image) }}" class="img-fluid" alt="">
                                         </div>
                                     </td>
                                     <td>
-                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $assanswer->answer == 'Yes' ? 'checked' : '' }} >
+                                        
+                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $question->assesmentAnswers->answer == 'Yes' ? 'checked' : '' }} >
                                     </td>
                                     <td>
-                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $assanswer->answer == 'No' ? 'checked' : '' }} ></td>
-                                    <td>{{ $assanswer->question->tips }}</td>
+                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $question->assesmentAnswers->answer == 'No' ? 'checked' : '' }} >
+                                    </td>
+                                    <td>{{ $question->tips }}</td>
                                 </tr>
+                                @endforeach
+
+
+
                                 @endforeach
                             </tbody>
                         </table>

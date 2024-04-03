@@ -53,8 +53,6 @@ class AssesmentReportController extends Controller
                 $query->where('program_number', $id);
             }]);
         }])->get();
-
-
         // dd($category);
         return view('admin.report.report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category'));
 

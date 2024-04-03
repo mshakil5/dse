@@ -137,35 +137,6 @@
                     
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                         
-                        {{-- <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Risk factors</th>
-                                    <th>Tick Yes</th>
-                                    <th>Tick No</th>
-                                    <th>Things to consider</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                @foreach ($assesmentanswers as $key => $assanswer)
-                                <tr>
-                                    <td>{{ $assanswer->question->question }}
-                                        <div class="py-4">
-                                            <img src="{{ asset('images/question/'.$assanswer->question->image) }}" class="img-fluid" alt="">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $assanswer->answer == 'Yes' ? 'checked' : '' }} >
-                                    </td>
-                                    <td>
-                                        <input type="radio" class="custom-checkbox"  value="Yes" {{ $assanswer->answer == 'No' ? 'checked' : '' }} ></td>
-                                    <td>{{ $assanswer->question->tips }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table> --}}
-
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
