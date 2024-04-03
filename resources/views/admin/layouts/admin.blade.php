@@ -138,6 +138,7 @@
   <script src="{{ asset('assets/admin/vendor/simple-datatables/simple-datatables.js')}}"></script>
   <script src="{{ asset('assets/admin/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{ asset('assets/admin/vendor/php-email-form/validate.js')}}"></script>
+  <script src="https://code.iconify.design/iconify-icon/2.0.0/iconify-icon.min.js"></script>
 
   
 <!-- DataTables  & Plugins -->

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\QnCategoryController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\SubQuestionController;
+use App\Http\Controllers\Admin\AssesmentReportController;
 
 
 /*------------------------------------------
@@ -98,5 +99,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/sub-question/{id}', [SubQuestionController::class, 'delete']);
 
     
+    Route::get('/assesment-compiled-list', [AssesmentReportController::class, 'getCompiledList'])->name('admin.assesmentCompiledList');
+    // report part start here
+    Route::get('/assessment/report/{id}', [AssesmentReportController::class,'getAssesmentReport'])->name('admin.assesment.report');
 });
   
