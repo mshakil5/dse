@@ -256,18 +256,18 @@
                                             @endforeach
                                         
 
-                                            @if ($question->assesmentAnswers->assesmentAnswerComments->count() > 0 && $answers->solved == 0)
+                                            @if ($question->assesmentAnswers->assesmentAnswerComments->count() > 0 && $question->assesmentAnswers->solved == 0)
 
                                                 <div class="col-lg-12">
-                                                    <textarea name="comment" id="comment{{$answers->id}}" class="form-control" placeholder="Comments Here" required></textarea>
+                                                    <textarea name="comment" id="comment{{$question->assesmentAnswers->id}}" class="form-control" placeholder="Comments Here" required></textarea>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-7 d-flex gap-3">
 
-                                                            <button type="button" class="btn btn-success d-flex align-items-center addcomment" for="commentForm{{$answers->id}}" qnid="{{$question->id}}" assans_id="{{ $answers->id }}" solved="1"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
+                                                            <button type="button" class="btn btn-success d-flex align-items-center addcomment" for="commentForm{{$question->assesmentAnswers->id}}" qnid="{{$question->id}}" assans_id="{{ $question->assesmentAnswers->id }}" solved="1"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> accept as resolved</button>
 
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center sendmsg" qnid="{{$question->id}}" assans_id="{{ $answers->id }}" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center sendmsg" qnid="{{$question->id}}" assans_id="{{ $question->assesmentAnswers->id }}" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
 
                                                         </div>
