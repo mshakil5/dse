@@ -216,22 +216,24 @@
                                         <h6 class="mb-3">{{ $key + 1 }}. {{ $question->question }}</h6>
                                         <div class="d-flex">
                                             <label for="yes" class="mx-4 fw-bold text-success">
-                                                YES <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" id="yes{{ $question->id }}" value="Yes" required="required" @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'Yes') ? 'checked' : '' }} @endif onclick="toggleFields(this)" data-qid="{{$question->id}}">
+                                                YES <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" id="yes{{ $question->id }}" value="Yes" required="required" @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->answer == "Yes" ? 'checked' : '' }} @endif onclick="toggleFields(this)" data-qid="{{$question->id}}">
                                             </label>
 
                                             <label for="NO" class="me-3 fw-bold text-danger">
                                                 NO <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" value="No" required="required" 
-                                                 @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'No') ? 'checked' : '' }} @endif onclick="toggleFields(this)" data-qid="{{$question->id}}">
+                                                 @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->answer == "No" ? 'checked' : '' }} @endif onclick="toggleFields(this)" data-qid="{{$question->id}}">
                                             </label>
                                         </div>
 
-                                        <div class="row" id="subqnDiv{{$question->id}}" style="@if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->where('user_id',Auth::user()->id)->contains('answer', 'No') ? '' : 'display:none' }} @endif">
+                                        <div class="row @if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'd-none' }}@else d-none @endif" id="subqnDiv{{$question->id}}" style="@if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'display:none' }} @endif">
                                             <div class="col-lg-12 p-2 alert alert-danger mb-3 rounded-3 text-dark">{{$question->tips ? $question->tips : 'Tips coming soon...'}}</div>
                                         </div>
 
-                                        @foreach ($question->assesmentAnswers as $answers)
-                                        @if ($answers->user_id == Auth::user()->id)
-                                            @foreach ($answers->assesmentAnswerComments as $comment)
+                                       
+                                        @if (isset($question->assesmentAnswers))
+                                        
+                                        @if ($question->assesmentAnswers->user_id == Auth::user()->id)
+                                            @foreach ($question->assesmentAnswers->assesmentAnswerComments as $comment)
                                                 @if ($comment->created_by == "Manager")
                                                     <div class="row">
                                                         <div class="col-lg-4"></div>
@@ -254,7 +256,7 @@
                                             @endforeach
                                         
 
-                                            @if ($answers->assesmentAnswerComments->count() > 0 && $answers->solved == 0)
+                                            @if ($question->assesmentAnswers->assesmentAnswerComments->count() > 0 && $answers->solved == 0)
 
                                                 <div class="col-lg-12">
                                                     <textarea name="comment" id="comment{{$answers->id}}" class="form-control" placeholder="Comments Here" required></textarea>
@@ -280,7 +282,10 @@
                                             @endif
                                         
                                         @endif
-                                    @endforeach
+                                        
+                                        @endif
+
+                                    
 
 
 
@@ -530,8 +535,10 @@
         var value = element.getAttribute('value');
         if (value == "No") {
             $("#subqnDiv"+id).show();
+            $("#subqnDiv"+id).removeClass("d-none");
         } else {
             $("#subqnDiv"+id).hide();
+            $("#subqnDiv"+id).addClass("d-none");
         }
     }
 

@@ -42,15 +42,22 @@ class SurveyController extends Controller
         $departments = Department::whereId($determiningans->department_id)->first();
         $chkassesmentanswer = AssesmentAnswer::whereUserId(Auth::user()->id)->count();
         
+            // dd($chkassesmentanswer);
         if ($chkassesmentanswer > 0) {
             $questions = Question::with(['assesmentAnswers' => function($query) use ($programNumber) {
                 // Filter assessment answers by user_id
+                $query->where('program_number', $programNumber);
                 $query->where('user_id', auth()->id())->where('program_number', $programNumber)
                      ->with('assesmentAnswerComments'); // Eager load assessment answer comments
             }])->get();
+
             
+            // dd($questions);
         } else {
-            $questions = Question::with('subquestion')->get();
+            // $questions = Question::with('subquestion')->get();
+            $questions = Question::with(['assesmentAnswers' => function($query) use ($programNumber) {
+                $query->where('program_number', $programNumber);
+            }])->get();
         }
 
 
