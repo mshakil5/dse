@@ -400,56 +400,84 @@
                                     <tbody>
                                         <tr>
                                             <td style="text-align: left">Low back</td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "None") checked @endif @endif value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Ache") checked @endif @endif value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Pain") checked @endif @endif value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Pins and needles") checked @endif @endif value="Pins and needles" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="lowback" class="custom-checkbox"  @if(isset($opms)) @if ($opms->lowback == "Numbness") checked @endif @endif value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" value="None" @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "None") checked @endif @endforeach @endif ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Ache") checked @endif @endforeach @endif value="Ache"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pain") checked @endif @endforeach @endif value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pins and needles") checked @endif @endforeach @endif value="Pins and needles" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                
+                                                <div class="cmntermsg{{ $assanswer->id }}"></div>
+                                                <input type="hidden" name="user_id" value="{{$user->id}}">
+                                                <div class="col-lg-12" id="replycmnt{{$assanswer->id}}">
+                                                    <textarea name="manager_comment" id="comment{{$assanswer->id}}" class="form-control" placeholder="Comments Here" required></textarea>
+                                                    <input type="hidden" name="assans_id" value="{{ $assanswer->id }}">
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn{{$assanswer->id}}">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            {{-- <small class="text-muted mb-0">76 charachter remaining</small> --}}
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="{{$user->id}}" assans_id="{{ $assanswer->id }}" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </td>
                                         </tr>
                                         
                                         <tr>
                                             <td style="text-align: left">Upper back</td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="None"  @if(isset($opms)) @if ($opms->upperback == "None") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Ache"  @if(isset($opms)) @if ($opms->upperback == "Ache") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pain"  @if(isset($opms)) @if ($opms->upperback == "Pain") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Pins and needles"  @if(isset($opms)) @if ($opms->upperback == "Pins and needles") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="upperback" value="Numbness" @if(isset($opms)) @if ($opms->upperback == "Numbness") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="None"   @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "None") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Ache" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Ache") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pain" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pain") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pins and needles" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pins and needles") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox"></td>
                                         </tr>
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "None") checked @endif @endif  value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "Ache") checked @endif @endif  value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "Pain") checked @endif @endif  value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox"  @if(isset($opms)) @if ($opms->neck == "Pins and needles") checked @endif @endif  value="Pins and needles" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="neck" class="custom-checkbox" @if(isset($opms)) @if ($opms->neck == "Numbness") checked @endif @endif  value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "None") checked @endif @endforeach @endif   value="None" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Ache") checked @endif @endforeach @endif   value="Ache" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pain") checked @endif @endforeach @endif   value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pins and needles") checked @endif @endforeach @endif   value="Pins and needles" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
                                         
                                         <tr>
                                             <td style="text-align: left">Shoulders</td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="None"  @if(isset($opms)) @if ($opms->shoulders == "None") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Ache"  @if(isset($opms)) @if ($opms->shoulders == "Ache") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pain"  @if(isset($opms)) @if ($opms->shoulders == "Pain") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Pins and needles"  @if(isset($opms)) @if ($opms->shoulders == "Pins and needles") checked @endif @endif  required class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="radio" name="shoulders" value="Numbness" @if(isset($opms)) @if ($opms->shoulders == "Numbness") checked @endif @endif  required class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="None"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Ache"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Ache") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pain"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pain") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pins and needles") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
                                         </tr>
 
                                         <tr>
                                             <td style="text-align: left">Arms</td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "None") checked @endif @endif  value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "Ache") checked @endif @endif  value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "Pain") checked @endif @endif  value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox" value="Pins and needles"  @if(isset($opms)) @if ($opms->arms == "Pins and needles") checked @endif @endif  required></td>
-                                            <td style="text-align: center"> <input type="radio" name="arms" class="custom-checkbox"  @if(isset($opms)) @if ($opms->arms == "Numbness") checked @endif @endif value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "None") checked @endif @endforeach @endif  value="None" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Ache") checked @endif @endforeach @endif  value="Ache" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pain") checked @endif @endforeach @endif  value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pins and needles") checked @endif @endforeach @endif  ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
 
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox"  @if(isset($opms)) @if ($opms->hand_fingers == "None") checked @endif @endif  value="None" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox"  @if(isset($opms)) @if ($opms->hand_fingers == "Ache") checked @endif @endif  value="Ache" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox"  @if(isset($opms)) @if ($opms->hand_fingers == "Pain") checked @endif @endif  value="Pain" required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" value="Pins and needles"  @if(isset($opms)) @if ($opms->hand_fingers == "Pins and needles") checked @endif @endif  required></td>
-                                            <td style="text-align: center"> <input type="radio" name="hand_fingers" class="custom-checkbox" @if(isset($opms)) @if ($opms->hand_fingers == "Numbness") checked @endif @endif  value="Numbness" required></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "None") checked @endif @endforeach @endif  value="None" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Ache") checked @endif @endforeach @endif  value="Ache"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pain") checked @endif @endforeach @endif  value="Pain"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pins and needles") checked @endif @endforeach @endif ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
 
                                         <tr>
