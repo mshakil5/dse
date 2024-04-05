@@ -111,12 +111,12 @@ class AssesmentController extends Controller
             $newproblem->assesment_schedule_id = $updanswer->assesment_schedule_id;
             $newproblem->otherqn = $request->otherqn;
             $newproblem->question = $request->newqn;
-            $newproblem->lowback = $request->lowback;
-            $newproblem->upperback = $request->upperback;
-            $newproblem->neck = $request->neck;
-            $newproblem->shoulders = $request->shoulders;
-            $newproblem->arms = $request->arms;
-            $newproblem->hand_fingers = $request->hand_fingers;
+            $newproblem->lowback = json_encode($request->lowback);
+            $newproblem->upperback = json_encode($request->upperback);
+            $newproblem->neck = json_encode($request->neck);
+            $newproblem->shoulders = json_encode($request->shoulders);
+            $newproblem->arms = json_encode($request->arms);
+            $newproblem->hand_fingers = json_encode($request->hand_fingers);
             $newproblem->exercise = $request->exercise;
             $newproblem->taught_exercise = $request->taught_exercise;
             $newproblem->save();
@@ -168,7 +168,6 @@ class AssesmentController extends Controller
     public function showAssessmentUserDetails(Request $request, $id)
     {
 
-        
         $assesment = Assesment::where('program_number', $id)->first();
         $data = WorkStationAssesment::where('program_number', $id)->first();
         $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->get();
