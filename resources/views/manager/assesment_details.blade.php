@@ -407,29 +407,26 @@
                                             <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
 
+                                        @if (isset($opms)) @foreach (json_decode($opms->lowback) as $key => $lowback)   @if ($key == 1) @if ($lowback != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
-                                                
-                                                <div class="cmntermsg{{ $assanswer->id }}"></div>
-                                                <input type="hidden" name="user_id" value="{{$user->id}}">
-                                                <div class="col-lg-12" id="replycmnt{{$assanswer->id}}">
-                                                    <textarea name="manager_comment" id="comment{{$assanswer->id}}" class="form-control" placeholder="Comments Here" required></textarea>
-                                                    <input type="hidden" name="assans_id" value="{{ $assanswer->id }}">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentlowback" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
-                                                <div class="col-lg-12" id="replybtn{{$assanswer->id}}">
+                                                <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            {{-- <small class="text-muted mb-0">76 charachter remaining</small> --}}
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="lowback" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="{{$user->id}}" assans_id="{{ $assanswer->id }}" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
                                             </td>
                                         </tr>
+                                        @endif @endif @endforeach @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Upper back</td>
@@ -443,6 +440,27 @@
 
                                             <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox"></td>
                                         </tr>
+
+                                        @if (isset($opms)) @foreach (json_decode($opms->upperback) as $key => $upperback)   @if ($key == 1) @if ($upperback != "None")
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif @endif @endforeach @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
@@ -452,6 +470,27 @@
                                             <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pins and needles") checked @endif @endforeach @endif   value="Pins and needles" ></td>
                                             <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
+
+                                        @if (isset($opms)) @foreach (json_decode($opms->neck) as $key => $neck)   @if ($key == 1) @if ($neck != "None")
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif @endif @endforeach @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Shoulders</td>
@@ -462,6 +501,27 @@
                                             <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
                                         </tr>
 
+                                        @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $key => $shoulders)   @if ($key == 1) @if ($shoulders != "None")
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif @endif @endforeach @endif
+
                                         <tr>
                                             <td style="text-align: left">Arms</td>
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "None") checked @endif @endforeach @endif  value="None" ></td>
@@ -471,6 +531,27 @@
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
 
+                                        @if (isset($opms)) @foreach (json_decode($opms->arms) as $key => $arms)   @if ($key == 1) @if ($arms != "None")
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif @endif @endforeach @endif
+
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
                                             <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "None") checked @endif @endforeach @endif  value="None" ></td>
@@ -479,6 +560,27 @@
                                             <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pins and needles") checked @endif @endforeach @endif ></td>
                                             <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
+
+                                        @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $key => $hand_fingers)   @if ($key == 1) @if ($hand_fingers != "None")
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif @endif @endforeach @endif
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
@@ -642,12 +744,58 @@
             }
         });
     });
+
+
+
+    $("body").delegate(".addOpmsComment","click",function () {
+        var opmsurl = "{{URL::to('/manager/health-suggestion')}}";
+
+        var opmsname = $(this).attr('opmsname');
+        var user = $("#user_id").val();
+        var solved = $(this).attr('solved');
+        var comment = $("#comment"+opmsname).val();
+        
+        console.log(opmsname, user, solved, comment);
+        var form_data = new FormData();		
+        form_data.append("assans_id", assans_id);
+        form_data.append("user_id", user);
+        form_data.append("comment", comment);
+        form_data.append("solved", solved);
+
+        $.ajax({
+            url:opmsurl,
+            method: "POST",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data:form_data,
+            success: function(d){
+
+                if (d.status == 303) {
+                    $(".cmntermsg"+assans_id).html(d.message);
+                }else if(d.status == 300){
+                    var newcmnt = $("#reply"+assans_id);
+                    newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
+                    $("#comment"+assans_id).val('');
+                    if (solved == 1) {
+                        $("#replycmnt"+assans_id).html('');
+                        $("#replybtn"+assans_id).html('');
+                    }
+                }
+            },
+            error:function(d){
+                console.log(d);
+            }
+        });
+    });
+
+
     // comment store 
 
 
 
        // comment store 
-   $("body").delegate("#addriskpoint","click",function () {
+    $("body").delegate("#addriskpoint","click",function () {
     
         var status = $("#status").val();
 

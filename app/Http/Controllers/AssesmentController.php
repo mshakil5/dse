@@ -180,6 +180,7 @@ class AssesmentController extends Controller
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
         $opms = AssesmentHealthProblem::where('program_number', $id)->first();
+        // dd($opms);
         $pnumber = $id;
         $catid = '0';
         return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
