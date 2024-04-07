@@ -9,9 +9,9 @@
       <div class="col-lg-10 mx-auto px-4 ">
           <div class="row">
             @if (isset($danswer))
-            <div class="alert alert-warning" role="alert">
+            {{-- <div class="alert alert-warning" role="alert">
                 <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Some text will be there for user notification when manager reject assesment. <em class="text-dark fw-bold"></em>
-            </div>
+            </div> --}}
             @endif
 
             @if (isset($dueRecords))
@@ -44,7 +44,12 @@
                                 <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
                                     <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
                                     <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
-                                        DSE Self Assesment
+                                        
+                                        @if (isset($danswer))
+                                            Outstanding Task
+                                        @else
+                                        DSE Self Assesment 
+                                        @endif
                                     </div>
                                 </label>
                             </a>

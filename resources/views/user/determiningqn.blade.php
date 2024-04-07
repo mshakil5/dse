@@ -23,11 +23,7 @@
 
                             <div class="py-3">
 
-                                @if(session('success'))
-                                    <div class="alert alert-success">
-                                        {{ session('success') }}
-                                    </div>
-                                @endif
+                                
 
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -103,6 +99,7 @@
 
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -113,6 +110,11 @@
             <div class="row ">
                 <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                     <div class="row pt-5 px-4">
+                                @if(session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
 
                             <div class="col-lg-12 mb-4">
                                 <h6 class="mb-3">1. Do you work with DSE for 1 hrs or more ? </h6>

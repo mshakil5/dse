@@ -177,7 +177,7 @@
                                             <div class="col-lg-5 d-flex align-items-center">
                                                 <button type="submit" class="btn btn-warning d-flex align-items-center">
                                                     <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> @if(isset($data)) Update
-                                                    @else Save @endif
+                                                    @else Save & continue @endif
                                                 </button>
                                             </div>
                                             <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
