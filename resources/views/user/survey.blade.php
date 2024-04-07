@@ -30,12 +30,13 @@
             <div class="row">
                 <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light pt-0">
                     <div class="row border-bottom border-dashed">
-                        <div class="col-6 col-sm-6 col-lg-10">
+                        <div class="col-6 col-sm-6 col-lg-4">
                             <div class="brand">
                                 <img src="{{ asset('frontend/images/logo-design.gif')}}" width="90px" alt="">
                             </div>
                         </div>
-                        <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
+                        <div class="col-6 col-sm-6 col-lg-8 d-flex align-items-center justify-content-end">
+                            <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon>Show</button>
                             <a href="{{route('user.dashboard')}}"
                                 class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2">
                                 <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
@@ -43,7 +44,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row @if (isset($data)) d-none @endif" id="workAssesmentDiv">
                         <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
                             <div class="py-3">
 
@@ -501,6 +502,12 @@
             $("#others_software").hide();
             $("#others_software").val('');
         }
+    });
+
+    $("#showWork").click(function() {
+
+        $("#workAssesmentDiv").removeClass("d-none");
+        $('#showWork').addClass("d-none");
     });
 
     $(document).ready(function(){
