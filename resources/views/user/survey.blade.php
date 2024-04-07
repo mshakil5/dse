@@ -47,11 +47,11 @@
                         <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
                             <div class="py-3">
 
-                                @if(session('success'))
+                                {{-- @if(session('success'))
                                 <div class="alert alert-success">
                                     {{ session('success') }}
                                 </div>
-                                @endif
+                                @endif --}}
 
                                 @if ($errors->any())
                                 <div class="alert alert-danger">

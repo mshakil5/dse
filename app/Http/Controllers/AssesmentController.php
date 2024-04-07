@@ -607,11 +607,18 @@ class AssesmentController extends Controller
             exit();
         }
 
+        if(empty($request->achieve_date)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Achieve Date \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
         $closeSchedule->status = 1;
         $closeSchedule->initial_risk = $request->initial_risk;
         $closeSchedule->risk_rating_point = $request->risk_rating_point;
         $closeSchedule->comment = $request->comment;
+        $closeSchedule->achieve_date = $request->achieve_date;
         $closeSchedule->compiled_date = date('Y-m-d');
         $closeSchedule->status_title = "Approved";
         $closeSchedule->save();

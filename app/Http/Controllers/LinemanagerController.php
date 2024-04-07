@@ -11,6 +11,7 @@ use App\Models\DeterminigAnswer;
 use App\Models\Division;
 use Illuminate\Support\Carbon;
 use Illuminate\support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class LinemanagerController extends Controller
 {
@@ -26,7 +27,18 @@ class LinemanagerController extends Controller
         $divisions = Division::select('id','name')->get();
         $data = DeterminigAnswer::where('id',$id)->first();
         $schedule = AssesmentSchedule::where('program_number', $data->program_number)->first();
-        return view('manager.determininguser', compact('data','divisions','departments','schedule'));
+
+
+        if (isset($data)) {
+            if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
+                return Redirect::route('assessment.user.details',$schedule->program_number);
+            } else {
+                return view('manager.determininguser', compact('data','divisions','departments','schedule'));
+            } 
+        } else {
+            return view('manager.determininguser', compact('data','divisions','departments','schedule'));
+        } 
+
     }
 
     public function addNewSchedule(Request $request)

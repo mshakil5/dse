@@ -387,16 +387,16 @@
                                     <td>{{$oldschedule->initial_risk}}</td>
                                     <td>{{$oldschedule->comment}}</td>
                                     <td>{{$newschedule->end_date}}</td>
-                                    <td>{{$oldschedule->compiled_date}}</td>
+                                    <td>{{$oldschedule->achieve_date}}</td>
                                     <td>{{$oldschedule->risk_rating_point}}</td>
                                 </tr>
                             </tbody>
                         </table>
 
 
-                        <p><b>User's name</b></p>
-                        <p><b> Line Manager's name </b></p>
-                        <p><b> Department </b></p>
+                        <p><b>User's name: </b>{{$user->name}}</p>
+                        <p><b> Line Manager's name: </b>{{\App\Models\User::where('id', $assesment->line_manager_id)->first()->name}}</p>
+                        <p><b> Department: </b>{{$department->name}}</p>
                         
                         
                     </div>

@@ -85,9 +85,32 @@
                                             DSE = 	visual display unit (VDU) / screen, stand & central processing unit (CPU) / box. <br>
                                             Workstation  = 	Dictaphone, telephone, table, chair, document holder, footstool, mouse.
                                         </p>
-                                        
-                                    <div class="d-flex gap-3 flex-wrap justify-content-center mt-4">
+                                        <p><b>Date of Assesment: </b> {{ $assesment->date }}</p>
+                                        <p><b>User Name: </b> {{ $user->name }}</p>
+                                        <p><b>User Email: </b> {{ $user->email }}</p>
+                                        <p><b>Work Station Number: </b> {{$data->work_station_number}}</p>
+                                        <p><b>Department: </b> {{ $department->name }}</p>
 
+
+                                    <div class="d-flex gap-3 flex-wrap justify-content-center">
+
+                                        
+                                        
+
+                                        {{-- <div class="dropdown">
+                                            <label for="date">Date</label>
+                                            <input type="date" id="date" name="date" class="form-control" value="" readonly>
+                                        </div>
+
+                                        <div class="dropdown">
+                                            <label for="user_name">User Name</label>
+                                            <input type="text" id="user_name" name="user_name" class="form-control" value="{{ $user->name }}" readonly>
+                                        </div>
+
+                                        <div class="dropdown">
+                                            <label for="user_name">Email</label>
+                                            <input type="text" id="user_name" name="user_name" class="form-control" value="{{ $user->email }}" readonly>
+                                        </div>
 
                                         <div class="dropdown">
                                             <label for="work_station_number">Work Station Number</label>
@@ -97,17 +120,7 @@
                                         <div class="dropdown">
                                             <label for="department">Department</label><br>
                                             <input type="text" id="department" name="department" class="form-control" value="{{ $department->name }}" readonly>
-                                        </div>
-
-                                        <div class="dropdown">
-                                            <label for="user_name">User Name</label>
-                                            <input type="text" id="user_name" name="user_name" class="form-control" value="{{ $user->name }}" readonly>
-                                        </div>
-
-                                        <div class="dropdown">
-                                            <label for="date">Date</label>
-                                            <input type="date" id="date" name="date" class="form-control" value="{{ $assesment->date }}" readonly>
-                                        </div>
+                                        </div> --}}
 
                                     </div>
 
@@ -361,7 +374,7 @@
                                     @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
                                     <div class="row">
                                         <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
                                             <br>
                                             <small>Date:{{$opmscomment->date}}</small>
                                         </div>
@@ -401,7 +414,7 @@
                     </div>
                 </div>
 
-                <h2>Tick to confirm location & type of health problem's experienced</h2>
+                <h4>Tick to confirm location & type of health problem's experienced</h4>
 
                 <div class="row mt-2">
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
@@ -435,7 +448,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'lowback') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -445,7 +458,9 @@
                                             </td>
                                         </tr>
 
-                                        @if (isset($opms)) @foreach (json_decode($opms->lowback) as $key => $lowback)   @if ($key == 1) @if ($lowback != "None")
+                                        @if (isset($opms)) @foreach (json_decode($opms->lowback) as $key => $lowback)
+                                        
+                                         @if ($lowback != "None" || $lowback == "Ache" || $lowback == "Pain" || $lowback == "Pins and needles" || $lowback == "Numbness") 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
@@ -464,7 +479,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endif @endforeach @endif
+                                        @endif @endforeach @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Upper back</td>
@@ -481,14 +496,16 @@
 
                                         
 
-                                        @if (isset($opms)) @foreach (json_decode($opms->upperback) as $key => $upperback)   @if ($key == 1) @if ($upperback != "None")
+                                        @if (isset($opms)) @foreach (json_decode($opms->upperback) as $key => $upperback)
+
+                                         @if ($upperback != "None" || $upperback == "Ache" || $upperback == "Pain" || $upperback == "Pins and needles" || $upperback == "Numbness") 
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'upperback') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -518,7 +535,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endif @endforeach @endif
+                                        @endif @endforeach @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
@@ -535,7 +552,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'neck') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -579,7 +596,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'shoulders') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -617,13 +634,13 @@
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
 
-                                        @if (isset($opms)) @foreach (json_decode($opms->arms) as $key => $arms)   @if ($key == 1) @if ($arms != "None")
+                                        @if (isset($opms)) @foreach (json_decode($opms->arms) as $key => $arms)    @if ($arms != "None" || $arms == "Ache" || $arms == "Pain" || $arms == "Pins and needles" || $arms == "Numbness") 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b>{{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -650,7 +667,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endif @endforeach @endif
+                                        @endif @endforeach @endif
 
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
@@ -667,7 +684,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b>{{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -819,7 +836,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <label for="risk_rating_point">Risk rating number</label>
+                        <label for="risk_rating_point">Final Risk rating number</label>
                         <input type="number" id="risk_rating_point" name="risk_rating_point" class="form-control">
                     </div>
         
@@ -831,6 +848,11 @@
                     <div class="dropdown">
                         <label for="next_date">Next Assesment Date</label>
                         <input type="date" class="form-control" id="next_date">
+                    </div>
+
+                    <div class="dropdown">
+                        <label for="achieve_date">Achieve Date</label>
+                        <input type="date" class="form-control" id="achieve_date">
                     </div>
 
                     <div class="dropdown mt-2">
@@ -986,6 +1008,7 @@
         var date = $("#next_date").val();
         var risk_rating_point = $("#risk_rating_point").val();
         var initial_risk = $("#initial_risk").val();
+        var achieve_date = $("#achieve_date").val();
         console.log(user, comment, prgmnumber);
 
         var form_data = new FormData();		
@@ -995,6 +1018,7 @@
         form_data.append("date", date);
         form_data.append("risk_rating_point", risk_rating_point);
         form_data.append("initial_risk", initial_risk);
+        form_data.append("achieve_date", achieve_date);
 
         $.ajax({
             url:ratingurl,
