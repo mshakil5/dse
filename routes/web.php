@@ -97,6 +97,7 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
     Route::post('/assesment-reject', [AssesmentController::class, 'managerAssesmentReject']);
     Route::post('/add-rating', [AssesmentController::class, 'managerAddRating']);
     Route::post('/managers-comment', [AssesmentController::class, 'managerMessageStore']);
+    Route::post('/health-suggestion', [AssesmentController::class, 'managerHealthComment']);
     Route::post('/add-new-schedule', [LinemanagerController::class, 'addNewSchedule']);
     Route::post('/transfer-to-health', [LinemanagerController::class, 'transferToHealth']);
 

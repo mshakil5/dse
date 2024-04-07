@@ -211,7 +211,7 @@
                                 @foreach ($assanswer->assesmentAnswerComments as $comment)
                                     @if ($comment->created_by == "User")
                                         <div class="row">
-                                            <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">{{$comment->comment}}
+                                            <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right"><b>{{$comment->created_by}}:</b> {{$comment->comment}}
                                                 <br>
                                             <small>Date: {{$comment->date}}</small>
                                             </div>
@@ -221,7 +221,7 @@
 
                                         <div class="row">
                                             <div class="col-lg-4"></div>
-                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark"><b>{{$comment->created_by}}:</b> {{$comment->comment}}
                                                 <br>
                                                 <small>Date: {{$comment->date}}</small>
                                             </div>
@@ -288,7 +288,7 @@
                                     @if ($comment->created_by == "Manager")
                                         <div class="row">
                                             <div class="col-lg-4"></div>
-                                            <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">{{$comment->comment}}
+                                            <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right"><b>{{$comment->created_by}}:</b> {{$comment->comment}}
                                                 <br>
                                             <small>Date: {{$comment->date}}</small>
                                             </div>
@@ -296,7 +296,7 @@
                                     @else
 
                                         <div class="row">
-                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark"><b>{{$comment->created_by}}:</b> {{$comment->comment}}
                                                 <br>
                                                 <small>Date: {{$comment->date}}</small>
                                             </div>
@@ -357,10 +357,32 @@
                                 <div class="col-lg-12 mb-4">
                                     @if(isset($opms)) 
                                     <h6 class="mb-3">{{$opms->question}}</h6>
-                                    @else
-                                    <div class="col-lg-12">
-                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
+                                
+                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                            <br>
+                                            <small>Date:{{$opmscomment->date}}</small>
+                                        </div>
                                     </div>
+                                    @endforeach
+
+                                    <div class="cmntermsg"></div>
+                                    <div class="col-lg-12" id="replycmnt">
+                                        <textarea id="commentquestion" class="form-control" placeholder="Comments Here"></textarea>
+                                    </div>
+                                    <div class="col-lg-12" id="replybtn">
+                                        <div class="row py-3 ">
+                                            <div class="col-lg-5 d-flex align-items-center">
+                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="question" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     @endif
                                     
                                 </div>
@@ -407,6 +429,22 @@
                                             <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
 
+
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'lowback') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+
                                         @if (isset($opms)) @foreach (json_decode($opms->lowback) as $key => $lowback)   @if ($key == 1) @if ($lowback != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
@@ -417,7 +455,7 @@
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="lowback" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="lowback" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">
@@ -441,17 +479,37 @@
                                             <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox"></td>
                                         </tr>
 
+                                        
+
                                         @if (isset($opms)) @foreach (json_decode($opms->upperback) as $key => $upperback)   @if ($key == 1) @if ($upperback != "None")
+
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'upperback') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+
+
+
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                    <textarea id="commentupperback" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="upperback" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">
@@ -474,14 +532,28 @@
                                         @if (isset($opms)) @foreach (json_decode($opms->neck) as $key => $neck)   @if ($key == 1) @if ($neck != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'neck') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                    <textarea id="commentneck" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="neck" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">
@@ -504,14 +576,28 @@
                                         @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $key => $shoulders)   @if ($key == 1) @if ($shoulders != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'shoulders') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                    <textarea id="commentshoulders" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="shoulders" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">
@@ -534,14 +620,28 @@
                                         @if (isset($opms)) @foreach (json_decode($opms->arms) as $key => $arms)   @if ($key == 1) @if ($arms != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <textarea name="manager_comment" id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                    <textarea id="commentarms" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="arms" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">
@@ -564,14 +664,28 @@
                                         @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $key => $hand_fingers)   @if ($key == 1) @if ($hand_fingers != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <textarea id="comment" class="form-control" placeholder="Comments Here" required></textarea>
+                                                    <textarea id="commenthand_fingers" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addcomment" user="" assans_id="" solved="0"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="hand_fingers" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">
@@ -591,6 +705,35 @@
                                                 <label class="mx-2">
                                                     <input type="radio"  name="exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->exercise == "No") checked @endif @endif  required>No
                                                 </label>
+
+                                                @if ($opms->exercise == "Yes")
+                                                    @foreach ($opms->assesmentHealthComment->where('question', 'exercise') as $opmscomment)
+                                                    <div class="row">
+                                                        <div class="col-lg-4"></div>
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                            <br>
+                                                            <small>Date:{{$opmscomment->date}}</small>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+
+                                                    <div class="cmntermsg"></div>
+                                                    <div class="col-lg-12" id="replycmnt">
+                                                        <textarea id="commentexercise" class="form-control" placeholder="Comments Here"></textarea>
+                                                    </div>
+                                                    <div class="col-lg-12" id="replybtn">
+                                                        <div class="row py-3 ">
+                                                            <div class="col-lg-5 d-flex align-items-center">
+                                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="exercise" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+
                                             </td>
                                         </tr>
 
@@ -603,6 +746,36 @@
                                                 <label  class="mx-2">
                                                     <input  type="radio"  name="taught_exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->taught_exercise == "No") checked @endif @endif  required>No
                                                 </label>
+
+                                                @if ($opms->taught_exercise == "Yes")
+                                                    @foreach ($opms->assesmentHealthComment->where('question', 'taught_exercise') as $opmscomment)
+                                                    <div class="row">
+                                                        <div class="col-lg-4"></div>
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                            <br>
+                                                            <small>Date:{{$opmscomment->date}}</small>
+                                                        </div>
+                                                    </div>
+                                                    @endforeach
+
+                                                    <div class="cmntermsg"></div>
+                                                    <div class="col-lg-12" id="replycmnt">
+                                                        <textarea id="commenttaught_exercise" class="form-control" placeholder="Comments Here"></textarea>
+                                                    </div>
+                                                    <div class="col-lg-12" id="replybtn">
+                                                        <div class="row py-3 ">
+                                                            <div class="col-lg-5 d-flex align-items-center">
+                                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="taught_exercise" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                                </button>
+                                                            </div>
+                                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+
+
                                             </td>
                                         </tr>
 
@@ -662,7 +835,7 @@
 
                     <div class="dropdown mt-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary schedule" id="addriskpoint" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber={{$data->program_number}}>Save</button>
+                        <button type="button" class="btn btn-primary schedule" id="addriskpoint" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}">Save</button>
                     </div>
 
                     
@@ -753,14 +926,18 @@
         var opmsname = $(this).attr('opmsname');
         var user = $("#user_id").val();
         var solved = $(this).attr('solved');
+        var codeid = $(this).attr('codeid');
+        var prgmnumber = $(this).attr('prgmnumber');
         var comment = $("#comment"+opmsname).val();
         
-        console.log(opmsname, user, solved, comment);
+        console.log(opmsname, user, solved, comment, prgmnumber);
         var form_data = new FormData();		
-        form_data.append("assans_id", assans_id);
+        form_data.append("opmsname", opmsname);
         form_data.append("user_id", user);
         form_data.append("comment", comment);
         form_data.append("solved", solved);
+        form_data.append("prgmnumber", prgmnumber);
+        form_data.append("codeid", codeid);
 
         $.ajax({
             url:opmsurl,
@@ -772,15 +949,16 @@
             success: function(d){
 
                 if (d.status == 303) {
-                    $(".cmntermsg"+assans_id).html(d.message);
+                    $(".cmntermsg"+opmsname).html(d.message);
                 }else if(d.status == 300){
-                    var newcmnt = $("#reply"+assans_id);
+                    var newcmnt = $("#reply"+opmsname);
                     newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
-                    $("#comment"+assans_id).val('');
+                    $("#comment"+opmsname).val('');
                     if (solved == 1) {
-                        $("#replycmnt"+assans_id).html('');
-                        $("#replybtn"+assans_id).html('');
+                        $("#replycmnt"+opmsname).html('');
+                        $("#replybtn"+opmsname).html('');
                     }
+                    window.setTimeout(function(){location.reload()},2000)
                 }
             },
             error:function(d){
