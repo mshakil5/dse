@@ -39,6 +39,11 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center justify-content-end">
+
+                                <a type="button"  class="btn btn-secondary d-flex align-items-center m-2"  data-bs-toggle="modal" data-bs-target="#transferModal">
+                                    <iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Transfer
+                                </a>
+
                                 @if (isset($chksts))
 
                                 @if ($chksts->line_manager_notification == 1)
@@ -458,9 +463,22 @@
                                             </td>
                                         </tr>
 
-                                        @if (isset($opms)) @foreach (json_decode($opms->lowback) as $key => $lowback)
-                                        
-                                         @if ($lowback != "None" || $lowback == "Ache" || $lowback == "Pain" || $lowback == "Pins and needles" || $lowback == "Numbness") 
+                                        @if (isset($opms)) 
+                                        @php
+                                            $hasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->lowback) as $key => $lowback)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($lowback !== "None") {
+                                                    $hasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
+                                        @if ($hasIssue > 0) 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
@@ -479,7 +497,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endforeach @endif
+                                        @endif 
                                         
                                         <tr>
                                             <td style="text-align: left">Upper back</td>
@@ -493,12 +511,6 @@
 
                                             <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox"></td>
                                         </tr>
-
-                                        
-
-                                        @if (isset($opms)) @foreach (json_decode($opms->upperback) as $key => $upperback)
-
-                                         @if ($upperback != "None" || $upperback == "Ache" || $upperback == "Pain" || $upperback == "Pins and needles" || $upperback == "Numbness") 
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
@@ -515,7 +527,23 @@
                                             </td>
                                         </tr>
 
+                                        @if (isset($opms)) 
+                                        @php
+                                            $upperbackhasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->upperback) as $key => $upperback)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($upperback !== "None") {
+                                                    $upperbackhasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+                                        
 
+                                        @if ($upperbackhasIssue > 0) 
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
@@ -535,7 +563,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endforeach @endif
+
+                                        @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
@@ -546,7 +575,6 @@
                                             <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
 
-                                        @if (isset($opms)) @foreach (json_decode($opms->neck) as $key => $neck)   @if ($key == 1) @if ($neck != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'neck') as $opmscomment)
@@ -561,6 +589,24 @@
                                                 
                                             </td>
                                         </tr>
+
+                                        @if (isset($opms)) 
+                                        @php
+                                            $neckhasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->neck) as $key => $neck)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($neck !== "None") {
+                                                    $neckhasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
+                                        @if ($neck > 0) 
+                                        
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
@@ -579,7 +625,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endif @endforeach @endif
+
+                                        @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Shoulders</td>
@@ -589,8 +636,6 @@
                                             <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pins and needles") checked @endif @endforeach @endif   class="custom-checkbox"></td>
                                             <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
                                         </tr>
-
-                                        @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $key => $shoulders)   @if ($key == 1) @if ($shoulders != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'shoulders') as $opmscomment)
@@ -605,6 +650,24 @@
                                                 
                                             </td>
                                         </tr>
+
+                                        @if (isset($opms)) 
+                                        @php
+                                            $shouldershasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->shoulders) as $key => $shoulders)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($shoulders !== "None") {
+                                                    $shouldershasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
+                                        @if ($shouldershasIssue > 0) 
+                                        
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
@@ -623,7 +686,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endif @endforeach @endif
+                                        
+                                        @endif
 
                                         <tr>
                                             <td style="text-align: left">Arms</td>
@@ -634,7 +698,6 @@
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
 
-                                        @if (isset($opms)) @foreach (json_decode($opms->arms) as $key => $arms)    @if ($arms != "None" || $arms == "Ache" || $arms == "Pain" || $arms == "Pins and needles" || $arms == "Numbness") 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
@@ -649,6 +712,24 @@
                                                 
                                             </td>
                                         </tr>
+
+                                        @if (isset($opms)) 
+                                        @php
+                                            $armshasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->arms) as $key => $arms)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($arms !== "None") {
+                                                    $armshasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
+                                        
+                                        @if ($armshasIssue > 0) 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
@@ -667,7 +748,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endforeach @endif
+                                        @endif
 
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
@@ -677,8 +758,6 @@
                                             <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pins and needles") checked @endif @endforeach @endif ></td>
                                             <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
-
-                                        @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $key => $hand_fingers)   @if ($key == 1) @if ($hand_fingers != "None")
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
@@ -693,6 +772,25 @@
                                                 
                                             </td>
                                         </tr>
+
+                                        @if (isset($opms)) 
+                                        @php
+                                            $hand_fingershasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->hand_fingers) as $key => $hand_fingers)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($hand_fingers !== "None") {
+                                                    $hand_fingershasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
+                                        
+                                        @if ($hand_fingershasIssue > 0)
+                                        
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
@@ -711,7 +809,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        @endif @endif @endforeach @endif
+                                        
+                                        @endif
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
@@ -811,7 +910,38 @@
 
 </section>
 
+
+<!-- Transfer  Modal -->
 <!-- Modal -->
+<div class="modal fade black-modal" id="transferModal" tabindex="-1" aria-labelledby="transferLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="transferLabel">Assign to Heath & Safety</h1>
+            <div class="ermsgod"></div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <select name="health_id" id="health_id{{$data->id}}" class="form-control">
+                    <option value="">Select</option>
+
+                    @foreach (\App\Models\User::where('is_type', '3')->get() as $expert)
+                    <option value="{{$expert->id}}">{{$expert->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Transfer  Modal -->
+
+
+
+<!-- Rating  Modal -->
 <div class="modal fade black-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -1041,6 +1171,37 @@
         });
     });
     // comment store 
+
+
+    var redurl = "{{URL::to('/manager/get-assesment')}}";
+    var expurl = "{{URL::to('/manager/transfer-to-health')}}";
+    $(".transferbtn").click(function(){
+
+            var determiningAnswerId = $(this).attr("data-id");
+            var uid = $(this).attr("uid");
+            var prgm = $(this).attr("prgmnumber");
+            var health_id = $("#health_id"+determiningAnswerId).val();
+            
+            console.log(determiningAnswerId, uid, prgm, health_id);
+
+            $.ajax({
+                url: expurl,
+                method: "POST",
+                data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm,health_id:health_id},
+                success: function (d) {
+                    if (d.status == 303) {
+                        $(".ermsgod").html(d.message);
+                    }else if(d.status == 300){
+                        $(".ermsgod").html(d.message);
+                        window.location.href = redurl;
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+            });
+
+    });
     
 </script>
     
