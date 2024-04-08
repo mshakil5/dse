@@ -704,7 +704,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b>{{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -764,7 +764,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b>{{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>

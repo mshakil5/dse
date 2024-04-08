@@ -319,27 +319,25 @@
 
                             
                             
-                            <div id="additionalqn" style="@if(isset($opms)) @if($opms->otherqn == "Yes") @else display:none @endif @else display:none @endif">
+                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
                                 <div class="col-lg-12 mb-4">
                                     @if(isset($opms)) 
                                     <h6 class="mb-3">{{$opms->question}}</h6>
-                                    @else
-                                    <div class="col-lg-12">
-                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
+                                
+                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                            <br>
+                                            <small>Date:{{$opmscomment->date}}</small>
+                                        </div>
                                     </div>
+                                    @endforeach
                                     @endif
                                     
                                 </div>
                               </div>
-                            
-                              {{-- <div class="row">
-                                <div class="col-lg-4"></div>
-                                <div class="col-lg-8 p-2 alert alert-secondary   mb-3 rounded-3 text-dark">user side message</div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">line manager side message</div>
-                                <div class="col-lg-4"></div>
-                              </div> --}}
+
                               
                         </div>
                     </div>
@@ -372,6 +370,22 @@
                                             <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pins and needles") checked @endif @endforeach @endif value="Pins and needles" ></td>
                                             <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
+                                        @if (isset($opms->assesmentHealthComment))
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'lowback') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Upper back</td>
@@ -385,6 +399,24 @@
 
                                             <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox"></td>
                                         </tr>
+
+                                        @if (isset($opms->assesmentHealthComment))
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'upperback') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                            
+                                        @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
@@ -394,6 +426,23 @@
                                             <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pins and needles") checked @endif @endforeach @endif   value="Pins and needles" ></td>
                                             <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
+
+                                        @if (isset($opms->assesmentHealthComment))
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'neck') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Shoulders</td>
@@ -404,6 +453,25 @@
                                             <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
                                         </tr>
 
+                                        
+                                        @if (isset($opms->assesmentHealthComment))
+                                            
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'shoulders') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        @endif
+
                                         <tr>
                                             <td style="text-align: left">Arms</td>
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "None") checked @endif @endforeach @endif  value="None" ></td>
@@ -412,6 +480,24 @@
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pins and needles") checked @endif @endforeach @endif  ></td>
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
+
+                                        @if (isset($opms->assesmentHealthComment))
+                                            
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        @endif
 
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
@@ -422,6 +508,23 @@
                                             <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
 
+                                        @if (isset($opms->assesmentHealthComment))
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
+                                            </td>
+                                        </tr>
+                                        @endif
+
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3">Do you do any stretching exercises during the day to prevent muscular tension? </h6>
@@ -431,6 +534,22 @@
                                                 <label class="mx-2">
                                                     <input type="radio"  name="exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->exercise == "No") checked @endif @endif  required>No
                                                 </label>
+
+                                                @if (isset($opms))
+                                                    @if ($opms->exercise == "Yes")
+                                                        @foreach ($opms->assesmentHealthComment->where('question', 'exercise') as $opmscomment)
+                                                        <div class="row">
+                                                            <div class="col-lg-4"></div>
+                                                            <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                                <br>
+                                                                <small>Date:{{$opmscomment->date}}</small>
+                                                            </div>
+                                                        </div>
+                                                        @endforeach
+                                                    @endif
+                                                @endif
+
+
                                             </td>
                                         </tr>
 
@@ -443,6 +562,20 @@
                                                 <label class="mx-2">
                                                     <input  type="radio"  name="taught_exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->taught_exercise == "No") checked @endif @endif  required>No
                                                 </label>
+
+                                                @if (isset($opms))
+                                                    @if ($opms->taught_exercise == "Yes")
+                                                        @foreach ($opms->assesmentHealthComment->where('question', 'taught_exercise') as $opmscomment)
+                                                        <div class="row">
+                                                            <div class="col-lg-4"></div>
+                                                            <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                                <br>
+                                                                <small>Date:{{$opmscomment->date}}</small>
+                                                            </div>
+                                                        </div>
+                                                        @endforeach
+                                                    @endif
+                                                @endif
                                             </td>
                                         </tr>
 
