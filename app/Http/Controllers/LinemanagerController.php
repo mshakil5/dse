@@ -111,8 +111,6 @@ class LinemanagerController extends Controller
         $data = DeterminigAnswer::find($request->determiningAnswerId);
         $data->occupational_health_id = $request->health_id;
         $data->assign_account = "Health";
-        $data->save();
-
         if($data->save()){
 
             $logs = new AssesmentLog();
@@ -132,6 +130,18 @@ class LinemanagerController extends Controller
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Schedule create successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
+        }
+
+    }
+
+
+    public function switchToUser(Request $request)
+    {
+        
+        $data = User::find(Auth::user()->id);
+        $data->is_type = '0';
+        if($data->save()){
+            return redirect()->route('home');
         }
 
     }

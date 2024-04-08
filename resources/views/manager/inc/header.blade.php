@@ -42,10 +42,11 @@
                             </li> -->
                         </ul>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            {{-- <li class="nav-item">
-                                <a href="#" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" icon="ph:gear-light"></iconify-icon> Settings
+                            <li class="nav-item">
+                                <form action="{{route('linemanager.switchuser')}}" method="POST"></form>
+                                <a href="{{route('linemanager.switchuser')}}" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" icon="ph:gear-light"></iconify-icon> My Assesment
                                 </a>
-                            </li> --}}
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">

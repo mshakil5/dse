@@ -69,6 +69,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     
     Route::post('/user-comment', [AssesmentController::class, 'userCommentStore'])->name('question.usercomment');
 
+    Route::get('/switch-to-manager', [SurveyController::class, 'switchToManager'])->name('user.switchmanager');
 
 });
   
@@ -104,6 +105,8 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
 
     // report part start here
     Route::get('/assessment/report/{id}', [ReportController::class,'getAllAssesmentReportByManagger'])->name('manager.assesment.report');
+
+    Route::get('/switch-to-user', [LinemanagerController::class, 'switchToUser'])->name('linemanager.switchuser');
 
 
 });

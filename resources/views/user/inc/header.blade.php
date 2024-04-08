@@ -55,11 +55,14 @@
                             </li> -->
                         </ul>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            {{-- <li class="nav-item">
-                                <a href="#" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" 
-                                        icon="ph:gear-light"></iconify-icon> Settings
+                            @if (Auth::user()->role_type == "Manager")
+                            <li class="nav-item">
+                                <a href="{{route('user.switchmanager')}}" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3"  icon="ph:gear-light"></iconify-icon> Manager Dashboard
                                 </a>
-                            </li> --}}
+                            </li>
+                            @endif
+                            
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">

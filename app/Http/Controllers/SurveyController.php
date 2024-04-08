@@ -431,6 +431,15 @@ class SurveyController extends Controller
 
 
 
+    public function switchToManager(Request $request)
+    {
+        
+        $data = User::find(Auth::user()->id);
+        $data->is_type = '2';
+        if($data->save()){
+            return redirect()->route('home');
+        }
 
+    }
 
 }
