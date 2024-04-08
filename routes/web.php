@@ -43,7 +43,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/session-clear', [FrontendController::class, 'sessionClear']);
   
 
-
+Route::get('/assesment-print/{id}', [AssesmentController::class, 'assesmentPrint'])->name('assesment.print');
 
 
 

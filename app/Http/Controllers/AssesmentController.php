@@ -750,5 +750,11 @@ class AssesmentController extends Controller
         }
     }
 
+    public function assesmentPrint($id)
+    {
+        dd($id);
+        return view('report.print');
+    }
+
 
 }

@@ -23,7 +23,12 @@
     .custom-checkbox:checked {
         background-color: #193d5b;
     }
-
+    #btn-back-to-top {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        display: none;
+    }
 
   </style>
 <section class="header-main py-5">
@@ -34,11 +39,14 @@
                         <div class="row border-bottom border-dashed">
                             <div class="col-6 col-sm-6 col-lg-6">
                                 <div class="brand">
-                                    <img src="{{ asset('frontend/images/logo-design.gif')}}" width="90px" alt="">
+                                    <img src="{{ asset('frontend/images/dselogo.jpg')}}" width="90px" alt="">
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center justify-content-end">
-                               
+                                <a href="{{route('assesment.print', $assesment->program_number)}}" class="btn btn-secondary d-flex align-items-center m-2" >
+                                    <iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Print
+                                </a>
+
                                 <a href="{{route('manager.dashboard')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                     Exit
                                 </a>
@@ -566,16 +574,12 @@
                                 
                                     
                                 <tr>
-                                    <td>{{ $assanswer->question->question }}
-                                        <div>
-                                            <img src="{{ asset('images/question/'.$assanswer->question->image) }}" class="img-fluid" alt="">
-                                        </div>
-                                    </td>
+                                    <td>{{ $assanswer->question->question }} </td>
                                     <td style="width: 70%" class="p-2">  
                                         @foreach ($assanswer->assesmentAnswerComments as $comment)
                                                 @if ($comment->created_by == "User")
                                                     <div class="row">
-                                                        <div class="col-lg-8 alert alert-secondary  rounded-3 text-dark  align-items-right">{{$comment->comment}}
+                                                        <div class="col-lg-8 alert alert-secondary  rounded-3 text-dark  align-items-right"><b>{{$opmscomment->created_by}}:</b>  {{$comment->comment}}
                                                             <br>
                                                         <small>Date: {{$comment->date}}</small>
                                                         </div>
@@ -585,7 +589,7 @@
 
                                                     <div class="row">
                                                         <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 alert alert-secondary text-start rounded-3 text-dark">{{$comment->comment}}
+                                                        <div class="col-lg-8 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b> {{$comment->comment}}
                                                             <br>
                                                             <small>Date: {{$comment->date}}</small>
                                                         </div>
@@ -615,12 +619,43 @@
 
 
 </section>
+<!-- Back to top button -->
+<button type="button" class="btn btn-success btn-floating btn-lg" id="btn-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M3 19h18a1.002 1.002 0 0 0 .823-1.569l-9-13c-.373-.539-1.271-.539-1.645 0l-9 13A.999.999 0 0 0 3 19"/></svg>
+</button>
 
 
 @endsection
 
 @section('script')
 
+<script>
+    //Get the button
+let mybutton = document.getElementById("btn-back-to-top");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+// When the user clicks on the button, scroll to the top of the document
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
 <script>
 
      // header for csrf-token is must in laravel
