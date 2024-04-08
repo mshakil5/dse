@@ -978,7 +978,7 @@
             
                     <div class="dropdown">
                         <label for="next_date">Next Assesment Date</label>
-                        <input type="date" class="form-control" id="next_date">
+                        <input type="date" class="form-control" id="next_date" value="{{date('Y-m-d', strtotime('+1 year'))}}">
                     </div>
 
                     <div class="dropdown">
