@@ -23,6 +23,13 @@
         background-color: #193d5b;
     }
 
+    #btn-back-to-top {
+        position: fixed;
+        bottom: 40px;
+        right: 40px;
+        display: none;
+    }
+
   </style>
 <section class="header-main py-5">
     <div class="container ">
@@ -622,12 +629,43 @@
     </div>
 </section>
 
+<!-- Back to top button -->
+<button type="button" class="btn btn-success btn-floating btn-lg" id="btn-back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M3 19h18a1.002 1.002 0 0 0 .823-1.569l-9-13c-.373-.539-1.271-.539-1.645 0l-9 13A.999.999 0 0 0 3 19"/></svg>
+</button>
 
 
 @endsection
 
 @section('script')
-<script language="JavaScript" type="text/javascript" src="/js/jquery-1.2.6.min.js"></script>
+<script>
+    //Get the button
+let mybutton = document.getElementById("btn-back-to-top");
+
+// When the user scrolls down 20px from the top of the document, show the button
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (
+    document.body.scrollTop > 20 ||
+    document.documentElement.scrollTop > 20
+  ) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+// When the user clicks on the button, scroll to the top of the document
+mybutton.addEventListener("click", backToTop);
+
+function backToTop() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+</script>
+
 <script>
     function showFields() {
         var id = $(this).attr('qid');

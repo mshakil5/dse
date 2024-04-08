@@ -37,7 +37,7 @@ class ReportController extends Controller
                         
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
-        $opms = AssesmentHealthProblem::where('program_number', $id)->first();
+        $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $id)->first();
         
         $oldschedule = AssesmentSchedule::where('program_number', $id)->first();
         $newschedule = AssesmentSchedule::where('user_id', $assesment->user_id)->latest()->first();
