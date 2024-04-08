@@ -61,6 +61,7 @@ class AgentController extends Controller
         $data->street_name = $request->street_name;
         $data->town = $request->town;
         $data->is_type = "2";
+        $data->role_type = "Manager";
         $data->postcode = $request->postcode;
         if(isset($request->password)){
             $data->password = Hash::make($request->password);

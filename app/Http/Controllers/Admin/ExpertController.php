@@ -61,6 +61,7 @@ class ExpertController extends Controller
         $data->street_name = $request->street_name;
         $data->town = $request->town;
         $data->is_type = "3";
+        $data->role_type = "OcHealth";
         $data->postcode = $request->postcode;
         if(isset($request->password)){
             $data->password = Hash::make($request->password);

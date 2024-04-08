@@ -81,6 +81,7 @@ class UserController extends Controller
         $data->department_id = $request->department_id;
         $data->division_id = $request->division_id;
         $data->is_type = "0";
+        $data->role_type = "User";
         $data->postcode = $request->postcode;
         if(isset($request->password)){
             $data->password = Hash::make($request->password);

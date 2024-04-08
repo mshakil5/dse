@@ -742,6 +742,23 @@
     $("body").delegate("#saveBtn","click",function () {
         var storeurl = "{{URL::to('/user/add-new-assesment')}}";
 
+        var voucherIds = $("input[name='v_ids[]']")
+            .map(function(){return $(this).val();}).get();
+
+        var qtys = $("input[name='qty[]']")
+            .map(function(){return $(this).val();}).get();
+
+            
+        //   console.log(voucherIds);
+        //   console.log(qtys);
+
+        var did = $("#donner_id").val();
+        var net_total = $("#net_total").val();
+        var delivery = $('#delivery').prop('checked');
+        var collection = $('#collection').prop('checked');
+        
+        var del = document.getElementById("delivery");
+        var col = document.getElementById("collection");
         // console.log(qnid, line_manager_id, comment);
 
         $.ajax({

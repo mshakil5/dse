@@ -57,6 +57,7 @@ class AdminController extends Controller
         $data->street_name = $request->street_name;
         $data->town = $request->town;
         $data->is_type = "1";
+        $data->role_type = "Admin";
         $data->postcode = $request->postcode;
         if(isset($request->password)){
             $data->password = Hash::make($request->password);
