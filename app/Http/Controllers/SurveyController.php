@@ -63,7 +63,7 @@ class SurveyController extends Controller
 
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
-        $opms = AssesmentHealthProblem::whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
+        $opms = AssesmentHealthProblem::with('assesmentHealthComment')->whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
         return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms'));

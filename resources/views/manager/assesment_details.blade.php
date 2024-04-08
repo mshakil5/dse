@@ -33,13 +33,13 @@
                 <div class="row">
                     <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light pt-0">
                         <div class="row border-bottom border-dashed">
-                            <div class="col-6 col-sm-6 col-lg-6">
+                            <div class="col-6 col-sm-6 col-lg-3">
                                 <div class="brand">
-                                    <img src="{{ asset('frontend/images/logo-design.gif')}}" width="90px" alt="">
+                                    <img src="{{ asset('frontend/images/dselogo.jpg')}}" width="90px" alt="">
                                 </div>
                             </div>
-                            <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center justify-content-end">
-
+                            <div class="col-6 col-sm-6 col-lg-9 d-flex align-items-center justify-content-end">
+                                <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon>Show</button>
                                 <a type="button"  class="btn btn-secondary d-flex align-items-center m-2"  data-bs-toggle="modal" data-bs-target="#transferModal">
                                     <iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Transfer
                                 </a>
@@ -60,7 +60,8 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="row">
+                        
+                        <div class="row @if (isset($data)) d-none @endif" id="workAssesmentDiv">
                             <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
                                 <div class="py-3">
 
@@ -826,7 +827,7 @@
                                                     @foreach ($opms->assesmentHealthComment->where('question', 'exercise') as $opmscomment)
                                                     <div class="row">
                                                         <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
                                                             <br>
                                                             <small>Date:{{$opmscomment->date}}</small>
                                                         </div>
@@ -867,7 +868,7 @@
                                                     @foreach ($opms->assesmentHealthComment->where('question', 'taught_exercise') as $opmscomment)
                                                     <div class="row">
                                                         <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">{{$opmscomment->created_by}}: {{$opmscomment->comment}}
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
                                                             <br>
                                                             <small>Date:{{$opmscomment->date}}</small>
                                                         </div>
@@ -1200,6 +1201,13 @@
                     console.log(d);
                 }
             });
+
+    });
+
+    $("#showWork").click(function() {
+
+        $("#workAssesmentDiv").removeClass("d-none");
+        $('#showWork').addClass("d-none");
 
     });
     
