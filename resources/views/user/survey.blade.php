@@ -198,10 +198,10 @@
             </div>
 
              @if($data)
-            <form action="{{ route('add.assessment') }}" method="POST">
+            <form action="{{ route('add.assessment') }}" method="POST" id="myForm">
                 @csrf
 
-                <input type="hidden" name="line_manager_id" id="line_manager_id" value="{{ $selectedLineManager->id }}">
+                <input type="hidden" name="line_manager_id" id="line_manager_id" for="myForm" value="{{ $selectedLineManager->id }}">
                 <input type="hidden" name="department_id" value="{{ $departments->id }}">
                 <input type="hidden" name="division_id" value="{{ $selectedDivision->id }}">
                 
@@ -315,6 +315,8 @@
                                 <label for="otherqnno" class="mx-2">
                                     <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->otherqn == "No") checked @endif @endif>No
                                 </label>
+
+                                
                             </div>
 
                             
@@ -322,8 +324,10 @@
                             <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
                                 <div class="col-lg-12 mb-4">
                                     @if(isset($opms)) 
+                                    
+                                    
                                     <h6 class="mb-3">{{$opms->question}}</h6>
-                                
+
                                     @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
                                     <div class="row">
                                         <div class="col-lg-4"></div>
@@ -333,6 +337,10 @@
                                         </div>
                                     </div>
                                     @endforeach
+                                    @else
+                                    <div class="col-lg-12">
+                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
+                                    </div>
                                     @endif
                                     
                                 </div>
@@ -590,8 +598,13 @@
                     @if($determiningans->line_manager_notification == "0") 
                     <div class="col-lg-12">
                         <div class="row py-3 ">
+                            <div class="ermsg"></div>
                             <div class="col-lg-5 d-flex align-items-center">
-                                <button type="submit" class="btn btn-success d-flex align-items-center">
+                                <button type="submit" class="btn btn-success d-flex align-items-center mx-2">
+                                    <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Submit
+                                </button>
+
+                                <button type="button" id="saveBtn" class="btn btn-success d-flex align-items-center">
                                     <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
                                 </button>
                             </div>
@@ -721,6 +734,40 @@
         });
     });
     // comment store 
+
+
+
+    // data store
+    var redurl = "{{URL::to('/user/dashboard')}}";
+    $("body").delegate("#saveBtn","click",function () {
+        var storeurl = "{{URL::to('/user/add-new-assesment')}}";
+
+        // console.log(qnid, line_manager_id, comment);
+
+        $.ajax({
+            url:storeurl,
+            method: "POST",
+            type: "POST",
+            contentType: false,
+            processData: false,
+            data:$('#myForm').serialize(),
+            success: function(d){
+                
+                console.log((d));
+
+                if (d.status == 303) {
+                    $(".ermsg").html(d.message);
+                }else if(d.status == 300){
+                    $(".ermsg").html(d.message);
+                    window.setTimeout(function(){window.location.href = redurl},2000)
+                }
+            },
+            error:function(d){
+                console.log(d);
+            }
+        });
+    });
+    // data store end
        
 </script>
 @endsection

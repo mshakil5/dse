@@ -38,10 +38,98 @@ class AssesmentController extends Controller
         return view('manager.userlist', compact('users'));
     }
 
+    public function newAssesmentStore(Request $request)
+    {
+        $data = $request->all();
+        // $chkassesment = Assesment::whereUserId(Auth::user()->id)->where('program_number',$request->pnumber)->first();
+        // if (isset($chkassesment)) {
+        //     $data = Assesment::find($chkassesment->id);
+        // } else {
+        //     $data = new Assesment;
+        //     $data->date = date('Y-m-d');
+        //     $data->assesmentid = date('his').Auth::user()->id;
+        //     $data->program_number = $request->pnumber;
+        // }
+        // $data->line_manager_id = $request->line_manager_id;
+        // $data->department_id = $request->department_id;
+        // $data->division_id = $request->division_id;
+        // $data->user_id = Auth::user()->id;
+        // if ($data->save()) {
+            
+        //     foreach ($request->answers as $question_id => $answer) {
+        //         $chkqncat = Question::whereId($question_id)->first();
+        //         $existingAnswer = AssesmentAnswer::where('user_id', Auth::user()->id)
+        //         ->where('assesment_id', $data->id)
+        //         ->where('question_id', $question_id)
+        //         ->where('program_number', $request->pnumber)
+        //         ->first();
+
+        //         // dd($existingAnswer);
+
+        //         if ($existingAnswer) {
+        //             // Update existing answer
+        //             $existingAnswer->answer = $answer;
+        //             $existingAnswer->qn_category_id = $chkqncat->qn_category_id;
+        //             $existingAnswer->save();
+        //         }
+        //         else{
+        //             $question = new AssesmentAnswer();
+        //             $question->date = date('Y-m-d');
+        //             $question->user_id = Auth::user()->id;
+        //             $question->assesmentid = $data->assesmentid;
+        //             $question->program_number = $request->pnumber;
+        //             $question->assesment_id = $data->id;
+        //             $question->question_id = $question_id;
+        //             $question->qn_category_id = $chkqncat->qn_category_id;
+        //             $question->answer = $answer;
+        //             $question->save();
+        //         }
+        //     }
+
+        //     $updanswer = DeterminigAnswer::where('program_number', $request->pnumber)->first();
+        //     $updanswer->assign_account = "Manager";
+        //     $updanswer->line_manager_notification = "1";
+        //     $updanswer->user_notification = "0";
+        //     $updanswer->save();
+
+        //     $newproblem = new AssesmentHealthProblem();
+        //     $newproblem->date = date('Y-m-d');
+        //     $newproblem->user_id = Auth::user()->id;
+        //     $newproblem->program_number = $request->pnumber;
+        //     $newproblem->determinig_answer_id = $updanswer->id;
+        //     $newproblem->assesment_schedule_id = $updanswer->assesment_schedule_id;
+        //     $newproblem->otherqn = $request->otherqn;
+        //     $newproblem->question = $request->newqn;
+        //     $newproblem->lowback = json_encode($request->lowback);
+        //     $newproblem->upperback = json_encode($request->upperback);
+        //     $newproblem->neck = json_encode($request->neck);
+        //     $newproblem->shoulders = json_encode($request->shoulders);
+        //     $newproblem->arms = json_encode($request->arms);
+        //     $newproblem->hand_fingers = json_encode($request->hand_fingers);
+        //     $newproblem->exercise = $request->exercise;
+        //     $newproblem->taught_exercise = $request->taught_exercise;
+        //     $newproblem->save();
+
+
+        //     return Redirect::route('user.survey', $request->pnumber)->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
+
+
+        // }else{
+        //     return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        // }
+        
+
+        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message,'date'=>$data]);
+
+    }
+
 
 
     public function assesmentStore(Request $request)
     {
+
+        dd($request->all());
         
         $messages = [
             'answers.*' => 'Each answer must be either "yes" or "no".',
