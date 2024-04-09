@@ -35,14 +35,14 @@
       </div>
       <div class="col-4 col-sm-3 col-md-3 col-lg-3 text-center">
         <div class="box border shadow-sm p-4">
-          <a href="#"><img src="{{ asset('assets/admin/img/manger.png')}}" class="img-fluid w-50 mb-3"></a>
+          <a href="{{route('admin.linemanager')}}"><img src="{{ asset('assets/admin/img/manger.png')}}" class="img-fluid w-50 mb-3"></a>
           <h6>Line Manger </h6>
         </div>
 
       </div>
       <div class="col-4 col-sm-3 col-md-3 col-lg-3 text-center">
         <div class="box border shadow-sm p-4">
-          <a href="#"><img src="{{ asset('assets/admin/img/occupation.png')}}" class="img-fluid w-50 mb-3"></a>
+          <a href="{{route('admin.expert')}}"><img src="{{ asset('assets/admin/img/occupation.png')}}" class="img-fluid w-50 mb-3"></a>
           <h6>Occupational </h6>
         </div>
 
@@ -56,8 +56,8 @@
       </div>
       <div class="col-4 col-sm-3 col-md-3 col-lg-3 text-center">
         <div class="box border shadow-sm p-4">
-          <a href="#"><img src="{{ asset('assets/admin/img/policy.png')}}" class="img-fluid w-50 mb-3"></a>
-          <h6>Policy </h6>
+          <a href="{{route('admin.user')}}"><img src="{{ asset('assets/admin/img/policy.png')}}" class="img-fluid w-50 mb-3"></a>
+          <h6>Users </h6>
         </div>
 
       </div>
