@@ -64,9 +64,9 @@ class HomeController extends Controller
     public function managerHome(): View
     {
         $dusers = DeterminigAnswer::where('line_manager_id', Auth::user()->id)->where('status', 0)->get();
-        
-        
-        return view('manager.dashboard', compact('dusers'));
+        $newAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->get();
+        $allAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->get();
+        return view('manager.dashboard', compact('dusers','allAssesments','newAssesments'));
     }
 
     public function userDashboard(): View
