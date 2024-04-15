@@ -38,59 +38,8 @@
      <div class="row mt-4">
        <div class="col-lg-6 text-center">
          
-         <div class="card">
-           <div class="card-body">
-             <h5 class="card-title mt-3 text-center">Review List of New Assesment</h5>
-             <hr>
- 
-             <!-- Default Table -->
-             <table class="table">
-               <thead>
-                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Surname</th>
-                    <th scope="col">Location</th>
-                    <th scope="col" class="text-center">Action</th>
-                 </tr>
-               </thead>
-               <tbody>
 
 
-                @foreach ($newAssesments as $key => $data)
-                    
-                    @php
-                    $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
-                    $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->count();
-                    @endphp
-
-
-                    <tr>
-                        <th scope="row">{{$key+1}}</th>
-                        <td>{{$data->date}}</td>
-                        <td>{{$data->user->email}}</td>
-                        <td>{{$data->user->name}}</td>
-                        <td>{{$data->user->surname}}</td>
-                        <td>{{$data->assign_account}}</td>
-                        <td>
-                            <div class="d-flex gap-2 align-items-center justify-content-center">
-                                <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
-                                    <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                
-
-
-               </tbody>
-             </table>
-             <!-- End Default Table Example -->
-           </div>
-         </div>
        </div>
        <div class="col-lg-6 text-center">
         <div class="card border p-4">
@@ -101,6 +50,66 @@
        </div>
       
      </div>
+
+     
+     <div class="row mt-4"> 
+      <div class="col-lg-12">
+        
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title mt-3 text-center">Review List of New Assesment</h5>
+            <hr>
+
+            <!-- Default Table -->
+            <table class="table">
+              <thead>
+                <tr>
+                   <th scope="col">#</th>
+                   <th scope="col">Date</th>
+                   <th scope="col">Email</th>
+                   <th scope="col">Name</th>
+                   <th scope="col">Surname</th>
+                   <th scope="col">Location</th>
+                   <th scope="col" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+
+               @foreach ($newAssesments as $key => $data)
+                   
+                   @php
+                   $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
+                   $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->count();
+                   @endphp
+
+
+                   <tr>
+                       <th scope="row">{{$key+1}}</th>
+                       <td>{{$data->date}}</td>
+                       <td>{{$data->user->email}}</td>
+                       <td>{{$data->user->name}}</td>
+                       <td>{{$data->user->surname}}</td>
+                       <td>{{$data->assign_account}}</td>
+                       <td>
+                           <div class="d-flex gap-2 align-items-center justify-content-center">
+                               <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
+                                   <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
+                               </a>
+                           </div>
+                       </td>
+                   </tr>
+                   @endforeach
+               
+
+
+              </tbody>
+            </table>
+            <!-- End Default Table Example -->
+          </div>
+        </div>
+      </div>
+    </div>
     
      <div class="row mt-4"> 
        <div class="col-lg-12">

@@ -88,8 +88,12 @@ class HomeController extends Controller
 
     public function expertHome(): View
     {
+
+        $dusers = DeterminigAnswer::where('occupational_health_id', Auth::user()->id)->where('status', 0)->get();
+        $newAssesments = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->get();
+        $allAssesments = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->orderby('id', 'DESC')->get();
+        return view('expert.dashboard', compact('dusers','allAssesments','newAssesments'));
         
-        return view('expert.dashboard');
     }
 
     public function expertManagerHome(): View
