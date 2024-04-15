@@ -251,7 +251,7 @@ class OccupationalHealthController extends Controller
         $data->user_id = $request->user_id;
         $data->program_number = $request->prgmnumber;
         $data->assesment_health_problem_id = $request->codeid;
-        $data->created_by = "Manager";
+        $data->created_by = "Health";
         if ($data->save()) {
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";

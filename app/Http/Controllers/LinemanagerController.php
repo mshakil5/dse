@@ -135,14 +135,5 @@ class LinemanagerController extends Controller
     }
 
 
-    public function switchToUser(Request $request)
-    {
-        
-        $data = User::find(Auth::user()->id);
-        $data->is_type = '0';
-        if($data->save()){
-            return redirect()->route('home');
-        }
-
-    }
+    
 }

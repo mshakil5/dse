@@ -43,6 +43,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/session-clear', [FrontendController::class, 'sessionClear']);
   
 
+Route::get('/switch-to-user', [FrontendController::class, 'switchToUser'])->name('switchuser');
 Route::get('/assesment-print/{id}', [AssesmentController::class, 'assesmentPrint'])->name('assesment.print');
 
 
@@ -105,9 +106,6 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
 
     // report part start here
     Route::get('/assessment/report/{id}', [ReportController::class,'getAllAssesmentReportByManagger'])->name('manager.assesment.report');
-
-    Route::get('/switch-to-user', [LinemanagerController::class, 'switchToUser'])->name('linemanager.switchuser');
-
 
 });
 

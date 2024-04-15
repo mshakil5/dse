@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\support\Facades\Auth;
 
 class FrontendController extends Controller
 {
@@ -17,5 +19,16 @@ class FrontendController extends Controller
         session()->flush();
         session()->regenerate();
         return redirect()->back();
+    }
+
+    public function switchToUser(Request $request)
+    {
+        
+        $data = User::find(Auth::user()->id);
+        $data->is_type = '0';
+        if($data->save()){
+            return redirect()->route('home');
+        }
+
     }
 }
