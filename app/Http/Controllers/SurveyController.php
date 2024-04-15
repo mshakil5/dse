@@ -435,7 +435,12 @@ class SurveyController extends Controller
     {
         
         $data = User::find(Auth::user()->id);
-        $data->is_type = '2';
+        if (Auth::user()->role_type == "Health") {
+            $data->is_type = '3';
+        } else {
+            $data->is_type = '2';
+        }
+        
         if($data->save()){
             return redirect()->route('home');
         }

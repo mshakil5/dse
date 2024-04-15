@@ -61,6 +61,14 @@
                                 </a>
                             </li>
                             @endif
+
+                            
+                            @if (Auth::user()->role_type == "Health")
+                            <li class="nav-item">
+                                <a href="{{route('user.switchmanager')}}" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3"  icon="ph:gear-light"></iconify-icon> My Dashboard
+                                </a>
+                            </li>
+                            @endif
                             
 
                             <li class="nav-item dropdown">
