@@ -211,23 +211,41 @@ class AssesmentController extends Controller
             $updanswer->user_notification = "0";
             $updanswer->save();
 
-            $newproblem = new AssesmentHealthProblem();
-            $newproblem->date = date('Y-m-d');
-            $newproblem->user_id = Auth::user()->id;
-            $newproblem->program_number = $request->pnumber;
-            $newproblem->determinig_answer_id = $updanswer->id;
-            $newproblem->assesment_schedule_id = $updanswer->assesment_schedule_id;
-            $newproblem->otherqn = $request->otherqn;
-            $newproblem->question = $request->newqn;
-            $newproblem->lowback = json_encode($request->lowback);
-            $newproblem->upperback = json_encode($request->upperback);
-            $newproblem->neck = json_encode($request->neck);
-            $newproblem->shoulders = json_encode($request->shoulders);
-            $newproblem->arms = json_encode($request->arms);
-            $newproblem->hand_fingers = json_encode($request->hand_fingers);
-            $newproblem->exercise = $request->exercise;
-            $newproblem->taught_exercise = $request->taught_exercise;
-            $newproblem->save();
+            $existingHealthProblem = AssesmentHealthProblem::where('user_id', Auth::user()->id)
+            ->where('program_number', $request->pnumber)
+            ->first();
+
+            if ($existingHealthProblem) {
+                $existingHealthProblem->otherqn = $request->otherqn;
+                $existingHealthProblem->question = $request->newqn;
+                $existingHealthProblem->lowback = json_encode($request->lowback);
+                $existingHealthProblem->upperback = json_encode($request->upperback);
+                $existingHealthProblem->neck = json_encode($request->neck);
+                $existingHealthProblem->shoulders = json_encode($request->shoulders);
+                $existingHealthProblem->arms = json_encode($request->arms);
+                $existingHealthProblem->hand_fingers = json_encode($request->hand_fingers);
+                $existingHealthProblem->exercise = $request->exercise;
+                $existingHealthProblem->taught_exercise = $request->taught_exercise;
+                $existingHealthProblem->save();
+            } else {
+                $newproblem = new AssesmentHealthProblem();
+                $newproblem->date = date('Y-m-d');
+                $newproblem->user_id = Auth::user()->id;
+                $newproblem->program_number = $request->pnumber;
+                $newproblem->determinig_answer_id = $updanswer->id;
+                $newproblem->assesment_schedule_id = $updanswer->assesment_schedule_id;
+                $newproblem->otherqn = $request->otherqn;
+                $newproblem->question = $request->newqn;
+                $newproblem->lowback = json_encode($request->lowback);
+                $newproblem->upperback = json_encode($request->upperback);
+                $newproblem->neck = json_encode($request->neck);
+                $newproblem->shoulders = json_encode($request->shoulders);
+                $newproblem->arms = json_encode($request->arms);
+                $newproblem->hand_fingers = json_encode($request->hand_fingers);
+                $newproblem->exercise = $request->exercise;
+                $newproblem->taught_exercise = $request->taught_exercise;
+                $newproblem->save();
+            }
 
 
             return Redirect::route('user.survey', $request->pnumber)->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');

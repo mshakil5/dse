@@ -7,15 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\Assesment;
 use App\Models\AssesmentAnswer;
 use App\Models\AssesmentAnswerComment;
+use App\Models\AssesmentHealthComment;
 use App\Models\AssesmentLog;
 use App\Models\AssesmentSchedule;
 use App\Models\Department;
 use App\Models\DeterminigAnswer;
+use App\Models\AssesmentHealthProblem;
 use App\Models\Division;
 use App\Models\QnCategory;
 use App\Models\User;
 use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class OccupationalHealthController extends Controller
 {
@@ -38,7 +41,15 @@ class OccupationalHealthController extends Controller
         $divisions = Division::select('id','name')->get();
         $data = DeterminigAnswer::where('id',$id)->first();
         $schedule = AssesmentSchedule::where('program_number', $data->program_number)->first();
-        return view('expert.determininguser', compact('data','divisions','departments','schedule'));
+        if (isset($data)) {
+            if ($data->work_hour == "Yes" || $data->wow_system == "Yes") {
+                return Redirect::route('health.assessment.details',$schedule->program_number);
+            } else {
+                return view('expert.determininguser', compact('data','divisions','departments','schedule'));
+            } 
+        } else {
+            return view('expert.determininguser', compact('data','divisions','departments','schedule'));
+        } 
     }
 
 
@@ -56,9 +67,10 @@ class OccupationalHealthController extends Controller
                         
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
+        $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $id)->first();
         $pnumber = $id;
         $catid = '0';
-        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid'));
+        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
     }
 
     public function showAssessmentUserDetailsbyCategory(Request $request, $uid, $cat_id)
@@ -74,9 +86,10 @@ class OccupationalHealthController extends Controller
         // dd($questionCategories);
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
+        $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $uid)->first();
         $pnumber = $uid;
         $catid = $cat_id;
-        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid'));
+        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
     }
 
     public function addRating(Request $request)
@@ -209,6 +222,37 @@ class OccupationalHealthController extends Controller
             $assesmentans = AssesmentAnswer::find($request->assans_id);
             $assesmentans->solved = $request->solved;
             $assesmentans->save();
+            
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message,'date'=>$data->date]);
+
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+        
+
+    }
+
+
+    public function expertHealthComment(Request $request)
+    {
+
+        if(empty($request->comment)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        $data = new AssesmentHealthComment();
+        $data->date = date('Y-m-d');
+        $data->occupational_health_id = Auth::user()->id;
+        $data->comment = $request->comment;
+        $data->question = $request->opmsname;
+        $data->user_id = $request->user_id;
+        $data->program_number = $request->prgmnumber;
+        $data->assesment_health_problem_id = $request->codeid;
+        $data->created_by = "Manager";
+        if ($data->save()) {
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'date'=>$data->date]);
