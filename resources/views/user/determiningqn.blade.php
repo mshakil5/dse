@@ -38,8 +38,8 @@
                                     <div class="ermsg"></div>
                                 
                                 <h2 class="text-success text-left ">Appendix 3</h2>
-                                <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation
-                                    self-assessment</h2>
+                                <h3 class="text-danger text-left ">Display screen equipment (DSE) workstation
+                                    self-assessment</h3>
                                 <p>
                                     You are asked to complete the enclosed form to assess that you are using your
                                     computer and workstation in the ‘optimum’ way, so that you suffer no ill-effects
