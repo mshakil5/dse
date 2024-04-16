@@ -188,14 +188,14 @@ class OccupationalHealthController extends Controller
             $logs->occupational_health_id = Auth::user()->id;
             $logs->program_number = $request->prgm;
             // $logs->comment = $request->comment;
-            $logs->assign_to = "Health";
-            $logs->assign_from = "Manager";
+            $logs->assign_to = "Manager";
+            $logs->assign_from = "Health";
             $logs->status_title = "Transfer";
             $logs->status = "1";
             $logs->created_by = Auth::user()->id;
             $logs->save();
 
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Schedule create successfully.</b></div>";
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Assesment transfer successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);
         }
 

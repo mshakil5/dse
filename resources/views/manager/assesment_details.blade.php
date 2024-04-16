@@ -926,10 +926,10 @@
         <div class="modal-content">
             <div class="modal-header">
             <h1 class="modal-title fs-5" id="transferLabel">Assign to Heath & Safety</h1>
-            <div class="ermsgod"></div>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div class="ermsgod"></div>
                 <select name="health_id" id="health_id{{$data->id}}" class="form-control">
                     <option value="">Select</option>
 

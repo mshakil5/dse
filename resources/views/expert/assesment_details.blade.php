@@ -57,9 +57,9 @@
                                 @if (isset($chksts))
 
                                 @if ($chksts->line_manager_notification == 1)
-                                <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning d-flex align-items-center m-2" >
+                                {{-- <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning d-flex align-items-center m-2" >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Change Status
-                                </a>
+                                </a> --}}
                                 @endif
                                     
                                 @endif
@@ -928,6 +928,33 @@
 
 </section>
 
+<!--Transfer  Modal -->
+<!-- Modal -->
+<div class="modal fade black-modal" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="transferModalLabel">Assign to Line Manager</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ermsgod"></div>
+                <select name="health_id" id="health_id{{$data->id}}" class="form-control">
+                    <option value="">Select</option>
+
+                    @foreach (\App\Models\User::where('is_type', '2')->get() as $expert)
+                    <option value="{{$expert->id}}">{{$expert->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}">Assign</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Transfer Modal -->
 <!-- Modal -->
 <div class="modal fade black-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -976,6 +1003,10 @@
     </div>
     </div>
 </div>
+
+
+
+
 
 <!-- Back to top button -->
 <button type="button" class="btn btn-success btn-floating btn-lg" id="btn-back-to-top">
@@ -1154,6 +1185,37 @@
         });
     });
     // comment store 
+
+    var expurl = "{{URL::to('/expert/transfer-to-manager')}}";
+    var redurl = "{{URL::to('/expert/get-active-users')}}";
+
+    $(".transferbtn").click(function(){
+
+            var determiningAnswerId = $(this).attr("data-id");
+            var uid = $(this).attr("uid");
+            var prgm = $(this).attr("prgmnumber");
+            var line_manager_id = $("#health_id"+determiningAnswerId).val();
+            
+            console.log(determiningAnswerId, uid, prgm, line_manager_id);
+
+            $.ajax({
+                url: expurl,
+                method: "POST",
+                data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm,line_manager_id:line_manager_id},
+                success: function (d) {
+                    if (d.status == 303) {
+                        $(".ermsgod").html(d.message);
+                    }else if(d.status == 300){
+                        $(".ermsgod").html(d.message);
+                        window.setTimeout(function(){window.location.href = redurl},2000)
+                    }
+                },
+                error: function (d) {
+                    console.log(d);
+                }
+            });
+
+    });
 
     $("#showWork").click(function() {
 
