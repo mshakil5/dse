@@ -110,13 +110,35 @@ class HomeController extends Controller
         return view('user.dashboard', compact('assesment','dueRecords'));
     }
 
-    public function expertHome(): View
+    public function expertHome(Request $request): View
     {
 
         $dusers = DeterminigAnswer::where('occupational_health_id', Auth::user()->id)->where('status', 0)->get();
         $newAssesments = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->get();
-        $allAssesments = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->orderby('id', 'DESC')->get();
-        return view('expert.dashboard', compact('dusers','allAssesments','newAssesments'));
+
+        $uid = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->pluck('user_id');
+        // dd($uid);
+        $userlist = User::whereIn('id', $uid)->get();
+
+        $allAssesments = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->orderby('id', 'DESC')
+                ->when($request->input('fromDate'), function ($query) use ($request) {
+                    $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                })
+                ->when($request->input('user_id'), function ($query) use ($request) {
+                    $query->where("user_id",$request->input('user_id'));
+                })
+                ->get();
+
+        $dueAssesment = AssesmentSchedule::where('occupational_health_id', Auth::user()->id)->whereNull('compiled_date')
+                ->where('end_date', '<=', Carbon::now()->addMonth())
+                ->where('end_date', '>=', Carbon::now())
+                ->orderby('id','DESC')
+                ->count();
+
+
+
+
+        return view('expert.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment'));
         
     }
 
