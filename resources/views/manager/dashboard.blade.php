@@ -11,44 +11,40 @@
          <h3 class="text-center text-capitalize border p-3 text-info">Line maneger / Occupationonal Health dashboard info</h3>
         </div>
      </div> --}}
-     <div class="row g-2">
-       <div class="col-lg-4 text-center">
-         <div
-         class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-         <h5 class="mb-0 text-uppercase text-light">New Assesment submitted number </h5>
-         <div class="display-6 text-light fw-bold rounded-circle p-2 border">{{$newAssesments->count()}}
-         </div>
-       </div>
-       </div>
-       <div class="col-lg-4 text-center">
-         <div
-           class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-           <h5 class="mb-0 text-light text-uppercase">your Assesment : <br> Complient / Not complient</h5>
-         </div> 
-       </div>
-       <div class="col-lg-4 text-center">
-         <div
-           class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-           <h4 class="mb-0 text-light text-uppercase">your Team Assesment </h4>
-           <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">{{$allAssesments->count()}}
-           </div>
-         </div>
-       </div>
-     </div>
+     
      <div class="row mt-4">
-       <div class="col-lg-6 text-center">
-         
+        <div class="col-lg-6 text-center">
+          
+            <div class="row g-2">
+              <div class="col-lg-12 text-center">
+                <div class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
+                <h5 class="mb-0 text-uppercase text-light">New Assesment submitted number </h5>
+                <div class="display-6 text-light fw-bold rounded-circle p-2 border">{{$newAssesments->count()}}
+                </div>
+              </div>
+              </div>
+              <div class="col-lg-12 text-center">
+                <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
+                  <h5 class="mb-0 text-light text-uppercase">Due Assesment</h5>
+                </div> 
+              </div>
+              <div class="col-lg-12 text-center">
+                <div class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
+                  <h4 class="mb-0 text-light text-uppercase">your Team Assesment </h4>
+                  <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">{{$allAssesments->count()}}
+                  </div>
+                </div>
+              </div>
+            </div>
 
-
-       </div>
-       <div class="col-lg-6 text-center">
-        <div class="card border p-4">
-          <!-- Pie Chart -->
-          <div id="pieChart"></div>
         </div>
-         
-       </div>
-      
+        <div class="col-lg-6 text-center">
+            <div class="card border p-4">
+              <!-- Pie Chart -->
+              <div id="pieChart"></div>
+            </div>
+          
+        </div>
      </div>
 
      
