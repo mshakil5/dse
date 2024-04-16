@@ -205,6 +205,12 @@ class OccupationalHealthController extends Controller
     public function expertMessageStore(Request $request)
     {
 
+        if(empty($request->name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         if(empty($request->comment)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -217,6 +223,7 @@ class OccupationalHealthController extends Controller
         $data->comment = $request->comment;
         $data->assesment_answer_id = $request->assans_id;
         $data->user_id = $request->user_id;
+        $data->name = $request->name;
         $data->created_by = "Health";
         if ($data->save()) {
             $assesmentans = AssesmentAnswer::find($request->assans_id);
@@ -236,7 +243,11 @@ class OccupationalHealthController extends Controller
 
     public function expertHealthComment(Request $request)
     {
-
+        if(empty($request->name)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Name \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         if(empty($request->comment)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -247,6 +258,7 @@ class OccupationalHealthController extends Controller
         $data->date = date('Y-m-d');
         $data->occupational_health_id = Auth::user()->id;
         $data->comment = $request->comment;
+        $data->name = $request->name;
         $data->question = $request->opmsname;
         $data->user_id = $request->user_id;
         $data->program_number = $request->prgmnumber;

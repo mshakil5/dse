@@ -241,7 +241,7 @@
                                 @if ($comment->created_by == "User")
                                     
                                     <div class="row">
-                                        <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                        <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark"> <b>{{$comment->created_by}}: </b> {{$comment->comment}}
                                             <br>
                                             <small>Date: {{$comment->date}}</small>
                                         </div>
@@ -252,7 +252,7 @@
 
                                     <div class="row">
                                         <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">{{$comment->comment}}
+                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right"> <b>{{$comment->created_by}} ({{$comment->name}}): </b>{{$comment->comment}}
                                             <br>
                                         <small>Date: {{$comment->date}}</small>
                                         </div>
@@ -261,17 +261,12 @@
                                 @endif
                             @endforeach
 
-                            <div class="row" id="reply{{$assanswer->id}}">
-
-                            </div>
-
-                            
-                            
-
+                            <div class="row" id="reply{{$assanswer->id}}"> </div>
                             @if ($assanswer->solved == 0)
                             
                                 <input type="hidden" name="user_id" value="{{$user->id}}">
                                 <div class="col-lg-12" id="replycmnt{{$assanswer->id}}">
+                                    <input type="text" name="health_name" id="health_name{{$assanswer->id}}"  placeholder="Name Here" class="form-control mb-1">
                                     <textarea name="manager_comment" id="comment{{$assanswer->id}}" class="form-control" placeholder="Comments Here" required></textarea>
                                     <input type="hidden" name="assans_id" value="{{ $assanswer->id }}">
                                 </div>
@@ -320,7 +315,7 @@
 
                                 
                                         <div class="row">
-                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                            <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark"><b>{{$comment->created_by}} ({{$comment->name}}): </b>{{$comment->comment}}
                                                 <br>
                                                 <small>Date: {{$comment->date}}</small>
                                             </div>
@@ -330,7 +325,7 @@
                                     
                                     <div class="row">
                                         <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right">{{$comment->comment}}
+                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark text-right"><b>{{$comment->created_by}} ({{$comment->name}}): </b>{{$comment->comment}}
                                             <br>
                                         <small>Date: {{$comment->date}}</small>
                                         </div>
@@ -394,7 +389,7 @@
                                     @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
                                     <div class="row">
                                         <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}):</b> {{$opmscomment->comment}}
                                             <br>
                                             <small>Date:{{$opmscomment->date}}</small>
                                         </div>
@@ -403,6 +398,9 @@
 
                                     <div class="cmntermsg"></div>
                                     <div class="col-lg-12" id="replycmnt">
+                                        
+                                        <input type="text" name="health_name" id="health_namequestion"  placeholder="Name Here" class="form-control mb-1">
+
                                         <textarea id="commentquestion" class="form-control" placeholder="Comments Here"></textarea>
                                     </div>
                                     <div class="col-lg-12" id="replybtn">
@@ -468,7 +466,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'lowback') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}):</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -498,6 +496,9 @@
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    
+                                                    <input type="text" name="health_namelowback" id="health_namelowback"  placeholder="Name Here" class="form-control mb-1">
+
                                                     <textarea id="commentlowback" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -532,7 +533,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'upperback') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}):</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -564,6 +565,7 @@
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    <input type="text" name="health_nameupperback" id="health_nameupperback"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commentupperback" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -595,7 +597,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'neck') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}):</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -626,6 +628,9 @@
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    
+                                                    <input type="text" name="health_nameneck" id="health_nameneck"  placeholder="Name Here" class="form-control mb-1">
+
                                                     <textarea id="commentneck" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -656,7 +661,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'shoulders') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}):</b> {{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -687,6 +692,7 @@
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    <input type="text" name="health_nameshoulders" id="health_nameshoulders"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commentshoulders" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -718,7 +724,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}): </b>{{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -749,6 +755,8 @@
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    <input type="text" name="health_namearms" id="health_namearms"  placeholder="Name Here" class="form-control mb-1">
+
                                                     <textarea id="commentarms" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -778,7 +786,7 @@
                                                 @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
                                                 <div class="row">
                                                     <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}): </b>{{$opmscomment->comment}}
                                                         <br>
                                                         <small>Date:{{$opmscomment->date}}</small>
                                                     </div>
@@ -810,6 +818,7 @@
                                             <td style="text-align: left" colspan="6">
                                                 <div class="cmntermsg"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    <input type="text" name="health_namehand_fingers" id="health_namehand_fingers"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commenthand_fingers" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -841,7 +850,7 @@
                                                     @foreach ($opms->assesmentHealthComment->where('question', 'exercise') as $opmscomment)
                                                     <div class="row">
                                                         <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}): </b>{{$opmscomment->comment}}
                                                             <br>
                                                             <small>Date:{{$opmscomment->date}}</small>
                                                         </div>
@@ -850,6 +859,7 @@
 
                                                     <div class="cmntermsg"></div>
                                                     <div class="col-lg-12" id="replycmnt">
+                                                        <input type="text" name="health_nameexercise" id="health_nameexercise"  placeholder="Name Here" class="form-control mb-1">
                                                         <textarea id="commentexercise" class="form-control" placeholder="Comments Here"></textarea>
                                                     </div>
                                                     <div class="col-lg-12" id="replybtn">
@@ -882,7 +892,7 @@
                                                     @foreach ($opms->assesmentHealthComment->where('question', 'taught_exercise') as $opmscomment)
                                                     <div class="row">
                                                         <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}} ({{$opmscomment->name}}): </b>{{$opmscomment->comment}}
                                                             <br>
                                                             <small>Date:{{$opmscomment->date}}</small>
                                                         </div>
@@ -891,6 +901,7 @@
 
                                                     <div class="cmntermsg"></div>
                                                     <div class="col-lg-12" id="replycmnt">
+                                                        <input type="text" name="health_nametaught_exercise" id="health_nametaught_exercise"  placeholder="Name Here" class="form-control mb-1">
                                                         <textarea id="commenttaught_exercise" class="form-control" placeholder="Comments Here"></textarea>
                                                     </div>
                                                     <div class="col-lg-12" id="replybtn">
@@ -1059,6 +1070,7 @@
         var user = $(this).attr('user');
         var solved = $(this).attr('solved');
         var comment = $("#comment"+assans_id).val();
+        var name = $("#health_name"+assans_id).val();
         
 
         var form_data = new FormData();		
@@ -1066,6 +1078,7 @@
         form_data.append("user_id", user);
         form_data.append("comment", comment);
         form_data.append("solved", solved);
+        form_data.append("name", name);
 
         $.ajax({
             url:commenturl,
@@ -1101,6 +1114,7 @@
         var codeid = $(this).attr('codeid');
         var prgmnumber = $(this).attr('prgmnumber');
         var comment = $("#comment"+opmsname).val();
+        var name = $("#health_name"+opmsname).val();
         
         console.log(opmsname, user, solved, comment, prgmnumber);
         var form_data = new FormData();		
@@ -1109,6 +1123,7 @@
         form_data.append("comment", comment);
         form_data.append("solved", solved);
         form_data.append("prgmnumber", prgmnumber);
+        form_data.append("name", name);
         form_data.append("codeid", codeid);
 
         $.ajax({
