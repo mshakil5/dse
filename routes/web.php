@@ -83,6 +83,7 @@ All manager Routes List
 Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'managerHome'])->name('manager.dashboard');
+    Route::post('/dashboard', [HomeController::class, 'managerHome'])->name('linemanager.search');
     
     Route::get('/get-active-users', [LinemanagerController::class, 'getAllUsers'])->name('linemanager.userlist');
     Route::get('/get-users-determining-answer/{id}', [LinemanagerController::class, 'getUsersDeterminingAnswer'])->name('linemanager.determiniganswer');

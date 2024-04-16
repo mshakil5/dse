@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AssesmentSchedule;
 use App\Models\DeterminigAnswer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Carbon;
@@ -61,12 +62,35 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function managerHome(): View
+    public function managerHome(Request $request): View
     {
+        
+
         $dusers = DeterminigAnswer::where('line_manager_id', Auth::user()->id)->where('status', 0)->get();
         $newAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->get();
-        $allAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->get();
-        return view('manager.dashboard', compact('dusers','allAssesments','newAssesments'));
+        // $allAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->get();
+
+        $uid = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->pluck('user_id');
+        // dd($uid);
+        $userlist = User::whereIn('id', $uid)->get();
+
+        $allAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')
+                ->when($request->input('fromDate'), function ($query) use ($request) {
+                    $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                })
+                ->when($request->input('user_id'), function ($query) use ($request) {
+                    $query->where("user_id",$request->input('user_id'));
+                })
+                ->get();
+
+        $dueAssesment = AssesmentSchedule::where('line_manager_id', Auth::user()->id)->whereNull('compiled_date')
+                ->where('end_date', '<=', Carbon::now()->addMonth())
+                ->where('end_date', '>=', Carbon::now())
+                ->orderby('id','DESC')
+                ->count();
+
+
+        return view('manager.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment'));
     }
 
     public function userDashboard(): View

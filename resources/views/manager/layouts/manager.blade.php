@@ -50,21 +50,7 @@
     <script src="{{ asset('frontend/js/bootstrap.bundle.min.js')}}"></script>
     <script src="{{ asset('frontend/js/app.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          new ApexCharts(document.querySelector("#pieChart"), {
-            series: [44, 55, 13, 43, 22],
-            chart: {
-              height: 350,
-              type: 'pie',
-              toolbar: {
-                show: true
-              }
-            },
-            labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
-          }).render();
-        });
-      </script>
+
        <script>
         document.addEventListener("DOMContentLoaded", () => {
           new ApexCharts(document.querySelector("#columnChart"), {
