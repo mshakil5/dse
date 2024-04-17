@@ -43,6 +43,8 @@
         </div>
         <div class="col-lg-6 text-center">
             <div class="card border p-4">
+              <input type="hidden" id="reviewcount" value="{{$reviewcount}}">
+              <input type="hidden" id="compiledcount" value="{{$compiledcount}}">
               <!-- Pie Chart -->
               <div id="pieChart"></div>
             </div>
@@ -223,8 +225,12 @@
 @section('script')
 <script>
   document.addEventListener("DOMContentLoaded", () => {
+
+      var reviewcount = parseFloat($("#reviewcount").val());
+      var compiledcount = parseFloat($("#compiledcount").val());
+
     new ApexCharts(document.querySelector("#pieChart"), {
-      series: [44, 55],
+      series: [compiledcount, reviewcount],
       chart: {
         height: 350,
         type: 'pie',

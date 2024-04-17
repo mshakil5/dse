@@ -69,10 +69,8 @@ class HomeController extends Controller
 
         $dusers = DeterminigAnswer::where('line_manager_id', Auth::user()->id)->where('status', 0)->get();
         $newAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->get();
-        // $allAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->get();
 
         $uid = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->pluck('user_id');
-        // dd($uid);
         $userlist = User::whereIn('id', $uid)->get();
 
         $allAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')
@@ -90,8 +88,10 @@ class HomeController extends Controller
                 ->orderby('id','DESC')
                 ->count();
 
+        $reviewcount = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Manager')->where('line_manager_notification', 1)->count();
 
-        return view('manager.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment'));
+        $compiledcount = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('complined', 1)->count();
+        return view('manager.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment','reviewcount','compiledcount'));
     }
 
     public function userDashboard(): View

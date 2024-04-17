@@ -156,7 +156,7 @@
 
       var outstanding = parseFloat($("#outstanding").val());
       var complete = parseFloat($("#complete").val());
-      console.log(outstanding, complete);
+      
       new ApexCharts(document.querySelector("#pieChart"), {
         series: [complete, outstanding],
         chart: {
