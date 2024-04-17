@@ -2,6 +2,7 @@
   
 namespace App\Http\Controllers;
 
+use App\Models\AssesmentAnswer;
 use App\Models\AssesmentSchedule;
 use App\Models\DeterminigAnswer;
 use App\Models\User;
@@ -106,8 +107,15 @@ class HomeController extends Controller
                             ->first();
 
 
+        $program_number = AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
+        if (isset($program_number)) {
+            $anscount = AssesmentAnswer::where('program_number', $program_number->program_number)->count();
+        } else {
+            $anscount = 0;
+        }
+        
 
-        return view('user.dashboard', compact('assesment','dueRecords'));
+        return view('user.dashboard', compact('assesment','dueRecords','program_number','anscount'));
     }
 
     public function expertHome(Request $request): View

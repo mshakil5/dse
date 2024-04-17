@@ -108,7 +108,7 @@
           <hr>
 
           <!-- Default Table -->
-          <table class="table">
+          <table class="table" id="exdatatable">
             <thead>
               <tr>
                  <th scope="col">#</th>
@@ -162,7 +162,7 @@
           <hr>
 
           <!-- Default Table -->
-          <table class="table">
+          <table class="table" id="exdatatable2">
             <thead>
               <tr>
                  <th scope="col">#</th>
@@ -237,4 +237,12 @@
     }).render();
   });
 </script>
+
+
+<script>
+  $(document).ready(function () {
+      $('#exdatatable, #exdatatable2').DataTable();
+  });
+</script>
+
 @endsection

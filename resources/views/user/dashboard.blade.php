@@ -3,8 +3,6 @@
 
 @php
     $danswer = \App\Models\DeterminigAnswer::where('user_notification', 1)->first();
-    $program_number = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
-    $anscount = \App\Models\AssesmentAnswer::where('program_number', $program_number->program_number)->count();
     $qncount = \App\Models\Question::count();
 @endphp
 <section class="header-main py-5">
@@ -171,5 +169,10 @@
         labels: ['Complete Answer', 'Outstanding Answer']
       }).render();
     });
+  </script>
+  <script>
+    $(document).ready(function () {
+            $('#exdatatable').DataTable();
+        });
   </script>
 @endsection

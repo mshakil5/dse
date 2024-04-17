@@ -110,7 +110,7 @@
             <hr>
 
             <!-- Default Table -->
-            <table class="table">
+            <table class="table" id="exdatatable">
               <thead>
                 <tr>
                    <th scope="col">#</th>
@@ -164,7 +164,7 @@
             <hr>
 
             <!-- Default Table -->
-            <table class="table">
+            <table class="table" id="exdatatable2">
               <thead>
                 <tr>
                    <th scope="col">#</th>
@@ -224,7 +224,7 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     new ApexCharts(document.querySelector("#pieChart"), {
-      series: [44, 55, 13, 43, 22],
+      series: [44, 55],
       chart: {
         height: 350,
         type: 'pie',
@@ -232,8 +232,14 @@
           show: true
         }
       },
-      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
+      labels: ['Compliant assessment', 'Waiting for review']
     }).render();
+  });
+</script>
+
+<script>
+  $(document).ready(function () {
+      $('#exdatatable, #exdatatable2').DataTable();
   });
 </script>
 @endsection

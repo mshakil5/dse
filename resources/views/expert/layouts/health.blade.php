@@ -11,6 +11,9 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 
+
+    {{--  datatables --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap.min.css">
     
     <!-- Vendor CSS Files -->
     <link href="{{ asset('frontend/vendor/css/bootstrap-icons.css')}}" rel="stylesheet">
@@ -51,59 +54,16 @@
         <script src="{{ asset('frontend/js/app.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         
-           <script>
-            document.addEventListener("DOMContentLoaded", () => {
-              new ApexCharts(document.querySelector("#columnChart"), {
-                series: [{
-                  name: 'Net Profit',
-                  data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-                }, {
-                  name: 'Revenue',
-                  data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-                }, {
-                  name: 'Free Cash Flow',
-                  data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-                }],
-                chart: {
-                  type: 'bar',
-                  height: 350
-                },
-                plotOptions: {
-                  bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                  },
-                },
-                dataLabels: {
-                  enabled: false
-                },
-                stroke: {
-                  show: true,
-                  width: 2,
-                  colors: ['transparent']
-                },
-                xaxis: {
-                  categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-                },
-                yaxis: {
-                  title: {
-                    text: '$ (thousands)'
-                  }
-                },
-                fill: {
-                  opacity: 1
-                },
-                tooltip: {
-                  y: {
-                    formatter: function(val) {
-                      return "$ " + val + " thousands"
-                    }
-                  }
-                }
-              }).render();
-            });
-          </script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script> 
+        <script type="text/javascript" src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap4.min.js"></script> 
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.4/js/dataTables.buttons.min.js"></script> 
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.bootstrap4.min.js"></script> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script> 
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.html5.min.js"></script> 
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.print.min.js"></script> 
+        <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.4/js/buttons.colVis.min.js"></script> 
         @yield('script')
     
     </body>
