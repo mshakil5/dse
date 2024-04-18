@@ -262,15 +262,9 @@ class SurveyController extends Controller
 
         $validatedData = $request->validate([
             'work_station_number' => 'required',
-            'date' => 'required',
-            'job_type' => 'required',
-            'software' => 'required',
-            'continuous_spell' => ['required', 'in:Yes,No']
+            'software' => 'required'
         ], [
             'work_station_number.required' => 'Work station number field required.',
-            'date.required' => 'Date field required.',
-            'continuous_spell.required' => 'Please, choose necessary options.',
-            'job_type.required' => 'Please, choose Part time or Full time option.',
             'software.required' => 'Please, select a software which you use.'
         ]);
 

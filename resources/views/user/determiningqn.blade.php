@@ -9,7 +9,7 @@
                     <div class="row border-bottom border-dashed">
                         <div class="col-6 col-sm-6 col-lg-10">
                             <div class="brand">
-                                <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="90px" alt="">
+                                <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="120px" alt="">
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
@@ -117,7 +117,7 @@
                                 @endif
 
                             <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">1. Do you work with DSE for 1 hrs or more ? </h6>
+                                <h6 class="mb-3">1. Do you normally use your DSE for continuous spells of an hour or more at a time? </h6>
                                 <label for="yes" class="mx-2">
                                     <input id="work_hour_yes" type="radio" name="work_hour"  class="form-check-input me-1" value="Yes" @if (isset($data)) @if ($data->work_hour == "Yes") checked @endif @endif>Yes
                                 </label>
@@ -126,7 +126,7 @@
                                 </label>
                             </div>
                             <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">2. Do you use WoW system through your shift ? </h6>
+                                <h6 class="mb-3">2. Do you use Medicine Administration Workstation on Wheels (WoW) throughout your shift? </h6>
                                 <label for="yes" class="mx-2">
                                     <input id="wow_system_yes" type="radio" name="wow_system" class="form-check-input me-1" value="Yes" @if (isset($data)) @if ($data->wow_system == "Yes") checked @endif @endif>Yes
                                 </label>
