@@ -2,16 +2,16 @@
 
 @section('content')
 
-<div class="row mt-4">
+<div class="row">
   <div class="col-lg-12 text-center">
-    <img src="{{ asset('assets/admin/img/logo.svg')}}" width="300" class="mx-auto" alt="">
+    <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="300" class="mx-auto" alt="">
   </div>
 </div>
 
 
 <div class="row">
   <div class="col-lg-8 mx-auto">
-    <div class="row g-1 my-5">
+    <div class="row g-1">
       <div class="col-4 col-sm-3 col-md-3 col-lg-3 text-center">
         <div class="box border shadow-sm p-4">
           <a href="{{route('admin.assesmentCompiledList')}}"><img src="{{ asset('assets/admin/img/action.png')}}" class="img-fluid w-50 mb-3"></a>

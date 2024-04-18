@@ -42,7 +42,7 @@
                         <div class="row border-bottom border-dashed">
                             <div class="col-6 col-sm-6 col-lg-3">
                                 <div class="brand">
-                                    <img src="{{ asset('frontend/images/dselogo.jpg')}}" width="90px" alt="">
+                                    <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="90px" alt="">
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-9 d-flex align-items-center justify-content-end">

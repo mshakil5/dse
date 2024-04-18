@@ -9,7 +9,7 @@
                     <div class="row border-bottom border-dashed">
                         <div class="col-6 col-sm-6 col-lg-10">
                             <div class="brand">
-                                <img src="{{ asset('frontend/images/dselogo.jpg')}}" width="90px" alt="">
+                                <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="90px" alt="">
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
@@ -37,7 +37,7 @@
 
                                     <div class="ermsg"></div>
                                 
-                                <h2 class="text-success text-left ">Appendix 3</h2>
+                                {{-- <h2 class="text-success text-left ">Appendix 3</h2> --}}
                                 <h3 class="text-danger text-left ">Display screen equipment (DSE) workstation
                                     self-assessment</h3>
                                 <p>

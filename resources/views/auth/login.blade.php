@@ -42,8 +42,8 @@
           <div class="row h-100 d-flex align-items-center justify-content-center">
             <div class="col-lg-6 mx-auto mb-4">
               <div class="d-flex justify-content-center py-4">
-                <a href="index.html" class="logo d-flex align-items-center w-auto">
-                  <img src="{{ asset('assets/admin/img/logo.svg')}}" width="300">
+                <a href="#" class="logo d-flex align-items-center w-auto">
+                  <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="300px">
                 </a>
               </div>
               <div class="card mb-3"> 
