@@ -40,6 +40,8 @@
   <link rel="stylesheet" href="{{ asset('assets/admin/js/datatables/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('assets/admin/js/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('assets/admin/js/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+  
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -157,11 +159,20 @@
 <script src="{{ asset('assets/admin/js/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{ asset('assets/admin/js/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 
+
   <!-- Template Main JS File -->
   <script src="{{ asset('assets/admin/js/main.js')}}"></script>
 
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <script>
+
+
+    $(document).ready(function () {
+        $('.select2').select2();
+    });
+
+
     // page schroll top
     function pagetop() {
             window.scrollTo({

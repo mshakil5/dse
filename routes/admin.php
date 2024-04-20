@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AgentController;
@@ -102,5 +103,11 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/assesment-compiled-list', [AssesmentReportController::class, 'getCompiledList'])->name('admin.assesmentCompiledList');
     // report part start here
     Route::get('/assessment/report/{id}', [AssesmentReportController::class,'getAssesmentReport'])->name('admin.assesment.report');
+
+
+    Route::get('/search', [SearchController::class, 'index'])->name('admin.search');
+
+
+
 });
   

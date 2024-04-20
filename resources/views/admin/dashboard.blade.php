@@ -21,7 +21,7 @@
       </div>
       <div class="col-4 col-sm-3 col-md-3 col-lg-3 text-center">
         <div class="box border shadow-sm p-4">
-          <a href="#"><img src="{{ asset('assets/admin/img/oversight.png')}}" class="img-fluid w-50 mb-3"></a>
+          <a href="{{route('admin.search')}}"><img src="{{ asset('assets/admin/img/oversight.png')}}" class="img-fluid w-50 mb-3"></a>
           <h6>oversight</h6>
         </div>
 

@@ -91,6 +91,7 @@ class HomeController extends Controller
         $reviewcount = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('assign_account','=','Manager')->where('line_manager_notification', 1)->count();
 
         $compiledcount = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->orderby('id', 'DESC')->where('complined', 1)->count();
+        
         return view('manager.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment','reviewcount','compiledcount'));
     }
 
