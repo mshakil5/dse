@@ -134,7 +134,7 @@
 
 
                    <tr>
-                       <th scope="row">{{$key+1}}</th>
+                       <th scope="row">{{$data->program_number}}</th>
                        <td>{{$data->date}}</td>
                        <td>{{$data->user->email}}</td>
                        <td>{{$data->user->name}}</td>
@@ -190,7 +190,7 @@
 
 
                    <tr>
-                       <th scope="row">{{$key+1}}</th>
+                       <th scope="row">{{$data->program_number}}</th>
                        <td>{{$data->date}}</td>
                        <td>{{$data->user->email}}</td>
                        <td>{{$data->user->name}}</td>
