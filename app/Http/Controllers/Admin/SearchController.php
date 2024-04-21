@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DeterminigAnswer;
+use App\Models\Division;
 use Illuminate\support\Facades\Auth;
 
 class SearchController extends Controller
@@ -21,6 +23,8 @@ class SearchController extends Controller
                 })
                 ->get();
         $userlist = User::select('id', 'name')->whereIn('is_type',[ '0', '2', '3' ])->get();
-        return view('admin.search.index', compact('allAssesments','userlist'));
+        $divisions = Division::all();
+        $departments = Department::all();
+        return view('admin.search.index', compact('allAssesments','userlist','divisions','departments'));
     }
 }

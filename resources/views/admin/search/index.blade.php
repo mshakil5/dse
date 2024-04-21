@@ -17,7 +17,7 @@
 
               
 
-                <div class="dropdown">
+              <div class="dropdown">
                   <label for="fromDate">From Date</label>
                   <input type="date" id="fromDate" name="fromDate" class="form-control">
               </div>
@@ -25,12 +25,32 @@
                   <label for="toDate">To Date</label><br>
                   <input type="date" id="toDate" name="toDate" class="form-control" value="">
               </div>
+
+              <div class="dropdown">
+                  <label for="division_id">Division</label> <br>
+                  <select name="division_id" id="division_id" class="form-control select2">
+                    <option value="">Select</option>
+                    @foreach ($divisions as $division)
+                        <option value="{{$division->id}}">{{$division->name}}</option>
+                    @endforeach
+                  </select>
+              </div>
+
+              <div class="dropdown">
+                <label for="department_id">Department</label> <br>
+                <select name="department_id" id="department_id" class="form-control select2">
+                  <option value="">Select</option>
+                  @foreach ($departments as $department)
+                      <option value="{{$department->id}}">{{$department->name}}</option>
+                  @endforeach
+                </select>
+            </div>
       
       
               <div class="dropdown">
-                  <label for="user_id">User Name</label> <br>
+                  <label for="user_id">Reviewing Authority</label> <br>
                   <select name="user_id" id="user_id" class="form-control select2">
-                    {{-- <option value="">Select</option> --}}
+                    <option value="">Select</option>
                     @foreach ($userlist as $user)
                         <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach

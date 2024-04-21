@@ -1,5 +1,7 @@
 @extends('layouts.master')
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.min.js"></script>
 <style>
     input.custom-checkbox {
       width: 25px;
@@ -30,7 +32,66 @@
         display: none;
     }
 
+    #saveNExit {
+        position: fixed;
+        bottom: 80px;
+        right: 40px;
+        display: none;
+    }
+
+    .fixed-action-btn.spin-close .btn-large {
+        position: relative;
+    }
+    .fixed-action-btn.spin-close .btn-large i {
+        opacity: 1;
+        transition: transform 0.3s, opacity 0.3s;
+    }
+    .fixed-action-btn.spin-close .btn-large:before {
+        transition: transform 0.3s, opacity 0.3s;
+        content: " ";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1.64rem;
+        height: 2px;
+        background: white;
+        margin-top: -2px;
+        margin-left: -0.82rem;
+        transform: rotate(0);
+        opacity: 0;
+    }
+    .fixed-action-btn.spin-close .btn-large:after {
+        transition: transform 0.3s, opacity 0.3s;
+        content: " ";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1.64rem;
+        height: 2px;
+        background: white;
+        margin-top: -2px;
+        margin-left: -0.82rem;
+        transform: rotate(0);
+        opacity: 0;
+    }
+    .fixed-action-btn.spin-close.active .btn-large i {
+        opacity: 0;
+    }
+    .fixed-action-btn.spin-close.active .btn-large:before {
+        opacity: 1;
+        transform: rotate(135deg);
+    }
+    .fixed-action-btn.spin-close.active .btn-large:after {
+        opacity: 1;
+        transform: rotate(405deg);
+    }
+
   </style>
+
+
+
+
+
 <section class="header-main py-5">
     <div class="container ">
         <div class="col-lg-10 mx-auto px-4 ">
@@ -44,11 +105,10 @@
                         </div>
                         <div class="col-6 col-sm-6 col-lg-8 d-flex align-items-center justify-content-end">
                             <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon></button>
-                            <a href="{{route('user.dashboard')}}"
-                                class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2">
+                            <button id="saveBtn2" class="btn btn-sm btn-warning d-block float-end fs-5 d-flex align-items-center gap-2">
                                 <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
-                                Exit
-                            </a>
+                                Save & Exit
+                            </button>
                         </div>
                     </div>
                     <div class="row @if (isset($data)) d-none @endif" id="workAssesmentDiv">
@@ -240,8 +300,8 @@
                                             </label>
                                         </div>
 
-                                        <div class="row @if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'd-none' }}@else d-none @endif" id="subqnDiv{{$question->id}}" style="@if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'display:none' }} @endif">
-                                            <div class="col-lg-12 p-2 alert alert-danger mb-3 rounded-3 text-dark">{{$question->tips ? $question->tips : 'Tips coming soon...'}}</div>
+                                        <div class="row p-2 @if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'd-none' }}@else d-none @endif" id="subqnDiv{{$question->id}}" style="@if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'display:none' }} @endif">
+                                            <div class="col-lg-12 p-2 alert alert-warning mb-3 rounded-3 text-dark"><iconify-icon icon="flat-color-icons:idea"></iconify-icon> {{$question->tips ? $question->tips : 'Tips coming soon...'}}</div>
                                         </div>
 
                                        
@@ -386,16 +446,16 @@
                                     <tbody>
                                         <tr>
                                             <td style="text-align: left">Low back</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" value="None" 
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="None" id="lowbackNone" 
                                                 @if (isset($opms) && $opms->lowback != 'null') 
                                                 
                                                         @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "None") checked @endif @endforeach
                                                         
                                                 @endif></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Ache") checked @endif @endforeach @endif value="Ache"></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pain") checked @endif @endforeach @endif value="Pain" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pins and needles") checked @endif @endforeach @endif value="Pins and needles" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Ache") checked @endif @endforeach @endif value="Ache"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pain") checked @endif @endforeach @endif value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem"  @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pins and needles") checked @endif @endforeach @endif value="Pins and needles" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem"  @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
                                         @if (isset($opms->assesmentHealthComment))
                                         <tr>
@@ -416,15 +476,15 @@
                                         
                                         <tr>
                                             <td style="text-align: left">Upper back</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="None"   @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "None") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="None"   @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "None") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem" id="upperbackNone"></td>
 
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Ache" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Ache") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Ache" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Ache") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
 
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pain" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pain") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pain" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pain") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
 
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pins and needles" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pins and needles") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pins and needles" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pins and needles") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
 
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
                                         </tr>
 
                                         @if (isset($opms->assesmentHealthComment))
@@ -447,11 +507,11 @@
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "None") checked @endif @endforeach @endif   value="None" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Ache") checked @endif @endforeach @endif   value="Ache" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pain") checked @endif @endforeach @endif   value="Pain" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pins and needles") checked @endif @endforeach @endif   value="Pins and needles" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox" @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "None") checked @endif @endforeach @endif   value="None" id="neckNone"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Ache") checked @endif @endforeach @endif   value="Ache" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pain") checked @endif @endforeach @endif   value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem"   @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pins and needles") checked @endif @endforeach @endif   value="Pins and needles" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem" @if (isset($opms) && $opms->neck != 'null') @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
 
                                         @if (isset($opms->assesmentHealthComment))
@@ -473,11 +533,11 @@
                                         
                                         <tr>
                                             <td style="text-align: left">Shoulders</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="None"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Ache"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Ache") checked @endif @endforeach @endif   class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pain"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pain") checked @endif @endforeach @endif   class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pins and needles"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pins and needles") checked @endif @endforeach @endif   class="custom-checkbox"></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="None"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox shouldersItem" id="shouldersNone"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Ache"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Ache") checked @endif @endforeach @endif   class="custom-checkbox shouldersItem"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pain"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pain") checked @endif @endforeach @endif   class="custom-checkbox shouldersItem"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pins and needles"  @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pins and needles") checked @endif @endforeach @endif   class="custom-checkbox shouldersItem"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" @if (isset($opms) && $opms->shoulders != 'null') @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox shouldersItem"></td>
                                         </tr>
 
                                         
@@ -501,11 +561,11 @@
 
                                         <tr>
                                             <td style="text-align: left">Arms</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "None") checked @endif @endforeach @endif  value="None" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Ache") checked @endif @endforeach @endif  value="Ache" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pain") checked @endif @endforeach @endif  value="Pain" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pins and needles") checked @endif @endforeach @endif  ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"  @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem"   @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "None") checked @endif @endforeach @endif  value="None" id="armsNone"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem"   @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Ache") checked @endif @endforeach @endif  value="Ache" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem"   @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pain") checked @endif @endforeach @endif  value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem" value="Pins and needles"  @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pins and needles") checked @endif @endforeach @endif  ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem"  @if (isset($opms) && $opms->arms != 'null') @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                         </tr>
 
                                         @if (isset($opms->assesmentHealthComment))
@@ -528,11 +588,11 @@
 
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "None") checked @endif @endforeach @endif  value="None" ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Ache") checked @endif @endforeach @endif  value="Ache"></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pain") checked @endif @endforeach @endif  value="Pain"></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pins and needles") checked @endif @endforeach @endif ></td>
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "None") checked @endif @endforeach @endif  value="None" id="hand_fingersNone"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Ache") checked @endif @endforeach @endif  value="Ache"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pain") checked @endif @endforeach @endif  value="Pain"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem" value="Pins and needles"  @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pins and needles") checked @endif @endforeach @endif ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem" @if (isset($opms) && $opms->hand_fingers != 'null') @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
                                         </tr>
 
                                         @if (isset($opms->assesmentHealthComment))
@@ -623,8 +683,8 @@
                                     <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Submit
                                 </button>
 
-                                <button type="button" id="saveBtn" class="btn btn-success d-flex align-items-center">
-                                    <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
+                                <button type="button" id="saveBtn" class="btn btn-warning d-flex align-items-center">
+                                    <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save & Exit
                                 </button>
                             </div>
                             <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
@@ -641,18 +701,30 @@
     </div>
 </section>
 
+{{-- <button type="button" class="btn btn-info" data-mdb-ripple-init>Info</button> --}}
+
+{{-- <button type="button" class="btn btn-success btn-floating btn-lg" id="saveNExit">
+    <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Exit
+</button> --}}
+
+
+
 <!-- Back to top button -->
-<button type="button" class="btn btn-success btn-floating btn-lg" id="btn-back-to-top">
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M3 19h18a1.002 1.002 0 0 0 .823-1.569l-9-13c-.373-.539-1.271-.539-1.645 0l-9 13A.999.999 0 0 0 3 19"/></svg>
+<button type="button" class="btn btn-warning btn-floating btn-lg" id="saveNExit">
+    <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Exit
 </button>
+
 
 
 @endsection
 
 @section('script')
+
+
+
 <script>
     //Get the button
-let mybutton = document.getElementById("btn-back-to-top");
+let mybutton = document.getElementById("saveNExit");
 
 // When the user scrolls down 20px from the top of the document, show the button
 window.onscroll = function () {
@@ -670,13 +742,15 @@ function scrollFunction() {
   }
 }
 // When the user clicks on the button, scroll to the top of the document
-mybutton.addEventListener("click", backToTop);
+// mybutton.addEventListener("click", backToTop);
 
-function backToTop() {
-  document.body.scrollTop = 0;
-  document.documentElement.scrollTop = 0;
-}
+// function backToTop() {
+//   document.body.scrollTop = 0;
+//   document.documentElement.scrollTop = 0;
+// }
 </script>
+
+
 
 <script>
     function showFields() {
@@ -789,14 +863,12 @@ function backToTop() {
 
     // data store
     var redurl = "{{URL::to('/user/dashboard')}}";
-    $("body").delegate("#saveBtn","click",function () {
+    $("body").delegate("#saveBtn, #saveBtn2, #saveNExit","click",function () {
+
+
         var storeurl = "{{URL::to('/user/add-new-assesment')}}";
-
-
         var answers = $("input[name='answers[]']")
             .map(function(){return $(this).val();}).get();
-
-            
         var lowback = $("input[name='lowback[]']")
             .map(function(){return $(this).val();}).get();
         var upperback = $("input[name='upperback[]']")
@@ -837,7 +909,8 @@ function backToTop() {
                 if (d.status == 303) {
                     $(".ermsg").html(d.message);
                 }else if(d.status == 300){
-                    $(".ermsg").html(d.message);
+                    // $(".ermsg").html(d.message);
+                    swal.fire("Done!", d.message, "success");
                     window.setTimeout(function(){window.location.href = redurl},2000)
                 }
             },
@@ -849,6 +922,113 @@ function backToTop() {
     
     // data:{answers,lowback,upperback,neck,shoulders,arms,hand_fingers,line_manager_id,division_id,program_number,department_id,newqn,otherqn,exercise,taught_exercise},
     // data store end
+
+    // $(document).ready(function() {
+    //     $('input[name="lowback[]"]').click(function() {
+    //         var value = $(this).attr('value');
+    //         console.log(value);
+    //         // $("#sel input:checkbox").attr('checked', $(this).is(':checked'));
+    //     });
+    // });
+
+     // enable disable checkbox item start
+        $("body").delegate(".lowbackItem","click",function () {
+            var value = $(this).attr('value');
+            if (value == "None") {
+                if ($(this).prop("checked")) {
+                    // Uncheck all other checkboxes
+                    $(".lowbackItem").not(this).prop("checked", false);
+                }else{
+                    $(this).prop("checked", false);
+                }
+            } else if (value == "Pain" || value == "Pins and needles" || value == "Numbness" || value == "Ache"){
+                $("#lowbackNone").prop("checked", false);
+            } else {
+                $("#lowbackNone").prop("checked", false);
+            }
+            
+        });
+
+        $("body").delegate(".upperbackItem","click",function () {
+            var value = $(this).attr('value');
+            if (value == "None") {
+                if ($(this).prop("checked")) {
+                    // Uncheck all other checkboxes
+                    $(".upperbackItem").not(this).prop("checked", false);
+                }else{
+                    $(this).prop("checked", false);
+                }
+            } else if (value == "Pain" || value == "Pins and needles" || value == "Numbness" || value == "Ache"){
+                $("#upperbackNone").prop("checked", false);
+            } else {
+                $("#upperbackNone").prop("checked", false);
+            }
+        });
+
+        $("body").delegate(".neckItem","click",function () {
+            var value = $(this).attr('value');
+            if (value == "None") {
+                if ($(this).prop("checked")) {
+                    // Uncheck all other checkboxes
+                    $(".neckItem").not(this).prop("checked", false);
+                }else{
+                    $(this).prop("checked", false);
+                }
+            } else if (value == "Pain" || value == "Pins and needles" || value == "Numbness" || value == "Ache"){
+                $("#neckNone").prop("checked", false);
+            } else {
+                $("#neckNone").prop("checked", false);
+            }
+        });
+
+        $("body").delegate(".shouldersItem","click",function () {
+            var value = $(this).attr('value');
+            if (value == "None") {
+                if ($(this).prop("checked")) {
+                    // Uncheck all other checkboxes
+                    $(".shouldersItem").not(this).prop("checked", false);
+                }else{
+                    $(this).prop("checked", false);
+                }
+            } else if (value == "Pain" || value == "Pins and needles" || value == "Numbness" || value == "Ache"){
+                $("#shouldersNone").prop("checked", false);
+            } else {
+                $("#shouldersNone").prop("checked", false);
+            }
+        });
+
+        
+        $("body").delegate(".armsItem","click",function () {
+            var value = $(this).attr('value');
+            if (value == "None") {
+                if ($(this).prop("checked")) {
+                    // Uncheck all other checkboxes
+                    $(".armsItem").not(this).prop("checked", false);
+                }else{
+                    $(this).prop("checked", false);
+                }
+            } else if (value == "Pain" || value == "Pins and needles" || value == "Numbness" || value == "Ache"){
+                $("#armsNone").prop("checked", false);
+            } else {
+                $("#armsNone").prop("checked", false);
+            }
+        });
+
+        $("body").delegate(".hand_fingersItem","click",function () {
+            var value = $(this).attr('value');
+            if (value == "None") {
+                if ($(this).prop("checked")) {
+                    // Uncheck all other checkboxes
+                    $(".hand_fingersItem").not(this).prop("checked", false);
+                }else{
+                    $(this).prop("checked", false);
+                }
+            } else if (value == "Pain" || value == "Pins and needles" || value == "Numbness" || value == "Ache"){
+                $("#hand_fingersNone").prop("checked", false);
+            } else {
+                $("#hand_fingersNone").prop("checked", false);
+            }
+        });
        
 </script>
 @endsection
