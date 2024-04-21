@@ -20,21 +20,21 @@
               <div class="col-lg-12 text-center">
                 <div class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                 <h5 class="mb-0 text-uppercase text-light">New Assesment submitted number </h5>
-                <div class="display-6 text-light fw-bold rounded-circle p-2 border">{{$newAssesments->count()}}
+                <div class="display-6 text-light fw-bold rounded-3 p-2 border">{{$newAssesments->count()}}
                 </div>
               </div>
               </div>
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                   <h5 class="mb-0 text-light text-uppercase">Due Assesment</h5>
-                  <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">{{$dueAssesment}}
+                  <div class="display-6 text-light text-uppercase fw-bold rounded-3 p-2 border">{{$dueAssesment}}
                   </div>
                 </div> 
               </div>
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                   <h4 class="mb-0 text-light text-uppercase">Your Team Assesment </h4>
-                  <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">{{$allAssesments->count()}}
+                  <div class="display-6 text-light text-uppercase fw-bold rounded-3 p-2 border">{{$allAssesments->count()}}
                   </div>
                 </div>
               </div>

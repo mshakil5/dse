@@ -248,7 +248,7 @@ class AssesmentController extends Controller
             }
 
 
-            return Redirect::route('user.survey', $request->pnumber)->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
+            return Redirect::route('user.dashboard')->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
 
 
         }else{

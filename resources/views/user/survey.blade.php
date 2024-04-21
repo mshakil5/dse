@@ -96,10 +96,10 @@
     <div class="container ">
         <div class="col-lg-10 mx-auto px-4 ">
             <div class="row">
-                <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light pt-0">
+                <div class="col-lg-12 shadow  border p-4 rounded-0 bg-white pt-0">
                     <div class="row border-bottom border-dashed">
                         <div class="col-6 col-sm-6 col-lg-4">
-                            <div class="brand">
+                            <div class="brand p-3">
                                 <img src="{{ asset('nhs.png')}}" width="200px" alt="">
                             </div>
                         </div>

@@ -43,7 +43,8 @@
             <div class="col-lg-6 mx-auto mb-4">
               <div class="d-flex justify-content-center py-4">
                 <a href="#" class="logo d-flex align-items-center w-auto">
-                  <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="300px">
+                  {{-- <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="300px"> --}}
+                  <img src="{{ asset('nhs.png')}}" width="300px" alt="">
                 </a>
               </div>
               <div class="card mb-3"> 

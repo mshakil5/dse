@@ -38,11 +38,11 @@
         <div class="container ">
             <div class="col-lg-10 mx-auto px-4">
                 <div class="row">
-                    <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light pt-0">
+                    <div class="col-lg-12 shadow  border p-4 rounded-0 bg-white pt-0">
                         <div class="row border-bottom border-dashed">
                             <div class="col-6 col-sm-6 col-lg-3">
-                                <div class="brand">
-                                    <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="90px" alt="">
+                                <div class="brand p-3">
+                                    <img src="{{ asset('nhs.png')}}" width="200px" alt="">
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-9 d-flex align-items-center justify-content-end">
@@ -89,8 +89,8 @@
                                     @endif
 
 
-                                    <h2 class="text-success text-left ">Appendix 3</h2>
-                                    <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h2>
+                                    
+                                    <h4 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h4>
                                         <p>
                                             You are asked to complete the enclosed form to assess that you are using your computer and workstation in the ‘optimum’ way, so that you suffer no ill-effects from your work.  Read the ‘things to consider’ column and assess yourself against the photographs.  Try to adjust your position or items of equipment.  Once you have completed your form, contact your manager to discuss your assessment who will complete the right hand column on the form and make additional notes for further action if this is required on the DSE Risk Assessment action plan.
                                         </p>
@@ -105,39 +105,6 @@
                                         <p><b>Department: </b> {{ $department->name }}</p>
 
 
-                                    <div class="d-flex gap-3 flex-wrap justify-content-center">
-
-                                        
-                                        
-
-                                        {{-- <div class="dropdown">
-                                            <label for="date">Date</label>
-                                            <input type="date" id="date" name="date" class="form-control" value="" readonly>
-                                        </div>
-
-                                        <div class="dropdown">
-                                            <label for="user_name">User Name</label>
-                                            <input type="text" id="user_name" name="user_name" class="form-control" value="{{ $user->name }}" readonly>
-                                        </div>
-
-                                        <div class="dropdown">
-                                            <label for="user_name">Email</label>
-                                            <input type="text" id="user_name" name="user_name" class="form-control" value="{{ $user->email }}" readonly>
-                                        </div>
-
-                                        <div class="dropdown">
-                                            <label for="work_station_number">Work Station Number</label>
-                                            <input type="number" id="work_station_number" name="work_station_number" class="form-control" value="@if(isset($data)){{$data->work_station_number}}@endif" readonly>
-                                        </div>
-
-                                        <div class="dropdown">
-                                            <label for="department">Department</label><br>
-                                            <input type="text" id="department" name="department" class="form-control" value="{{ $department->name }}" readonly>
-                                        </div> --}}
-
-                                    </div>
-
-                                    
                                     <div class="row mt-3">
                                         <div class="col-lg-12">
                                             <p for="">Are you Full time <input type="radio" class="form-check-input" name="job_type" value="Full time" @if(isset($data)) @if ($data->job_type == "Full time") checked @endif @endif> or Part time <input type="radio" id="part_time" class="form-check-input" name="job_type" value="Part time" @if(isset($data)) @if ($data->job_type == "Part time") checked @endif @endif> ? 
@@ -151,30 +118,9 @@
                                             <input id="part_time_work_hour" type="number" name="part_time_work_hour" class="form-control me-1"
                                                 value="@if(isset($data)){{$data->part_time_work_hour}}@endif">
                                         </div>
-                                
-                                
-                                        <div class="col-lg-12 mb-4">
-                                            <h6 class="mb-3">Do you normally use your DSE for continuous spells of an hour or more at a time?
-                                            </h6>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes" @if(isset($data)) @if ($data->continuous_spell == "Yes") checked @endif @endif>Yes
-                                            </label>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell == "No") checked @endif @endif>No
-                                            </label>
-                                        </div>
-                                
-                                        <div class="col-lg-12 mb-4">
-                                            <h6 class="mb-3">If ‘Yes’ do you do this more or less daily ?     
-                                            </h6>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes"@if(isset($data)) @if ($data->continuous_spell_time == "Yes") checked @endif @endif>Yes
-                                            </label>
-                                            <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell_time == "No") checked @endif @endif>No
-                                            </label>
-                                        </div>
-                                
+                                        
+                                        <div class="col-lg-12 mb-4"> </div>
+
                                         <div class="col-lg-6 mb-4">
                                             <h6 class="mb-3">How many hours on average daily do you spend using your DSE? </h6>
                                             <input id="average_using_dse" type="number" name="average_using_dse" class="form-control me-1"
@@ -184,22 +130,20 @@
                                         <div class="col-lg-12 mb-4">
                                             <h6 class="mb-3">What Software do you use? </h6>
                                             <label class="mx-2">
-                                                <input id="ms_word" type="checkbox" name="software[]" class="form-check-input me-1" value="Word" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Word") checked @endif @endforeach @endif>Word
+                                                <input id="Msoffice" type="checkbox" name="software[]" class="form-check-input me-1" value="Msoffice" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Msoffice") checked @endif @endforeach @endif>Microsoft office suit
                                             </label>
                                             <label class="mx-2">
-                                                <input id="ms_excel" type="checkbox" name="software[]" class="form-check-input me-1" value="Excel" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Excel") checked @endif @endforeach @endif>Excel
+                                                <input id="Cerner" type="checkbox" name="software[]" class="form-check-input me-1" value="Cerner" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Cerner") checked @endif @endforeach @endif>Cerner
                                             </label>
-                                            <label for="ms_access" class="mx-2">
-                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="Access" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Access") checked @endif @endforeach @endif>Access
+                                            <label for="ESR" class="mx-2">
+                                                <input id="ESR" type="checkbox" name="software[]" class="form-check-input me-1" value="ESR" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "ESR") checked @endif @endforeach @endif>ESR
                                             </label>
-                                            <label for="ms_powerpoint" class="mx-2">
-                                                <input id="ms_powerpoint" type="checkbox" name="software[]" class="form-check-input me-1" value="Powerpoint" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Powerpoint") checked @endif @endforeach @endif>Powerpoint
-                                            </label>
+
                                             <label for="others" class="mx-2">
                                                 <input id="others" type="checkbox" name="software[]" class="form-check-input me-1" value="Others" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Others") checked @endif @endforeach @endif>Others
                                             </label>
                                             <label class="">
-                                                <input id="others_software" type="text" name="others_software" class="form-control" placeholder="Somerset, EPT, ERS, Cerner" value="@if(isset($data)){{$data->others_software}}@endif">
+                                                <input id="others_software" type="text" name="others_software" class="form-control" placeholder="Somerset, EPT, Cerner" value="@if(isset($data)){{$data->others_software}}@endif">
                                             </label>
                                         </div>
                                 
