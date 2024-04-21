@@ -100,7 +100,7 @@
                     <div class="row border-bottom border-dashed">
                         <div class="col-6 col-sm-6 col-lg-4">
                             <div class="brand">
-                                <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="90px" alt="">
+                                <img src="{{ asset('nhs.png')}}" width="200px" alt="">
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-lg-8 d-flex align-items-center justify-content-end">
@@ -710,9 +710,13 @@
 
 
 <!-- Back to top button -->
+
+@if($data)
+   
 <button type="button" class="btn btn-warning btn-floating btn-lg" id="saveNExit">
     <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Exit
-</button>
+</button> 
+@endif
 
 
 
@@ -910,7 +914,7 @@ function scrollFunction() {
                     $(".ermsg").html(d.message);
                 }else if(d.status == 300){
                     // $(".ermsg").html(d.message);
-                    swal.fire("Done!", d.message, "success");
+                    swal.fire("Done!", "success");
                     window.setTimeout(function(){window.location.href = redurl},2000)
                 }
             },

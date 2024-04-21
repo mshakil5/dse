@@ -85,8 +85,8 @@
               <div class="col-lg-12 text-center">
                 <div class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                 <h5 class="mb-0 text-uppercase text-light">1. Your Self-Assessment  </h5>
-                <div class="display-6 text-light fw-bold rounded-circle p-2 border">
-                </div>
+                {{-- <div class="display-6 text-light fw-bold rounded-circle p-2 border">
+                </div> --}}
               </div>
               </div>
               <div class="col-lg-12 text-center">
@@ -97,8 +97,8 @@
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                   <h4 class="mb-0 text-light text-uppercase">3. Your Self-Assessment </h4>
-                  <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
-                  </div>
+                  {{-- <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
+                  </div> --}}
                 </div>
               </div>
             </div>
