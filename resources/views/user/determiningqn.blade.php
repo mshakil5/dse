@@ -5,11 +5,11 @@
     <div class="container ">
         <div class="col-lg-10 mx-auto px-4 ">
             <div class="row">
-                <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light pt-0">
+                <div class="col-lg-12 shadow  border p-4 rounded-0 bg-white pt-0">
                     <div class="row border-bottom border-dashed">
                         <div class="col-6 col-sm-6 col-lg-10">
-                            <div class="brand">
-                                <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="120px" alt="">
+                            <div class="brand p-3">
+                                <img src="{{ asset('nhs.png')}}" width="200px" alt="">
                             </div>
                         </div>
                         <div class="col-6 col-sm-6 col-lg-2 d-flex align-items-center justify-content-end">
@@ -119,41 +119,62 @@
                             <div class="col-lg-12 mb-4">
                                 <h6 class="mb-3">1. Do you normally use your DSE for continuous spells of an hour or more at a time? </h6>
                                 <label for="yes" class="mx-2">
-                                    <input id="work_hour_yes" type="radio" name="work_hour"  class="form-check-input me-1" value="Yes" @if (isset($data)) @if ($data->work_hour == "Yes") checked @endif @endif>Yes
+                                    <input id="work_hour_yes" type="radio" name="work_hour"  class="form-check-input me-1 dtqn" value="Yes" @if (isset($data)) @if ($data->work_hour == "Yes") checked @endif @endif>Yes
                                 </label>
                                 <label for="no" class="mx-2">
-                                    <input id="work_hour_no" type="radio" name="work_hour" class="form-check-input me-1" value="No" @if (isset($data)) @if ($data->work_hour == "No") checked @endif @endif>No
+                                    <input id="work_hour_no" type="radio" name="work_hour" class="form-check-input me-1 dtqn" value="No" @if (isset($data)) @if ($data->work_hour == "No") checked @endif @endif>No
                                 </label>
                             </div>
                             <div class="col-lg-12 mb-4">
                                 <h6 class="mb-3">2. Do you use Medicine Administration Workstation on Wheels (WoW) throughout your shift? </h6>
                                 <label for="yes" class="mx-2">
-                                    <input id="wow_system_yes" type="radio" name="wow_system" class="form-check-input me-1" value="Yes" @if (isset($data)) @if ($data->wow_system == "Yes") checked @endif @endif>Yes
+                                    <input id="wow_system_yes" type="radio" name="wow_system" class="form-check-input me-1 dtqn" value="Yes" @if (isset($data)) @if ($data->wow_system == "Yes") checked @endif @endif>Yes
                                 </label>
                                 <label for="no" class="mx-2">
-                                    <input id="wow_system_no" type="radio" name="wow_system" class="form-check-input me-1" value="No" @if (isset($data)) @if ($data->wow_system == "No") checked @endif @endif>No
+                                    <input id="wow_system_no" type="radio" name="wow_system" class="form-check-input me-1 dtqn" value="No" @if (isset($data)) @if ($data->wow_system == "No") checked @endif @endif>No
                                 </label>
-
-                                
-
-
                             </div>
+
+                            
+                            <div class="col-lg-12 mb-2" id="qn3" style="display: none">
+                                <h6 class="mb-3">3. Confirm that you have watched Workstation Assessment Tutorial?  </h6>
+                                <label for="yes" class="mx-2">
+                                    <input id="tutorial_yes" type="radio" name="tutorial" class="form-check-input me-1 checktutorial" value="Yes" @if (isset($data)) @if ($data->tutorial == "Yes") checked @endif @endif>Yes
+                                </label>
+                                <label for="no" class="mx-2">
+                                    <input id="tutorial_no" type="radio" name="tutorial" class="form-check-input me-1 checktutorial" value="No" @if (isset($data)) @if ($data->tutorial == "No") checked @endif @endif>No
+                                </label>
+                                <div id="message" class="">
+
+                                </div>
+                            </div>
+
+
                             @if (empty($data))
-                            <div class="col-lg-12">
+                            <div class="col-lg-12" id="saveBtn">
                                 <div class="row py-3 ">
                                     <div class="col-lg-5 d-flex align-items-center">
-                                        <button type="submit" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
+                                        <button type="submit" class="btn btn-warning d-flex align-items-center"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save & Continue
                                         </button>
                                     </div>
                                     <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-12" id="dashboardBtn" style="display: none">
+                                <div class="row py-3 ">
+                                    <div class="col-lg-5 d-flex align-items-center">
+                                        <a href="{{route('user.dashboard')}}" class="btn btn-warning d-flex align-items-center"> Dashboard
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
+                                </div>
+                            </div>
+
                             @endif
 
-                            @if (isset($data))
-
+                            {{-- @if (isset($data))
                             @if ($data->assign_account == "User")
-                            {{-- for update  --}}
                             <input type="hidden" id="assesment_schedule_id" value="{{$schedule->id}}">
                             <input type="hidden" id="determining_answer_id" value="{{$data->id}}">
                             <div class="col-lg-12">
@@ -166,8 +187,7 @@
                                 </div>
                             </div>
                             @endif
-                                
-                            @endif
+                            @endif --}}
                             
                         </form>
 
@@ -244,7 +264,36 @@
       });
 
 
-      
+      $("body").delegate(".checktutorial","click",function () {
+            var value = $(this).attr('value');
+            if (value == "No") {
+                if ($(this).prop("checked")) {
+                    $("#message").html('<div class="alert alert-warning" role="alert"><iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Now that you have watched tutorial and familiarising yourself with the risks associated with using your workstation and the surrounding environment, including the desk, chair, computer, laptop, monitor, keyboard and other related equipment. If you have any question, please reach out to your line manager or the Health and Safety team.</div>');
+                    $("#saveBtn").hide();
+                    $("#dashboardBtn").show();
+
+                }else{
+                    $("#saveBtn").show();
+                    $("#message").html('');
+                    $("#dashboardBtn").hide();
+                }
+            } else {
+                    $("#saveBtn").show();
+                    $("#message").html('');
+                    $("#dashboardBtn").hide();
+            }
+        });
+
+        $("body").delegate(".dtqn","click",function () {
+            var work_hour_yes = document.getElementById("work_hour_yes");
+            var wow_system_yes = document.getElementById("wow_system_yes");
+            if (work_hour_yes.checked || wow_system_yes.checked) {
+                $("#qn3").show();
+            } else {
+                $("#qn3").hide();
+            }
+        });
+
 
 </script>
 
