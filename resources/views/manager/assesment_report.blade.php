@@ -38,8 +38,8 @@
                     <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light pt-0">
                         <div class="row border-bottom border-dashed">
                             <div class="col-6 col-sm-6 col-lg-6">
-                                <div class="brand">
-                                    <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="90px" alt="">
+                                <div class="brand p-3">
+                                    <img src="{{ asset('nhs.png')}}" width="200px" alt="">
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-6 d-flex align-items-center justify-content-end">

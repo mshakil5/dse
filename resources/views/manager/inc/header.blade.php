@@ -3,7 +3,12 @@
         <div class="row">
             <nav class="navbar navbar-expand-lg   navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="{{route('manager.dashboard')}}">Navbar</a>
+                    <a class="navbar-brand" href="{{route('manager.dashboard')}}">
+                    
+                        <div class="brand">
+                            <img src="{{ asset('nhs.png')}}" width="150px" alt="">
+                        </div>
+                    </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

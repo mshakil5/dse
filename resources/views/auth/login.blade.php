@@ -10,8 +10,8 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ asset('assets/admin/img/favicon.png')}}" rel="icon">
-  <link href="{{ asset('assets/admin/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+  {{-- <link href="{{ asset('assets/admin/img/favicon.png')}}" rel="icon"> --}}
+  {{-- <link href="{{ asset('assets/admin/img/apple-touch-icon.png')}}" rel="apple-touch-icon"> --}}
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -43,8 +43,7 @@
             <div class="col-lg-6 mx-auto mb-4">
               <div class="d-flex justify-content-center py-4">
                 <a href="#" class="logo d-flex align-items-center w-auto">
-                  {{-- <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="300px"> --}}
-                  <img src="{{ asset('nhs.png')}}" width="300px" alt="">
+                  <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="300px">
                 </a>
               </div>
               <div class="card mb-3"> 
