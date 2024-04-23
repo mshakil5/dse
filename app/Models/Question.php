@@ -30,5 +30,10 @@ class Question extends Model
         return $this->hasOne(AssesmentAnswer::class);
     }
 
+    public function questionImage()
+    {
+        return $this->hasMany(QuestionImage::class);
+    }
+
 
 }

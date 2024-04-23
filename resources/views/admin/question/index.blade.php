@@ -46,10 +46,24 @@
                       </div>
                     </div>
 
+                    
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Type</label>
+                        <select name="type" id="type" class="form-control">
+                          <option value="">Please Select</option>
+                          <option value="Office">Office</option>
+                          <option value="Home">Home</option>
+                          
+                        </select>
+                      </div>
+                    </div>
+
                     <div class="col-sm-12">
                       <div class="form-group">
                         <label>Image</label>
-                        <input type="file" name="image" id="image" class="form-control">
+                        {{-- <input type="file" name="image" id="image" class="form-control" multiple> --}}
+                        <input type="file" name="image[]" class="form-control" id="image" multiple required>
                       </div>
                     </div>
 
@@ -108,6 +122,7 @@
                 <tr>
                   <th>Sl</th>
                   <th>Category</th>
+                  <th>Type</th>
                   <th>Question</th>
                   <th>Tips</th>
                   <th style="text-align: center">Image</th>
@@ -121,7 +136,7 @@
                     <td style="text-align: center">
                       {{ \App\Models\QnCategory::where('id',$data->qn_category_id)->first()->name }}
                     </td>
-                    {{-- <td style="text-align: center">{{$data->qncat->name}}</td> --}}
+                    <td style="text-align: center">{{$data->type}}</td>
                     <td style="text-align: center">{{$data->question}}</td>
                     <td style="text-align: center">{{$data->tips}}</td>
                     
@@ -205,6 +220,7 @@
               var form_data = new FormData();
               form_data.append('image', file_data);
               form_data.append("question", $("#question").val());
+              form_data.append("type", $("#type").val());
               form_data.append("tips", $("#tips").val());
               form_data.append("qn_category_id", $("#qn_category_id").val());
               $.ajax({
@@ -238,6 +254,7 @@
               var form_data = new FormData();
               form_data.append('image', file_data);
               form_data.append("question", $("#question").val());
+              form_data.append("type", $("#type").val());
               form_data.append("tips", $("#tips").val());
               form_data.append("qn_category_id", $("#qn_category_id").val());
               form_data.append("codeid", $("#codeid").val());
@@ -304,6 +321,7 @@
       //Delete  
       function populateForm(data){
           $("#question").val(data.question);
+          $("#type").val(data.type);
           $("#tips").val(data.tips);
           $("#qn_category_id").val(data.qn_category_id);
           $("#codeid").val(data.id);
