@@ -68,11 +68,13 @@ class QuestionController extends Controller
                     $pic->created_by = Auth::user()->id;
                     $pic->save();
                 }
+                
+                $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
+                return response()->json(['status'=> 300,'message'=>$message]);
+                
             }
 
 
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }

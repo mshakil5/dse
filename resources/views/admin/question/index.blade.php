@@ -65,6 +65,8 @@
                         {{-- <input type="file" name="image" id="image" class="form-control" multiple> --}}
                         <input type="file" name="image[]" class="form-control" id="image" multiple required>
                       </div>
+                      
+                        <div class="preview2"></div>
                     </div>
 
                     <div class="col-sm-12">
@@ -141,8 +143,19 @@
                     <td style="text-align: center">{{$data->tips}}</td>
                     
                     <td style="text-align: center">
-                        @if ($data->image)
+                        {{-- @if ($data->image)
                         <img src="{{asset('images/question/'.$data->image)}}" height="120px" width="220px" alt="">
+                        @endif --}}
+                        @if ($data->questionImage)
+                          <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                            <div class="carousel-inner">
+                              @foreach ($data->questionImage as $key => $image)
+                                <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
+                                  <img src="{{asset('images/question/'.$image->image)}}"  height="120px" width="320px" alt="...">
+                                </div> 
+                              @endforeach
+                            </div>
+                          </div>
                         @endif
                     </td>
 
@@ -190,6 +203,9 @@
   </script>
 
 <script>
+  
+  var storedFiles = [];
+
   $(document).ready(function () {
       $("#addThisFormContainer").hide();
       $("#newBtn").click(function(){
@@ -212,13 +228,16 @@
       $("#addBtn").click(function(){
       //   alert("#addBtn");
           if($(this).val() == 'Create') {
-              var file_data = $('#image').prop('files')[0];
-                if(typeof file_data === 'undefined'){
-                    file_data = 'null';
-                }
+              // var file_data = $('#image').prop('files')[0];
+              //   if(typeof file_data === 'undefined'){
+              //       file_data = 'null';
+              //   }
+              
 
               var form_data = new FormData();
-              form_data.append('image', file_data);
+              for(var i=0, len=storedFiles.length; i<len; i++) {
+                      form_data.append('image[]', storedFiles[i]);
+                  }
               form_data.append("question", $("#question").val());
               form_data.append("type", $("#type").val());
               form_data.append("tips", $("#tips").val());
@@ -335,5 +354,47 @@
           $("#addBtn").val('Create');
       }
   });
+
+  // images
+        /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
+        $(document).on('change','#image',function(){
+            len_files = $("#image").prop("files").length;
+            
+            for (var i = 0; i < len_files; i++) {
+                var file_data2 = $("#image").prop("files")[i];
+                storedFiles.push(file_data2);
+            }
+            
+        });
+
+        // images
+        /* WHEN YOU UPLOAD ONE OR MULTIPLE FILES */
+        // $(document).on('change','#image',function(){
+        //     len_files = $("#image").prop("files").length;
+        //     var construc = "<div class='row'>";
+        //     for (var i = 0; i < len_files; i++) {
+        //         var file_data2 = $("#image").prop("files")[i];
+        //         storedFiles.push(file_data2);
+        //         construc += '<div class="col-3 singleImage my-3"><span data-file="'+file_data2.name+'" class="btn ' + 'btn-sm btn-danger imageremove2">&times;</span><img width="120px" height="auto" src="' +  window.URL.createObjectURL(file_data2) + '" alt="'  +  file_data2.name  + '" /></div>';
+        //     }
+        //     construc += "</div>";
+        //     $('.preview2').append(construc);
+        // });
+
+        // $(".preview2").on('click','span.imageremove2',function(){
+        //     var trash = $(this).data("file");
+        //     for(var i=0;i<storedFiles.length;i++) {
+        //         if(storedFiles[i].name === trash) {
+        //             storedFiles.splice(i,1);
+        //             break;
+        //         }
+        //     }
+        //     $(this).parent().remove();
+
+        // });
+
+
+
+
 </script>
 @endsection
