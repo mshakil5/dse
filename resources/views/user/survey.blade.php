@@ -35,7 +35,7 @@
     #saveNExit {
         position: fixed;
         bottom: 80px;
-        right: 40px;
+        right: 240px;
         display: none;
     }
 
@@ -369,7 +369,21 @@
                             </div>
                             <div class="col-lg-4 shadow-sm border rounded-0 bg-light">
                                 <div class="py-4">
-                                    <img src="{{ asset('images/question/'.$question->image) }}" class="img-fluid" alt="">
+                                    {{-- <img src="{{ asset('images/question/'.$question->image) }}" class="img-fluid" alt=""> --}}
+
+                                    @if ($question->questionImage)
+                                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                                        <div class="carousel-inner">
+                                        @foreach ($question->questionImage as $key => $image)
+                                            <div class="carousel-item {{ $key==0 ? 'active' : '' }}">
+                                            <img src="{{asset('images/question/'.$image->image)}}"  height="120px" width="250px" alt="...">
+                                            </div> 
+                                        @endforeach
+                                        </div>
+                                    </div>
+                                    @endif
+
+
                                 </div>
                             </div>
                         </div>
@@ -683,7 +697,7 @@
                                     <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Submit
                                 </button>
 
-                                <button type="button" id="saveBtn" class="btn btn-warning d-flex align-items-center">
+                                <button type="button" id="saveBtn" class="btn btn-warning d-flex align-items-center d-none">
                                     <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save & Exit
                                 </button>
                             </div>
@@ -736,14 +750,13 @@ window.onscroll = function () {
 };
 
 function scrollFunction() {
-  if (
-    document.body.scrollTop > 20 ||
-    document.documentElement.scrollTop > 20
-  ) {
+  if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ) {
     mybutton.style.display = "block";
   } else {
     mybutton.style.display = "none";
   }
+
+  
 }
 // When the user clicks on the button, scroll to the top of the document
 // mybutton.addEventListener("click", backToTop);
