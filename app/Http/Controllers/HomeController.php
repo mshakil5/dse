@@ -68,7 +68,14 @@ class HomeController extends Controller
         
 
         $dusers = DeterminigAnswer::where('line_manager_id', Auth::user()->id)->where('status', 0)->get();
-        $newAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->where('line_manager_notification', 1)->get();
+        $newAssesments = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->where('line_manager_notification', 1)
+                    ->when($request->input('fromDate'), function ($query) use ($request) {
+                        $query->whereBetween('date', [$request->input('fromDate'), $request->input('toDate')]);
+                    })
+                    ->when($request->input('user_id'), function ($query) use ($request) {
+                        $query->where("user_id",$request->input('user_id'));
+                    })
+                    ->get();
 
         $uid = DeterminigAnswer::where('line_manager_id',Auth::user()->id)->pluck('user_id');
         $userlist = User::whereIn('id', $uid)->get();

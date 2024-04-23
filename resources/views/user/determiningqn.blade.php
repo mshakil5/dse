@@ -164,7 +164,7 @@
                             <div class="col-lg-12" id="dashboardBtn" style="display: none">
                                 <div class="row py-3 ">
                                     <div class="col-lg-5 d-flex align-items-center">
-                                        <a href="{{route('user.dashboard')}}" class="btn btn-warning d-flex align-items-center"> Dashboard
+                                        <a href="{{route('user.dashboard')}}" class="btn btn-warning d-flex align-items-center"> Ok
                                         </a>
                                     </div>
                                     <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
@@ -268,18 +268,18 @@
             var value = $(this).attr('value');
             if (value == "No") {
                 if ($(this).prop("checked")) {
-                    $("#message").html('<div class="alert alert-warning" role="alert"><iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Now that you have watched tutorial and familiarising yourself with the risks associated with using your workstation and the surrounding environment, including the desk, chair, computer, laptop, monitor, keyboard and other related equipment. If you have any question, please reach out to your line manager or the Health and Safety team.</div>');
+                    $("#message").html('<div class="alert alert-warning" role="alert"><iconify-icon icon="flat-color-icons:idea"></iconify-icon> Please complete the DSE tutorial before proceeding to conduct your DSE self assessment.</div>');
                     $("#saveBtn").hide();
                     $("#dashboardBtn").show();
 
                 }else{
                     $("#saveBtn").show();
-                    $("#message").html('');
+                    $("#message").html('<div class="alert alert-success" role="alert"><iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Now that you have watched tutorial and familiarising yourself with the risks associated with using your workstation and the surrounding environment, including the desk, chair, computer, laptop, monitor, keyboard and other related equipment. If you have any question, please reach out to your line manager or the Health and Safety team.</div>');
                     $("#dashboardBtn").hide();
                 }
             } else {
                     $("#saveBtn").show();
-                    $("#message").html('');
+                    $("#message").html('<div class="alert alert-success" role="alert"><iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Now that you have watched tutorial and familiarising yourself with the risks associated with using your workstation and the surrounding environment, including the desk, chair, computer, laptop, monitor, keyboard and other related equipment. If you have any question, please reach out to your line manager or the Health and Safety team.</div>');
                     $("#dashboardBtn").hide();
             }
         });
