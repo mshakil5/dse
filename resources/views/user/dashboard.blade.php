@@ -158,7 +158,7 @@
       var complete = parseFloat($("#complete").val());
       
       new ApexCharts(document.querySelector("#pieChart"), {
-        series: [complete, outstanding],
+        series: [outstanding, complete],
         chart: {
           height: 350,
           type: 'pie',
@@ -166,7 +166,7 @@
             show: true
           }
         },
-        labels: ['Complete Answer', 'Outstanding Answer']
+        labels: ['Outstanding Answer','Complete Answer']
       }).render();
     });
   </script>

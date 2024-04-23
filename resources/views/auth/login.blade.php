@@ -45,26 +45,34 @@
                 <a href="#" class="logo d-flex align-items-center w-auto">
                   <img src="{{ asset('frontend/images/dselogo.PNG')}}" width="300px">
                 </a>
+
               </div>
               <div class="card mb-3"> 
                 <div class="card-body p-5"> 
+
+                @if (isset($message))
+                <p class="alert alert-danger"> {{ $message }}</p>
+                @endif
+
+
+
                   <form class="row g-3 needs-validation" method="POST" action="{{ route('login') }}">
-					@csrf
+					            @csrf
 
 
                     <div class="col-12">
                       <label for="email" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         {{-- <input type="text" name="username" class="form-control" id="yourUsername" required> --}}
-						<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-							required autocomplete="email" autofocus>
-							<div class="invalid-feedback">Please enter your email.</div>
+                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  autocomplete="email" autofocus value="{{ old('email') }}" required>
 
-						@error('email')
-						<span class="invalid-feedback" role="alert">
-							<strong>{{ $message }}</strong>
-						</span>
-						@enderror
+                              <div class="invalid-feedback">Please enter your email.</div>
+
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
 
 
                       </div>
@@ -73,13 +81,14 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       {{-- <input type="password" name="password" class="form-control" id="yourPassword" required> --}}
-						<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-						<div class="invalid-feedback">Please enter your password!</div>
-						@error('password')
-						<span class="invalid-feedback" role="alert">
-							<strong>{{ $message }}</strong>
-						</span>
-						@enderror
+
+                      <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                      <div class="invalid-feedback">Please enter your password!</div>
+                      @error('password')
+                      <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                      @enderror
 
 
                     </div>
@@ -139,7 +148,7 @@
   <script src="{{ asset('assets/admin/vendor/php-email-form/validate.js')}}"></script>
 
   <!-- Template Main JS File -->
-  <script src="{{ asset('assets/admin/js/main.js')}}"></script>
+  {{-- <script src="{{ asset('assets/admin/js/main.js')}}"></script> --}}
 
 </body>
 

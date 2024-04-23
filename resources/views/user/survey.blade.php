@@ -405,54 +405,6 @@
                     @endforeach
 
                     
-                <div class="row mt-2">
-                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
-                        <div class="row pt-5 px-4">
-                            <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">Any other question?
-                                </h6>
-                                <label for="otherqnyes" class="mx-2">
-                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
-                                        value="Yes" @if(isset($opms)) @if ($opms->otherqn == "Yes") checked @endif @endif>Yes
-                                </label>
-                                <label for="otherqnno" class="mx-2">
-                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->otherqn == "No") checked @endif @endif>No
-                                </label>
-
-                                
-                            </div>
-
-                            
-                            
-                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
-                                <div class="col-lg-12 mb-4">
-                                    @if(isset($opms)) 
-                                    
-                                    
-                                    <h6 class="mb-3">{{$opms->question}}</h6>
-
-                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                            <br>
-                                            <small>Date:{{$opmscomment->date}}</small>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                    @else
-                                    <div class="col-lg-12">
-                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
-                                    </div>
-                                    @endif
-                                    
-                                </div>
-                              </div>
-
-                              
-                        </div>
-                    </div>
-                </div>
 
                 <h4>Tick to confirm location & type of health problem's experienced</h4>
 
@@ -699,6 +651,56 @@
                                     </tbody>
                                 </table>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="row mt-2">
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                        <div class="row pt-5 px-4">
+                            <div class="col-lg-12 mb-4">
+                                <h6 class="mb-3">Any other question?
+                                </h6>
+                                <label for="otherqnyes" class="mx-2">
+                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
+                                        value="Yes" @if(isset($opms)) @if ($opms->otherqn == "Yes") checked @endif @endif>Yes
+                                </label>
+                                <label for="otherqnno" class="mx-2">
+                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->otherqn == "No") checked @endif @endif>No
+                                </label>
+
+                                
+                            </div>
+
+                            
+                            
+                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
+                                <div class="col-lg-12 mb-4">
+                                    @if(isset($opms)) 
+                                    
+                                    
+                                    <h6 class="mb-3">{{$opms->question}}</h6>
+
+                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                            <br>
+                                            <small>Date:{{$opmscomment->date}}</small>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    @else
+                                    <div class="col-lg-12">
+                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
+                                    </div>
+                                    @endif
+                                    
+                                </div>
+                              </div>
+
+                              
                         </div>
                     </div>
                 </div>

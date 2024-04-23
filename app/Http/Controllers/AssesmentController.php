@@ -125,11 +125,6 @@ class AssesmentController extends Controller
                 $newproblem->save();
             }
             
-
-
-            
-
-
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data store Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'data'=>$allanswer]);
 
