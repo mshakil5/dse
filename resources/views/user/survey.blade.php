@@ -271,6 +271,17 @@
                 </div>
             </div>
 
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
+
              @if($data)
             <form action="{{ route('add.assessment') }}" method="POST" id="myForm">
                 @csrf
@@ -301,7 +312,11 @@
                                         </div>
 
                                         <div class="row p-2 @if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'd-none' }}@else d-none @endif" id="subqnDiv{{$question->id}}" style="@if(isset($question->assesmentAnswers)) {{  $question->assesmentAnswers->answer == "No" ? '' : 'display:none' }} @endif">
-                                            <div class="col-lg-12 p-2 alert alert-warning mb-3 rounded-3 text-dark"><iconify-icon icon="flat-color-icons:idea"></iconify-icon> {{$question->tips ? $question->tips : 'Tips coming soon...'}}</div>
+
+                                            @if (isset($question->tips))
+                                            <div class="col-lg-12 p-2 alert alert-warning mb-3 rounded-3 text-dark"><iconify-icon icon="flat-color-icons:idea"></iconify-icon> {{$question->tips}}</div>
+                                            @endif
+                                            
                                         </div>
 
                                        

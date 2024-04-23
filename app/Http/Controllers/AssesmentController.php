@@ -152,10 +152,28 @@ class AssesmentController extends Controller
         
         $messages = [
             'answers.*' => 'Each answer must be either "yes" or "no".',
+            'otherqn' => 'Any other question field required.',
+            'lowback' => 'Tick to confirm location & type of health problem\'s experienced.',
+            'upperback' => 'Tick to confirm location & type of health problem\'s experienced.',
+            'neck' => 'Tick to confirm location & type of health problem\'s experienced.',
+            'shoulders' => 'Tick to confirm location & type of health problem\'s experienced.',
+            'arms' => 'Tick to confirm location & type of health problem\'s experienced.',
+            'hand_fingers' => 'Tick to confirm location & type of health problem\'s experienced.',
+            'exercise' => 'Do you do any stretching exercises during the day to prevent muscular tension?',
+            'taught_exercise' => 'Would you like to be taught some exercises?',
         ];
         
         $validatedData = $request->validate([
             'answers.*' => 'required',
+            'otherqn' => 'required',
+            'lowback' => 'required',
+            'upperback' => 'required',
+            'neck' => 'required',
+            'shoulders' => 'required',
+            'arms' => 'required',
+            'hand_fingers' => 'required',
+            'exercise' => 'required',
+            'taught_exercise' => 'required',
         ], $messages);
         
 
