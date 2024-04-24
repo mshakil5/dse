@@ -1009,7 +1009,7 @@ function backToTop() {
         // 
 
         
-        // comment store 
+    // comment store 
     $("body").delegate(".addcomment","click",function () {
         var commenturl = "{{URL::to('/manager/managers-comment')}}";
 
@@ -1036,6 +1036,7 @@ function backToTop() {
 
                 if (d.status == 303) {
                     $(".cmntermsg"+assans_id).html(d.message);
+                    setTimeout(function(){ $(".cmntermsg"+assans_id).html(''); }, 3000); 
                 }else if(d.status == 300){
                     var newcmnt = $("#reply"+assans_id);
                     newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
@@ -1051,9 +1052,6 @@ function backToTop() {
             }
         });
     });
-
-
-
     $("body").delegate(".addOpmsComment","click",function () {
         var opmsurl = "{{URL::to('/manager/health-suggestion')}}";
 
@@ -1100,8 +1098,6 @@ function backToTop() {
             }
         });
     });
-
-
     // comment store 
 
 
@@ -1193,5 +1189,12 @@ function backToTop() {
     });
     
 </script>
-    
+<script>
+    $(document).ready(function(){
+        // Wait for 3 seconds and then hide the div
+        setTimeout(function(){
+            $('#cmntermsg').hide();
+        }, 3000); // 3000 milliseconds = 3 seconds
+    });
+    </script>
 @endsection

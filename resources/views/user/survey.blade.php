@@ -673,24 +673,22 @@
                                 
                             </div>
 
-                            
-                            
-                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
+                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else    @endif @endif>
                                 <div class="col-lg-12 mb-4">
-                                    @if(isset($opms)) 
+                                    @if(isset($opms) && $opms->question) 
                                     
                                     
-                                    <h6 class="mb-3">{{$opms->question}}</h6>
+                                        <h6 class="mb-3">{{$opms->question}}</h6>
 
-                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                            <br>
-                                            <small>Date:{{$opmscomment->date}}</small>
+                                        @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
+                                        <div class="row">
+                                            <div class="col-lg-4"></div>
+                                            <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                <br>
+                                                <small>Date:{{$opmscomment->date}}</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endforeach
+                                        @endforeach
                                     @else
                                     <div class="col-lg-12">
                                         <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
@@ -816,24 +814,27 @@ function scrollFunction() {
 
     $(document).ready(function(){
         $('input[name="job_type"]').change(function(){
-        var value = $(this).val();
-        if(value === 'Part time') {
-            $('#part_time_work_div').show();
-        } else {
-            $('#part_time_work_div').hide();
-            $("#part_time_work_hour").val('');
-        }
-        });
+            var value = $(this).val();
+            if(value === 'Part time') {
+                $('#part_time_work_div').show();
+            } else {
+                $('#part_time_work_div').hide();
+                $("#part_time_work_hour").val('');
+            }
+            });
 
         $('input[name="otherqn"]').change(function(){
-        var value = $(this).val();
-        if(value === 'Yes') {
-            $('#additionalqn').show();
-        } else {
-            $('#additionalqn').hide();
-            $("#newqn").val('');
-        }
+            var value = $(this).val();
+            if(value === 'Yes') {
+                $('#additionalqn').show();
+            } else {
+                $('#additionalqn').hide();
+                $("#newqn").val('');
+            }
         });
+
+        
+
     });
     
 </script>

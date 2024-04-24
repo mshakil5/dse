@@ -261,10 +261,8 @@ class SurveyController extends Controller
         // dd($request->all());
 
         $validatedData = $request->validate([
-            'work_station_number' => 'required',
             'software' => 'required'
         ], [
-            'work_station_number.required' => 'Work station number field required.',
             'software.required' => 'Please, select a software which you use.'
         ]);
 
