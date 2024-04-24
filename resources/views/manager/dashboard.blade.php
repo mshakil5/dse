@@ -135,7 +135,7 @@
                    
                   @php
                   $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
-                  $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->count();
+                  $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->where('solved', 0)->count();
                   @endphp
 
 
@@ -203,7 +203,7 @@
                 
                 @php
                 $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
-                $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->count();
+                $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->where('solved', 0)->count();
                 @endphp
 
 

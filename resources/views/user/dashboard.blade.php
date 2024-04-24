@@ -92,6 +92,9 @@
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                   <h5 class="mb-0 text-light text-uppercase">2. Outstanding Action </h5>
+
+                  <div class="display-6 text-light fw-bold rounded-3 p-2 border"> {{$qncount - $anscount}}</div>
+
                 </div> 
               </div>
               <div class="col-lg-12 text-center">

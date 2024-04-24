@@ -46,16 +46,16 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-9 d-flex align-items-center justify-content-end">
-                                <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon>Show</button>
+                                <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon> Full Assessment</button>
                                 <a type="button"  class="btn btn-secondary d-flex align-items-center m-2"  data-bs-toggle="modal" data-bs-target="#transferModal">
-                                    <iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Transfer
+                                    <iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Referral
                                 </a>
 
                                 @if (isset($chksts))
 
                                 @if ($chksts->line_manager_notification == 1)
                                 <a data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-warning d-flex align-items-center m-2" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Change Status
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 4H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.188c1 0 1.812.811 1.812 1.812c0 .808.976 1.212 1.547.641l1.867-1.867A2 2 0 0 1 14.828 18H19a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg> Review & Close
                                 </a>
                                 @endif
                                     
@@ -63,7 +63,7 @@
                                 
 
                                 <a href="{{route('manager.dashboard')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
-                                    Exit
+                                    Save & Exit
                                 </a>
                             </div>
                         </div>
@@ -306,70 +306,7 @@
                 </div>
                 
                 {{-- additional assesment add  --}}
-                <div class="row mt-2">
-                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
-                        <div class="row pt-5 px-4">
-                            <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">Any other question?
-                                </h6>
-                                <label for="otherqnyes" class="mx-2">
-                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
-                                        value="Yes" @if(isset($opms)) @if ($opms->otherqn == "Yes") checked @endif @endif>Yes
-                                </label>
-                                <label for="otherqnno" class="mx-2">
-                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->otherqn == "No") checked @endif @endif>No
-                                </label>
-                            </div>
-
-                            
-                            
-                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
-                                <div class="col-lg-12 mb-4">
-                                    @if(isset($opms)) 
-                                    <h6 class="mb-3">{{$opms->question}}</h6>
-                                
-                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                            <br>
-                                            <small>Date:{{$opmscomment->date}}</small>
-                                        </div>
-                                    </div>
-                                    @endforeach
-
-                                    <div class="cmntermsg"></div>
-                                    <div class="col-lg-12" id="replycmnt">
-                                        <textarea id="commentquestion" class="form-control" placeholder="Comments Here"></textarea>
-                                    </div>
-                                    <div class="col-lg-12" id="replybtn">
-                                        <div class="row py-3 ">
-                                            <div class="col-lg-5 d-flex align-items-center">
-                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="question" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                </button>
-                                            </div>
-                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    @endif
-                                    
-                                </div>
-                              </div>
-                            
-                              {{-- <div class="row">
-                                <div class="col-lg-4"></div>
-                                <div class="col-lg-8 p-2 alert alert-secondary   mb-3 rounded-3 text-dark">user side message</div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">line manager side message</div>
-                                <div class="col-lg-4"></div>
-                              </div> --}}
-                              
-                        </div>
-                    </div>
-                </div>
+                
 
                 <h4>Tick to confirm location & type of health problem's experienced</h4>
 
@@ -557,7 +494,7 @@
                                         @endforeach 
                                         @endif
 
-                                        @if ($neck > 0) 
+                                        @if ($neckhasIssue > 0) 
                                         
                                         <tr>
                                             <td style="text-align: left" colspan="6">
@@ -854,6 +791,70 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mt-2">
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                        <div class="row pt-5 px-4">
+                            <div class="col-lg-12 mb-4">
+                                <h6 class="mb-3">Any other question?
+                                </h6>
+                                <label for="otherqnyes" class="mx-2">
+                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
+                                        value="Yes" @if(isset($opms)) @if ($opms->otherqn == "Yes") checked @endif @endif>Yes
+                                </label>
+                                <label for="otherqnno" class="mx-2">
+                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->otherqn == "No") checked @endif @endif>No
+                                </label>
+                            </div>
+
+                            
+                            
+                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
+                                <div class="col-lg-12 mb-4">
+                                    @if(isset($opms)) 
+                                    <h6 class="mb-3">{{$opms->question}}</h6>
+                                
+                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                            <br>
+                                            <small>Date:{{$opmscomment->date}}</small>
+                                        </div>
+                                    </div>
+                                    @endforeach
+
+                                    <div class="cmntermsg"></div>
+                                    <div class="col-lg-12" id="replycmnt">
+                                        <textarea id="commentquestion" class="form-control" placeholder="Comments Here"></textarea>
+                                    </div>
+                                    <div class="col-lg-12" id="replybtn">
+                                        <div class="row py-3 ">
+                                            <div class="col-lg-5 d-flex align-items-center">
+                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="question" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @endif
+                                    
+                                </div>
+                              </div>
+                            
+                              {{-- <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-8 p-2 alert alert-secondary   mb-3 rounded-3 text-dark">user side message</div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">line manager side message</div>
+                                <div class="col-lg-4"></div>
+                              </div> --}}
+                              
+                        </div>
+                    </div>
+                </div>
                 {{-- additional assesment add  --}}
             </div>
         </div>
@@ -913,12 +914,12 @@
 
                 <div class="col-lg-6">
                     <div class="dropdown">
-                        <label for="initial_risk">Initial degree of risk</label>
+                        <label for="initial_risk">Initial Assessment Risk Rating </label>
                         <input type="number" id="initial_risk" name="initial_risk" class="form-control">
                     </div>
 
                     <div class="dropdown">
-                        <label for="risk_rating_point">Final Risk rating number</label>
+                        <label for="risk_rating_point">Risk Rating After Review</label>
                         <input type="number" id="risk_rating_point" name="risk_rating_point" class="form-control">
                     </div>
         
