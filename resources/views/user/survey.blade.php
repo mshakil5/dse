@@ -660,7 +660,7 @@
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                         <div class="row pt-5 px-4">
                             <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">Any other question?
+                                <h6 class="mb-3">Do you have any other concern or comments ?
                                 </h6>
                                 <label for="otherqnyes" class="mx-2">
                                     <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"

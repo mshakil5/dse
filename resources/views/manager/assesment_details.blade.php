@@ -934,7 +934,7 @@
                     </div>
 
                     <div class="dropdown">
-                        <label for="achieve_date">Achieve Date</label>
+                        <label for="achieve_date">Acheive Date</label>
                         <input type="date" class="form-control" id="achieve_date">
                     </div>
 
@@ -1104,6 +1104,7 @@ function backToTop() {
 
 
        // comment store 
+    var redurl = "{{URL::to('/manager/dashboard')}}";
     $("body").delegate("#addriskpoint","click",function () {
     
         var status = $("#status").val();
@@ -1141,7 +1142,7 @@ function backToTop() {
                     $(".ermsg").html(d.message);
                 }else if(d.status == 300){
                     $(".ermsg").html(d.message);
-                    window.setTimeout(function(){location.reload()},2000)
+                    window.location.href = redurl;
                 }
             },
             error:function(d){
@@ -1152,7 +1153,6 @@ function backToTop() {
     // comment store 
 
 
-    var redurl = "{{URL::to('/manager/get-assesment')}}";
     var expurl = "{{URL::to('/manager/transfer-to-health')}}";
     $(".transferbtn").click(function(){
 
