@@ -6,7 +6,8 @@
                     <a class="navbar-brand" href="{{route('user.dashboard')}}">
                         
                         <div class="brand">
-                            <img src="{{ asset('nhs.png')}}" width="150px" alt="">
+                            {{-- <img src="{{ asset('nhs.png')}}" width="150px" alt=""> --}}
+                            <img src="{{ asset('hsc.png')}}" width="120px">
                         </div>
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
