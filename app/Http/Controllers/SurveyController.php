@@ -15,6 +15,7 @@ use App\Models\AssesmentLog;
 use App\Models\AssesmentSchedule;
 use App\Models\DetermingAnswerLog;
 use App\Models\DeterminigAnswer;
+use App\Models\QnCategory;
 use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -51,8 +52,6 @@ class SurveyController extends Controller
                      ->with('assesmentAnswerComments'); // Eager load assessment answer comments
             }])->get();
 
-            
-            // dd($questions);
         } else {
             // $questions = Question::with('subquestion')->get();
             $questions = Question::with(['assesmentAnswers' => function($query) use ($programNumber) {
@@ -60,13 +59,29 @@ class SurveyController extends Controller
             }])->get();
         }
 
+        $categories = QnCategory::whereHas('question')->with(['question.assesmentAnswers' => function ($query) use ($programNumber) {
+            $query->where('program_number', $programNumber)->with('assesmentAnswerComments');
+        }])->get();
+        // dd($categories);
+
+        // $category = QnCategory::with('question', function ($query) use ($programNumber) {
+        //     $query->where('program_number', $programNumber);
+        // })->with(['question' => function ($query) use ($programNumber){
+        //     $query->where('assesmentAnswers', function ($query) use ($programNumber) {
+        //         $query->where('program_number', $programNumber);
+        //     });
+        //     $query->with(['assesmentAnswers' => function ($query) use ($programNumber){
+        //         $query->where('program_number', $programNumber);
+        //     }]);
+        // }])->get();
 
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
         $opms = AssesmentHealthProblem::with('assesmentHealthComment')->whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
-        return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms'));
+        return view('user.survey', compact('departments','questions','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms','categories'));
+
     }
 
     public function determiningQuestion()

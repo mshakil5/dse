@@ -114,10 +114,19 @@
                         </div>
                         <div class="col-6 col-sm-6 col-lg-8 d-flex align-items-center justify-content-end">
                             <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon></button>
+                            
+                            @if($determiningans->line_manager_notification == "0") 
+                                
                             <button id="saveBtn2" class="btn btn-sm btn-warning d-block float-end fs-5 d-flex align-items-center gap-2">
                                 <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
                                 Save & Exit
                             </button>
+                            @else
+                                <a href="{{route('user.dashboard')}}" class="btn btn-sm btn-warning d-block float-end fs-5 d-flex align-items-center gap-2">
+                                    <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon> Save & Exit</a>
+
+                            @endif
+
                         </div>
                     </div>
                     <div class="row @if (isset($data)) d-none @endif" id="workAssesmentDiv">
@@ -291,6 +300,12 @@
             @endif
 
 
+
+            
+
+
+
+
              @if($data)
             <form action="{{ route('add.assessment') }}" method="POST" id="myForm">
                 @csrf
@@ -302,8 +317,14 @@
                 <input type="hidden" id="pnumber" name="pnumber"
                 value="{{$programNumber}}">
 
-                    @foreach ($questions as $key => $question)
+                @foreach ($categories as $category)
+                <div class="row mt-2">
+                    <div class="col-lg-12 p-2 alert alert-success rounded-3 text-dark"><iconify-icon icon="flat-color-icons:book"></iconify-icon> <b>{{$category->name}}</b>
+                    </div>
+                </div>
 
+
+                    @foreach ($category->question as $key => $question)
                         <div class="row mt-1">
                             <div class="col-lg-8 shadow-sm border rounded-0 bg-light">
                                 <div class="row pt-5 px-4">
@@ -412,6 +433,15 @@
                             </div>
                         </div>
                     @endforeach
+
+
+
+
+                @endforeach
+
+                
+
+                    
 
                     
 
@@ -730,6 +760,15 @@
                             <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>
                         </div>
                     </div>
+
+                    <!-- Back to top button -->
+
+                    @if($data)
+                    
+                    <button type="button" class="btn btn-warning btn-floating btn-lg" id="saveNExit">
+                        <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Exit
+                    </button> 
+                    @endif
                     @endif 
 
                 
@@ -749,14 +788,7 @@
 
 
 
-<!-- Back to top button -->
 
-@if($data)
-   
-<button type="button" class="btn btn-warning btn-floating btn-lg" id="saveNExit">
-    <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Exit
-</button> 
-@endif
 
 
 
