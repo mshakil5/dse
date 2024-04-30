@@ -83,39 +83,45 @@
           
             <div class="row g-2">
               <div class="col-lg-12 text-center">
-                <div class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                <h5 class="mb-0 text-uppercase text-light">1. Your Self-Assessment  </h5>
-                {{-- <div class="display-6 text-light fw-bold rounded-circle p-2 border">
-                </div> --}}
-              </div>
+                  <div class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
+
+                  <p class="mb-0 text-uppercase text-light">1. Your Self-Assessment Status </p>
+
+                  <div class="display-6 text-light fw-bold rounded-3 p-1 border">
+                    <div class="dropdown">
+                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                          <li><a class="dropdown-item" href="#">Complaint </a></li>
+                          <li><a class="dropdown-item" href="#">None Complaint  </a></li>
+                        </ul>
+                    </div>
+                  </div>
+                  
+                </div>
               </div>
               <div class="col-lg-12 text-center">
-                <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                  <h5 class="mb-0 text-light text-uppercase">2. Outstanding Action </h5>
+                <a href="{{route('user.determinigQn')}}" style="text-decoration: none">
+                  <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
+                    <p class="mb-0 text-light text-uppercase">2. Outstanding Action </p>
 
-                  <div class="display-6 text-light fw-bold rounded-3 p-2 border"> {{$qncount - $anscount}}</div>
+                    <div class="display-6 text-light fw-bold rounded-3 p-1 border"> {{$qncount - $anscount}}</div>
 
-                </div> 
+                  </div>
+                </a> 
               </div>
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                  <h4 class="mb-0 text-light text-uppercase">3. Your Self-Assessment </h4>
+                  <p class="mb-0 text-light text-uppercase">3. Your Self-Assessment </p>
                   {{-- <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
                   </div> --}}
                 </div>
               </div>
+
+              
             </div>
 
         </div>
-        <div class="col-lg-6 text-center">
-            <div class="card border p-4">
-              <input type="hidden" id="outstanding" value="{{$qncount - $anscount}}">
-              <input type="hidden" id="complete" value="{{$anscount}}">
-              <!-- Pie Chart -->
-              <div id="pieChart"></div>
-            </div>
-          
-        </div>
+        
 
         
         <div class="col-lg-3 text-center">
@@ -123,25 +129,43 @@
             <div class="row g-2">
               <div class="col-lg-12 text-center">
                 <div class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                <h5 class="mb-0 text-light">1. showing how many question you have answer or left  ( see the chart ) </h5>
-                {{-- <div class="display-6 text-light fw-bold rounded-circle p-2 border">
-                </div> --}}
+                <p class="mb-0 text-light text-uppercase">4. Support request </p>
+                <div class="display-6 text-light fw-bold rounded-3 p-1 border">
+                  <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
+                      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Occupational Health </a></li>
+                        <li><a class="dropdown-item" href="#">Health & Safety  </a></li>
+                        <li><a class="dropdown-item" href="#">Self Refferal Form  </a></li>
+                        <li><a class="dropdown-item" href="#">Eye Test Voucher  </a></li>
+                      </ul>
+                  </div>
+                </div>
               </div>
               </div>
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                  <h5 class="mb-0 text-light text-uppercase">2. This is from manager query </h5>
+                  <p class="mb-0 text-light text-uppercase">5. Next Assesent Due Date </p>
                 </div> 
               </div>
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                  <h4 class="mb-0 text-light">3. This the completed assessemnt record link or PDF</h4>
-                  {{-- <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
-                  </div> --}}
+                  <p class="mb-0 text-light">6. Archived Date</p>
+                  <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
+                  </div>
                 </div>
               </div>
             </div>
 
+        </div>
+
+        <div class="col-lg-6 text-center">
+            <div class="card border p-4">
+              <input type="hidden" id="outstanding" value="{{$qncount - $anscount}}">
+              <input type="hidden" id="complete" value="{{$anscount}}">
+              <!-- Pie Chart -->
+              <div id="pieChart"></div>
+            </div>
         </div>
 
      </div>
