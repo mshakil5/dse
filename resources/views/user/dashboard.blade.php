@@ -146,12 +146,16 @@
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                   <p class="mb-0 text-light text-uppercase">5. Next Assesent Due Date </p>
+                  <div class="display-6 text-light text-uppercase fw-bold rounded-3 p-2 border">
+                    
+                  </div>
                 </div> 
               </div>
               <div class="col-lg-12 text-center">
                 <div class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
                   <p class="mb-0 text-light">6. Archived Date</p>
-                  <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
+                  <div class="display-6 text-light text-uppercase fw-bold rounded-3 p-2 border">
+
                   </div>
                 </div>
               </div>

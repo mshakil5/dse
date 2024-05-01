@@ -87,43 +87,228 @@ class AssesmentController extends Controller
                 }
             }
 
-            $updanswer = DeterminigAnswer::where('program_number', $request->pnumber)->first();
-
-            $existingHealthProblem = AssesmentHealthProblem::where('user_id', Auth::user()->id)
-            ->where('program_number', $request->pnumber)
-            ->first();
-
-            if ($existingHealthProblem) {
-                $existingHealthProblem->otherqn = $request->otherqn;
-                $existingHealthProblem->question = $request->newqn;
-                $existingHealthProblem->lowback = json_encode($request->lowback);
-                $existingHealthProblem->upperback = json_encode($request->upperback);
-                $existingHealthProblem->neck = json_encode($request->neck);
-                $existingHealthProblem->shoulders = json_encode($request->shoulders);
-                $existingHealthProblem->arms = json_encode($request->arms);
-                $existingHealthProblem->hand_fingers = json_encode($request->hand_fingers);
-                $existingHealthProblem->exercise = $request->exercise;
-                $existingHealthProblem->taught_exercise = $request->taught_exercise;
-                $existingHealthProblem->save();
-            } else {
-                $newproblem = new AssesmentHealthProblem();
-                $newproblem->date = date('Y-m-d');
-                $newproblem->user_id = Auth::user()->id;
-                $newproblem->program_number = $request->pnumber;
-                $newproblem->determinig_answer_id = $updanswer->id;
-                $newproblem->assesment_schedule_id = $updanswer->assesment_schedule_id;
-                $newproblem->otherqn = $request->otherqn;
-                $newproblem->question = $request->newqn;
-                $newproblem->lowback = json_encode($request->lowback);
-                $newproblem->upperback = json_encode($request->upperback);
-                $newproblem->neck = json_encode($request->neck);
-                $newproblem->shoulders = json_encode($request->shoulders);
-                $newproblem->arms = json_encode($request->arms);
-                $newproblem->hand_fingers = json_encode($request->hand_fingers);
-                $newproblem->exercise = $request->exercise;
-                $newproblem->taught_exercise = $request->taught_exercise;
-                $newproblem->save();
+            // health part start lowback
+            if ($request->lowback) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'lowback')->delete();
+                foreach ($request->lowback as $lowbackkey => $lowbackresult) {
+                    $datalowback = new AssesmentAnswer();
+                    $datalowback->date = date('Y-m-d');
+                    $datalowback->user_id = Auth::user()->id;
+                    $datalowback->assesmentid = $data->assesmentid;
+                    $datalowback->program_number = $request->pnumber;
+                    $datalowback->assesment_id = $data->id;
+                    $datalowback->catname = "lowback";
+                    $datalowback->result = $lowbackresult;
+                    if ($lowbackresult == "None") {
+                        $datalowback->answer = "No";
+                    }else{
+                        $datalowback->answer = "Yes";
+                    }
+                    $datalowback->save();
+                }
             }
+
+            if ($request->upperback) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'upperback')->delete();
+                foreach ($request->upperback as $upperbackkey => $upperbackresult) {
+                    $dataupperback = new AssesmentAnswer();
+                    $dataupperback->date = date('Y-m-d');
+                    $dataupperback->user_id = Auth::user()->id;
+                    $dataupperback->assesmentid = $data->assesmentid;
+                    $dataupperback->program_number = $request->pnumber;
+                    $dataupperback->assesment_id = $data->id;
+                    $dataupperback->catname = "upperback";
+                    $dataupperback->result = $upperbackresult;
+                    if ($upperbackresult == "None") {
+                        $dataupperback->answer = "No";
+                    }else{
+                        $dataupperback->answer = "Yes";
+                    }
+                    $dataupperback->save();
+                }
+            }
+
+            if ($request->neck) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'neck')->delete();
+                foreach ($request->neck as $neckkey => $neckresult) {
+                    $dataneck = new AssesmentAnswer();
+                    $dataneck->date = date('Y-m-d');
+                    $dataneck->user_id = Auth::user()->id;
+                    $dataneck->assesmentid = $data->assesmentid;
+                    $dataneck->program_number = $request->pnumber;
+                    $dataneck->assesment_id = $data->id;
+                    $dataneck->catname = "upperback";
+                    $dataneck->result = $neckresult;
+                    if ($neckresult == "None") {
+                        $dataneck->answer = "No";
+                    }else{
+                        $dataneck->answer = "Yes";
+                    }
+                    $dataneck->save();
+                }
+            }
+
+            if ($request->shoulders) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'shoulders')->delete();
+                foreach ($request->shoulders as $upperbackkey => $shouldersresult) {
+                    $datashoulders = new AssesmentAnswer();
+                    $datashoulders->date = date('Y-m-d');
+                    $datashoulders->user_id = Auth::user()->id;
+                    $datashoulders->assesmentid = $data->assesmentid;
+                    $datashoulders->program_number = $request->pnumber;
+                    $datashoulders->assesment_id = $data->id;
+                    $datashoulders->catname = "shoulders";
+                    $datashoulders->result = $shouldersresult;
+                    if ($shouldersresult == "None") {
+                        $datashoulders->answer = "No";
+                    }else{
+                        $datashoulders->answer = "Yes";
+                    }
+                    $datashoulders->save();
+                }
+            }
+
+            if ($request->arms) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'arms')->delete();
+                foreach ($request->arms as $armskey => $armsresult) {
+                    $dataarms = new AssesmentAnswer();
+                    $dataarms->date = date('Y-m-d');
+                    $dataarms->user_id = Auth::user()->id;
+                    $dataarms->assesmentid = $data->assesmentid;
+                    $dataarms->program_number = $request->pnumber;
+                    $dataarms->assesment_id = $data->id;
+                    $dataarms->catname = "arms";
+                    $dataarms->result = $armsresult;
+                    if ($armsresult == "None") {
+                        $dataarms->answer = "No";
+                    }else{
+                        $dataarms->answer = "Yes";
+                    }
+                    $dataarms->save();
+                }
+            }
+
+            if ($request->hand_fingers) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'hand_fingers')->delete();
+                foreach ($request->hand_fingers as $hand_fingerskey => $hand_fingersresult) {
+                    $datahand = new AssesmentAnswer();
+                    $datahand->date = date('Y-m-d');
+                    $datahand->user_id = Auth::user()->id;
+                    $datahand->assesmentid = $data->assesmentid;
+                    $datahand->program_number = $request->pnumber;
+                    $datahand->assesment_id = $data->id;
+                    $datahand->catname = "hand_fingers";
+                    $datahand->result = $hand_fingersresult;
+                    if ($hand_fingersresult == "None") {
+                        $datahand->answer = "No";
+                    }else{
+                        $datahand->answer = "Yes";
+                    }
+                    $datahand->save();
+                }
+            }
+
+            if ($request->exercise) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'exercise')->delete();
+                $exercise = new AssesmentAnswer();
+                $exercise->date = date('Y-m-d');
+                $exercise->user_id = Auth::user()->id;
+                $exercise->assesmentid = $data->assesmentid;
+                $exercise->program_number = $request->pnumber;
+                $exercise->assesment_id = $data->id;
+                $exercise->catname = "exercise";
+                $exercise->result = $request->exercise;
+                $exercise->answer = $request->exercise;
+                $exercise->save();
+            }
+
+            if ($request->taught_exercise) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'taught_exercise')->delete();
+                $taught_exercise = new AssesmentAnswer();
+                $taught_exercise->date = date('Y-m-d');
+                $taught_exercise->user_id = Auth::user()->id;
+                $taught_exercise->assesmentid = $data->assesmentid;
+                $taught_exercise->program_number = $request->pnumber;
+                $taught_exercise->assesment_id = $data->id;
+                $taught_exercise->catname = "taught_exercise";
+                $taught_exercise->result = $request->exercise;
+                $taught_exercise->answer = $request->exercise;
+                $taught_exercise->save();
+            }
+
+
+            if ($request->otherqn) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'otherqn')->delete();
+                $otherqn = new AssesmentAnswer();
+                $otherqn->date = date('Y-m-d');
+                $otherqn->user_id = Auth::user()->id;
+                $otherqn->assesmentid = $data->assesmentid;
+                $otherqn->program_number = $request->pnumber;
+                $otherqn->assesment_id = $data->id;
+                $otherqn->catname = "otherqn";
+                $otherqn->result = $request->otherqn;
+                $otherqn->answer = $request->otherqn;
+                $otherqn->save();
+            }
+
+            if ($request->newqn) {
+                AssesmentAnswer::where('program_number', $request->pnumber)->where('catname', 'newqn')->delete();
+                $newqn = new AssesmentAnswer();
+                $newqn->date = date('Y-m-d');
+                $newqn->user_id = Auth::user()->id;
+                $newqn->assesmentid = $data->assesmentid;
+                $newqn->program_number = $request->pnumber;
+                $newqn->assesment_id = $data->id;
+                $newqn->newquestion = $request->newqn;
+                $newqn->catname = "newqn";
+                $newqn->result = "Yes";
+                $newqn->answer = "Yes";
+                $newqn->save();
+            }
+
+            // health part end lowback
+
+
+
+
+
+
+
+            // $updanswer = DeterminigAnswer::where('program_number', $request->pnumber)->first();
+            // $existingHealthProblem = AssesmentHealthProblem::where('user_id', Auth::user()->id)
+            // ->where('program_number', $request->pnumber)
+            // ->first();
+            // if ($existingHealthProblem) {
+            //     $existingHealthProblem->otherqn = $request->otherqn;
+            //     $existingHealthProblem->question = $request->newqn;
+            //     $existingHealthProblem->lowback = json_encode($request->lowback);
+            //     $existingHealthProblem->upperback = json_encode($request->upperback);
+            //     $existingHealthProblem->neck = json_encode($request->neck);
+            //     $existingHealthProblem->shoulders = json_encode($request->shoulders);
+            //     $existingHealthProblem->arms = json_encode($request->arms);
+            //     $existingHealthProblem->hand_fingers = json_encode($request->hand_fingers);
+            //     $existingHealthProblem->exercise = $request->exercise;
+            //     $existingHealthProblem->taught_exercise = $request->taught_exercise;
+            //     $existingHealthProblem->save();
+            // } else {
+            //     $newproblem = new AssesmentHealthProblem();
+            //     $newproblem->date = date('Y-m-d');
+            //     $newproblem->user_id = Auth::user()->id;
+            //     $newproblem->program_number = $request->pnumber;
+            //     $newproblem->determinig_answer_id = $updanswer->id;
+            //     $newproblem->assesment_schedule_id = $updanswer->assesment_schedule_id;
+            //     $newproblem->otherqn = $request->otherqn;
+            //     $newproblem->question = $request->newqn;
+            //     $newproblem->lowback = json_encode($request->lowback);
+            //     $newproblem->upperback = json_encode($request->upperback);
+            //     $newproblem->neck = json_encode($request->neck);
+            //     $newproblem->shoulders = json_encode($request->shoulders);
+            //     $newproblem->arms = json_encode($request->arms);
+            //     $newproblem->hand_fingers = json_encode($request->hand_fingers);
+            //     $newproblem->exercise = $request->exercise;
+            //     $newproblem->taught_exercise = $request->taught_exercise;
+            //     $newproblem->save();
+            // }
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data store Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'data'=>$allanswer]);
@@ -144,6 +329,7 @@ class AssesmentController extends Controller
     public function assesmentStore(Request $request)
     {
 
+        dd($request->all());
         
         $messages = [
             'answers.*' => 'Each answer must be either "yes" or "no".',
@@ -196,15 +382,12 @@ class AssesmentController extends Controller
                 ->where('program_number', $request->pnumber)
                 ->first();
 
-                // dd($existingAnswer);
-
                 if ($existingAnswer) {
                     // Update existing answer
                     $existingAnswer->answer = $answer;
                     $existingAnswer->qn_category_id = $chkqncat->qn_category_id;
                     $existingAnswer->save();
-                }
-                else{
+                }else{
                     $question = new AssesmentAnswer();
                     $question->date = date('Y-m-d');
                     $question->user_id = Auth::user()->id;
@@ -260,6 +443,42 @@ class AssesmentController extends Controller
                 $newproblem->save();
             }
 
+            // health part start
+            foreach ($request->lowback as $lowbackkey => $lowbackresult) {
+                
+                $existingLowback = AssesmentAnswer::where('user_id', Auth::user()->id)
+                ->where('assesment_id', $data->id)
+                ->where('catname', 'lowback')
+                ->where('program_number', $request->pnumber)
+                ->first();
+
+                if ($existingLowback) {
+                    // Update existing answer
+                    $existingLowback->result = $lowbackresult;
+                    if ($lowbackresult == "None") {
+                        $existingLowback->answer = "No";
+                    }else{
+                        $existingLowback->answer = "Yes";
+                    }
+                    $existingLowback->save();
+                }else{
+                    $datalowback = new AssesmentAnswer();
+                    $datalowback->date = date('Y-m-d');
+                    $datalowback->user_id = Auth::user()->id;
+                    $datalowback->assesmentid = $data->assesmentid;
+                    $datalowback->program_number = $request->pnumber;
+                    $datalowback->assesment_id = $data->id;
+                    $datalowback->catname = "lowback";
+                    $datalowback->result = $lowbackresult;
+                    if ($lowbackresult == "None") {
+                        $datalowback->answer = "No";
+                    }else{
+                        $datalowback->answer = "Yes";
+                    }
+                    $datalowback->save();
+                }
+            }
+            // health part end
 
             return Redirect::route('user.dashboard')->with('success', 'Your response successfully saved. Thank you for your response.We will inform you later!!');
 
