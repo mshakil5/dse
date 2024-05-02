@@ -594,7 +594,7 @@ class AssesmentController extends Controller
 
         $assesment = Assesment::where('program_number', $id)->first();
         $data = WorkStationAssesment::where('program_number', $id)->first();
-        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->get();
+        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->whereNotNull('qn_category_id')->where('program_number', $id)->get();
         
         $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($id) {
                             $query->where('answer', 'No')->where('solved','0')->where('program_number', $id);
@@ -604,10 +604,11 @@ class AssesmentController extends Controller
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
         $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $id)->first();
+        $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->whereNull('question_id')->get();
         // dd($opms);
         $pnumber = $id;
         $catid = '0';
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms','healthans'));
     }
 
     public function showAssessmentUserDetailsbyCategory(Request $request, $uid, $cat_id)

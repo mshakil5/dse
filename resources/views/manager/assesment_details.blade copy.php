@@ -327,208 +327,379 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
-
                                         <tr>
                                             <td style="text-align: left">Low back</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="None" id="lowbackNone" 
-                                                @if (isset($healthans)) 
-                                                        @foreach ($healthans as $lowback) @if ($lowback->result == "None" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                @endif>
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Ache" 
-                                                @if (isset($healthans)) 
-                                                        @foreach ($healthans as $lowback) @if ($lowback->result == "Ache" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                @endif >
-                                            </td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" value="None" @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "None") checked @endif @endforeach @endif ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Ache") checked @endif @endforeach @endif value="Ache"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pain") checked @endif @endforeach @endif value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pins and needles") checked @endif @endforeach @endif value="Pins and needles" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
+                                        </tr>
 
 
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Pain" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $lowback) @if ($lowback->result == "Pain" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                @endif >
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'lowback') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
                                             </td>
+                                        </tr>
 
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Pins and needles" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $lowback) @if ($lowback->result == "Pins and needles" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                @endif >
-                                            </td>
+                                        @if (isset($opms)) 
+                                        @php
+                                            $hasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->lowback) as $key => $lowback)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($lowback !== "None") {
+                                                    $hasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
 
-                                            <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Numbness" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $lowback) @if ($lowback->result == "Numbness" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                @endif >
+                                        @if ($hasIssue > 0) 
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentlowback" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="lowback" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>
+                                        </tr>
+                                        @endif 
+                                        
+                                        <tr>
+                                            <td style="text-align: left">Upper back</td>
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="None"   @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "None") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Ache" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Ache") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pain" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pain") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pins and needles" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pins and needles") checked @endif @endforeach @endif  class="custom-checkbox"></td>
+
+                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox"></td>
                                         </tr>
 
                                         <tr>
-                                            <td style="text-align: left">Upper back</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="None" class="custom-checkbox upperbackItem" id="upperbackNone"   
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $upperback) @if ($upperback->result == "None" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]" class="custom-checkbox upperbackItem" value="Ache" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $upperback) @if ($upperback->result == "Ache" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]"class="custom-checkbox upperbackItem" value="Pain" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $upperback) @if ($upperback->result == "Pain" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]"  class="custom-checkbox upperbackItem" value="Pins and needles" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $upperback) @if ($upperback->result == "Pins and needles" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                @endif>
-                                            </td>
-
-                                            <td style="text-align: center"> <input type="checkbox" name="upperback[]"  class="custom-checkbox upperbackItem" value="Numbness" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $upperback) @if ($upperback->result == "Numbness" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                @endif>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'upperback') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
                                             </td>
                                         </tr>
+
+                                        @if (isset($opms)) 
+                                        @php
+                                            $upperbackhasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->upperback) as $key => $upperback)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($upperback !== "None") {
+                                                    $upperbackhasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+                                        
+
+                                        @if ($upperbackhasIssue > 0) 
+
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentupperback" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="upperback" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Neck</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem"  value="None" id="neckNone"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $neck) @if ($neck->result == "None" && $neck->catname == "neck") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem"  value="Ache"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $neck) @if ($neck->result == "Ache" && $neck->catname == "neck") checked @endif @endforeach
-                                                @endif>
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox neckItem"  value="Pain"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $neck) @if ($neck->result == "Pain" && $neck->catname == "neck") checked @endif @endforeach
-                                                @endif>
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]"  value="Pins and needles" class="custom-checkbox neckItem"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $neck) @if ($neck->result == "Pins and needles" && $neck->catname == "neck") checked @endif @endforeach
-                                                @endif >
-                                            </td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "None") checked @endif @endforeach @endif   value="None" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Ache") checked @endif @endforeach @endif   value="Ache" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pain") checked @endif @endforeach @endif   value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Pins and needles") checked @endif @endforeach @endif   value="Pins and needles" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->neck) as $neck) @if ($neck == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
+                                        </tr>
 
-                                            <td style="text-align: center"> <input type="checkbox" name="neck[]" value="Numbness" class="custom-checkbox neckItem" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $neck) @if ($neck->result == "Numbness" && $neck->catname == "neck") checked @endif @endforeach
-                                                @endif >
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'neck') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
                                             </td>
                                         </tr>
+
+                                        @if (isset($opms)) 
+                                        @php
+                                            $neckhasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->neck) as $key => $neck)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($neck !== "None") {
+                                                    $neckhasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
+                                        @if ($neckhasIssue > 0) 
+                                        
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentneck" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="neck" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        @endif
                                         
                                         <tr>
                                             <td style="text-align: left">Shoulders</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" class="custom-checkbox shouldersItem" id="shouldersNone" value="None"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $shoulders) @if ($shoulders->result == "None" && $shoulders->catname == "shoulders") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" class="custom-checkbox shouldersItem" value="Ache"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $shoulders) @if ($shoulders->result == "Ache" && $shoulders->catname == "shoulders") checked @endif @endforeach
-                                                @endif>
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pain" class="custom-checkbox shouldersItem"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $shoulders) @if ($shoulders->result == "Ache" && $shoulders->catname == "shoulders") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pins and needles" class="custom-checkbox shouldersItem"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $shoulders) @if ($shoulders->result == "Pins and needles" && $shoulders->catname == "shoulders") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" class="custom-checkbox shouldersItem" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $shoulders) @if ($shoulders->result == "Numbness" && $shoulders->catname == "shoulders") checked @endif @endforeach
-                                                @endif >
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="None"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Ache"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Ache") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pain"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pain") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Pins and needles") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="shoulders[]" value="Numbness" @if (isset($opms)) @foreach (json_decode($opms->shoulders) as $shoulders) @if ($shoulders == "Numbness") checked @endif @endforeach @endif   class="custom-checkbox"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'shoulders') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
                                             </td>
                                         </tr>
 
+                                        @if (isset($opms)) 
+                                        @php
+                                            $shouldershasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->shoulders) as $key => $shoulders)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($shoulders !== "None") {
+                                                    $shouldershasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
 
+                                        @if ($shouldershasIssue > 0) 
                                         
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentshoulders" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="shoulders" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        @endif
+
                                         <tr>
                                             <td style="text-align: left">Arms</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem" value="None" id="armsNone"
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $arms) @if ($arms->result == "None" && $arms->catname == "arms") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]"  value="Ache" class="custom-checkbox armsItem" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $arms) @if ($arms->result == "Ache" && $arms->catname == "arms") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" value="Pain" class="custom-checkbox armsItem"   
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $arms) @if ($arms->result == "Pain" && $arms->catname == "arms") checked @endif @endforeach
-                                                @endif   >
-                                            </td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "None") checked @endif @endforeach @endif  value="None" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Ache") checked @endif @endforeach @endif  value="Ache" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"   @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pain") checked @endif @endforeach @endif  value="Pain" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Pins and needles") checked @endif @endforeach @endif  ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->arms) as $arms) @if ($arms == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
+                                        </tr>
 
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem" value="Pins and needles"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $arms) @if ($arms->result == "Pins and needles" && $arms->catname == "arms") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-
-                                            <td style="text-align: center"> <input type="checkbox" name="arms[]" value="Numbness" class="custom-checkbox armsItem"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $arms) @if ($arms->result == "Numbness" && $arms->catname == "arms") checked @endif @endforeach
-                                                @endif  >
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
                                             </td>
                                         </tr>
 
+                                        @if (isset($opms)) 
+                                        @php
+                                            $armshasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->arms) as $key => $arms)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($arms !== "None") {
+                                                    $armshasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
                                         
-                                        
+                                        @if ($armshasIssue > 0) 
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentarms" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="arms" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem"  value="None" id="hand_fingersNone"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $hand_fingers) @if ($hand_fingers->result == "None" && $hand_fingers->catname == "hand_fingers") checked @endif @endforeach
-                                                @endif >
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "None") checked @endif @endforeach @endif  value="None" ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Ache") checked @endif @endforeach @endif  value="Ache"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pain") checked @endif @endforeach @endif  value="Pain"></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" value="Pins and needles"  @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Pins and needles") checked @endif @endforeach @endif ></td>
+                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox" @if (isset($opms)) @foreach (json_decode($opms->hand_fingers) as $hand_fingers) @if ($hand_fingers == "Numbness") checked @endif @endforeach @endif  value="Numbness"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
+                                                        <br>
+                                                        <small>Date:{{$opmscomment->date}}</small>
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                
                                             </td>
-
-
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem" value="Ache"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $hand_fingers) @if ($hand_fingers->result == "Ache" && $hand_fingers->catname == "hand_fingers") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-
-
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]"  value="Pain" class="custom-checkbox hand_fingersItem"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $hand_fingers) @if ($hand_fingers->result == "Pain" && $hand_fingers->catname == "hand_fingers") checked @endif @endforeach
-                                                @endif>
-                                            </td>
-
-
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem" value="Pins and needles"  
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $hand_fingers) @if ($hand_fingers->result == "Pins and needles" && $hand_fingers->catname == "hand_fingers") checked @endif @endforeach
-                                                @endif>
-                                            </td>
-
-
-                                            <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" value="Numbness" class="custom-checkbox hand_fingersItem" 
-                                                @if (isset($healthans)) 
-                                                    @foreach ($healthans as $hand_fingers) @if ($hand_fingers->result == "Numbness" && $hand_fingers->catname == "hand_fingers") checked @endif @endforeach
-                                                @endif >
-                                            </td>
-
                                         </tr>
 
+                                        @if (isset($opms)) 
+                                        @php
+                                            $hand_fingershasIssue = 0;
+                                        @endphp
+                                        @foreach (json_decode($opms->hand_fingers) as $key => $hand_fingers)
+                                         {{-- Check if any value exists without "None" --}}
+                                             @php
+                                                 if ($hand_fingers !== "None") {
+                                                    $hand_fingershasIssue = 1;
+                                                    break;
+                                                }
+                                             @endphp 
+                                        @endforeach 
+                                        @endif
+
                                         
+                                        @if ($hand_fingershasIssue > 0)
                                         
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                <div class="cmntermsg"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commenthand_fingers" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="hand_fingers" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        
+                                        @endif
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">

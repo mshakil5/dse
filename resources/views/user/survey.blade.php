@@ -550,22 +550,6 @@
                                                 </td>
                                             </tr>
     
-                                            @if (isset($opms->assesmentHealthComment))
-                                            <tr>
-                                                <td style="text-align: left" colspan="6">
-                                                    @foreach ($opms->assesmentHealthComment->where('question', 'upperback') as $opmscomment)
-                                                    <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                                            <br>
-                                                            <small>Date:{{$opmscomment->date}}</small>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                    
-                                                </td>
-                                            </tr>
-                                            @endif
                                             
                                             <tr>
                                                 <td style="text-align: left">Neck</td>
@@ -597,22 +581,7 @@
                                                 </td>
                                             </tr>
     
-                                            @if (isset($opms->assesmentHealthComment))
-                                            <tr>
-                                                <td style="text-align: left" colspan="6">
-                                                    @foreach ($opms->assesmentHealthComment->where('question', 'neck') as $opmscomment)
-                                                    <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                                            <br>
-                                                            <small>Date:{{$opmscomment->date}}</small>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                    
-                                                </td>
-                                            </tr>
-                                            @endif
+                                            
                                             
                                             <tr>
                                                 <td style="text-align: left">Shoulders</td>
@@ -644,22 +613,6 @@
                                             </tr>
     
                                             
-                                            @if (isset($opms->assesmentHealthComment))
-                                            <tr>
-                                                <td style="text-align: left" colspan="6">
-                                                    @foreach ($opms->assesmentHealthComment->where('question', 'shoulders') as $opmscomment)
-                                                    <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                                            <br>
-                                                            <small>Date:{{$opmscomment->date}}</small>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                    
-                                                </td>
-                                            </tr>
-                                            @endif
     
                                             <tr>
                                                 <td style="text-align: left">Arms</td>
@@ -692,23 +645,6 @@
                                                 </td>
                                             </tr>
     
-                                            @if (isset($opms->assesmentHealthComment))
-                                                
-                                            <tr>
-                                                <td style="text-align: left" colspan="6">
-                                                    @foreach ($opms->assesmentHealthComment->where('question', 'arms') as $opmscomment)
-                                                    <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
-                                                            <br>
-                                                            <small>Date:{{$opmscomment->date}}</small>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-                                                    
-                                                </td>
-                                            </tr>
-                                            @endif
     
                                             <tr>
                                                 <td style="text-align: left">Hand/fingers</td>
