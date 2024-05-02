@@ -716,22 +716,6 @@
                                                             @foreach ($healthans as $exercise) @if ($exercise->result == "No" && $exercise->catname == "exercise") checked @endif @endforeach
                                                         @endif required>No
                                                     </label>
-    
-                                                    @if (isset($opms))
-                                                        @if ($opms->exercise == "Yes")
-                                                            @foreach ($opms->assesmentHealthComment->where('question', 'exercise') as $opmscomment)
-                                                            <div class="row">
-                                                                <div class="col-lg-4"></div>
-                                                                <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
-                                                                    <br>
-                                                                    <small>Date:{{$opmscomment->date}}</small>
-                                                                </div>
-                                                            </div>
-                                                            @endforeach
-                                                        @endif
-                                                    @endif
-    
-    
                                                 </td>
                                             </tr>
     
@@ -750,20 +734,6 @@
                                                             @foreach ($healthans as $taught_exercise) @if ($taught_exercise->result == "No" && $taught_exercise->catname == "taught_exercise") checked @endif @endforeach
                                                         @endif  required> No
                                                     </label>
-    
-                                                    @if (isset($opms))
-                                                        @if ($opms->taught_exercise == "Yes")
-                                                            @foreach ($opms->assesmentHealthComment->where('question', 'taught_exercise') as $opmscomment)
-                                                            <div class="row">
-                                                                <div class="col-lg-4"></div>
-                                                                <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
-                                                                    <br>
-                                                                    <small>Date:{{$opmscomment->date}}</small>
-                                                                </div>
-                                                            </div>
-                                                            @endforeach
-                                                        @endif
-                                                    @endif
                                                 </td>
                                             </tr>
     
@@ -809,15 +779,6 @@
                                     
                                         <h6 class="mb-3">@foreach ($healthans as $newqn) @if ($newqn->result == "Yes" && $newqn->catname == "newqn") Question: {{$newqn->newquestion}} @endif @endforeach</h6>
 
-                                        {{-- @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
-                                        <div class="row">
-                                            <div class="col-lg-4"></div>
-                                            <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                                <br>
-                                                <small>Date:{{$opmscomment->date}}</small>
-                                            </div>
-                                        </div>
-                                        @endforeach --}}
                                     @else
                                     <div class="col-lg-12">
                                         <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>

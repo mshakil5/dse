@@ -530,44 +530,22 @@
                                         
                                         
 
+                                        
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3">Do you do any stretching exercises during the day to prevent muscular tension? </h6>
                                                 <label class="mx-2">
-                                                    <input type="radio" name="exercise" class="form-check-input me-1" value="Yes" @if(isset($opms)) @if ($opms->exercise == "Yes") checked @endif @endif  required>Yes
+                                                    <input type="radio" name="exercise" class="form-check-input me-1" value="Yes" 
+                                                    @if (isset($healthans)) 
+                                                        @foreach ($healthans as $exercise) @if ($exercise->result == "Yes" && $exercise->catname == "exercise") checked @endif @endforeach
+                                                    @endif required>Yes
                                                 </label>
                                                 <label class="mx-2">
-                                                    <input type="radio"  name="exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->exercise == "No") checked @endif @endif  required>No
+                                                    <input type="radio"  name="exercise" class="form-check-input me-1" value="No" 
+                                                    @if (isset($healthans)) 
+                                                        @foreach ($healthans as $exercise) @if ($exercise->result == "No" && $exercise->catname == "exercise") checked @endif @endforeach
+                                                    @endif required>No
                                                 </label>
-
-                                                @if ($opms->exercise == "Yes")
-                                                    @foreach ($opms->assesmentHealthComment->where('question', 'exercise') as $opmscomment)
-                                                    <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
-                                                            <br>
-                                                            <small>Date:{{$opmscomment->date}}</small>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-
-                                                    <div class="cmntermsg"></div>
-                                                    <div class="col-lg-12" id="replycmnt">
-                                                        <textarea id="commentexercise" class="form-control" placeholder="Comments Here"></textarea>
-                                                    </div>
-                                                    <div class="col-lg-12" id="replybtn">
-                                                        <div class="row py-3 ">
-                                                            <div class="col-lg-5 d-flex align-items-center">
-                                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="exercise" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                                </button>
-                                                            </div>
-                                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-
-
                                             </td>
                                         </tr>
 
@@ -575,41 +553,17 @@
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3"> Would you like to be taught some exercises? </h6>
                                                 <label  class="mx-2">
-                                                    <input type="radio" name="taught_exercise" class="form-check-input me-1" value="Yes" @if(isset($opms)) @if ($opms->taught_exercise == "Yes") checked @endif @endif  required>Yes
+                                                    <input type="radio" name="taught_exercise" class="form-check-input me-1" value="Yes"
+                                                    @if (isset($healthans)) 
+                                                        @foreach ($healthans as $taught_exercise) @if ($taught_exercise->result == "Yes" && $taught_exercise->catname == "taught_exercise") checked @endif @endforeach
+                                                    @endif required>Yes
                                                 </label>
-                                                <label  class="mx-2">
-                                                    <input  type="radio"  name="taught_exercise" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->taught_exercise == "No") checked @endif @endif  required>No
+                                                <label class="mx-2">
+                                                    <input  type="radio"  name="taught_exercise" class="form-check-input me-1" value="No" 
+                                                    @if (isset($healthans)) 
+                                                        @foreach ($healthans as $taught_exercise) @if ($taught_exercise->result == "No" && $taught_exercise->catname == "taught_exercise") checked @endif @endforeach
+                                                    @endif  required> No
                                                 </label>
-
-                                                @if ($opms->taught_exercise == "Yes")
-                                                    @foreach ($opms->assesmentHealthComment->where('question', 'taught_exercise') as $opmscomment)
-                                                    <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
-                                                            <br>
-                                                            <small>Date:{{$opmscomment->date}}</small>
-                                                        </div>
-                                                    </div>
-                                                    @endforeach
-
-                                                    <div class="cmntermsg"></div>
-                                                    <div class="col-lg-12" id="replycmnt">
-                                                        <textarea id="commenttaught_exercise" class="form-control" placeholder="Comments Here"></textarea>
-                                                    </div>
-                                                    <div class="col-lg-12" id="replybtn">
-                                                        <div class="row py-3 ">
-                                                            <div class="col-lg-5 d-flex align-items-center">
-                                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="taught_exercise" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                                </button>
-                                                            </div>
-                                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-
-
-
                                             </td>
                                         </tr>
 
@@ -620,70 +574,52 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row mt-2">
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                         <div class="row pt-5 px-4">
                             <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">Any other question?
+                                <h6 class="mb-3">Do you have any other concern or comments ?
                                 </h6>
                                 <label for="otherqnyes" class="mx-2">
                                     <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
-                                        value="Yes" @if(isset($opms)) @if ($opms->otherqn == "Yes") checked @endif @endif>Yes
+                                        value="Yes" 
+                                        @if (isset($healthans)) 
+                                            @foreach ($healthans as $otherqn) @if ($otherqn->result == "Yes" && $otherqn->catname == "otherqn") checked @endif @endforeach
+                                        @endif > Yes
                                 </label>
                                 <label for="otherqnno" class="mx-2">
-                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No" @if(isset($opms)) @if ($opms->otherqn == "No") checked @endif @endif>No
+                                    <input id="otherqnno" type="radio"  name="otherqn" class="form-check-input me-1" value="No"
+                                    @if (isset($healthans)) 
+                                            @foreach ($healthans as $otherqn) @if ($otherqn->result == "No" && $otherqn->catname == "otherqn") checked @endif @endforeach
+                                        @endif >No
                                 </label>
+
                             </div>
 
                             
-                            
-                            <div id="additionalqn" @if(isset($opms)) @if ($opms->otherqn == "No") style="display:none" @else style="display:show"  @endif @endif>
+
+                            <div id="additionalqn" @if (isset($healthans)) @foreach ($healthans as $otherqn) @if ($otherqn->result == "No" && $otherqn->catname == "otherqn") style="display:none" @endif @endforeach @endif>
                                 <div class="col-lg-12 mb-4">
-                                    @if(isset($opms)) 
-                                    <h6 class="mb-3">{{$opms->question}}</h6>
-                                
-                                    @foreach ($opms->assesmentHealthComment->where('question', 'question') as $opmscomment)
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}:</b> {{$opmscomment->comment}}
-                                            <br>
-                                            <small>Date:{{$opmscomment->date}}</small>
-                                        </div>
-                                    </div>
-                                    @endforeach
+                                    @if (isset($healthans)) 
+                                            
+                                    
+                                        <h6 class="mb-3">@foreach ($healthans as $newqn) @if ($newqn->result == "Yes" && $newqn->catname == "newqn") Question: {{$newqn->newquestion}} @endif @endforeach</h6>
 
-                                    <div class="cmntermsg"></div>
-                                    <div class="col-lg-12" id="replycmnt">
-                                        <textarea id="commentquestion" class="form-control" placeholder="Comments Here"></textarea>
+                                    @else
+                                    <div class="col-lg-12">
+                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
                                     </div>
-                                    <div class="col-lg-12" id="replybtn">
-                                        <div class="row py-3 ">
-                                            <div class="col-lg-5 d-flex align-items-center">
-                                                <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" opmsname="question" solved="0" codeid="{{$opms->id}}" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                </button>
-                                            </div>
-                                            <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     @endif
                                     
                                 </div>
                               </div>
-                            
-                              {{-- <div class="row">
-                                <div class="col-lg-4"></div>
-                                <div class="col-lg-8 p-2 alert alert-secondary   mb-3 rounded-3 text-dark">user side message</div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">line manager side message</div>
-                                <div class="col-lg-4"></div>
-                              </div> --}}
+
                               
                         </div>
                     </div>
                 </div>
+
                 {{-- additional assesment add  --}}
             </div>
         </div>
