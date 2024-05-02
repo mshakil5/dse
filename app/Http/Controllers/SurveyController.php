@@ -43,44 +43,27 @@ class SurveyController extends Controller
         $departments = Department::whereId($determiningans->department_id)->first();
         $chkassesmentanswer = AssesmentAnswer::whereUserId(Auth::user()->id)->count();
         
-            // dd($chkassesmentanswer);
-        // if ($chkassesmentanswer > 0) {
-        //     $questions = Question::with(['assesmentAnswers' => function($query) use ($programNumber) {
-        //         // Filter assessment answers by user_id
-        //         $query->where('program_number', $programNumber);
-        //         $query->where('user_id', auth()->id())->where('program_number', $programNumber)
-        //              ->with('assesmentAnswerComments'); // Eager load assessment answer comments
-        //     }])->get();
-
-        // } else {
-        //     // $questions = Question::with('subquestion')->get();
-        //     $questions = Question::with(['assesmentAnswers' => function($query) use ($programNumber) {
-        //         $query->where('program_number', $programNumber);
-        //     }])->get();
-        // }
 
         $categories = QnCategory::whereHas('question')->with(['question.assesmentAnswers' => function ($query) use ($programNumber) {
             $query->where('program_number', $programNumber)->with('assesmentAnswerComments');
         }])->get();
         // dd($categories);
 
-        // $category = QnCategory::with('question', function ($query) use ($programNumber) {
-        //     $query->where('program_number', $programNumber);
-        // })->with(['question' => function ($query) use ($programNumber){
-        //     $query->where('assesmentAnswers', function ($query) use ($programNumber) {
-        //         $query->where('program_number', $programNumber);
-        //     });
-        //     $query->with(['assesmentAnswers' => function ($query) use ($programNumber){
-        //         $query->where('program_number', $programNumber);
-        //     }]);
-        // }])->get();
 
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
+
+
         $opms = AssesmentHealthProblem::with('assesmentHealthComment')->whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
+
+        $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $programNumber)->whereNull('question_id')->get();
+        // dd($healthans);
+
+
+
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
-        return view('user.survey', compact('departments','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms','categories'));
+        return view('user.survey', compact('departments','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms','categories','healthans'));
 
     }
 

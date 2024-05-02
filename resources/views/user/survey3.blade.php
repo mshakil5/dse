@@ -464,43 +464,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            
-
-
                                             <tr>
                                                 <td style="text-align: left">Low back</td>
                                                 <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="None" id="lowbackNone" 
-                                                    @if (isset($healthans)) 
-                                                            @foreach ($healthans as $lowback) @if ($lowback->result == "None" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                    @endif>
-                                                </td>
-                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Ache" 
-                                                    @if (isset($healthans)) 
-                                                            @foreach ($healthans as $lowback) @if ($lowback->result == "Ache" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                    @endif >
-                                                </td>
-
-
-                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Pain" 
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $lowback) @if ($lowback->result == "Pain" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                    @endif >
-                                                </td>
-
-                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Pins and needles" 
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $lowback) @if ($lowback->result == "Pins and needles" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                    @endif >
-                                                </td>
-
-                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" value="Numbness" 
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $lowback) @if ($lowback->result == "Numbness" && $lowback->catname == "lowback") checked @endif @endforeach
-                                                    @endif >
-                                                </td>
+                                                    @if (isset($opms) && $opms->lowback != 'null') 
+                                                    
+                                                            @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "None") checked @endif @endforeach
+                                                            
+                                                    @endif></td>
+                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Ache") checked @endif @endforeach @endif value="Ache"></td>
+                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem" @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pain") checked @endif @endforeach @endif value="Pain" ></td>
+                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem"  @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Pins and needles") checked @endif @endforeach @endif value="Pins and needles" ></td>
+                                                <td style="text-align: center"> <input type="checkbox" name="lowback[]" class="custom-checkbox lowbackItem"  @if (isset($opms) && $opms->lowback != 'null') @foreach (json_decode($opms->lowback) as $lowback) @if ($lowback == "Numbness") checked @endif @endforeach @endif value="Numbness" ></td>
                                             </tr>
-                                            {{-- @if (isset($opms->assesmentHealthComment))
+                                            @if (isset($opms->assesmentHealthComment))
                                             <tr>
                                                 <td style="text-align: left" colspan="6">
                                                     @foreach ($opms->assesmentHealthComment->where('question', 'lowback') as $opmscomment)
@@ -515,39 +492,19 @@
                                                     
                                                 </td>
                                             </tr>
-                                            @endif --}}
+                                            @endif
                                             
                                             <tr>
                                                 <td style="text-align: left">Upper back</td>
-                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="None" class="custom-checkbox upperbackItem" id="upperbackNone"   
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $upperback) @if ($upperback->result == "None" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                    @endif >
-                                                </td>
+                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="None"   @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "None") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem" id="upperbackNone"></td>
     
-                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]" class="custom-checkbox upperbackItem" value="Ache" 
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $upperback) @if ($upperback->result == "Ache" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                    @endif >
-                                                </td>
+                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Ache" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Ache") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
     
-                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]"class="custom-checkbox upperbackItem" value="Pain" 
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $upperback) @if ($upperback->result == "Pain" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                    @endif >
-                                                </td>
+                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pain" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pain") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
     
-                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]"  class="custom-checkbox upperbackItem" value="Pins and needles" 
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $upperback) @if ($upperback->result == "Pins and needles" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                    @endif>
-                                                </td>
+                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Pins and needles" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Pins and needles") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
     
-                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]"  class="custom-checkbox upperbackItem" value="Numbness" 
-                                                    @if (isset($healthans)) 
-                                                        @foreach ($healthans as $upperback) @if ($upperback->result == "Numbness" && $upperback->catname == "upperback") checked @endif @endforeach
-                                                    @endif>
-                                                </td>
+                                                <td style="text-align: center"> <input type="checkbox" name="upperback[]" value="Numbness" @if (isset($opms) && $opms->upperback != 'null') @foreach (json_decode($opms->upperback) as $upperback) @if ($upperback == "Numbness") checked @endif @endforeach @endif  class="custom-checkbox upperbackItem"></td>
                                             </tr>
     
                                             @if (isset($opms->assesmentHealthComment))
@@ -565,6 +522,7 @@
                                                     
                                                 </td>
                                             </tr>
+                                                
                                             @endif
                                             
                                             <tr>
