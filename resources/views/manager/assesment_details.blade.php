@@ -527,6 +527,48 @@
 
                                         </tr>
 
+                                        {{-- manager and health comment  --}}
+                                        @if (isset($chkboxitemNone) && $chkboxitemNone > 0)
+                                            
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @if (isset($otheranscmmnts))
+                                                <div class="row"> 
+                                                    @foreach ($otheranscmmnts as $heathcmt)
+                                                    @if ($heathcmt->catname == "checkitem")
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                        <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                        
+                                                        <small>Date:{{$heathcmt->date}}</small>
+                                                    </div>  
+                                                    @endif
+                                                    @endforeach
+                                                    
+                                                </div>
+                                                @endif
+                                                
+                                                <div id="replycheckitem"></div>
+                                                
+                                                <div class="cmntermsgcheckitem"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentcheckitem" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="checkitem" opmsname="question" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        {{-- manager and health comment end --}}
+
                                         
                                         
 
@@ -549,6 +591,47 @@
                                             </td>
                                         </tr>
 
+                                        {{-- cmmnt start  --}}
+                                        {{-- manager and health comment  --}}
+                                        @if (isset($exerciseAns) && $exerciseAns > 0)
+                                            
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @if (isset($otheranscmmnts))
+                                                <div class="row"> 
+                                                    @foreach ($otheranscmmnts as $heathcmt)
+                                                    @if ($heathcmt->catname == "exercise")
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                        <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                        <small>Date:{{$heathcmt->date}}</small>
+                                                    </div>  
+                                                    @endif
+                                                    @endforeach
+                                                </div>
+                                                @endif
+                                                
+                                                <div id="replyexercise"></div>
+                                                
+                                                <div class="cmntermsgexercise"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentexercise" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="exercise" opmsname="question" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        {{-- cmmnt end  --}}
+
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3"> Would you like to be taught some exercises? </h6>
@@ -566,6 +649,47 @@
                                                 </label>
                                             </td>
                                         </tr>
+
+                                        {{-- cmmnt start  --}}
+                                        {{-- manager and health comment  --}}
+                                        @if (isset($texerciseAns) && $texerciseAns > 0)
+                                            
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @if (isset($otheranscmmnts))
+                                                <div class="row"> 
+                                                    @foreach ($otheranscmmnts as $heathcmt)
+                                                    @if ($heathcmt->catname == "taught_exercise")
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                        <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                        <small>Date:{{$heathcmt->date}}</small>
+                                                    </div>  
+                                                    @endif
+                                                    @endforeach
+                                                </div>
+                                                @endif
+                                                
+                                                <div id="replytaught_exercise"></div>
+                                                
+                                                <div class="cmntermsgtaught_exercise"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commenttaught_exercise" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="taught_exercise" opmsname="question" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        {{-- cmmnt end  --}}
 
 
                                     </tbody>
@@ -805,7 +929,7 @@ function backToTop() {
                     setTimeout(function(){ $(".cmntermsg"+assans_id).html(''); }, 3000); 
                 }else if(d.status == 300){
                     var newcmnt = $("#reply"+assans_id);
-                    newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
+                    newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark"><b>Manager: </b>'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
                     $("#comment"+assans_id).val('');
                     if (solved == 1) {
                         $("#replycmnt"+assans_id).html('');
@@ -821,16 +945,16 @@ function backToTop() {
     $("body").delegate(".addOpmsComment","click",function () {
         var opmsurl = "{{URL::to('/manager/health-suggestion')}}";
 
-        var opmsname = $(this).attr('opmsname');
+        var catname = $(this).attr('catname');
         var user = $("#user_id").val();
         var solved = $(this).attr('solved');
         var codeid = $(this).attr('codeid');
         var prgmnumber = $(this).attr('prgmnumber');
-        var comment = $("#comment"+opmsname).val();
+        var comment = $("#comment"+catname).val();
         
-        console.log(opmsname, user, solved, comment, prgmnumber);
+        console.log(user, solved, comment, prgmnumber);
         var form_data = new FormData();		
-        form_data.append("opmsname", opmsname);
+        form_data.append("catname", catname);
         form_data.append("user_id", user);
         form_data.append("comment", comment);
         form_data.append("solved", solved);
@@ -847,16 +971,15 @@ function backToTop() {
             success: function(d){
 
                 if (d.status == 303) {
-                    $(".cmntermsg"+opmsname).html(d.message);
+                    $(".cmntermsg"+catname).html(d.message);
                 }else if(d.status == 300){
-                    var newcmnt = $("#reply"+opmsname);
+                    var newcmnt = $("#reply"+catname);
                     newcmnt.append('<div class="col-lg-4"></div><div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">'+comment+'<br><small>Date: '+d.date+'</small></div>'); 
-                    $("#comment"+opmsname).val('');
+                    $("#comment"+catname).val('');
                     if (solved == 1) {
-                        $("#replycmnt"+opmsname).html('');
-                        $("#replybtn"+opmsname).html('');
+                        $("#replycmnt"+catname).html('');
+                        $("#replybtn"+catname).html('');
                     }
-                    window.setTimeout(function(){location.reload()},2000)
                 }
             },
             error:function(d){
