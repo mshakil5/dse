@@ -755,8 +755,7 @@
                                 <h6 class="mb-3">Do you have any other concern or comments ?
                                 </h6>
                                 <label for="otherqnyes" class="mx-2">
-                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
-                                        value="Yes" 
+                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1" value="Yes" 
                                         @if (isset($healthans)) 
                                             @foreach ($healthans as $otherqn) @if ($otherqn->result == "Yes" && $otherqn->catname == "otherqn") checked @endif @endforeach
                                         @endif > Yes
@@ -772,18 +771,18 @@
 
                             
 
-                            <div id="additionalqn" @if (isset($healthans)) @foreach ($healthans as $otherqn) @if ($otherqn->result == "No" && $otherqn->catname == "otherqn") style="display:none" @endif @endforeach @endif>
+                            <div id="additionalqn" @if (isset($healthans)) @foreach ($healthans as $otherqn) @if ($otherqn->result == "No" && $otherqn->catname == "newqn") style="display:none" @endif @endforeach @endif>
                                 <div class="col-lg-12 mb-4">
                                     @if (isset($healthans)) 
                                             
                                     
                                         <h6 class="mb-3">@foreach ($healthans as $newqn) @if ($newqn->result == "Yes" && $newqn->catname == "newqn") Question: {{$newqn->newquestion}} @endif @endforeach</h6>
 
-                                    @else
+                                    
+                                    @endif
                                     <div class="col-lg-12">
                                         <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
                                     </div>
-                                    @endif
                                     
                                 </div>
                               </div>

@@ -730,10 +730,48 @@
                                     
                                         <h6 class="mb-3">@foreach ($healthans as $newqn) @if ($newqn->result == "Yes" && $newqn->catname == "newqn") Question: {{$newqn->newquestion}} @endif @endforeach</h6>
 
-                                    @else
-                                    <div class="col-lg-12">
-                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
-                                    </div>
+
+                                        {{-- manager and health comment  --}}
+                                        @if (isset($otherqnAns) && $otherqnAns > 0)
+                                            
+                                        <tr>
+                                            <td style="text-align: left" colspan="6">
+                                                @if (isset($otheranscmmnts))
+                                                <div class="row"> 
+                                                    @foreach ($otheranscmmnts as $heathcmt)
+                                                    @if ($heathcmt->catname == "newqn")
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                        <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                        <small>Date:{{$heathcmt->date}}</small>
+                                                    </div>  
+                                                    @endif
+                                                    @endforeach
+                                                </div>
+                                                @endif
+                                                
+                                                <div id="replynewqn"></div>
+                                                
+                                                <div class="cmntermsgnewqn"></div>
+                                                <div class="col-lg-12" id="replycmnt">
+                                                    <textarea id="commentnewqn" class="form-control" placeholder="Comments Here"></textarea>
+                                                </div>
+                                                <div class="col-lg-12" id="replybtn">
+                                                    <div class="row py-3 ">
+                                                        <div class="col-lg-5 d-flex align-items-center">
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="newqn" opmsname="question" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endif
+                                        {{-- cmmnt end  --}}
+
+                                        
                                     @endif
                                     
                                 </div>

@@ -600,7 +600,7 @@ class AssesmentController extends Controller
         
         $exerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['exercise'])->where('answer','!=', 'No')->count();
         $texerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['taught_exercise'])->where('answer','!=', 'No')->count();
-        $exerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['exercise', 'taught_exercise', 'otherqn'])->where('answer','!=', 'No')->count();
+        $otherqnAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
 
         // dd($chkboxitemNone);
         $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($id) {
@@ -615,7 +615,7 @@ class AssesmentController extends Controller
         // dd($opms);
         $pnumber = $id;
         $catid = '0';
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','healthans','otheranscmmnts','chkboxitemNone','exerciseAns','texerciseAns'));
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','healthans','otheranscmmnts','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns'));
     }
 
     public function showAssessmentUserDetailsbyCategory(Request $request, $uid, $cat_id)
