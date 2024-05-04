@@ -454,8 +454,6 @@
                                             </td>
                                         </tr>
 
-
-                                        
                                         <tr>
                                             <td style="text-align: left">Arms</td>
                                             <td style="text-align: center"> <input type="checkbox" name="arms[]" class="custom-checkbox armsItem" value="None" id="armsNone"
@@ -487,8 +485,6 @@
                                             </td>
                                         </tr>
 
-                                        
-                                        
                                         <tr>
                                             <td style="text-align: left">Hand/fingers</td>
                                             <td style="text-align: center"> <input type="checkbox" name="hand_fingers[]" class="custom-checkbox hand_fingersItem"  value="None" id="hand_fingersNone"  
@@ -529,7 +525,6 @@
 
                                         {{-- manager and health comment  --}}
                                         @if (isset($chkboxitemNone) && $chkboxitemNone > 0)
-                                            
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 @if (isset($otheranscmmnts))
@@ -569,8 +564,6 @@
                                         @endif
                                         {{-- manager and health comment end --}}
 
-                                        
-                                        
 
                                         
                                         <tr>

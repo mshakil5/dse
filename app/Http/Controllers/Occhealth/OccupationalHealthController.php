@@ -55,11 +55,9 @@ class OccupationalHealthController extends Controller
 
     public function showAssessmentUserDetails(Request $request, $id)
     {
-
-        
         $assesment = Assesment::where('program_number', $id)->first();
         $data = WorkStationAssesment::where('program_number', $id)->first();
-        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->get();
+        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->whereNotNull('qn_category_id')->where('program_number', $id)->get();
         
         $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($id) {
                     $query->where('answer', 'No')->where('solved','0')->where('program_number', $id);
@@ -67,10 +65,18 @@ class OccupationalHealthController extends Controller
                         
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
-        $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $id)->first();
+        
+
+        $chkboxitemNone = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['lowback', 'upperback', 'shoulders', 'arms', 'hand_fingers', 'neck'])->where('result','!=', 'None')->count();
+        $exerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['exercise'])->where('answer','!=', 'No')->count();
+        $texerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['taught_exercise'])->where('answer','!=', 'No')->count();
+        $otherqnAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
+        $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->whereNull('question_id')->get();
+        $otheranscmmnts = AssesmentAnswerComment::where('program_number', $id)->whereNull('assesment_answer_id')->get();
+        
         $pnumber = $id;
         $catid = '0';
-        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
+        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','healthans','otheranscmmnts','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns'));
     }
 
     public function showAssessmentUserDetailsbyCategory(Request $request, $uid, $cat_id)
@@ -86,10 +92,20 @@ class OccupationalHealthController extends Controller
         // dd($questionCategories);
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
-        $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $uid)->first();
+        
+        
+        $chkboxitemNone = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['lowback', 'upperback', 'shoulders', 'arms', 'hand_fingers', 'neck'])->where('result','!=', 'None')->count();
+        $exerciseAns = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['exercise'])->where('answer','!=', 'No')->count();
+        $texerciseAns = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['taught_exercise'])->where('answer','!=', 'No')->count();
+        $otherqnAns = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
+        $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $uid)->whereNull('question_id')->get();
+        $otheranscmmnts = AssesmentAnswerComment::where('program_number', $uid)->whereNull('assesment_answer_id')->get();
+
+
+
         $pnumber = $uid;
         $catid = $cat_id;
-        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','opms'));
+        return view('expert.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','healthans','otheranscmmnts','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns'));
     }
 
     public function addRating(Request $request)
@@ -253,16 +269,14 @@ class OccupationalHealthController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
-
-        $data = new AssesmentHealthComment();
+        $data = new AssesmentAnswerComment();
         $data->date = date('Y-m-d');
         $data->occupational_health_id = Auth::user()->id;
         $data->comment = $request->comment;
-        $data->name = $request->name;
-        $data->question = $request->opmsname;
+        $data->catname = $request->catname;
         $data->user_id = $request->user_id;
+        $data->name = $request->name;
         $data->program_number = $request->prgmnumber;
-        $data->assesment_health_problem_id = $request->codeid;
         $data->created_by = "Health";
         if ($data->save()) {
             

@@ -595,9 +595,9 @@ class AssesmentController extends Controller
         $assesment = Assesment::where('program_number', $id)->first();
         $data = WorkStationAssesment::where('program_number', $id)->first();
         $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->whereNotNull('qn_category_id')->where('program_number', $id)->get();
-        $chkboxitemNone = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['lowback', 'upperback', 'shoulders', 'arms', 'hand_fingers', 'neck'])->where('result','!=', 'None')->count();
 
-        
+
+        $chkboxitemNone = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['lowback', 'upperback', 'shoulders', 'arms', 'hand_fingers', 'neck'])->where('result','!=', 'None')->count();
         $exerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['exercise'])->where('answer','!=', 'No')->count();
         $texerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['taught_exercise'])->where('answer','!=', 'No')->count();
         $otherqnAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
@@ -622,7 +622,7 @@ class AssesmentController extends Controller
     {
         $assesment = Assesment::where('program_number', $uid)->first();
         $data = WorkStationAssesment::where('program_number', $uid)->first();
-        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $uid)->where('qn_category_id', $cat_id)->get();
+        $assesmentanswers = AssesmentAnswer::with('assesmentAnswerComments')->whereNotNull('qn_category_id')->where('program_number', $uid)->where('qn_category_id', $cat_id)->get();
 
         $questionCategories = QnCategory::withCount(['assesmentAnswers as no_count' => function ($query) use ($uid)  {
                             $query->where('answer', 'No')->where('solved','0')->where('program_number', $uid);
@@ -632,10 +632,17 @@ class AssesmentController extends Controller
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
         $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $uid)->whereNull('question_id')->get();
-        $otheranscmmnts = AssesmentHealthComment::where('program_number', $uid)->whereNull('assesment_answer_id')->get();
+        $otheranscmmnts = AssesmentAnswerComment::where('program_number', $uid)->whereNull('assesment_answer_id')->get();
+
+        $chkboxitemNone = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['lowback', 'upperback', 'shoulders', 'arms', 'hand_fingers', 'neck'])->where('result','!=', 'None')->count();
+        $exerciseAns = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['exercise'])->where('answer','!=', 'No')->count();
+        $texerciseAns = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['taught_exercise'])->where('answer','!=', 'No')->count();
+        $otherqnAns = AssesmentAnswer::where('program_number', $uid)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
+
+
         $pnumber = $uid;
         $catid = $cat_id;
-        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','healthans','otheranscmmnts'));
+        return view('manager.assesment_details', compact('assesment','user','department','data','questionCategories','assesmentanswers','pnumber','catid','healthans','otheranscmmnts','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns'));
     }
 
     
