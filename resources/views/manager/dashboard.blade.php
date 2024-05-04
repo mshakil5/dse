@@ -123,6 +123,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Surname</th>
                     <th scope="col">Count</th>
+                    <th scope="col">Health</th>
                     <th scope="col">Rating</th>
                     <th scope="col">Location</th>
                     <th scope="col" class="text-center">Action</th>
@@ -135,7 +136,9 @@
                    
                   @php
                   $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
-                  $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->where('solved', 0)->count();
+                  $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNotNull('qn_category_id')->where('answer', 'No')->where('solved', 0)->count();
+                
+                  $healthcount = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNull('qn_category_id')->where('answer', 'Yes')->where('solved', 0)->count();
                   @endphp
 
 
@@ -147,6 +150,9 @@
                       <td>{{$data->user->surname}}</td>
                       <td>
                           <span class="badge text-bg-warning">{{$count}}</span>
+                      </td>
+                      <td>
+                          <span class="badge text-bg-warning">{{$healthcount}}</span>
                       </td>
                       <td><span class="badge text-bg-warning">{{$chkSchedule->risk_rating_point}}</span></td>
                       
@@ -192,6 +198,7 @@
                       <th scope="col">Name</th>
                       <th scope="col">Surname</th>
                       <th scope="col">Count</th>
+                      <th scope="col">Health</th>
                       <th scope="col">Rating</th>
                       <th scope="col">Location</th>
                       <th scope="col" class="text-center">Action</th>
@@ -203,7 +210,10 @@
                 
                 @php
                 $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
-                $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->where('answer', 'No')->where('solved', 0)->count();
+                $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNotNull('qn_category_id')->where('answer', 'No')->where('solved', 0)->count();
+                
+                $healthcount = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNull('qn_category_id')->where('answer', 'Yes')->where('solved', 0)->count();
+
                 @endphp
 
 
@@ -215,6 +225,9 @@
                     <td>{{$data->user->surname}}</td>
                     <td>
                         <span class="badge text-bg-warning">{{$count}}</span>
+                    </td>
+                    <td>
+                        <span class="badge text-bg-warning">{{$healthcount}}</span>
                     </td>
                     <td><span class="badge text-bg-warning">{{$chkSchedule->risk_rating_point}}</span></td>
                     
