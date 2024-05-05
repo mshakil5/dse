@@ -157,7 +157,7 @@
                       <td>{{$data->assign_account}}</td>
                       <td>
                           <div class="d-flex gap-2 align-items-center justify-content-center">
-                              <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
+                              <a href="{{ route('expert.determiniganswer', $data->id) }}">
                                   <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
                               </a>
                           </div>
@@ -232,7 +232,7 @@
                     <td>{{$data->assign_account}}</td>
                     <td>
                         <div class="d-flex gap-2 align-items-center justify-content-center">
-                            <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
+                            <a href="{{ route('expert.determiniganswer', $data->id) }}">
                                 <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
                             </a>
                         </div>

@@ -117,7 +117,11 @@ class HomeController extends Controller
 
         $program_number = AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
         if (isset($program_number)) {
-            $anscount = AssesmentAnswer::where('program_number', $program_number->program_number)->count();
+            $generalanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNull('question_id')->count();
+            $healthanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNotNull('question_id')->count();
+            $healthanscount = 
+            $anscount = $generalanscount + $healthanscount;
+            // dd($healthanscount);
         } else {
             $anscount = 0;
         }
