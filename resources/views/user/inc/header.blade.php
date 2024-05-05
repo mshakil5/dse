@@ -105,10 +105,10 @@
         </div>
         <div class="row">
             <div class="col-lg-6 pt-2 bg-light">
-                <h3>Display Screen Equipment</h3>
+                <h3>Display Screen Equipment Assessment</h3>
             </div>
             <div class="col-lg-6 pt-2 bg-light text-end">
-                <h3>DSC - {{Auth::user()->name}}</h3>
+                
             </div>
 
         </div>
