@@ -844,8 +844,13 @@
                     </div>
         
                     <div class="dropdown">
-                        <label for="comment">Review Box</label>
-                        <textarea name="comment" id="comment" class="form-control" cols="30" rows="3"></textarea>
+                        <label for="comment">General Review Box</label>
+                        <textarea name="comment" id="comment" class="form-control" cols="30" rows="2"></textarea>
+                    </div>
+
+                    <div class="dropdown">
+                        <label for="health_comment">Cooupational Health Comment</label>
+                        <textarea name="health_comment" id="health_comment" class="form-control" cols="30" rows="2"></textarea>
                     </div>
             
                     <div class="dropdown">
@@ -1034,6 +1039,7 @@ function backToTop() {
         var prgmnumber = $(this).attr('prgmnumber');
         var user = $(this).attr('uid');
         var comment = $("#comment").val();
+        var health_comment = $("#health_comment").val();
         var date = $("#next_date").val();
         var risk_rating_point = $("#risk_rating_point").val();
         var initial_risk = $("#initial_risk").val();
@@ -1044,6 +1050,7 @@ function backToTop() {
         form_data.append("prgmnumber", prgmnumber);
         form_data.append("user_id", user);
         form_data.append("comment", comment);
+        form_data.append("health_comment", health_comment);
         form_data.append("date", date);
         form_data.append("risk_rating_point", risk_rating_point);
         form_data.append("initial_risk", initial_risk);

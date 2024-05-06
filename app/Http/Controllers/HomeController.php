@@ -117,24 +117,31 @@ class HomeController extends Controller
 
         $program_number = AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
         if (isset($program_number)) {
-            $generalanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNull('question_id')->count();
-            $healthanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNotNull('question_id')->count();
-            $healthanscount = 
-            $anscount = $generalanscount + $healthanscount;
-            // dd($healthanscount);
+            $generalanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNotNull('question_id')->count();
+            $healthanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNull('question_id')->count();
+            // Get the count of each distinct value in the catname column
+            $counts = AssesmentAnswer::whereIn('catname', ['lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers', 'exercise', 'taught_exercise', 'otherqn'])
+                    ->where('program_number', $program_number->program_number)
+                    ->groupBy('catname')
+                    ->selectRaw('catname, COUNT(*) as count')
+                    ->pluck('count', 'catname');
+            $numKeys = count($counts);
+            $anscount = $generalanscount + $numKeys;
         } else {
             $anscount = 0;
         }
+
+        $allAssesments = DeterminigAnswer::where('user_id',Auth::user()->id)->orderby('id', 'DESC')->get();
         
 
-        return view('user.dashboard', compact('assesment','dueRecords','program_number','anscount'));
+        return view('user.dashboard', compact('assesment','dueRecords','program_number','anscount','allAssesments'));
     }
 
     public function expertHome(Request $request): View
     {
 
         $dusers = DeterminigAnswer::where('occupational_health_id', Auth::user()->id)->where('status', 0)->get();
-        $newAssesments = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->get();
+        $newAssesments = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->whereNull('complined')->orderby('id', 'DESC')->where('assign_account','Health')->get();
 
         $uid = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->pluck('user_id');
         // dd($uid);

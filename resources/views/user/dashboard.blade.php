@@ -3,6 +3,7 @@
 
 @php
     $danswer = \App\Models\DeterminigAnswer::where('user_notification', 1)->first();
+    $nxtassesmentdate = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->first();
     $qncount = \App\Models\Question::count();
 @endphp
 <section class="header-main py-5">
@@ -79,135 +80,203 @@
 
 
           
-      <div class="row mt-4">
-        <div class="col-lg-6">
-          
-            <div class="row g-2">
-              <div class="col-lg-12 ">
-                <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
-
-                    <div class="col-lg-8">
-                        <p class="mb-0 text-light">1. Your Self-Assessment status </p>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                        Complaint
-                        {{-- None Complaint --}}
-                      </div>
-                    </div>
-                  
-                  
-                </div>
-              </div>
-              <div class="col-lg-12 ">
-                <a href="{{route('user.determinigQn')}}" style="text-decoration: none">
-                  <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
-
-
-                    <div class="col-lg-8">
-                      <p class="mb-0 text-light">2. Outstanding action </p>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                        {{$qncount - $anscount}}
-                      </div>
-                    </div>
-
-                  </div>
-                </a> 
-              </div>
-
-              {{-- <div class="col-lg-12 ">
-                <div class="card bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
-                  <p class="mb-0 text-light">3. Your Self-Assessment </p>
-                  <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
-                  </div> 
-                </div>
-              </div> --}}
-
+          <div class="row mt-4">
+            <div class="col-lg-6">
               
-              
-              <div class="col-lg-12 ">
-                <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
-                  
-                  <div class="col-lg-8">
-                    <p class="mb-0 text-light">3. Next assesent due date </p>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                <div class="row g-2">
+                  <div class="col-lg-12 ">
+                    <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
+
+                        <div class="col-lg-8">
+                            <p class="mb-0 text-light">1. Your Self-Assessment status </p>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                            Complaint
+                            {{-- None Complaint --}}
+                          </div>
+                        </div>
+                      
                       
                     </div>
                   </div>
+                  <div class="col-lg-12 ">
+                    <a href="{{route('user.determinigQn')}}" style="text-decoration: none">
+                      <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                        <div class="col-lg-8">
+                          <p class="mb-0 text-light">2. Outstanding action </p>
+                        </div>
+                        <div class="col-lg-4">
+                          <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                            {{$qncount + 9 - $anscount}}
+                          </div>
+                        </div>
 
-                </div> 
-              </div>
-
-
-              <div class="col-lg-12 ">
-                <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
-
-                <div class="col-lg-8">
-                  <p class="mb-0 text-light">4. Support request </p>
-                </div>
-                <div class="col-lg-4">
-                  <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                    <div class="dropdown">
-                      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">Occupational Health </a></li>
-                          <li><a class="dropdown-item" href="#">Health & Safety  </a></li>
-                          <li><a class="dropdown-item" href="#">Self Refferal Form  </a></li>
-                          <li><a class="dropdown-item" href="#">Eye Test Voucher  </a></li>
-                        </ul>
-                    </div>
+                      </div>
+                    </a> 
                   </div>
-                </div>
 
-
-              </div>
-              </div>
-
-
-              <div class="col-lg-12">
-                <div class="card  bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
-
-                  <div class="col-lg-8">
-                    <p class="mb-0 text-light">5. Archived Assesment</p>
-                  </div>
-                  {{-- <div class="col-lg-4">
-                    <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                      
+                  {{-- <div class="col-lg-12 ">
+                    <div class="card bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
+                      <p class="mb-0 text-light">3. Your Self-Assessment </p>
+                      <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
+                      </div> 
                     </div>
                   </div> --}}
 
+                  
+                  
+                  <div class="col-lg-12 ">
+                    <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                      
+                      <div class="col-lg-8">
+                        <p class="mb-0 text-light">3. Next assesent due date </p>
+                      </div>
+                      <div class="col-lg-4">
+                        @if (isset($nxtassesmentdate->end_date))
+                          <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                              {{$nxtassesmentdate->end_date}}
+                          </div>
+                        @endif
+                        
 
+                      </div>
+
+                    </div> 
+                  </div>
+
+
+                  <div class="col-lg-12 ">
+                    <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
+
+                    <div class="col-lg-8">
+                      <p class="mb-0 text-light">4. Support request </p>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                        <div class="dropdown">
+                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                              <li><a class="dropdown-item" href="#">Occupational Health </a></li>
+                              <li><a class="dropdown-item" href="#">Health & Safety  </a></li>
+                              <li><a class="dropdown-item" href="#">Self Refferal Form  </a></li>
+                              <li><a class="dropdown-item" href="#">Eye Test Voucher  </a></li>
+                            </ul>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                  </div>
+
+
+                  {{-- <div class="col-lg-12">
+                    <div class="card  bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
+                      <div class="col-lg-8">
+                        <p class="mb-0 text-light">5. Archived Assesment</p>
+                      </div>
+                    </div>
+                  </div> --}}
+
+                  
                 </div>
-              </div>
 
+            </div>
+            
+
+            
+            {{-- <div class="col-lg-3 text-center">
               
+                <div class="row g-2">
+                </div>
+
+            </div> --}}
+
+            <div class="col-lg-6 text-center">
+                <div class="card border p-4">
+                  <input type="hidden" id="outstanding" value="{{$qncount + 9 - $anscount}}">
+                  <input type="hidden" id="complete" value="{{$anscount}}">
+                  <!-- Pie Chart -->
+                  <div id="pieChart"></div>
+                </div>
             </div>
 
         </div>
-        
 
-        
-        {{-- <div class="col-lg-3 text-center">
-          
-            <div class="row g-2">
+        <div class="row mt-4"> 
+          <div class="col-lg-12">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title mt-3 text-center">Archived Assesment</h5>
+                <hr>
+    
+                <!-- Default Table -->
+                
+                <table class="table table-striped table-dark " id="exdatatable">
+                  <thead>
+                      <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Surname</th>
+                          <th scope="col">Count</th>
+                          <th scope="col">Health</th>
+                          <th scope="col">Rating</th>
+                          <th scope="col">Location</th>
+                          <th scope="col" class="text-center">Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+    
+                    @foreach ($allAssesments as $key => $data)
+                    
+                    @php
+                    $chkSchedule = \App\Models\AssesmentSchedule::where('program_number', $data->program_number)->first();
+                    $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNotNull('qn_category_id')->where('answer', 'No')->where('solved', 0)->count();
+                    
+                    $healthcount = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNull('qn_category_id')->where('answer', 'Yes')->where('solved', 0)->count();
+    
+                    @endphp
+    
+    
+                    <tr>
+                        <th scope="row">{{$key+1}}</th>
+                        <td>{{$data->date}}</td>
+                        <td>{{$data->user->email}}</td>
+                        <td>{{$data->user->name}}</td>
+                        <td>{{$data->user->surname}}</td>
+                        <td>
+                            <span class="badge text-bg-warning">{{$count}}</span>
+                        </td>
+                        <td>
+                            <span class="badge text-bg-warning">{{$healthcount}}</span>
+                        </td>
+                        <td><span class="badge text-bg-warning">{{$chkSchedule->risk_rating_point}}</span></td>
+                        
+                        <td>{{$data->assign_account}}</td>
+                        <td>
+                            {{-- <div class="d-flex gap-2 align-items-center justify-content-center">
+                                <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
+                                    <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>
+                                </a>
+                            </div> --}}
+    
+                            
+                        
+                        </td>
+                    </tr>
+                    @endforeach
+                      
+                  </tbody>
+              </table>
+                <!-- End Default Table Example -->
+              </div>
             </div>
-
-        </div> --}}
-
-        <div class="col-lg-6 text-center">
-            <div class="card border p-4">
-              <input type="hidden" id="outstanding" value="{{$qncount + 9 - $anscount}}">
-              <input type="hidden" id="complete" value="{{$anscount}}">
-              <!-- Pie Chart -->
-              <div id="pieChart"></div>
-            </div>
+          </div>
         </div>
-
-     </div>
+         
 
       </div>
   </div>
