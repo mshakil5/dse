@@ -47,6 +47,7 @@ Route::get('/switch-to-user', [FrontendController::class, 'switchToUser'])->name
 Route::get('/assesment-print/{id}', [AssesmentController::class, 'assesmentPrint'])->name('assesment.print');
 
 
+Route::get('/support-request', [FrontendController::class, 'supportRequest'])->name('supportRequest');
 
 /*------------------------------------------
 --------------------------------------------
