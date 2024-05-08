@@ -68,7 +68,7 @@ class OccupationalHealthController extends Controller
         
 
         $chkboxitemNone = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['lowback', 'upperback', 'shoulders', 'arms', 'hand_fingers', 'neck'])->where('result','!=', 'None')->count();
-        $exerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['exercise'])->where('answer','!=', 'No')->count();
+        $exerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['exercise'])->where('answer','!=', 'Yes')->count();
         $texerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['taught_exercise'])->where('answer','!=', 'No')->count();
         $otherqnAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
         $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->whereNull('question_id')->get();
@@ -279,6 +279,8 @@ class OccupationalHealthController extends Controller
         $data->program_number = $request->prgmnumber;
         $data->created_by = "Health";
         if ($data->save()) {
+
+            $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers'])->update(['solved'=>'1']);
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'date'=>$data->date]);

@@ -604,8 +604,8 @@
                                                 @endif
                                                 
                                                 <div id="replycheckitem"></div>
-                                                
                                                 <div class="cmntermsgcheckitem"></div>
+
                                                 <div class="col-lg-12" id="replycmnt">
                                                     <input type="text" name="health_namecheckitem" id="health_namecheckitem"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commentcheckitem" class="form-control" placeholder="Comments Here"></textarea>
@@ -613,7 +613,7 @@
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
                                                         <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="checkitem" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
+                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="checkitem" solved="1" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Send
                                                             </button>
                                                         </div>
                                                         <div class="col-lg-7 d-flex gap-3 justify-content-end">

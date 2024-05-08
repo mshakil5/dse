@@ -44,7 +44,8 @@
                         <div class="col-lg-4">
                             <a href="{{route('user.determinigQn')}}">
                                 <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                                    <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
+                                    {{-- <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt=""> --}}
+                                    <img src="{{ asset('assesment.jpg')}}"  class="img-responsive opacity-75">
                                     <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
                                         
                                         @if (isset($danswer))
@@ -58,7 +59,7 @@
                         </div>
                         <div class="col-lg-4">
                             <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                                <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
+                              <img src="{{ asset('assets/admin/img/training.png')}}"  class="img-responsive opacity-75">
                                 <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
                                     Training Module
                                 </div>
@@ -66,7 +67,8 @@
                         </div>
                         <div class="col-lg-4">
                             <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                                <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
+                              <img src="{{ asset('Policy.jpg')}}"  class="img-responsive opacity-75">
+
                                 <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
                                     Policy Document
                                 </div>
@@ -198,7 +200,7 @@
                   <input type="hidden" id="outstanding" value="{{$qncount + 9 - $anscount}}">
                   <input type="hidden" id="complete" value="{{$anscount}}">
                   <!-- Pie Chart -->
-                  <div id="pieChart"></div>
+                  <div id="pieChart" class="table-responsive"></div>
                 </div>
             </div>
 
@@ -212,7 +214,8 @@
                 <hr>
     
                 <!-- Default Table -->
-                
+                <div class="table-responsive">
+                  
                 <table class="table table-striped table-dark " id="exdatatable">
                   <thead>
                       <tr>
@@ -271,6 +274,8 @@
                       
                   </tbody>
               </table>
+                </div>
+                
                 <!-- End Default Table Example -->
               </div>
             </div>
@@ -302,10 +307,11 @@
           breakpoint: 480,
           options: {
             chart: {
-              width: 200
+              width: 900
             },
             legend: {
-              position: 'bottom'
+              position: 'bottom',
+              width: 900
             }
           }
         }]
