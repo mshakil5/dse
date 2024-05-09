@@ -183,14 +183,12 @@ class OccupationalHealthController extends Controller
 
         if ($request->prgm) {
             $schedule = AssesmentSchedule::where('program_number', $request->prgm)->first();
-            $schedule->line_manager_id = $request->line_manager_id;
             $schedule->assign_account = "Manager";
             $schedule->save();
         }
 
 
         $data = DeterminigAnswer::find($request->determiningAnswerId);
-        $data->line_manager_id = $request->line_manager_id;
         $data->assign_account = "Manager";
         $data->save();
 
@@ -199,7 +197,7 @@ class OccupationalHealthController extends Controller
             $logs = new AssesmentLog();
             $logs->date = date('Y-m-d');
             $logs->user_id = $request->uid;
-            $logs->line_manager_id = $request->line_manager_id;
+            $logs->line_manager_id = $data->line_manager_id;
             $logs->assesment_schedule_id = $schedule->id;
             $logs->occupational_health_id = Auth::user()->id;
             $logs->program_number = $request->prgm;

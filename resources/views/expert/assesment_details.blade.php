@@ -52,9 +52,8 @@
                             </div>
                             <div class="col-6 col-sm-6 col-lg-9 d-flex align-items-center justify-content-end">
                                 <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon>Show</button>
-                                <a type="button"  class="btn btn-secondary d-flex align-items-center m-2"  data-bs-toggle="modal" data-bs-target="#transferModal">
-                                    <iconify-icon class="text-primary" icon="bi:plus"></iconify-icon> Transfer
-                                </a>
+                                
+                                <button type="button" class="btn btn-secondary d-flex align-items-center m-2 transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon>  Transfer</button>
 
                                 @if (isset($chksts))
 
@@ -94,7 +93,7 @@
                                     @endif
 
 
-                                    <h2 class="text-success text-left ">Appendix 3</h2>
+                                    {{-- <h2 class="text-success text-left ">Appendix 3</h2> --}}
                                     <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h2>
                                         <p>
                                             You are asked to complete the enclosed form to assess that you are using your computer and workstation in the ‘optimum’ way, so that you suffer no ill-effects from your work.  Read the ‘things to consider’ column and assess yourself against the photographs.  Try to adjust your position or items of equipment.  Once you have completed your form, contact your manager to discuss your assessment who will complete the right hand column on the form and make additional notes for further action if this is required on the DSE Risk Assessment action plan.
@@ -851,30 +850,6 @@
 
 <!--Transfer  Modal -->
 <!-- Modal -->
-<div class="modal fade black-modal" id="transferModal" tabindex="-1" aria-labelledby="transferModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h1 class="modal-title fs-5" id="transferModalLabel">Assign to Line Manager</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="ermsgod"></div>
-                <select name="health_id" id="health_id{{$data->id}}" class="form-control">
-                    <option value="">Select</option>
-
-                    @foreach (\App\Models\User::where('is_type', '2')->get() as $expert)
-                    <option value="{{$expert->id}}">{{$expert->name}}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}">Assign</button>
-            </div>
-        </div>
-    </div>
-</div>
 <!--Transfer Modal -->
 <!-- Modal -->
 <div class="modal fade black-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -1119,14 +1094,13 @@
             var determiningAnswerId = $(this).attr("data-id");
             var uid = $(this).attr("uid");
             var prgm = $(this).attr("prgmnumber");
-            var line_manager_id = $("#health_id"+determiningAnswerId).val();
             
-            console.log(determiningAnswerId, uid, prgm, line_manager_id);
+            console.log(determiningAnswerId, uid, prgm);
 
             $.ajax({
                 url: expurl,
                 method: "POST",
-                data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm,line_manager_id:line_manager_id},
+                data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm},
                 success: function (d) {
                     if (d.status == 303) {
                         $(".ermsgod").html(d.message);

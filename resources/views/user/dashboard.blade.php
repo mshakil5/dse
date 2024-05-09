@@ -58,12 +58,14 @@
                             </a>
                         </div>
                         <div class="col-lg-4">
-                            <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                              <img src="{{ asset('assets/admin/img/training.png')}}"  class="img-responsive opacity-75">
-                                <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
-                                    Training Module
-                                </div>
-                            </label>
+                            <a href="https://youtu.be/liaBs1-Zz3I?si=S-2ONPb0u34GFWTs" target="blank">
+                              <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
+                                <img src="{{ asset('assets/admin/img/training.png')}}"  class="img-responsive opacity-75">
+                                  <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
+                                      Training Module
+                                  </div>
+                              </label>
+                            </a>
                         </div>
                         <div class="col-lg-4">
                             <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
@@ -159,8 +161,8 @@
                         <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="{{route('supportRequest')}}">Occupational Health </a></li>
                               <li><a class="dropdown-item" href="{{route('supportRequest')}}">Health & Safety  </a></li>
+                              <li><a class="dropdown-item" href="{{route('supportRequest')}}">Occupational Health </a></li>
                               <li><a class="dropdown-item" href="{{route('supportRequest')}}">Self Refferal Form  </a></li>
                               <li><a class="dropdown-item" href="{{route('supportRequest')}}">Eye Test Voucher  </a></li>
                             </ul>
@@ -245,7 +247,7 @@
     
     
                     <tr>
-                        <th scope="row">{{$key+1}}</th>
+                        <th scope="row">{{$data->program_number}}</th>
                         <td>{{$data->date}}</td>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>

@@ -329,7 +329,7 @@
                             <div class="col-lg-8 shadow-sm border rounded-0 bg-light">
                                 <div class="row pt-5 px-4">
                                     <div class="col-lg-12 mb-4">
-                                        <h6 class="mb-3">{{ $key + 1 }}. {{ $question->question }}</h6>
+                                        <h6 class="mb-3">{{ $question->question }}</h6>
                                         <div class="d-flex">
                                             <label for="yes" class="mx-4 fw-bold text-success">
                                                 YES <input type="radio" name="answers[{{ $question->id }}]" class="form-check-input" id="yes{{ $question->id }}" value="Yes" required="required" @if(isset($question->assesmentAnswers)) {{ $question->assesmentAnswers->answer == "Yes" ? 'checked' : '' }} @endif onclick="toggleFields(this)" data-qid="{{$question->id}}">
