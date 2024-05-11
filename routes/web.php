@@ -10,6 +10,7 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\LinemanagerController;
 use App\Http\Controllers\AssesmentController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SupportRequestController;
   
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +48,8 @@ Route::get('/switch-to-user', [FrontendController::class, 'switchToUser'])->name
 Route::get('/assesment-print/{id}', [AssesmentController::class, 'assesmentPrint'])->name('assesment.print');
 
 
-Route::get('/support-request', [FrontendController::class, 'supportRequest'])->name('supportRequest');
+Route::get('/support-request', [SupportRequestController::class, 'supportRequest'])->name('supportRequest');
+Route::post('/support-request', [SupportRequestController::class, 'supportRequestStore'])->name('supportRequestStore');
 
 /*------------------------------------------
 --------------------------------------------
