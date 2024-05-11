@@ -161,7 +161,7 @@
                         <div class="dropdown">
                           <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                              <li><a class="dropdown-item" href="{{route('supportRequest')}}">Health & Safety  </a></li>
+                              <li><a class="dropdown-item" href="{{route('supportRequestSafety')}}">Health & Safety  </a></li>
                               <li><a class="dropdown-item" href="{{route('supportRequest')}}">Occupational Health </a></li>
                               <li><a class="dropdown-item" href="{{route('supportRequest')}}">Self Refferal Form  </a></li>
                               <li><a class="dropdown-item" href="{{route('supportRequest')}}">Eye Test Voucher  </a></li>

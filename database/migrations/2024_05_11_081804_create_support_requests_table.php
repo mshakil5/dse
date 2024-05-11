@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('support_requests', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('employee_name')->nullable();
             $table->string('dob')->nullable();
             $table->string('address_first_line')->nullable();

@@ -55,7 +55,7 @@
                                 
                                     <div class="row mt-3">
                                         <div class="col-lg-12  mx-auto">
-                                            <input type="hidden" name="assign" value="ochealth"> 
+                                            <input type="hidden" name="assign" value="safety"> 
                                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}"> 
                                             <div class="row mb-2">
                                                 <div class="col-4">

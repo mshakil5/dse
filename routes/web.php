@@ -49,6 +49,7 @@ Route::get('/assesment-print/{id}', [AssesmentController::class, 'assesmentPrint
 
 
 Route::get('/support-request', [SupportRequestController::class, 'supportRequest'])->name('supportRequest');
+Route::get('/safety-support-request', [SupportRequestController::class, 'supportRequestSafety'])->name('supportRequestSafety');
 Route::post('/support-request', [SupportRequestController::class, 'supportRequestStore'])->name('supportRequestStore');
 
 /*------------------------------------------
