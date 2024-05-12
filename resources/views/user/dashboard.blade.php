@@ -68,6 +68,7 @@
                             </a>
                         </div>
                         <div class="col-lg-4">
+                          <a href="{{route('policyDocument')}}">
                             <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
                               <img src="{{ asset('Policy.jpg')}}"  class="img-responsive opacity-75">
 
@@ -75,6 +76,7 @@
                                     Policy Document
                                 </div>
                             </label>
+                          </a>
                         </div>
 
                     

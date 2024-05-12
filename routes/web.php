@@ -52,6 +52,10 @@ Route::get('/support-request', [SupportRequestController::class, 'supportRequest
 Route::get('/safety-support-request', [SupportRequestController::class, 'supportRequestSafety'])->name('supportRequestSafety');
 Route::post('/support-request', [SupportRequestController::class, 'supportRequestStore'])->name('supportRequestStore');
 
+
+
+Route::get('/policy-document', [SupportRequestController::class, 'policyDocument'])->name('policyDocument');
+
 /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List

@@ -20,14 +20,15 @@ class SupportRequestController extends Controller
     public function supportRequestStore(Request $request)
     {
 
-
-        // dd($request->all());
-
         $data = $request->all();
         // Create a new user record in the database
         $user = SupportRequest::create($data);
-
         return redirect('home');
-
     }
+
+    public function policyDocument()
+    {
+        return view('policyDocument');
+    }
+
 }
