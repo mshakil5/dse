@@ -212,7 +212,7 @@
           <div class="col-lg-12">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title mt-3 text-center">Archived Assesment</h5>
+                <h5 class="card-title mt-3 text-center">Self Assessment List</h5>
                 <hr>
     
                 <!-- Default Table -->

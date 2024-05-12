@@ -162,10 +162,23 @@ class HomeController extends Controller
                 ->orderby('id','DESC')
                 ->count();
 
+        if (isset($program_number)) {
+            $generalanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNotNull('question_id')->count();
+            $healthanscount = AssesmentAnswer::where('program_number', $program_number->program_number)->whereNull('question_id')->count();
+            // Get the count of each distinct value in the catname column
+            $counts = AssesmentAnswer::whereIn('catname', ['lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers', 'exercise', 'taught_exercise', 'otherqn'])
+                    ->where('program_number', $program_number->program_number)
+                    ->groupBy('catname')
+                    ->selectRaw('catname, COUNT(*) as count')
+                    ->pluck('count', 'catname');
+            $numKeys = count($counts);
+            $anscount = $generalanscount + $numKeys;
+        } else {
+            $anscount = 0;
+        }
 
 
-
-        return view('expert.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment'));
+        return view('expert.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment','anscount'));
         
     }
 

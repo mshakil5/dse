@@ -51,7 +51,7 @@
                                 </div>
                             </div>
                             <div class="col-6 col-sm-6 col-lg-9 d-flex align-items-center justify-content-end">
-                                <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon>Show</button>
+                                <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon>Full Assesment</button>
                                 
                                 <button type="button" class="btn btn-secondary d-flex align-items-center m-2 transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon>  Transfer</button>
 
@@ -214,7 +214,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row d-none" id="QnAnsDiv">
                     <div id="questions-container" class="col-lg-8 shadow-sm border rounded-0 bg-light">
                         
                         @php
@@ -654,14 +654,17 @@
                                                 @if (isset($otheranscmmnts))
                                                 <div class="row"> 
                                                     @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "exercise")
+                                                    @if ($heathcmt->catname == "checkitem")
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        <small>Date:{{$heathcmt->date}}</small>
+                                                        
+                                                        <small><b>Name</b>: {{$heathcmt->name}}</small><br>
+                                                        <small><b>Date</b>: {{$heathcmt->date}}</small>
                                                     </div>  
                                                     @endif
                                                     @endforeach
+                                                    
                                                 </div>
                                                 @endif
                                                 
@@ -669,6 +672,7 @@
                                                 
                                                 <div class="cmntermsgexercise"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    <input type="text" name="health_nameexercise" id="health_nameexercise"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commentexercise" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -713,14 +717,17 @@
                                                 @if (isset($otheranscmmnts))
                                                 <div class="row"> 
                                                     @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "taught_exercise")
+                                                    @if ($heathcmt->catname == "checkitem")
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        <small>Date:{{$heathcmt->date}}</small>
+                                                        
+                                                        <small><b>Name</b>: {{$heathcmt->name}}</small><br>
+                                                        <small><b>Date</b>: {{$heathcmt->date}}</small>
                                                     </div>  
                                                     @endif
                                                     @endforeach
+                                                    
                                                 </div>
                                                 @endif
                                                 
@@ -728,6 +735,7 @@
                                                 
                                                 <div class="cmntermsgtaught_exercise"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    <input type="text" name="health_nametaught_exercise" id="health_nametaught_exercise"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commenttaught_exercise" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -765,8 +773,7 @@
                                 <h6 class="mb-3">Do you have any other concern or comments ?
                                 </h6>
                                 <label for="otherqnyes" class="mx-2">
-                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"
-                                        value="Yes" 
+                                    <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1" value="Yes" 
                                         @if (isset($healthans)) 
                                             @foreach ($healthans as $otherqn) @if ($otherqn->result == "Yes" && $otherqn->catname == "otherqn") checked @endif @endforeach
                                         @endif > Yes
@@ -798,14 +805,17 @@
                                                 @if (isset($otheranscmmnts))
                                                 <div class="row"> 
                                                     @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "newqn")
+                                                    @if ($heathcmt->catname == "checkitem")
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        <small>Date:{{$heathcmt->date}}</small>
+                                                        
+                                                        <small><b>Name</b>: {{$heathcmt->name}}</small><br>
+                                                        <small><b>Date</b>: {{$heathcmt->date}}</small>
                                                     </div>  
                                                     @endif
                                                     @endforeach
+                                                    
                                                 </div>
                                                 @endif
                                                 
@@ -813,6 +823,7 @@
                                                 
                                                 <div class="cmntermsgnewqn"></div>
                                                 <div class="col-lg-12" id="replycmnt">
+                                                    <input type="text" name="health_namenewqn" id="health_namenewqn"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commentnewqn" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -957,6 +968,7 @@
         var comment = $("#comment"+assans_id).val();
         var name = $("#health_name"+assans_id).val();
         
+        console.log(assans_id,  user, solved, comment, name);
 
         var form_data = new FormData();		
         form_data.append("assans_id", assans_id);
@@ -1002,6 +1014,8 @@
         var name = $("#health_name"+catname).val();
         
         console.log(catname, user, solved, comment, prgmnumber);
+
+
         var form_data = new FormData();		
         form_data.append("catname", catname);
         form_data.append("user_id", user);
@@ -1119,6 +1133,7 @@
     $("#showWork").click(function() {
 
         $("#workAssesmentDiv").removeClass("d-none");
+        $("#QnAnsDiv").removeClass("d-none");
         $('#showWork').addClass("d-none");
 
     });

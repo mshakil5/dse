@@ -278,7 +278,7 @@ class OccupationalHealthController extends Controller
         $data->created_by = "Health";
         if ($data->save()) {
 
-            $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers'])->update(['solved'=>'1']);
+            $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['none','lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers','exercise','taught_exercise','otherqn'])->update(['solved'=>'1']);
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'date'=>$data->date]);

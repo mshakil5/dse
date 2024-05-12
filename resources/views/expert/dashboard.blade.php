@@ -1,6 +1,10 @@
 @extends('expert.layouts.health')
 @section('content')
 
+@php
+    // $danswer = \App\Models\DeterminigAnswer::where('user_notification', 1)->first();
+    $qncount = \App\Models\Question::count();
+@endphp
   
 <section class="header-main py-3">
   <div class="container ">
@@ -41,6 +45,8 @@
       </div>
       <div class="col-lg-6 text-center">
           <div class="card border p-4">
+            <input type="hidden" id="outstanding" value="{{$qncount + 9 - $anscount}}">
+            <input type="hidden" id="complete" value="{{$anscount}}">
             <!-- Pie Chart -->
             <div id="pieChart"></div>
           </div>
@@ -262,21 +268,31 @@
 
 @section('script')
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    new ApexCharts(document.querySelector("#pieChart"), {
-      series: [44, 55, 13, 43, 22],
-      chart: {
-        height: 350,
-        type: 'pie',
-        toolbar: {
-          show: true
-        }
-      },
-      labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E']
-    }).render();
-  });
-</script>
+  var outstanding = parseFloat($("#outstanding").val());
+  var complete = parseFloat($("#complete").val());
+  var options = {
+          series: [outstanding, complete],
+          chart: {
+            type: 'donut',
+          },
+          labels: ['Outstanding Answer','Complete Answer'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 900
+            },
+            legend: {
+              position: 'bottom',
+              width: 900
+            }
+          }
+        }]
+        };
 
+        var chart = new ApexCharts(document.querySelector("#pieChart"), options);
+        chart.render();
+</script>
 
 <script>
   $(document).ready(function () {
