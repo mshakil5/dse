@@ -58,7 +58,7 @@
                             </a>
                         </div>
                         <div class="col-lg-4">
-                            <a href="https://youtu.be/liaBs1-Zz3I?si=S-2ONPb0u34GFWTs" target="blank">
+                            <a href="{{route('trainingModule')}}">
                               <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
                                 <img src="{{ asset('assets/admin/img/training.png')}}"  class="img-responsive opacity-75">
                                   <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">

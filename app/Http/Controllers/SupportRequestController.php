@@ -31,4 +31,9 @@ class SupportRequestController extends Controller
         return view('policyDocument');
     }
 
+    public function trainingModule()
+    {
+        return view('trainingModule');
+    }
+
 }

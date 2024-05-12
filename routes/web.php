@@ -55,6 +55,7 @@ Route::post('/support-request', [SupportRequestController::class, 'supportReques
 
 
 Route::get('/policy-document', [SupportRequestController::class, 'policyDocument'])->name('policyDocument');
+Route::get('/training-module', [SupportRequestController::class, 'trainingModule'])->name('trainingModule');
 
 /*------------------------------------------
 --------------------------------------------
