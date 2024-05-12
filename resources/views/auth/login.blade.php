@@ -106,7 +106,7 @@
           </div>
 
         </div>
-        <div class="d-none d-lg-flex col-lg-4 right-login-bg position-relative d-flex align-items-center">
+        {{-- <div class="d-none d-lg-flex col-lg-4 right-login-bg position-relative d-flex align-items-center">
 
           <div class="card shadow-sm rounded-4 overflow-hidden">
             <img src="https://picsum.photos/seed/picsum/300/100" class="img-fluid" alt="">
@@ -127,7 +127,7 @@
             <a href="" class="text-white"><i class='bx bxl-instagram-alt'></i> </a>
             <a href="" class="text-white"><i class='bx bxl-reddit'></i></a>
           </div>
-        </div>
+        </div> --}}
       </div>
     </div>
 
