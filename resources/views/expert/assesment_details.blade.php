@@ -71,6 +71,8 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="ermsgod"></div>
                         
                         <div class="row @if (isset($data)) d-none @endif" id="workAssesmentDiv">
                             <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
@@ -654,7 +656,7 @@
                                                 @if (isset($otheranscmmnts))
                                                 <div class="row"> 
                                                     @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "checkitem")
+                                                    @if ($heathcmt->catname == "exercise")
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
@@ -717,7 +719,7 @@
                                                 @if (isset($otheranscmmnts))
                                                 <div class="row"> 
                                                     @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "checkitem")
+                                                    @if ($heathcmt->catname == "texercise")
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
@@ -805,7 +807,7 @@
                                                 @if (isset($otheranscmmnts))
                                                 <div class="row"> 
                                                     @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "checkitem")
+                                                    @if ($heathcmt->catname == "newqn")
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
@@ -1101,7 +1103,7 @@
     // comment store 
 
     var expurl = "{{URL::to('/expert/transfer-to-manager')}}";
-    var redurl = "{{URL::to('/expert/get-active-users')}}";
+    var redurl = "{{URL::to('/expert/dashboard')}}";
 
     $(".transferbtn").click(function(){
 
@@ -1116,6 +1118,7 @@
                 method: "POST",
                 data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm},
                 success: function (d) {
+                    console.log(d);
                     if (d.status == 303) {
                         $(".ermsgod").html(d.message);
                     }else if(d.status == 300){

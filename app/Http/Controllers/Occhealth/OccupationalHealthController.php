@@ -175,8 +175,16 @@ class OccupationalHealthController extends Controller
 
     public function transferToManager(Request $request)
     {
-        if(empty($request->line_manager_id)){
-            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select Line Manager Field.</b></div>";
+        // if(empty($request->line_manager_id)){
+        //     $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select Line Manager Field.</b></div>";
+        //     return response()->json(['status'=> 303,'message'=>$message]);
+        //     exit();
+        // }
+
+        $healthcount = \App\Models\AssesmentAnswer::where('program_number', $request->prgm)->whereNull('qn_category_id')->where('answer', 'Yes')->where('solved', 0)->count();
+
+        if($healthcount > 0){
+            $message ="<div class='alert alert-danger'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please reply all question before transfer to manager.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
@@ -186,9 +194,7 @@ class OccupationalHealthController extends Controller
             $schedule->assign_account = "Manager";
             $schedule->save();
         }
-
-
-        $data = DeterminigAnswer::find($request->determiningAnswerId);
+        $data = DeterminigAnswer::where('program_number', $request->prgm)->first();
         $data->assign_account = "Manager";
         $data->save();
 
@@ -201,7 +207,6 @@ class OccupationalHealthController extends Controller
             $logs->assesment_schedule_id = $schedule->id;
             $logs->occupational_health_id = Auth::user()->id;
             $logs->program_number = $request->prgm;
-            // $logs->comment = $request->comment;
             $logs->assign_to = "Manager";
             $logs->assign_from = "Health";
             $logs->status_title = "Transfer";
@@ -278,7 +283,15 @@ class OccupationalHealthController extends Controller
         $data->created_by = "Health";
         if ($data->save()) {
 
-            $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['none','lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers','exercise','taught_exercise','otherqn'])->update(['solved'=>'1']);
+            if ($request->catname == 'checkitem') {
+                $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['none','lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers'])->update(['solved'=>'1']);
+            } else if($request->catname == 'exercise'){
+                $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['exercise'])->update(['solved'=>'1']);
+            }else if($request->catname == 'newqn'){
+                $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['otherqn','newqn'])->update(['solved'=>'1']);
+            }else {
+                $assessmentAnswer = AssesmentAnswer::where('program_number', $request->prgmnumber)->whereIn('catname', ['none','lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers','exercise','taught_exercise','otherqn','newqn'])->update(['solved'=>'1']);
+            }
             
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Comment store Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'date'=>$data->date]);
