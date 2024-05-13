@@ -3,7 +3,7 @@
 
 @php
     $danswer = \App\Models\DeterminigAnswer::where('user_notification', 1)->first();
-    $nxtassesmentdate = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->first();
+    $nxtassesmentdate = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $qncount = \App\Models\Question::count();
 @endphp
 <section class="header-main py-5">
@@ -98,7 +98,12 @@
                         </div>
                         <div class="col-lg-4">
                           <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                            Complaint
+                            @if (isset($nxtassesmentdate->end_date) && $nxtassesmentdate->end_date > today())
+                              Complaint
+                            @else
+                              None Complaint
+                            @endif
+                          
                             {{-- None Complaint --}}
                           </div>
                         </div>
@@ -285,6 +290,9 @@
                                 </a>
                             </div> --}}
     
+                            @if ($data->status == 2) Complaint
+                                @else Not Complaint
+                            @endif
                             
                         
                         </td>
