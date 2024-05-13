@@ -1065,6 +1065,7 @@ class AssesmentController extends Controller
         $danswer = DeterminigAnswer::where('program_number',$request->prgmnumber)->first();
         $danswer->line_manager_notification = 0;
         $danswer->complined = 1;
+        $danswer->status = 2;
         $danswer->save();
        
         // dd($request->all());

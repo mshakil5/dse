@@ -849,8 +849,22 @@
                     </div>
 
                     <div class="dropdown">
-                        <label for="health_comment">Cooupational Health Comment</label>
-                        <textarea name="health_comment" id="health_comment" class="form-control" cols="30" rows="2"></textarea>
+                        <label for="health_comment">Ocupational Health Comment</label>
+                        <textarea name="health_comment" id="health_comment" class="form-control" cols="30" rows="2" hidden>@foreach ($otheranscmmnts as $heathcmt)@if ($heathcmt->catname == "checkitem" && $heathcmt->created_by == "Health"){{$heathcmt->comment}}. @endif @endforeach </textarea>
+
+                        @if (isset($otheranscmmnts))
+                        <div class="row"> 
+                            @foreach ($otheranscmmnts as $heathcmt)
+                            @if ($heathcmt->catname == "checkitem" && $heathcmt->created_by == "Health")
+                            <div class="col-lg-12 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                            </div>  
+                            @endif
+                            @endforeach
+                        </div>
+                        @endif
+
+
                     </div>
             
                     <div class="dropdown">
