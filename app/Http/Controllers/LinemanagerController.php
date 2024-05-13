@@ -108,7 +108,7 @@ class LinemanagerController extends Controller
         }
 
 
-        $data = DeterminigAnswer::find($request->determiningAnswerId);
+        $data = DeterminigAnswer::where('program_number', $request->prgm)->first();
         $data->occupational_health_id = $request->health_id;
         $data->assign_account = "Health";
         if($data->save()){
@@ -128,8 +128,8 @@ class LinemanagerController extends Controller
             $logs->created_by = Auth::user()->id;
             $logs->save();
 
-            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Schedule create successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message]);
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Transfer successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message,'schedule'=>$schedule,'data'=>$data]);
         }
 
     }

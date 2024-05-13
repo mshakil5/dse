@@ -1094,11 +1094,12 @@ function backToTop() {
                 method: "POST",
                 data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm,health_id:health_id},
                 success: function (d) {
+                    console.log(d);
                     if (d.status == 303) {
                         $(".ermsgod").html(d.message);
                     }else if(d.status == 300){
                         $(".ermsgod").html(d.message);
-                        window.location.href = redurl;
+                        // window.location.href = redurl;
                     }
                 },
                 error: function (d) {

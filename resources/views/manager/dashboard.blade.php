@@ -139,6 +139,23 @@
                   $count = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNotNull('qn_category_id')->where('answer', 'No')->where('solved', 0)->count();
                 
                   $healthcount = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNull('qn_category_id')->where('answer', 'Yes')->where('solved', 0)->count();
+
+                  
+                  $counts = \App\Models\AssesmentAnswer::whereIn('catname', ['lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers', 'taught_exercise', 'otherqn'])
+                              ->where('program_number', $data->program_number)
+                              ->groupBy('catname')->where('answer', 'Yes')->where('solved', 0)
+                              ->selectRaw('catname, COUNT(*) as count')
+                              ->pluck('count', 'catname');
+
+                    $excounts = \App\Models\AssesmentAnswer::whereIn('catname', ['exercise'])
+                              ->where('program_number', $data->program_number)
+                              ->groupBy('catname')->where('answer', 'No')->where('solved', 0)
+                              ->selectRaw('catname, COUNT(*) as count')
+                              ->pluck('count', 'catname');
+
+                    $numKeys = count($counts);
+                    $exnumKeys = count($excounts);
+
                   @endphp
 
 
@@ -152,7 +169,7 @@
                           <span class="badge text-bg-warning">{{$count}}</span>
                       </td>
                       <td>
-                          <span class="badge text-bg-warning">{{$healthcount}}</span>
+                          <span class="badge text-bg-warning">{{$numKeys + $exnumKeys}}</span>
                       </td>
                       <td><span class="badge text-bg-warning">{{$chkSchedule->risk_rating_point}}</span></td>
                       
@@ -214,6 +231,22 @@
                 
                 $healthcount = \App\Models\AssesmentAnswer::where('program_number', $data->program_number)->whereNull('qn_category_id')->where('answer', 'Yes')->where('solved', 0)->count();
 
+                $counts = \App\Models\AssesmentAnswer::whereIn('catname', ['lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers', 'taught_exercise', 'otherqn'])
+                              ->where('program_number', $data->program_number)
+                              ->groupBy('catname')->where('answer', 'Yes')->where('solved', 0)
+                              ->selectRaw('catname, COUNT(*) as count')
+                              ->pluck('count', 'catname');
+                
+                $excounts = \App\Models\AssesmentAnswer::whereIn('catname', ['exercise'])
+                              ->where('program_number', $data->program_number)
+                              ->groupBy('catname')->where('answer', 'No')->where('solved', 0)
+                              ->selectRaw('catname, COUNT(*) as count')
+                              ->pluck('count', 'catname');
+
+                    $numKeys = count($counts);
+                    $exnumKeys = count($excounts);
+
+
                 @endphp
 
 
@@ -227,7 +260,7 @@
                         <span class="badge text-bg-warning">{{$count}}</span>
                     </td>
                     <td>
-                        <span class="badge text-bg-warning">{{$healthcount}}</span>
+                        <span class="badge text-bg-warning">{{$numKeys + $exnumKeys}}</span>
                     </td>
                     <td><span class="badge text-bg-warning">{{$chkSchedule->risk_rating_point}}</span></td>
                     
