@@ -42,25 +42,16 @@ class SurveyController extends Controller
         $determiningans = DeterminigAnswer::whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
         $departments = Department::whereId($determiningans->department_id)->first();
         $chkassesmentanswer = AssesmentAnswer::whereUserId(Auth::user()->id)->count();
-        
-
         $categories = QnCategory::whereHas('question')->with(['question.assesmentAnswers' => function ($query) use ($programNumber) {
             $query->where('program_number', $programNumber)->with('assesmentAnswerComments');
         }])->get();
         // dd($categories);
-
-
         $assesment = Assesment::whereUserId(Auth::user()->id)->first();
         $data = WorkStationAssesment::whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
-
-
         $opms = AssesmentHealthProblem::with('assesmentHealthComment')->whereUserId(Auth::user()->id)->where('program_number', $programNumber)->first();
 
         $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $programNumber)->whereNull('question_id')->get();
         // dd($healthans);
-
-
-
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
         return view('user.survey', compact('departments','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms','categories','healthans'));

@@ -271,7 +271,7 @@ class AssesmentController extends Controller
             // health part end lowback
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data store Successfully.</b></div>";
-            return response()->json(['status'=> 300,'message'=>$message,'data'=>$allanswer]);
+            return response()->json(['status'=> 300,'message'=>$message,'data'=>$request->taught_exercise]);
 
 
         }else{

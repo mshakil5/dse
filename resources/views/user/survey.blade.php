@@ -782,12 +782,12 @@
                                             
                                     
                                         <h6 class="mb-3">@foreach ($healthans as $newqn) @if ($newqn->result == "Yes" && $newqn->catname == "newqn") Question: {{$newqn->newquestion}} @endif @endforeach</h6>
-
-                                    
-                                    @endif
+                                    @else
                                     <div class="col-lg-12">
                                         <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
                                     </div>
+                                    @endif
+                                    
                                     
                                 </div>
                               </div>
@@ -1024,6 +1024,7 @@ function scrollFunction() {
         var otherqn = $('#otherqn').prop('checked');
         var exercise = $('#exercise').prop('checked');
         var taught_exercise = $('#taught_exercise').prop('checked');
+        // console.log(taught_exercise);
 
         var formData = $('#myForm').serializeArray();
         console.log(formData);
