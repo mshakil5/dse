@@ -357,7 +357,7 @@
                                                 @if ($comment->created_by == "Manager")
                                                     <div class="row">
                                                         <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark  align-items-right">{{$comment->comment}}
+                                                        <div class="col-lg-8 p-2 alert alert-secondary mb-3 rounded-3 text-dark  align-items-right"><b>{{$comment->created_by}}:</b> {{$comment->comment}}
                                                             <br>
                                                         <small>Date: {{$comment->date}}</small>
                                                         </div>
@@ -365,7 +365,7 @@
                                                 @else
 
                                                     <div class="row">
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark">{{$comment->comment}}
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start mb-3 rounded-3 text-dark"><b>{{$comment->created_by}}:</b> {{$comment->comment}}
                                                             <br>
                                                             <small>Date: {{$comment->date}}</small>
                                                         </div>
