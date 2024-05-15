@@ -378,6 +378,7 @@
 
                                             @if ($question->assesmentAnswers->assesmentAnswerComments->count() > 0 && $question->assesmentAnswers->solved == 0)
 
+                                                <div class="cmntermsg{{$question->assesmentAnswers->id}}"></div>
                                                 <div class="col-lg-12">
                                                     <textarea name="comment" id="comment{{$question->assesmentAnswers->id}}" class="form-control" placeholder="Comments Here" required></textarea>
                                                 </div>
@@ -824,7 +825,7 @@
 
                             
 
-                            <div id="additionalqn" @if (isset($healthans)) @foreach ($healthans as $otherqn) @if ($otherqn->result == "No" && $otherqn->catname == "newqn") style="display:none" @endif @endforeach @endif>
+                            <div id="additionalqn" @if (isset($healthans)) @foreach ($healthans as $otherqn) @if ($otherqn->result == "No" && $otherqn->catname == "otherqn") style="display:none" @endif @endforeach @endif>
                                 <div class="col-lg-12 mb-4">
                                     @if (isset($healthans)) 
                                             
@@ -853,6 +854,11 @@
                                         <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
                                     </div>
                                     @endif
+
+                                    
+                                    <div class="col-lg-12">
+                                        <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>
+                                    </div>
                                     
                                     
                                 </div>
@@ -1046,7 +1052,14 @@ function scrollFunction() {
             processData: false,
             data:form_data,
             success: function(d){
-                window.setTimeout(function(){location.reload()},2000)
+
+                if (d.status == 303) {
+                    $(".cmntermsg"+assans_id).html(d.message);
+                    setTimeout(function(){ $(".cmntermsg"+assans_id).html(''); }, 3000); 
+                }else if(d.status == 300){
+                    window.setTimeout(function(){location.reload()},2000)
+                }
+                
                 // console.log((d.min));
             },
             error:function(d){
