@@ -75,8 +75,8 @@
       
       
               <div class="dropdown">
-                  <label for="user_id">User Name</label>
-                  <select name="user_id" id="user_id" class="form-control">
+                  <label for="user_id">User Name</label> <br>
+                  <select name="user_id" id="user_id" class="form-control select2">
                     <option value="">Select</option>
                     @foreach ($userlist as $user)
                         <option value="{{$user->id}}">{{$user->name}}</option>
@@ -124,7 +124,6 @@
                     <th scope="col">Surname</th>
                     <th scope="col">Count</th>
                     <th scope="col">Health</th>
-                    <th scope="col">Rating</th>
                     <th scope="col">Location</th>
                     <th scope="col" class="text-center">Action</th>
                 </tr>
@@ -160,7 +159,7 @@
 
 
                   <tr>
-                      <th scope="row">{{$key+1}}</th>
+                      <th scope="row">{{$data->program_number}}</th>
                       <td>{{$data->date}}</td>
                       <td>{{$data->user->email}}</td>
                       <td>{{$data->user->name}}</td>
@@ -171,7 +170,6 @@
                       <td>
                           <span class="badge text-bg-warning">{{$numKeys + $exnumKeys}}</span>
                       </td>
-                      <td><span class="badge text-bg-warning">{{$chkSchedule->risk_rating_point}}</span></td>
                       
                       <td>{{$data->assign_account}}</td>
                       <td>
@@ -216,7 +214,7 @@
                       <th scope="col">Surname</th>
                       <th scope="col">Count</th>
                       <th scope="col">Health</th>
-                      <th scope="col">Rating</th>
+                      <th scope="col">Outstanding Issue</th>
                       <th scope="col">Location</th>
                       <th scope="col" class="text-center">Action</th>
                   </tr>
@@ -251,7 +249,7 @@
 
 
                 <tr>
-                    <th scope="row">{{$key+1}}</th>
+                    <th scope="row">{{$data->program_number}}</th>
                     <td>{{$data->date}}</td>
                     <td>{{$data->user->email}}</td>
                     <td>{{$data->user->name}}</td>
@@ -317,4 +315,17 @@
       $('#exdatatable, #exdatatable2').DataTable();
   });
 </script>
+
+
+<script>
+  $(document).ready(function() {
+      // Select2 Multiple
+      $('#user_id').select2({
+          placeholder: "Users",
+          allowClear: true
+      });
+  
+  });
+  
+  </script>
 @endsection

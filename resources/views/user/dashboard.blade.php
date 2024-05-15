@@ -334,11 +334,11 @@
           breakpoint: 480,
           options: {
             chart: {
-              width: 900
+              width: 300
             },
             legend: {
               position: 'bottom',
-              width: 900
+              width: 300
             }
           }
         }]
