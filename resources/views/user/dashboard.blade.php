@@ -12,22 +12,17 @@
       <div class="col-lg-10 mx-auto px-4 ">
           <div class="row">
             @if (isset($danswer))
-
-            @if ($danswer->user_notification == 1)
-            <div class="alert alert-warning" role="alert">
-                <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Some text will be there for user notification when manager reject assesment. <em class="text-dark fw-bold"></em> 
-            </div>
-            @endif
-            
-
-            @if ($replycount > 0)
-            <div class="alert alert-warning" role="alert">
-              <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  You have {{$replycount}} reply in your assesment. <a href="{{route('user.managerReply', $danswer->program_number)}}">Click here</a> <em class="text-dark fw-bold"></em> 
-            </div>
-            @endif
-
-
-
+              @if ($danswer->user_notification == 1)
+              <div class="alert alert-warning" role="alert">
+                  <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Some text will be there for user notification when manager reject assesment. <em class="text-dark fw-bold"></em> 
+              </div>
+              @endif
+              
+              @if ($replycount > 0)
+              <div class="alert alert-warning" role="alert">
+                <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  You have {{$replycount}} reply in your assesment. <a href="{{route('user.managerReply', $danswer->program_number)}}">Click here</a> <em class="text-dark fw-bold"></em> 
+              </div>
+              @endif
             @endif
 
             @if (isset($dueRecords))
@@ -227,7 +222,7 @@
                 </div>
             </div>
 
-        </div>
+          </div>
 
         <div class="row mt-4"> 
           <div class="col-lg-12">
