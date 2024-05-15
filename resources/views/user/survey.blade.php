@@ -688,23 +688,29 @@
                                                 </td>
 
                                             </tr>
-    
-                                            @if (isset($opms->assesmentHealthComment))
+
+                                            {{-- manager and health comment  --}}
+                                            @if (isset($otheranscmmnts))
                                             <tr>
                                                 <td style="text-align: left" colspan="6">
-                                                    @foreach ($opms->assesmentHealthComment->where('question', 'hand_fingers') as $opmscomment)
-                                                    <div class="row">
+                                                    <div class="row"> 
+                                                        @foreach ($otheranscmmnts as $heathcmt)
+                                                        @if ($heathcmt->catname == "checkitem")
                                                         <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark"><b>{{$opmscomment->created_by}}: </b>{{$opmscomment->comment}}
-                                                            <br>
-                                                            <small>Date:{{$opmscomment->date}}</small>
-                                                        </div>
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                            <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                            
+                                                            <small>Date:{{$heathcmt->date}}</small>
+                                                        </div>  
+                                                        @endif
+                                                        @endforeach
                                                     </div>
-                                                    @endforeach
-                                                    
                                                 </td>
                                             </tr>
                                             @endif
+                                            {{-- manager and health comment end --}}
+    
+                                            
     
                                             <tr>
                                                 <td style="text-align: left" colspan="6">
@@ -723,6 +729,27 @@
                                                     </label>
                                                 </td>
                                             </tr>
+
+                                            {{-- manager and health comment  --}}
+                                            @if (isset($otheranscmmnts))
+                                            <tr>
+                                                <td style="text-align: left" colspan="6">
+                                                    <div class="row"> 
+                                                        @foreach ($otheranscmmnts as $heathcmt)
+                                                        @if ($heathcmt->catname == "exercise")
+                                                        <div class="col-lg-4"></div>
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                            <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                            
+                                                            <small>Date:{{$heathcmt->date}}</small>
+                                                        </div>  
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                            {{-- manager and health comment end --}}
     
                                             <tr>
                                                 <td style="text-align: left" colspan="6">
@@ -741,6 +768,27 @@
                                                     </label>
                                                 </td>
                                             </tr>
+
+                                            {{-- manager and health comment  --}}
+                                            @if (isset($otheranscmmnts))
+                                            <tr>
+                                                <td style="text-align: left" colspan="6">
+                                                    <div class="row"> 
+                                                        @foreach ($otheranscmmnts as $heathcmt)
+                                                        @if ($heathcmt->catname == "taught_exercise")
+                                                        <div class="col-lg-4"></div>
+                                                        <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                            <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                            
+                                                            <small>Date:{{$heathcmt->date}}</small>
+                                                        </div>  
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endif
+                                            {{-- manager and health comment end --}}
     
     
                                         </tbody>
@@ -782,6 +830,24 @@
                                             
                                     
                                         <h6 class="mb-3">@foreach ($healthans as $newqn) @if ($newqn->result == "Yes" && $newqn->catname == "newqn") Question: {{$newqn->newquestion}} @endif @endforeach</h6>
+
+
+                                        @if (isset($otheranscmmnts))
+                                            <div class="row"> 
+                                                @foreach ($otheranscmmnts as $heathcmt)
+                                                @if ($heathcmt->catname == "newqn")
+                                                <div class="col-lg-4"></div>
+                                                <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                    <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                    <small>Date:{{$heathcmt->date}}</small>
+                                                </div>  
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                        @endif
+
+
+
                                     @else
                                     <div class="col-lg-12">
                                         <textarea name="newqn" id="newqn" class="form-control" placeholder="Make a question here"> </textarea>

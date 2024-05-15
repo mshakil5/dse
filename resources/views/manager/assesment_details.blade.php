@@ -791,7 +791,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-            <h1 class="modal-title fs-5" id="transferLabel">Assign to Heath & Safety</h1>
+            <h1 class="modal-title fs-5" id="transferLabel">Reffer to</h1>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -875,7 +875,7 @@
 
                     <div class="dropdown">
                         <label for="achieve_date">Acheive Date</label>
-                        <input type="date" class="form-control" id="achieve_date">
+                        <input type="date" class="form-control" id="achieve_date" value="{{date('Y-m-d')}}">
                     </div>
 
                     <div class="dropdown mt-2">

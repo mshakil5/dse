@@ -55,7 +55,12 @@ class SurveyController extends Controller
         // dd($healthans);
         $selectedLineManager = User::whereId($determiningans->line_manager_id)->select('id','name')->first();
         $selectedDivision = Division::whereId($determiningans->division_id)->select('id', 'name')->first();
-        return view('user.survey', compact('departments','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms','categories','healthans'));
+
+        
+        $otheranscmmnts = AssesmentAnswerComment::where('program_number', $programNumber)->whereNull('assesment_answer_id')->get();
+
+
+        return view('user.survey', compact('departments','assesment','determiningans','data', 'selectedLineManager', 'selectedDivision','programNumber','opms','categories','healthans','otheranscmmnts'));
 
     }
 
