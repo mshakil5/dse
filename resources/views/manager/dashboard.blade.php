@@ -14,30 +14,49 @@
 
      
      <div class="row mt-4">
-        <div class="col-lg-6 text-center">
+        <div class="col-lg-6">
           
             <div class="row g-2">
-              <div class="col-lg-12 text-center">
-                <div class="card bg-primary h-100 shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                <h5 class="mb-0 text-uppercase text-light">New Assesment submitted number </h5>
-                <div class="display-6 text-light fw-bold rounded-3 p-2 border">{{$newAssesments->count()}}
+              
+              <div class="col-lg-12 ">
+                <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
+                    <div class="col-lg-8">
+                        <p class="mb-0 text-light">New Assesment submitted number</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                        {{$newAssesments->count()}}
+                      </div>
+                    </div>
                 </div>
               </div>
-              </div>
-              <div class="col-lg-12 text-center">
-                <div class="card h-100 bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                  <h5 class="mb-0 text-light text-uppercase">Due Assesment</h5>
-                  <div class="display-6 text-light text-uppercase fw-bold rounded-3 p-2 border">{{$dueAssesment}}
+              
+              <div class="col-lg-12 ">
+                  <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                    <div class="col-lg-8">
+                      <p class="mb-0 text-light">Your Team Assesment</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                        {{$allAssesments->count()}}
+                      </div>
+                    </div>
                   </div>
-                </div> 
               </div>
-              <div class="col-lg-12 text-center">
-                <div class="card h-100 bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row align-items-center justify-content-around">
-                  <h4 class="mb-0 text-light text-uppercase">Your Team Assesment </h4>
-                  <div class="display-6 text-light text-uppercase fw-bold rounded-3 p-2 border">{{$allAssesments->count()}}
+
+              <div class="col-lg-12 ">
+                <div class="card bg-warning shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                  <div class="col-lg-8">
+                    <p class="mb-0 text-light">High Risk Rating List </p>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                      {{$highrisk}}
+                    </div>
                   </div>
                 </div>
-              </div>
+            </div>
+
             </div>
 
         </div>
@@ -291,24 +310,33 @@
 
 @section('script')
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  var reviewcount = parseFloat($("#reviewcount").val());
+  var compiledcount = parseFloat($("#compiledcount").val());
 
-      var reviewcount = parseFloat($("#reviewcount").val());
-      var compiledcount = parseFloat($("#compiledcount").val());
+  var options = {
+          series: [reviewcount, compiledcount],
+          chart: {
+            type: 'donut',
+          },
+          labels: ['Review','compiled'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 300
+            },
+            legend: {
+              position: 'bottom',
+              width: 300
+            }
+          }
+        }]
+        };
 
-    new ApexCharts(document.querySelector("#pieChart"), {
-      series: [compiledcount, reviewcount],
-      chart: {
-        height: 350,
-        type: 'pie',
-        toolbar: {
-          show: true
-        }
-      },
-      labels: ['Compliant assessment', 'Waiting for review']
-    }).render();
-  });
+        var chart = new ApexCharts(document.querySelector("#pieChart"), options);
+        chart.render();
 </script>
+
 
 <script>
   $(document).ready(function () {
