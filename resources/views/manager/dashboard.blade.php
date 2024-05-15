@@ -45,7 +45,7 @@
               </div>
 
               <div class="col-lg-12 ">
-                <div class="card bg-warning shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                <div class="card bg-danger shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
                   <div class="col-lg-8">
                     <p class="mb-0 text-light">High Risk Rating List </p>
                   </div>
@@ -56,6 +56,19 @@
                   </div>
                 </div>
             </div>
+
+            <div class="col-lg-12 ">
+              <div class="card bg-warning shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                <div class="col-lg-8">
+                  <p class="mb-0 text-light">DSE Self assessment Renewal Due </p>
+                </div>
+                <div class="col-lg-4">
+                  <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                    {{$dueAssesment}}
+                  </div>
+                </div>
+              </div>
+          </div>
 
             </div>
 
