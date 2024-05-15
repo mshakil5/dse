@@ -262,11 +262,14 @@ class OccupationalHealthController extends Controller
 
     public function expertHealthComment(Request $request)
     {
-        if(empty($request->name)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Name \" field..!</b></div>";
-            return response()->json(['status'=> 303,'message'=>$message]);
-            exit();
+        if ($request->catname == 'checkitem') {
+            if(empty($request->name)){
+                $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Name \" field..!</b></div>";
+                return response()->json(['status'=> 303,'message'=>$message]);
+                exit();
+            }
         }
+        
         if(empty($request->comment)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Comment \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);

@@ -674,7 +674,6 @@
                                                 
                                                 <div class="cmntermsgexercise"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <input type="text" name="health_nameexercise" id="health_nameexercise"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commentexercise" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -737,7 +736,6 @@
                                                 
                                                 <div class="cmntermsgtaught_exercise"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <input type="text" name="health_nametaught_exercise" id="health_nametaught_exercise"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commenttaught_exercise" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
@@ -825,7 +823,6 @@
                                                 
                                                 <div class="cmntermsgnewqn"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <input type="text" name="health_namenewqn" id="health_namenewqn"  placeholder="Name Here" class="form-control mb-1">
                                                     <textarea id="commentnewqn" class="form-control" placeholder="Comments Here"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
