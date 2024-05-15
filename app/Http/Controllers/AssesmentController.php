@@ -815,6 +815,7 @@ class AssesmentController extends Controller
         $data->line_manager_id = Auth::user()->id;
         $data->comment = $request->comment;
         $data->assesment_answer_id = $request->assans_id;
+        $data->program_number = $request->pnumber;
         $data->user_id = $request->user_id;
         $data->created_by = "Manager";
         if ($data->save()) {

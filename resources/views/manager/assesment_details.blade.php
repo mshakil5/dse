@@ -155,7 +155,8 @@
                     </div>
                 </div>
                 <div class="row">
-                        <div id="questions-container" class="col-lg-8 shadow-sm border rounded-0 bg-light">
+                    <input type="hidden" id="pnmbr" value="{{$pnumber}}">
+                    <div id="questions-container" class="col-lg-8 shadow-sm border rounded-0 bg-light">
                             
                             @php
                                 $sl = 1;
@@ -957,6 +958,7 @@ function backToTop() {
         var user = $(this).attr('user');
         var solved = $(this).attr('solved');
         var comment = $("#comment"+assans_id).val();
+        var pnumber = $("#pnmbr").val();
         
 
         var form_data = new FormData();		
@@ -964,6 +966,7 @@ function backToTop() {
         form_data.append("user_id", user);
         form_data.append("comment", comment);
         form_data.append("solved", solved);
+        form_data.append("pnumber", pnumber);
 
         $.ajax({
             url:commenturl,

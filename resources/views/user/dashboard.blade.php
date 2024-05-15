@@ -2,7 +2,7 @@
 @section('content')
 
 @php
-    $danswer = \App\Models\DeterminigAnswer::where('user_notification', 1)->first();
+    $danswer = \App\Models\DeterminigAnswer::where('user_notification', 1)->where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $nxtassesmentdate = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $qncount = \App\Models\Question::count();
 @endphp
@@ -11,9 +11,10 @@
       <div class="col-lg-10 mx-auto px-4 ">
           <div class="row">
             @if (isset($danswer))
-            {{-- <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning" role="alert">
                 <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Some text will be there for user notification when manager reject assesment. <em class="text-dark fw-bold"></em>
-            </div> --}}
+                {{$danswer}}
+            </div>
             @endif
 
             @if (isset($dueRecords))
