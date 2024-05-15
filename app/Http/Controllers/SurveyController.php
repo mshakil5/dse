@@ -10,6 +10,7 @@ use App\Models\Department;
 use App\Models\SubQuestion;
 use Illuminate\Http\Request;
 use App\Models\AssesmentAnswer;
+use App\Models\AssesmentAnswerComment;
 use App\Models\AssesmentHealthProblem;
 use App\Models\AssesmentLog;
 use App\Models\AssesmentSchedule;
@@ -85,6 +86,14 @@ class SurveyController extends Controller
         } 
         
     
+    }
+
+    public function managerReply($programNumber)
+    {
+        
+        $dataupdate = AssesmentAnswerComment::where('program_number', $programNumber)->update(['status'=>1]);
+        return Redirect::route('user.survey',$programNumber);
+
     }
 
     public function determiningQuestionStore(Request $request)

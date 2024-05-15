@@ -2,19 +2,32 @@
 @section('content')
 
 @php
-    $danswer = \App\Models\DeterminigAnswer::where('user_notification', 1)->where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
+    $danswer = \App\Models\DeterminigAnswer::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $nxtassesmentdate = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $qncount = \App\Models\Question::count();
+    $replycount = \App\Models\AssesmentAnswerComment::where('program_number', $danswer->program_number)->whereIn('created_by', ['Manager','Health'])->where('status', 0)->count();
 @endphp
 <section class="header-main py-5">
   <div class="container ">
       <div class="col-lg-10 mx-auto px-4 ">
           <div class="row">
             @if (isset($danswer))
+
+            @if ($danswer->user_notification == 1)
             <div class="alert alert-warning" role="alert">
-                <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Some text will be there for user notification when manager reject assesment. <em class="text-dark fw-bold"></em>
-                {{$danswer}}
+                <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  Some text will be there for user notification when manager reject assesment. <em class="text-dark fw-bold"></em> 
             </div>
+            @endif
+            
+
+            @if ($replycount > 0)
+            <div class="alert alert-warning" role="alert">
+              <iconify-icon icon="flat-color-icons:idea"></iconify-icon>  You have {{$replycount}} reply in your assesment. <a href="{{route('user.managerReply', $danswer->program_number)}}">Click here</a> <em class="text-dark fw-bold"></em> 
+            </div>
+            @endif
+
+
+
             @endif
 
             @if (isset($dueRecords))
