@@ -5,7 +5,12 @@
     $danswer = \App\Models\DeterminigAnswer::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $nxtassesmentdate = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $qncount = \App\Models\Question::count();
-    $replycount = \App\Models\AssesmentAnswerComment::where('program_number', $danswer->program_number)->whereIn('created_by', ['Manager','Health'])->where('status', 0)->count();
+    if ($danswer) {
+      $replycount = \App\Models\AssesmentAnswerComment::where('program_number', $danswer->program_number)->whereIn('created_by', ['Manager','Health'])->where('status', 0)->count();
+    } else {
+      $replycount = "0";
+    }
+    
 @endphp
 <section class="header-main py-5">
   <div class="container ">
