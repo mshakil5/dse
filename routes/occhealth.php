@@ -28,5 +28,8 @@ Route::group(['prefix' =>'expert/', 'middleware' => ['auth', 'is_expert']], func
     Route::post('/occhealth-comment', [OccupationalHealthController::class, 'expertMessageStore']);
     Route::post('/health-suggestion', [OccupationalHealthController::class, 'expertHealthComment']);
 
+    
+    Route::get('/support-request', [OccupationalHealthController::class, 'getSupportRequest'])->name('expert.supportRequest');
+
 });
   

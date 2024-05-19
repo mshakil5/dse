@@ -15,6 +15,7 @@ use App\Models\DeterminigAnswer;
 use App\Models\AssesmentHealthProblem;
 use App\Models\Division;
 use App\Models\QnCategory;
+use App\Models\SupportRequest;
 use App\Models\User;
 use App\Models\WorkStationAssesment;
 use Illuminate\support\Facades\Auth;
@@ -27,6 +28,13 @@ class OccupationalHealthController extends Controller
         $users = DeterminigAnswer::where('occupational_health_id',Auth::user()->id)->orderby('id', 'DESC')->whereNull('complined')->get();
         
         return view('expert.userlist', compact('users'));
+    }
+
+    public function getSupportRequest()
+    {
+        $data = SupportRequest::where('assign',"ochealth")->orderby('id', 'DESC')->get();
+        
+        return view('expert.support_request', compact('data'));
     }
 
     public function getComplinedbyOH()

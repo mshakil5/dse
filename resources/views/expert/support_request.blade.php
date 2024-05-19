@@ -25,20 +25,18 @@
                           <th scope="col">Date</th>
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
-                          <th scope="col">Surname</th>
                           <th scope="col" class="text-center">Action</th>
                       </tr>
                   </thead>
                   <tbody>
 
-                    @foreach ($users as $key => $data)
+                    @foreach ($data as $key => $data)
 
                       <tr>
                         <th scope="row">{{$key+1}}</th>
-                        <td>{{$data->date}}</td>
-                        <td>{{$data->user->email}}</td>
-                        <td>{{$data->user->name}}</td>
-                        <td>{{$data->user->surname}}</td>
+                        <td>{{$data->created_at}}</td>
+                        <td>{{$data->email}}</td>
+                        <td>{{$data->name}}</td>
                         <td>
                             
 
