@@ -35,30 +35,31 @@
               </div>
             </div>
 
+
             <div class="col-lg-12 ">
-              <div class="card bg-warning shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
-                <div class="col-lg-8">
-                  <p class="mb-0 text-light">DSE Self assessment Renewal Due </p>
-                </div>
-                <div class="col-lg-4">
-                  <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                    {{$dueAssesment}}
+              <a href="{{route('expert.supportRequest')}}" style="text-decoration: none">
+                <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                  <div class="col-lg-8">
+                    <p class="mb-0 text-light">Self Referrals Request </p>
+                  </div>
+                  <div class="col-lg-4">
+                    
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
 
             <div class="col-lg-12 ">
-              <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
-                <div class="col-lg-8">
-                  <p class="mb-0 text-light">Your Team Assesment</p>
-                </div>
-                <div class="col-lg-4">
-                  <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                    {{$allAssesments->count()}}
+              <a href="{{route('expert.supportRequest')}}" style="text-decoration: none">
+                <div class="card bg-warning shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                  <div class="col-lg-8">
+                    <p class="mb-0 text-light">Eye Care Voucher Request</p>
+                  </div>
+                  <div class="col-lg-4">
+                    
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
 
             
@@ -66,7 +67,7 @@
               <a href="{{route('expert.supportRequest')}}" style="text-decoration: none">
                 <div class="card bg-info shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
                   <div class="col-lg-8">
-                    <p class="mb-0 text-light">Support Request</p>
+                    <p class="mb-0 text-light">Occupational Health Support Request</p>
                   </div>
                   <div class="col-lg-4">
                     
@@ -333,6 +334,141 @@
         </div>
       </div>
     </div>
+
+
+
+    <div class="row mt-4"> 
+      <div class="col-lg-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title mt-3 text-center"> Self Referrals Request </h5>
+            <hr>
+
+                <div class="col-lg-12 table-responsive">
+                  <table class="table table-striped table-dark ">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Name</th>
+                              <th scope="col" class="text-center">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+
+                        @foreach ($supportRequests as $key => $data)
+
+                          <tr>
+                            <th scope="row">{{$key+1}}</th>
+                            <td>{{$data->created_at}}</td>
+                            <td>{{$data->email}}</td>
+                            <td>{{$data->name}}</td>
+                            <td>
+                                
+
+                            </td>
+                        </tr>
+                        @endforeach
+                          
+                      </tbody>
+                  </table>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="row mt-4"> 
+      <div class="col-lg-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title mt-3 text-center"> Eye Care Voucher Request </h5>
+            <hr>
+
+                <div class="col-lg-12 table-responsive">
+                  <table class="table table-striped table-dark ">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Name</th>
+                              <th scope="col" class="text-center">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+
+                        @foreach ($supportRequests as $key => $data)
+
+                          <tr>
+                            <th scope="row">{{$key+1}}</th>
+                            <td>{{$data->created_at}}</td>
+                            <td>{{$data->email}}</td>
+                            <td>{{$data->name}}</td>
+                            <td>
+                                
+
+                            </td>
+                        </tr>
+                        @endforeach
+                          
+                      </tbody>
+                  </table>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+    <div class="row mt-4"> 
+      <div class="col-lg-12">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title mt-3 text-center">Occupational Health Support Request</h5>
+            <hr>
+
+                <div class="col-lg-12 table-responsive">
+                  <table class="table table-striped table-dark ">
+                      <thead>
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Date</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Name</th>
+                              <th scope="col" class="text-center">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+
+                        @foreach ($supportRequests as $key => $data)
+
+                          <tr>
+                            <th scope="row">{{$key+1}}</th>
+                            <td>{{$data->created_at}}</td>
+                            <td>{{$data->email}}</td>
+                            <td>{{$data->name}}</td>
+                            <td>
+                                
+
+                            </td>
+                        </tr>
+                        @endforeach
+                          
+                      </tbody>
+                  </table>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
 
 
    </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AssesmentAnswer;
 use App\Models\AssesmentSchedule;
 use App\Models\DeterminigAnswer;
+use App\Models\SupportRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -179,8 +180,9 @@ class HomeController extends Controller
             $anscount = 0;
         }
 
+        $supportRequests = SupportRequest::where('assign',"ochealth")->orderby('id', 'DESC')->get();
 
-        return view('expert.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment','anscount'));
+        return view('expert.dashboard', compact('dusers','allAssesments','newAssesments','userlist','dueAssesment','anscount','supportRequests'));
         
     }
 
