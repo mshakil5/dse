@@ -494,18 +494,19 @@
             type: 'donut',
           },
           labels: ['Outstanding Answer','Complete Answer'],
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 300
-            },
-            legend: {
-              position: 'bottom',
-              width: 300
+          responsive: [{
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 300
+              },
+              legend: {
+                position: 'bottom',
+                width: 300
+              }
             }
-          }
-        }]
+
+          }]
         };
 
         var chart = new ApexCharts(document.querySelector("#pieChart"), options);

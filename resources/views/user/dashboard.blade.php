@@ -335,7 +335,7 @@
 {{-- <script src="{{ asset('frontend/vendor/js/chart.umd.js')}}"></script> --}}
 {{-- <script src="{{ asset('frontend/vendor/js/echarts.min.js')}}"></script> --}}
 
-<script>
+{{-- <script>
   var outstanding = parseFloat($("#outstanding").val());
   var complete = parseFloat($("#complete").val());
   var options = {
@@ -360,6 +360,44 @@
 
         var chart = new ApexCharts(document.querySelector("#pieChart"), options);
         chart.render();
+</script> --}}
+
+<script>
+  var outstanding = parseFloat($("#outstanding").val());
+  var complete = parseFloat($("#complete").val());
+  var options = {
+  series: [outstanding, complete],
+  chart: {
+    type: 'donut'
+  },
+  dataLabels: {
+    enabled: true,
+    formatter: function (val) {
+      return Math.round(val) + "%";
+    }
+  },
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+          total: {
+            show: true,
+            label: 'Total',
+            formatter: function (w) {
+              return w.globals.seriesTotals.reduce((a, b) => {
+                return a + b
+              }, 0);
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
+var chart = new ApexCharts(document.querySelector("#pieChart"), options);
+chart.render();
 </script>
 
 
