@@ -485,33 +485,47 @@
 @endsection
 
 @section('script')
+
 <script>
   var outstanding = parseFloat($("#outstanding").val());
   var complete = parseFloat($("#complete").val());
+
   var options = {
-          series: [outstanding, complete],
-          chart: {
-            type: 'donut',
-          },
-          labels: ['Outstanding Answer','Complete Answer'],
-          responsive: [{
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 300
-              },
-              legend: {
-                position: 'bottom',
-                width: 300
-              }
+  series: [outstanding, complete],
+  chart: {
+    type: 'donut'
+  },
+  dataLabels: {
+    enabled: true,
+    formatter: function (val) {
+      return Math.round(val) + "%";
+    }
+  },
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+          total: {
+            show: true,
+            label: 'Total',
+            formatter: function (w) {
+              return w.globals.seriesTotals.reduce((a, b) => {
+                return a + b
+              }, 0);
             }
+          }
+        }
+      }
+    }
+  }
+};
 
-          }]
-        };
+var chart = new ApexCharts(document.querySelector("#pieChart"), options);
+chart.render();
 
-        var chart = new ApexCharts(document.querySelector("#pieChart"), options);
-        chart.render();
 </script>
+
 
 <script>
   $(document).ready(function () {
