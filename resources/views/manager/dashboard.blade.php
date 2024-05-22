@@ -325,33 +325,52 @@
 @endsection
 
 @section('script')
+
+
 <script>
   var reviewcount = parseFloat($("#reviewcount").val());
   var compiledcount = parseFloat($("#compiledcount").val());
 
   var options = {
-          series: [reviewcount, compiledcount],
-          chart: {
-            type: 'donut',
-          },
-          labels: ['Review','compiled'],
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 300
-            },
-            legend: {
-              position: 'bottom',
-              width: 300
+  series: [reviewcount, compiledcount],
+  chart: {
+    type: 'donut'
+  },
+  dataLabels: {
+    enabled: true,
+    formatter: function (val) {
+      return Math.round(val) + "%";
+    }
+  },
+  plotOptions: {
+    pie: {
+      donut: {
+        labels: {
+          show: true,
+          total: {
+            show: true,
+            label: 'Total',
+            formatter: function (w) {
+              return w.globals.seriesTotals.reduce((a, b) => {
+                return a + b
+              }, 0);
             }
           }
-        }]
-        };
+        }
+      }
+    }
+  }
+};
 
-        var chart = new ApexCharts(document.querySelector("#pieChart"), options);
-        chart.render();
+var chart = new ApexCharts(document.querySelector("#pieChart"), options);
+chart.render();
+
 </script>
+
+
+
+
+
 
 
 <script>

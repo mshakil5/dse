@@ -335,32 +335,7 @@
 {{-- <script src="{{ asset('frontend/vendor/js/chart.umd.js')}}"></script> --}}
 {{-- <script src="{{ asset('frontend/vendor/js/echarts.min.js')}}"></script> --}}
 
-{{-- <script>
-  var outstanding = parseFloat($("#outstanding").val());
-  var complete = parseFloat($("#complete").val());
-  var options = {
-          series: [outstanding, complete],
-          chart: {
-            type: 'donut',
-          },
-          labels: ['Outstanding Answer','Complete Answer'],
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 300
-            },
-            legend: {
-              position: 'bottom',
-              width: 300
-            }
-          }
-        }]
-        };
 
-        var chart = new ApexCharts(document.querySelector("#pieChart"), options);
-        chart.render();
-</script> --}}
 
 <script>
   var outstanding = parseFloat($("#outstanding").val());
