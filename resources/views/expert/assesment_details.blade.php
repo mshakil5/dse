@@ -718,12 +718,10 @@
                                                 @if (isset($otheranscmmnts))
                                                 <div class="row"> 
                                                     @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "texercise")
+                                                    @if ($heathcmt->catname == "taught_exercise")
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        
-                                                        <small><b>Name</b>: {{$heathcmt->name}}</small><br>
                                                         <small><b>Date</b>: {{$heathcmt->date}}</small>
                                                     </div>  
                                                     @endif
@@ -809,8 +807,6 @@
                                                     <div class="col-lg-4"></div>
                                                     <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
                                                         <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        
-                                                        <small><b>Name</b>: {{$heathcmt->name}}</small><br>
                                                         <small><b>Date</b>: {{$heathcmt->date}}</small>
                                                     </div>  
                                                     @endif
