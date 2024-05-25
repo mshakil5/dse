@@ -103,6 +103,7 @@ class LinemanagerController extends Controller
         if ($request->prgm) {
             $schedule = AssesmentSchedule::where('program_number', $request->prgm)->first();
             $schedule->occupational_health_id = $request->health_id;
+            $schedule->health_safety_id = $request->safety_id;
             $schedule->assign_account = "Health";
             $schedule->save();
         }
@@ -110,6 +111,7 @@ class LinemanagerController extends Controller
 
         $data = DeterminigAnswer::where('program_number', $request->prgm)->first();
         $data->occupational_health_id = $request->health_id;
+        $data->health_safety_id = $request->safety_id;
         $data->assign_account = "Health";
         if($data->save()){
 

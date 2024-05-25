@@ -797,12 +797,19 @@
             <div class="modal-body">
                 <div class="ermsgod"></div>
                 <select name="health_id" id="health_id{{$data->id}}" class="form-control">
-                    <option value="">Select</option>
-
+                    <option value="">Select Ocupational Health</option>
                     @foreach (\App\Models\User::where('is_type', '3')->get() as $expert)
                     <option value="{{$expert->id}}">{{$expert->name}}</option>
                     @endforeach
                 </select>
+
+                <select name="safety_id" id="safety_id{{$data->id}}" class="form-control mt-2">
+                    <option value="">Select Health & Safety</option>
+                    @foreach (\App\Models\User::where('is_type', '1')->get() as $expert)
+                    <option value="{{$expert->id}}">{{$expert->name}}</option>
+                    @endforeach
+                </select>
+
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -1103,13 +1110,14 @@ function backToTop() {
             var uid = $(this).attr("uid");
             var prgm = $(this).attr("prgmnumber");
             var health_id = $("#health_id"+determiningAnswerId).val();
+            var safety_id = $("#safety_id"+determiningAnswerId).val();
             
             console.log(determiningAnswerId, uid, prgm, health_id);
 
             $.ajax({
                 url: expurl,
                 method: "POST",
-                data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm,health_id:health_id},
+                data: {determiningAnswerId:determiningAnswerId,uid:uid,prgm:prgm,health_id:health_id,safety_id:safety_id},
                 success: function (d) {
                     console.log(d);
                     if (d.status == 303) {
