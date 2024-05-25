@@ -84,6 +84,11 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                                     
+                                    <a class="dropdown-item" href="{{ route('user.profile') }}" >
+                                        Profile
+                                    </a>
+
+
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
@@ -91,8 +96,6 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-
-
 
                                 </ul>
                             </li>
@@ -108,7 +111,7 @@
                 <h3>Display Screen Equipment Assessment</h3>
             </div>
             <div class="col-lg-6 pt-2 bg-light text-end">
-                
+                <h3>User Portal</h3>
             </div>
 
         </div>

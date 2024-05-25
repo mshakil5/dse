@@ -11,6 +11,7 @@ use App\Http\Controllers\LinemanagerController;
 use App\Http\Controllers\AssesmentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SupportRequestController;
+use App\Http\Controllers\ProfileController;
   
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,10 @@ All Normal Users Routes List
 Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function(){
   
     Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
+    // user profile 
+    Route::get('/profile', [ProfileController::class, 'userProfile'])->name('user.profile');
+
+
     Route::get('/survey/{program_number}', [SurveyController::class, 'survey'])->name('user.survey');
     Route::get('/determining-question', [SurveyController::class, 'determiningQuestion'])->name('user.determinigQn');
     Route::post('/determining-question', [SurveyController::class, 'determiningQuestionStore'])->name('user.determinigQnStore');

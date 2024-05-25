@@ -150,21 +150,13 @@
                     </a> 
                   </div>
 
-                  {{-- <div class="col-lg-12 ">
-                    <div class="card bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
-                      <p class="mb-0 text-light">3. Your Self-Assessment </p>
-                      <div class="display-6 text-light text-uppercase fw-bold rounded-circle p-2 border">
-                      </div> 
-                    </div>
-                  </div> --}}
-
                   
                   
                   <div class="col-lg-12 ">
                     <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
                       
                       <div class="col-lg-8">
-                        <p class="mb-0 text-light">3. Next assesent due date </p>
+                        <p class="mb-0 text-light">3. Next assessment due date </p>
                       </div>
                       <div class="col-lg-4">
                         @if (isset($nxtassesmentdate->end_date))
