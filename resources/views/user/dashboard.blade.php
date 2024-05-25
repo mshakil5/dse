@@ -10,6 +10,9 @@
     } else {
       $replycount = "0";
     }
+
+    $mytime = Carbon\Carbon::now();
+    $today = $mytime->toDateString();
     
 @endphp
 <section class="header-main py-5">
@@ -113,7 +116,7 @@
                         <div class="col-lg-4">
                           <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
                             @if (isset($nxtassesmentdate->end_date) && $nxtassesmentdate->end_date > today())
-                              Complaint
+                              Compliant
                             @else
                               None Complaint
                             @endif
@@ -133,7 +136,13 @@
                         </div>
                         <div class="col-lg-4">
                           <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
+                            @if (isset($nxtassesmentdate->end_date) && ($nxtassesmentdate->end_date > $today))
+                            0
+                            @else
+
                             {{$qncount + 9 - $anscount}}
+                                
+                            @endif
                           </div>
                         </div>
 
@@ -242,7 +251,7 @@
                 <table class="table table-striped table-dark " id="exdatatable">
                   <thead>
                       <tr>
-                          <th scope="col">#</th>
+                          <th scope="col">Id</th>
                           <th scope="col">Date</th>
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
@@ -345,6 +354,7 @@
   chart: {
     type: 'donut'
   },
+  labels: ['Outstanding', 'Complete'], // Your custom labels
   dataLabels: {
     enabled: true,
     formatter: function (val) {
