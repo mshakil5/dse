@@ -66,14 +66,29 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                        
                                         <div class="row mb-2">
                                             <div class="col-4">
-                                                <label for="dob" >Date of birth </label>
+                                                <label for="employee_email" >Employee Email Address </label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="dob" type="date" class="form-control @error('dob') is-invalid @enderror" name="dob" value="{{ old('dob') }}" autocomplete="dob" autofocus>
-                                                @error('dob')
+                                                <input id="employee_email" type="text" class="form-control @error('employee_email') is-invalid @enderror" name="employee_email" value="{{ old('employee_email') }}"  autocomplete="employee_email" autofocus>
+                                                @error('employee_email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="row mb-2">
+                                            <div class="col-4">
+                                                <label for="home_contact_number" >Contact Number </label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="home_contact_number" type="text" class="form-control @error('home_contact_number') is-invalid @enderror" name="home_contact_number" value="{{ old('home_contact_number') }}"  autocomplete="home_contact_number" autofocus>
+                                                @error('home_contact_number')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -153,33 +168,7 @@
 
                                         
 
-                                        <div class="row mb-2">
-                                            <div class="col-4">
-                                                <label for="home_contact_number" >Home Contact Number </label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="home_contact_number" type="text" class="form-control @error('home_contact_number') is-invalid @enderror" name="home_contact_number" value="{{ old('home_contact_number') }}"  autocomplete="home_contact_number" autofocus>
-                                                @error('home_contact_number')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
 
-                                        <div class="row mb-2">
-                                            <div class="col-4">
-                                                <label for="employee_email" >Employee Email Address </label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="employee_email" type="text" class="form-control @error('employee_email') is-invalid @enderror" name="employee_email" value="{{ old('employee_email') }}"  autocomplete="employee_email" autofocus>
-                                                @error('employee_email')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
 
                                         
                                         <div class="row mb-2">
@@ -222,7 +211,7 @@
                                     <div class="row py-3 ">
                                         <div class="col-lg-5 d-flex align-items-center">
                                             <button type="submit" class="btn btn-warning d-flex align-items-center">
-                                                <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Save
+                                                <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> Update
                                             </button>
                                         </div>
                                         <div class="col-lg-7 d-flex gap-3 justify-content-end"> </div>

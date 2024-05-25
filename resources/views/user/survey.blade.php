@@ -48,6 +48,22 @@
         }
     }
 
+    #Exit {
+        position: fixed;
+        bottom: 80px;
+        right: 240px;
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        #Exit {
+        position: fixed;
+        bottom: 0px;
+        right: 80px;
+        display: none;
+        }
+    }
+
     .fixed-action-btn.spin-close .btn-large {
         position: relative;
     }
@@ -890,11 +906,22 @@
 
                     @if($data)
                     
+                    
+
+                    @else 
+                    @endif
+
+                    @endif 
+
+                    @if ($determiningans->assign_account != "User")
+                    <a href="{{route('user.dashboard')}}" class="btn btn-warning btn-floating btn-lg" id="saveNExit">
+                        <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Exit
+                    </a> 
+                    @else
                     <button type="button" class="btn btn-warning btn-floating btn-lg" id="saveNExit">
                         <iconify-icon icon="akar-icons:check-box-fill" class="me-1 "></iconify-icon> Save & Exit
                     </button> 
                     @endif
-                    @endif 
 
                 
 
@@ -917,6 +944,7 @@
 
 
 
+
 @endsection
 
 @section('script')
@@ -931,23 +959,29 @@ let mybutton = document.getElementById("saveNExit");
 window.onscroll = function () {
   scrollFunction();
 };
-
 function scrollFunction() {
   if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ) {
     mybutton.style.display = "block";
   } else {
     mybutton.style.display = "none";
   }
-
-  
 }
-// When the user clicks on the button, scroll to the top of the document
-// mybutton.addEventListener("click", backToTop);
 
-// function backToTop() {
-//   document.body.scrollTop = 0;
-//   document.documentElement.scrollTop = 0;
+</script>
+<script>
+// let exitbutton = document.getElementById("Exit");
+
+// window.onscroll = function () {
+//   scrollExitFunction();
+// };
+// function scrollExitFunction() {
+//   if ( document.body.scrollTop > 20 || document.documentElement.scrollTop > 20 ) {
+//     exitbutton.style.display = "block";
+//   } else {
+//     exitbutton.style.display = "none";
+//   }
 // }
+
 </script>
 
 
