@@ -30,16 +30,16 @@
 
                             
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center text-warning " aria-current="page" href="{{route('manager.assesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Assesments</a>
+                                <a class="nav-link d-flex align-items-center text-warning " aria-current="page" href="{{route('manager.assesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Assessment</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center text-success " aria-current="page" href="{{route('manager.complinedassesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Complined</a>
+                                <a class="nav-link d-flex align-items-center text-success " aria-current="page" href="{{route('manager.complinedassesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Compliant</a>
                             </li>
 
                             
                             <li class="nav-item">
-                                <a class="nav-link d-flex align-items-center text-danger " aria-current="page" href="{{route('manager.dueassesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Due</a>
+                                <a class="nav-link d-flex align-items-center text-danger " aria-current="page" href="{{route('manager.dueassesment')}}"><iconify-icon class="me-1 fs-3 "  icon="majesticons:note-text"></iconify-icon>  Non Compliant  </a>
                             </li>
 
 
@@ -50,7 +50,7 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item">
                                 
-                                <a href="{{route('switchuser')}}" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" icon="ph:gear-light"></iconify-icon> My Assesment
+                                <a href="{{route('switchuser')}}" class="nav-link d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" icon="ph:gear-light"></iconify-icon> My Assessment
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
@@ -84,7 +84,7 @@
                 <h3>Display Screen Equipment</h3>
             </div>
             <div class="col-lg-6 pt-2 bg-light text-end">
-                <h3>DSC {{Auth::user()->name}}</h3>
+                <h3>Team Portal</h3>
             </div>
 
         </div>

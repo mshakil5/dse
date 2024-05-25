@@ -166,7 +166,7 @@
                             @if($assanswer->answer != "Yes" && $assanswer->solved == 0)
                             <div class="row pt-5 px-4" data-category="{{ $assanswer->question->qn_category_id }}">
                                 <div class="col-lg-12 mb-4">
-                                    <h6 class="mb-3">{{ $sl }}. {{ $assanswer->question->question }}</h6>
+                                    <h6 class="mb-3">{{ $assanswer->question->question }}</h6>
                                     <div class="d-flex">
                                         <label for="yes" class="mx-4 fw-bold text-success">
                                             YES <input type="radio" name="answers[{{ $assanswer->id }}]" class="form-check-input" id="yes{{ $assanswer->id }}" value="Yes" required="required" @if(isset($assanswer->answer)) {{ $assanswer->answer == 'Yes' ? 'checked' : '' }} @endif >
@@ -242,7 +242,7 @@
                             @if ($assanswer->answer != "No" || $assanswer->solved == 1)
                             <div class="row pt-5 px-4">
                                 <div class="col-lg-12 mb-4">
-                                    <h6 class="mb-3">{{ $sl}}. {{ $assanswer->question->question }}</h6>
+                                    <h6 class="mb-3"> {{ $assanswer->question->question }}</h6>
                                     <div class="d-flex">
                                         <label for="yes" class="mx-4 fw-bold text-success">
                                             YES <input type="radio" name="answers[{{ $assanswer->id }}]" class="form-check-input" id="yes{{ $assanswer->id }}" value="Yes" required="required" @if(isset($assanswer->answer)) {{ $assanswer->answer == 'Yes' ? 'checked' : '' }} @endif >
@@ -548,7 +548,7 @@
                                                 
                                                 <div class="cmntermsgcheckitem"></div>
                                                 <div class="col-lg-12" id="replycmnt">
-                                                    <textarea id="commentcheckitem" class="form-control" placeholder="Comments Here"></textarea>
+                                                    <textarea id="commentcheckitem" class="form-control" placeholder="Reffer to health & safety or occupational health"></textarea>
                                                 </div>
                                                 <div class="col-lg-12" id="replybtn">
                                                     <div class="row py-3 ">
@@ -697,7 +697,7 @@
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                         <div class="row pt-5 px-4">
                             <div class="col-lg-12 mb-4">
-                                <h6 class="mb-3">Do you have any other concern or comments ?
+                                <h6 class="mb-3">Do you have any other health concern or comments ?
                                 </h6>
                                 <label for="otherqnyes" class="mx-2">
                                     <input id="otherqnyes" type="radio" name="otherqn" class="form-check-input me-1"

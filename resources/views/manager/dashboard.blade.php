@@ -19,7 +19,7 @@
               <div class="col-lg-12 ">
                 <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
                     <div class="col-lg-8">
-                        <p class="mb-0 text-light">New Assesment submitted number</p>
+                        <p class="mb-0 text-light">New Assesment Submitted </p>
                     </div>
                     <div class="col-lg-4">
                       <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
@@ -118,8 +118,8 @@
                   <label for="status">Status</label>
                   <select name="status" id="status" class="form-control">
                     <option value="">Select</option>
-                    <option value="Compiled">Compiled</option>
-                    <option value="Due">Due</option>
+                    <option value="Compiled">Compliant</option>
+                    <option value="Due">Renewal  </option>
                   </select>
               </div>
 
@@ -336,6 +336,7 @@
   chart: {
     type: 'donut'
   },
+  labels: ['Outstanding', 'reviewed'], // Your custom labels
   dataLabels: {
     enabled: true,
     formatter: function (val) {
