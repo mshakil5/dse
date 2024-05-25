@@ -73,13 +73,8 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::post('/assesment-answer-store', [AssesmentController::class, 'assesmentAnswerStore'])->name('assesment.answer.store');
     Route::post('/add-assesment', [AssesmentController::class, 'assesmentStore'])->name('add.assessment');
     Route::post('/add-new-assesment', [AssesmentController::class, 'newAssesmentStore']);
-
-    
     Route::post('/user-comment', [AssesmentController::class, 'userCommentStore'])->name('question.usercomment');
-
     Route::get('/switch-to-manager', [SurveyController::class, 'switchToManager'])->name('user.switchmanager');
-
-    
     Route::get('/managers-reply/{program_number}', [SurveyController::class, 'managerReply'])->name('user.managerReply');
 
 });

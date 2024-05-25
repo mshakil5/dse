@@ -27,7 +27,10 @@
                             <div class="py-3">
                                 {{-- <h2 class="text-center">Display screen equipment assesment</h2> --}}
 
-                                <h4><a href="https://youtu.be/liaBs1-Zz3I?si=S-2ONPb0u34GFWTs" target="blank">Workstation set up at home and in the office - good posture</a></h4>
+                                <h4>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24"><path fill="none" stroke="#f00000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 12V8a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2zm0 0l4-4v8zm-7-3v3m0 3v-3m0 0h3m-3 0H7"/></svg>
+
+                                    <a href="https://youtu.be/liaBs1-Zz3I?si=S-2ONPb0u34GFWTs" target="blank">Workstation set up at home and in the office - good posture</a></h4>
 
                             
                             </div>
