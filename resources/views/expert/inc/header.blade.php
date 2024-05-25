@@ -4,7 +4,14 @@
         <div class="row">
             <nav class="navbar navbar-expand-lg   navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="{{route('expert.dashboard')}}">Navbar</a>
+                    <a class="navbar-brand" href="{{route('expert.dashboard')}}">
+                    
+                        <div class="brand">
+                            <img src="{{ asset('hsc.png')}}" width="120px">
+                        </div>
+                    </a>
+
+
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -14,11 +21,11 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                             <li class="nav-item">
-                                <a class="nav-link text-success " aria-current="page" href="{{route('health.userlist')}}">Assesments</a>
+                                <a class="nav-link text-success " aria-current="page" href="{{route('health.userlist')}}">Assessment</a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link text-warning " aria-current="page" href="{{route('health.complinedassesment')}}">Complined</a>
+                                <a class="nav-link text-warning " aria-current="page" href="{{route('health.complinedassesment')}}">Compliant</a>
                             </li>
                             
                         </ul>
@@ -60,7 +67,7 @@
                 <h3>Display Screen Equipment</h3>
             </div>
             <div class="col-lg-6 pt-2 bg-light text-end">
-                <h3>DSC {{Auth::user()->name}}</h3>
+                <h3>Team portal</h3>
             </div>
 
         </div>

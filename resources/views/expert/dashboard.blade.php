@@ -149,7 +149,7 @@
         
         <div class="card h-100">
           <div class="card-body">
-            <h5 class="card-title mt-3 text-center">Review List of New Assesment</h5>
+            <h5 class="card-title mt-3 text-center">Review List of New Assessment</h5>
             <hr>
 
             <!-- Default Table -->

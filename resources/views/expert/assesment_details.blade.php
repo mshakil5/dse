@@ -53,7 +53,7 @@
                             <div class="col-6 col-sm-6 col-lg-9 d-flex align-items-center justify-content-end">
                                 <button class="btn btn-sm btn-success d-block float-end fs-5 d-flex align-items-center gap-2 mx-2 @if (empty($data)) d-none @endif" id="showWork"><iconify-icon icon="majesticons:eye" class=""></iconify-icon>Full Assesment</button>
                                 
-                                <button type="button" class="btn btn-secondary d-flex align-items-center m-2 transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon>  Transfer</button>
+                                <button type="button" class="btn btn-secondary d-flex align-items-center m-2 transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}"><iconify-icon class="text-primary" icon="bi:plus"></iconify-icon>  Reffer </button>
 
                                 @if (isset($chksts))
 
@@ -67,7 +67,7 @@
                                 
 
                                 <a href="{{route('manager.dashboard')}}" class="btn btn-sm btn-danger d-block float-end fs-5 d-flex align-items-center gap-2"> <iconify-icon icon="majesticons:door-exit" class=""></iconify-icon>
-                                    Exit
+                                    Save & Exit
                                 </a>
                             </div>
                         </div>
@@ -843,13 +843,15 @@
                               </div>
 
                               
+                            <button type="button" class="btn btn-secondary align-items-center m-2 transferbtn" uid="{{$data->user_id}}" data-id="{{$data->id}}" prgmnumber="{{$data->program_number}}"> Reffer to line manager</button>
+
+                              
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-
 
 
 </section>
