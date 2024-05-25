@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Assesment;
 use App\Models\AssesmentAnswer;
+use App\Models\AssesmentAnswerComment;
 use App\Models\AssesmentHealthProblem;
 use App\Models\AssesmentSchedule;
 use App\Models\Department;
@@ -55,9 +56,11 @@ class ReportController extends Controller
             }]);
         }])->get();
 
+        $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->whereNull('question_id')->get();
+        $otheranscmmnts = AssesmentAnswerComment::where('program_number', $id)->whereNull('assesment_answer_id')->get();
 
         // dd($comments);
-        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category'));
+        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category','healthans','otheranscmmnts'));
 
     }
 }
