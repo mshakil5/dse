@@ -452,9 +452,11 @@
                     @endforeach
 
                         @if ($category->id == 11)
-                        <div class="col-lg-12 alert alert-warning m-3 rounded-3 text-dark"> 
-                            <h5>Guidance only: Measurements and work area space.</h5>
-                            Desk / Workstation / Lighting -General guidence only: Floor to underside of desk – 66 to 73 cms Foot room from front to back of desk at floor level – at least 60cms, and foot area clear Depth of desk from front to back – at least 60cms, ideally 80cms Width of desk (side to side) – at least 120cms, ideally 160cms Space available in front of keyboard for wrist support – 5 to 10cms Light reading (LUX) ideally 200 lux – minimum 100 lux Work space – 11.3 cubic meters per person    
+                        <div class="row">
+                            <div class="col-lg-12 alert alert-warning rounded-3 text-dark"> 
+                                <h5>Guidance only: Measurements and work area space.</h5>
+                                Desk / Workstation / Lighting -General guidence only: Floor to underside of desk – 66 to 73 cms Foot room from front to back of desk at floor level – at least 60cms, and foot area clear Depth of desk from front to back – at least 60cms, ideally 80cms Width of desk (side to side) – at least 120cms, ideally 160cms Space available in front of keyboard for wrist support – 5 to 10cms Light reading (LUX) ideally 200 lux – minimum 100 lux Work space – 11.3 cubic meters per person    
+                            </div>
                         </div>
                         @endif
 
