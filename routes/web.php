@@ -68,6 +68,7 @@ Route::group(['prefix' =>'user/', 'middleware' => ['auth', 'is_user']], function
     Route::get('/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
     // user profile 
     Route::get('/profile', [ProfileController::class, 'userProfile'])->name('user.profile');
+    Route::post('/profile', [ProfileController::class, 'userProfileUpdate'])->name('user.profileUpdate');
 
 
     Route::get('/survey/{program_number}', [SurveyController::class, 'survey'])->name('user.survey');

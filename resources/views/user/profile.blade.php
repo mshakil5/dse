@@ -42,11 +42,24 @@
                             </div>
                             @endif
 
+                            <hr>
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
 
                             <h2 class="text-center">Profile Update</h2>
 
 
-                            <form action="" method="POST" class="mt-3">
+                            <form action="{{route('user.profileUpdate')}}" method="POST" class="mt-3">
                                 @csrf
 
                             
@@ -55,25 +68,11 @@
                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}"> 
                                         <div class="row mb-2">
                                             <div class="col-4">
-                                                <label for="employee_name" >Employee Name</label>
+                                                <label for="name" >First Name</label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="employee_name" type="text" class="form-control @error('employee_name') is-invalid @enderror" name="employee_name" value="{{ old('employee_name') }}"  autocomplete="employee_name" autofocus>
-                                                @error('employee_name')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row mb-2">
-                                            <div class="col-4">
-                                                <label for="employee_email" >Employee Email Address </label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="employee_email" type="text" class="form-control @error('employee_email') is-invalid @enderror" name="employee_email" value="{{ old('employee_email') }}"  autocomplete="employee_email" autofocus>
-                                                @error('employee_email')
+                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}"  autocomplete="name" autofocus>
+                                                @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -84,11 +83,40 @@
                                         
                                         <div class="row mb-2">
                                             <div class="col-4">
-                                                <label for="home_contact_number" >Contact Number </label>
+                                                <label for="surname" >Sur Name</label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="home_contact_number" type="text" class="form-control @error('home_contact_number') is-invalid @enderror" name="home_contact_number" value="{{ old('home_contact_number') }}"  autocomplete="home_contact_number" autofocus>
-                                                @error('home_contact_number')
+                                                <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ Auth::user()->surname }}"  autocomplete="surname" autofocus>
+                                                @error('surname')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row mb-2">
+                                            <div class="col-4">
+                                                <label for="email" > Email </label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ Auth::user()->email }}"  autocomplete="email" autofocus>
+                                                @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="row mb-2">
+                                            <div class="col-4">
+                                                <label for="phone" >Phone</label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ Auth::user()->phone }}"  autocomplete="phone" autofocus>
+                                                @error('phone')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -101,7 +129,7 @@
                                                 <label for="address_first_line" >Address First Line </label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="address_first_line" type="text" class="form-control @error('address_first_line') is-invalid @enderror" name="address_first_line" value="{{ old('address_first_line') }}"  autocomplete="address"   autofocus>
+                                                <input id="address_first_line" type="text" class="form-control @error('address_first_line') is-invalid @enderror" name="address_first_line" value="{{Auth::user()->address_first_line}}"  autocomplete="address"   autofocus>
                                                 @error('address_first_line')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -115,7 +143,7 @@
                                                 <label for="address_second_line" >Address Second Line </label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="address_second_line" type="text" class="form-control @error('address_second_line') is-invalid @enderror" name="address_second_line" value="{{ old('address_second_line') }}"  autocomplete="address_second_line"  autofocus>
+                                                <input id="address_second_line" type="text" class="form-control @error('address_second_line') is-invalid @enderror" name="address_second_line" value="{{Auth::user()->address_second_line}}"  autocomplete="address_second_line"  autofocus>
                                                 @error('address_second_line')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -129,7 +157,7 @@
                                                 <label for="city" >City </label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{ old('city') }}"  autocomplete="city" autofocus>
+                                                <input id="city" type="text" class="form-control @error('city') is-invalid @enderror" name="city" value="{{Auth::user()->city}}"  autocomplete="city" autofocus>
                                                 @error('city')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -140,24 +168,10 @@
 
                                         <div class="row mb-2">
                                             <div class="col-4">
-                                                <label for="country" >Country </label>
+                                                <label for="postcode" >Post Code </label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="country" type="text" class="form-control @error('country') is-invalid @enderror" name="country" value="{{ old('country') }}"  autocomplete="country" autofocus>
-                                                @error('country')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-
-                                        <div class="row mb-2">
-                                            <div class="col-4">
-                                                <label for="postcode" >Postal Code </label>
-                                            </div>
-                                            <div class="col-8">
-                                                <input id="postcode" type="text" class="form-control @error('postcode') is-invalid @enderror" name="postcode" value="{{ old('postcode') }}"  autocomplete="postcode" autofocus>
+                                                <input id="postcode" type="text" class="form-control @error('postcode') is-invalid @enderror" name="postcode" value="{{Auth::user()->postcode}}"  autocomplete="postcode" autofocus>
                                                 @error('postcode')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -166,17 +180,42 @@
                                             </div>
                                         </div>
 
-                                        
+                                        <div class="row mb-2">
+                                            <div class="col-4">
+                                                <label for="line_manager" >Line Manager </label>
+                                            </div>
+                                            <div class="col-8">
+                                                <select name="line_manager" id="line_manager" class="form-control select2  @error('line_manager') is-invalid @enderror">
+                                                    <option value="">Line Manager</option>
+                                                    @foreach ($linemanagers as $linemanager)
+                                                        <option value="{{$linemanager->id}}"
+                                                            @if (Auth::user()->line_manager == $linemanager->id) selected @endif
+                                                        >{{$linemanager->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('line_manager')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
 
 
-
-                                        
                                         <div class="row mb-2">
                                             <div class="col-4">
                                                 <label for="division" >Division </label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="division" type="text" class="form-control @error('division') is-invalid @enderror" name="division" value="{{ old('division') }}"  autocomplete="division" autofocus>
+
+                                                <select name="division_id" id="division_id" class="form-control select2 @error('division_id') is-invalid @enderror">
+                                                    <option value="">Division</option>
+                                                    @foreach ($divisions as $division)
+                                                        <option value="{{$division->id}}"
+                                                            @if (Auth::user()->division_id == $division->id) selected @endif
+                                                        >{{$division->name}}</option>
+                                                    @endforeach
+                                                </select>
                                                 @error('division')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -188,11 +227,48 @@
                                         
                                         <div class="row mb-2">
                                             <div class="col-4">
-                                                <label for="department" >Ward/Department </label>
+                                                <label for="department_id" >Department </label>
                                             </div>
                                             <div class="col-8">
-                                                <input id="department" type="text" class="form-control @error('department') is-invalid @enderror" name="department" value="{{ old('department') }}"  autocomplete="department" autofocus>
-                                                @error('department')
+                                                <select name="department_id" id="department_id" class="form-control select2  @error('department_id') is-invalid @enderror">
+                                                    <option value="">Department</option>
+                                                    @foreach ($departments as $department)
+                                                        <option value="{{$department->id}}"
+                                                            @if (Auth::user()->department_id == $department->id) selected @endif
+                                                        >{{$department->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('department_id')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-2">
+                                            <div class="col-4">
+                                                <label for="password" >Password </label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
+
+                                                @error('password')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-2">
+                                            <div class="col-4">
+                                                <label for="confirm_password" >Confirm Password </label>
+                                            </div>
+                                            <div class="col-8">
+                                                <input id="confirm_password" type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" >
+                                                
+                                                @error('confirm_password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
@@ -239,8 +315,26 @@
 @endsection
 @section('script')
 
-
-
-
+<script>
+    $(document).ready(function() {
+        // Select2 Multiple
+        $('#division_id').select2({
+            placeholder: "Division",
+            allowClear: true
+        });
+    
+        $('#department_id').select2({
+            placeholder: "Department",
+            allowClear: true
+        });
+    
+        $('#line_manager').select2({
+            placeholder: "Line Manager",
+            allowClear: true
+        });
+    
+    });
+    
+</script>
 
 @endsection
