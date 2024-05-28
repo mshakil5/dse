@@ -301,6 +301,27 @@
                                         {{-- <li class="d-flex justify-content-between align-items-center pe-2 rounded-2 d-block category-link getsrchval" data-category="{{$category->id}}" style="cursor: pointer;">{{ $key + 1 }}. {{ $category->name }}<span class="badge text-bg-warning">{{$category->no_count}}</span>
                                         </li> --}}
                                     @endforeach
+
+                                    @php
+                                        $counts = \App\Models\AssesmentAnswer::whereIn('catname', ['lowback', 'upperback', 'neck', 'shoulders', 'arms', 'hand_fingers', 'taught_exercise', 'otherqn'])
+                                                        ->where('program_number', $pnumber)
+                                                        ->groupBy('catname')->where('answer', 'Yes')->where('solved', 0)
+                                                        ->selectRaw('catname, COUNT(*) as count')
+                                                        ->pluck('count', 'catname');
+                  
+                                        $excounts = \App\Models\AssesmentAnswer::whereIn('catname', ['exercise'])
+                                                        ->where('program_number', $pnumber)
+                                                        ->groupBy('catname')->where('answer', 'No')->where('solved', 0)
+                                                        ->selectRaw('catname, COUNT(*) as count')
+                                                        ->pluck('count', 'catname');
+                                                        
+                                        $numKeys = count($counts);
+                                        $exnumKeys = count($excounts);
+
+                                    @endphp
+
+                                    <li class="d-flex justify-content-between align-items-center pe-2 rounded-2"><a  href="#healthSection" class="d-block category-link getsrchval" style="cursor: pointer;">9. Health Experience</a><span class="badge text-bg-warning">{{$numKeys + $exnumKeys}}</span>
+                                    </li>
                                 </ol>
                             </div>
                         </div>
@@ -311,7 +332,7 @@
 
                 <h4>Tick to confirm location & type of health problem's experienced</h4>
 
-                <div class="row mt-2">
+                <div class="row mt-2" id="healthSection">
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
                         <div class="row pt-5 px-4">
                             <div class="col-lg-12 mb-4">
@@ -797,14 +818,14 @@
             <div class="modal-body">
                 <div class="ermsgod"></div>
                 <select name="health_id" id="health_id{{$data->id}}" class="form-control">
-                    <option value="">Select Ocupational Health</option>
+                    <option value="">Ocupational Health</option>
                     @foreach (\App\Models\User::where('is_type', '3')->get() as $expert)
                     <option value="{{$expert->id}}">{{$expert->name}}</option>
                     @endforeach
                 </select>
 
                 <select name="safety_id" id="safety_id{{$data->id}}" class="form-control mt-2">
-                    <option value="">Select Health & Safety</option>
+                    <option value="">Health & Safety</option>
                     @foreach (\App\Models\User::where('is_type', '1')->get() as $expert)
                     <option value="{{$expert->id}}">{{$expert->name}}</option>
                     @endforeach
