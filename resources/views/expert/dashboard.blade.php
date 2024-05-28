@@ -505,9 +505,9 @@
     pie: {
       donut: {
         labels: {
-          show: true,
+          show: false,
           total: {
-            show: true,
+            show: false,
             label: 'Total',
             formatter: function (w) {
               return w.globals.seriesTotals.reduce((a, b) => {
