@@ -495,6 +495,7 @@
   chart: {
     type: 'donut'
   },
+  labels: ['Outstanding', 'Complete'], // Your custom labels
   dataLabels: {
     enabled: true,
     formatter: function (val) {
