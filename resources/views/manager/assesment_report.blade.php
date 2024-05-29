@@ -475,49 +475,7 @@
 
                                         </tr>
 
-                                        {{-- manager and health comment  --}}
-                                        @if (isset($chkboxitemNone) && $chkboxitemNone > 0)
-                                        <tr>
-                                            <td style="text-align: left" colspan="6">
-                                                @if (isset($otheranscmmnts))
-                                                <div class="row"> 
-                                                    @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "checkitem")
-                                                    <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
-                                                        <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        
-                                                        <small>Date:{{$heathcmt->date}}</small>
-                                                    </div>  
-                                                    @endif
-                                                    @endforeach
-                                                    
-                                                </div>
-                                                @endif
-                                                
-                                                <div id="replycheckitem"></div>
-                                                
-                                                <div class="cmntermsgcheckitem"></div>
-                                                <div class="col-lg-12" id="replycmnt">
-                                                    <textarea id="commentcheckitem" class="form-control" placeholder="Comments Here"></textarea>
-                                                </div>
-                                                <div class="col-lg-12" id="replybtn">
-                                                    <div class="row py-3 ">
-                                                        <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="checkitem" opmsname="question" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endif
-                                        {{-- manager and health comment end --}}
 
-
-                                        
                                         <tr>
                                             <td style="text-align: left" colspan="6">
                                                 <h6 class="mb-3">Do you do any stretching exercises during the day to prevent muscular tension? </h6>
@@ -536,46 +494,6 @@
                                             </td>
                                         </tr>
 
-                                        {{-- cmmnt start  --}}
-                                        {{-- manager and health comment  --}}
-                                        @if (isset($exerciseAns) && $exerciseAns > 0)
-                                            
-                                        <tr>
-                                            <td style="text-align: left" colspan="6">
-                                                @if (isset($otheranscmmnts))
-                                                <div class="row"> 
-                                                    @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "exercise")
-                                                    <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
-                                                        <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        <small>Date:{{$heathcmt->date}}</small>
-                                                    </div>  
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                @endif
-                                                
-                                                <div id="replyexercise"></div>
-                                                
-                                                <div class="cmntermsgexercise"></div>
-                                                <div class="col-lg-12" id="replycmnt">
-                                                    <textarea id="commentexercise" class="form-control" placeholder="Comments Here"></textarea>
-                                                </div>
-                                                <div class="col-lg-12" id="replybtn">
-                                                    <div class="row py-3 ">
-                                                        <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="exercise" opmsname="question" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endif
-                                        {{-- cmmnt end  --}}
 
                                         <tr>
                                             <td style="text-align: left" colspan="6">
@@ -594,48 +512,6 @@
                                                 </label>
                                             </td>
                                         </tr>
-
-                                        {{-- cmmnt start  --}}
-                                        {{-- manager and health comment  --}}
-                                        @if (isset($texerciseAns) && $texerciseAns > 0)
-                                            
-                                        <tr>
-                                            <td style="text-align: left" colspan="6">
-                                                @if (isset($otheranscmmnts))
-                                                <div class="row"> 
-                                                    @foreach ($otheranscmmnts as $heathcmt)
-                                                    @if ($heathcmt->catname == "taught_exercise")
-                                                    <div class="col-lg-4"></div>
-                                                    <div class="col-lg-8 p-2 alert alert-secondary text-start rounded-3 text-dark">
-                                                        <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
-                                                        <small>Date:{{$heathcmt->date}}</small>
-                                                    </div>  
-                                                    @endif
-                                                    @endforeach
-                                                </div>
-                                                @endif
-                                                
-                                                <div id="replytaught_exercise"></div>
-                                                
-                                                <div class="cmntermsgtaught_exercise"></div>
-                                                <div class="col-lg-12" id="replycmnt">
-                                                    <textarea id="commenttaught_exercise" class="form-control" placeholder="Comments Here"></textarea>
-                                                </div>
-                                                <div class="col-lg-12" id="replybtn">
-                                                    <div class="row py-3 ">
-                                                        <div class="col-lg-5 d-flex align-items-center">
-                                                            <button type="button" class="btn btn-warning d-flex align-items-center addOpmsComment" catname="taught_exercise" opmsname="question" solved="0" prgmnumber="{{$data->program_number}}"> <iconify-icon icon="akar-icons:check-box-fill" class="me-1"></iconify-icon> send
-                                                            </button>
-                                                        </div>
-                                                        <div class="col-lg-7 d-flex gap-3 justify-content-end">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        @endif
-                                        {{-- cmmnt end  --}}
-
 
                                     </tbody>
                                 </table>
@@ -671,60 +547,167 @@
 
 
                 <div class="row mt-2">
-                    
                     <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
-                        
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Risk factors</th>
-                                    <th>Conversation</th>
+                                    <th style="text-align: center">Conversation</th>
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($comments as $key => $assanswer)
-                                
-                                    
                                 <tr>
                                     <td>{{ $assanswer->question->question }} </td>
                                     <td style="width: 70%" class="p-2">  
                                         @foreach ($assanswer->assesmentAnswerComments as $comment)
-                                                @if ($comment->created_by == "User")
-                                                    <div class="row">
-                                                        <div class="col-lg-8 alert alert-secondary  rounded-3 text-dark  align-items-right"><b>{{$comment->created_by}}:</b>  {{$comment->comment}}
-                                                            <br>
+                                            @if ($comment->created_by == "User")
+                                                <div class="row">
+                                                    <div class="col-lg-8 alert alert-secondary  rounded-3 text-dark  align-items-right"><b>{{$comment->created_by}}:</b>  {{$comment->comment}}
+                                                        <br>
+                                                    <small>Date: {{$comment->date}}</small>
+                                                    </div>
+                                                    <div class="col-lg-4"></div>
+                                                </div>
+                                            @else
+                                                <div class="row">
+                                                    <div class="col-lg-4"></div>
+                                                    <div class="col-lg-8 alert alert-secondary text-start rounded-3 text-dark"><b>{{$comment->created_by}}: </b> {{$comment->comment}}
+                                                        <br>
                                                         <small>Date: {{$comment->date}}</small>
-                                                        </div>
-                                                        <div class="col-lg-4"></div>
                                                     </div>
-                                                @else
-
-                                                    <div class="row">
-                                                        <div class="col-lg-4"></div>
-                                                        <div class="col-lg-8 alert alert-secondary text-start rounded-3 text-dark"><b>{{$comment->created_by}}: </b> {{$comment->comment}}
-                                                            <br>
-                                                            <small>Date: {{$comment->date}}</small>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                @endif
-                                            @endforeach
+                                                </div>
+                                            @endif
+                                        @endforeach
                                     </td>
                                 </tr>
-                                
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
                 </div>
 
 
-                
+                {{-- health comment here --}}
+
+                <div class="row mt-2">
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Risk factors</th>
+                                    <th style="text-align: center">Conversation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                    {{-- manager and health comment  --}}
+                                    @if (isset($chkboxitemNone) && $chkboxitemNone > 0)
+                                    <tr>
+                                        
+                                        <td><h6 class="mb-3"> Health experience </h6></td>
+                                        <td style="text-align: left">
+                                            @if (isset($otheranscmmnts))
+                                            <div class="row"> 
+                                                @foreach ($otheranscmmnts as $heathcmt)
+                                                @if ($heathcmt->catname == "checkitem")
+                                                <div class="col-lg-12 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                    <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                    <small>Date:{{$heathcmt->date}}</small>
+                                                </div>  
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    {{-- manager and health comment end --}}
 
 
+                                    {{-- cmmnt start  --}}
+                                    {{-- manager and health comment  --}}
+                                    @if (isset($exerciseAns) && $exerciseAns > 0)
+                                    <tr>
+                                        <td style="text-align: left">
+                                            <h6>Do you do any stretching exercises during the day to prevent muscular tension? </h6>
+                                        </td>
+                                        <td style="text-align: left">
+                                            @if (isset($otheranscmmnts))
+                                            <div class="row"> 
+                                                @foreach ($otheranscmmnts as $heathcmt)
+                                                @if ($heathcmt->catname == "exercise")
+                                                <div class="col-lg-12 alert alert-secondary text-start rounded-3 text-dark">
+                                                    <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                    <small>Date:{{$heathcmt->date}}</small>
+                                                </div>  
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    {{-- cmmnt end  --}}
 
+                                    {{-- cmmnt start  --}}
+                                    @if (isset($texerciseAns) && $texerciseAns > 0)
+                                        
+                                    <tr>
+                                        <td style="text-align: left">
+                                            <h6> Would you like to be taught some exercises? </h6>
+                                        </td>
+                                        <td style="text-align: left">
+                                            @if (isset($otheranscmmnts))
+                                            <div class="row"> 
+                                                @foreach ($otheranscmmnts as $heathcmt)
+                                                @if ($heathcmt->catname == "taught_exercise")
+                                                <div class="col-lg-12 alert alert-secondary text-start rounded-3 text-dark">
+                                                    <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                    <small>Date:{{$heathcmt->date}}</small>
+                                                </div>  
+                                                @endif
+                                                @endforeach
+                                            </div>
+                                            @endif
+                                            
+                                        </td>
+                                    </tr>
+                                    @endif
+                                    {{-- cmmnt end  --}}
+
+                                    @if (isset($healthans)) 
+                                       
+                                    <tr>
+                                        <td style="text-align: left">
+                                            <h6>Do you have any other health concern or comments ? </h6>
+
+                                            <h6 class="mb-3">@foreach ($healthans as $newqn) @if ($newqn->result == "Yes" && $newqn->catname == "newqn") Question: {{$newqn->newquestion}} @endif @endforeach</h6>
+                                        </td>
+                                        <td style="text-align: left">
+                                            @if (isset($otherqnAns) && $otherqnAns > 0)
+                                                    @if (isset($otheranscmmnts))
+                                                    <div class="row"> 
+                                                        @foreach ($otheranscmmnts as $heathcmt)
+                                                        @if ($heathcmt->catname == "newqn")
+                                                        <div class="col-lg-12 p-2 alert alert-secondary text-start rounded-3 text-dark">
+                                                            <b> {{$heathcmt->created_by}}: </b>{{$heathcmt->comment}} <br>
+                                                            <small>Date:{{$heathcmt->date}}</small>
+                                                        </div>  
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                    @endif
+                                            @endif
+                                            
+                                        </td>
+                                    </tr>
+                                    @endif 
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
             </div>
         </div>

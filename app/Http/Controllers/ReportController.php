@@ -58,12 +58,15 @@ class ReportController extends Controller
 
         $healthans = AssesmentAnswer::with('assesmentAnswerComments')->where('program_number', $id)->whereNull('question_id')->get();
         $otheranscmmnts = AssesmentAnswerComment::where('program_number', $id)->whereNull('assesment_answer_id')->get();
-
-        
         $determiningAnswer = DeterminigAnswer::where('program_number', $id)->first();
 
+        $chkboxitemNone = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['lowback', 'upperback', 'shoulders', 'arms', 'hand_fingers', 'neck'])->where('result','!=', 'None')->count();
+        $exerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['exercise'])->where('answer','!=', 'Yes')->count();
+        $texerciseAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['taught_exercise'])->where('answer','!=', 'No')->count();
+        $otherqnAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
+
         // dd($comments);
-        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category','healthans','otheranscmmnts','determiningAnswer'));
+        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category','healthans','otheranscmmnts','determiningAnswer','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns'));
 
     }
 }
