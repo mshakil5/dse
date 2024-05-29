@@ -146,14 +146,14 @@
               <table class="table" id="exdatatable2">
                 <thead>
                   <tr>
-                      <th scope="col">#</th>
+                      <th scope="col">DSE ID</th>
                       <th scope="col">Date</th>
                       <th scope="col">Email</th>
                       <th scope="col">Name</th>
                       <th scope="col">Surname</th>
                       <th scope="col">Count</th>
                       <th scope="col">Health</th>
-                      <th scope="col">Location</th>
+                      <th scope="col">Assign to</th>
                       <th scope="col" class="text-center">Action</th>
                   </tr>
                 </thead>
@@ -237,15 +237,15 @@
               <table class="table table-striped table-dark " id="exdatatable">
                 <thead>
                     <tr>
-                        <th scope="col">DSE Id</th>
+                        <th scope="col">DSE ID</th>
                         <th scope="col">Date</th>
                         <th scope="col">Email</th>
                         <th scope="col">Name</th>
                         <th scope="col">Surname</th>
                         <th scope="col">Count</th>
                         <th scope="col">Health</th>
-                        <th scope="col">Outstanding Issue</th>
-                        <th scope="col">Location</th>
+                        <th scope="col">Risk rating point</th>
+                        <th scope="col">Assign to</th>
                         <th scope="col">Report</th>
                         <th scope="col" class="text-center">Action</th>
                     </tr>

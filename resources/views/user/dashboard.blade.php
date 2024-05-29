@@ -243,7 +243,7 @@
                 <table class="table table-striped table-dark " id="exdatatable">
                   <thead>
                       <tr>
-                          <th scope="col">Id</th>
+                          <th scope="col">DSE ID</th>
                           <th scope="col">Date</th>
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
@@ -251,7 +251,7 @@
                           <th scope="col">Count</th>
                           <th scope="col">Health</th>
                           <th scope="col">Rating</th>
-                          <th scope="col">Location</th>
+                          <th scope="col">Assign to</th>
                           <th scope="col" class="text-center">Action</th>
                       </tr>
                   </thead>
