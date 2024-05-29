@@ -132,33 +132,33 @@
                                             <h6 class="mb-3">If part time how many hours a week do you work?  {{$data->part_time_work_hour}}</h6>
                                         </div>
                                 
-                                        <div class="col-lg-12 mb-4">
+                                        <div class="col-lg-12 mb-1">
                                             <h6 class="mb-3">Do you normally use your DSE for continuous spells of an hour or more at a time?
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="Yes" @if(isset($data)) @if ($data->continuous_spell == "Yes") checked @endif @endif>Yes
+                                                <input type="radio" name="work_hour" class="form-check-input me-1" value="Yes" @if(isset($determiningAnswer)) @if ($determiningAnswer->work_hour == "Yes") checked @endif @endif>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell == "No") checked @endif @endif>No
+                                                <input type="radio" name="work_hour" class="form-check-input me-1" value="No" @if(isset($determiningAnswer)) @if ($determiningAnswer->work_hour == "No") checked @endif @endif>No
                                             </label>
                                         </div>
                                 
-                                        <div class="col-lg-12 mb-4">
-                                            <h6 class="mb-3">If ‘Yes’ do you do this more or less daily ?     
+                                        <div class="col-lg-12 mb-1">
+                                            <h6 class="mb-3">Do you use Medicine Administration Workstation on Wheels (WoW) throughout your shift?     
                                             </h6>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="Yes"@if(isset($data)) @if ($data->continuous_spell_time == "Yes") checked @endif @endif>Yes
+                                                <input type="radio" name="wow_system" class="form-check-input me-1" value="Yes"@if(isset($determiningAnswer)) @if ($determiningAnswer->wow_system == "Yes") checked @endif @endif>Yes
                                             </label>
                                             <label class="mx-2">
-                                                <input type="radio" name="continuous_spell_time" class="form-check-input me-1" value="No" @if(isset($data)) @if ($data->continuous_spell_time == "No") checked @endif @endif>No
+                                                <input type="radio" name="wow_system" class="form-check-input me-1" value="No" @if(isset($determiningAnswer)) @if ($determiningAnswer->wow_system == "No") checked @endif @endif>No
                                             </label>
                                         </div>
                                 
-                                        <div class="col-lg-6 mb-4">
+                                        <div class="col-lg-12 mb-1">
                                             <h6 class="mb-3">How many hours on average daily do you spend using your DSE? {{$data->average_using_dse}}</h6>
                                         </div>
                                 
-                                        <div class="col-lg-12 mb-4">
+                                        <div class="col-lg-12 mb-1">
                                             <h6 class="mb-3">What Software do you use? </h6>
                                             <label class="mx-2">
                                                 <input id="Msoffice" type="checkbox" name="software[]" class="form-check-input me-1" value="Msoffice" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Msoffice") checked @endif @endforeach @endif>Microsoft office suit
