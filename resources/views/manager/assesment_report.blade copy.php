@@ -52,59 +52,18 @@
                                 </a>
                             </div>
                         </div>
-
-
-                        
-                        <div class="row mt-2">
-                            <div class="col-lg-12 p-4">
-
-                                <p>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="black" d="M15.71 12.71a6 6 0 1 0-7.42 0a10 10 0 0 0-6.22 8.18a1 1 0 0 0 2 .22a8 8 0 0 1 15.9 0a1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1a10 10 0 0 0-6.25-8.19M12 12a4 4 0 1 1 4-4a4 4 0 0 1-4 4"/></svg> <b>{{ $user->name }}</b> <br>
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="#c5cae9" d="M42 42H6V9l18-7l18 7z"/><path fill="#9fa8da" d="M6 42h36v2H6z"/><path fill="black" d="M20 35h8v9h-8z"/><path fill="#1565c0" d="M31 27h6v5h-6zm-10 0h6v5h-6zm-10 0h6v5h-6zm20 8h6v5h-6zm-20 0h6v5h-6zm20-16h6v5h-6zm-10 0h6v5h-6zm-10 0h6v5h-6zm20-8h6v5h-6zm-10 0h6v5h-6zm-10 0h6v5h-6z"/></svg> <b>{{ $department->name }}</b> <br>
-
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 2048 2048"><path fill="black" d="M1792 993q60 41 107 93t81 114t50 131t18 141q0 119-45 224t-124 183t-183 123t-224 46q-91 0-176-27t-156-78t-126-122t-85-157H128V128h256V0h128v128h896V0h128v128h256zM256 256v256h1408V256h-128v128h-128V256H512v128H384V256zm643 1280q-3-31-3-64q0-86 24-167t73-153h-97v-128h128v86q41-51 91-90t108-67t121-42t128-15q100 0 192 33V640H256v896zm573 384q93 0 174-35t142-96t96-142t36-175q0-93-35-174t-96-142t-142-96t-175-36q-93 0-174 35t-142 96t-96 142t-36 175q0 93 35 174t96 142t142 96t175 36m64-512h192v128h-320v-384h128zM384 1024h128v128H384zm256 0h128v128H640zm0-256h128v128H640zm-256 512h128v128H384zm256 0h128v128H640zm384-384H896V768h128zm256 0h-128V768h128zm256 0h-128V768h128z"/></svg> <b>{{ \Carbon\Carbon::parse($assesment->date)->format('d/m/Y')}} </b> 
-                                    <br>
-                                
-                                </p>
-
-
-                                <h4>DSE Risk Assessment Action Plan</h4>
-                                <h6>To be completed by Manager / Health and Safety Lead and DSE User</h6>
-                                
-                                <table class="table table-bordered table-striped p-2">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Degree of risk</th>
-                                            <th>Action needed to be taken to <br>
-                                                reduce risks <br>
-                                                whilst working with DSE</th>
-                                            <th>Review Date</th>
-                                            <th>Date Achieved</th>
-                                            <th>Degree Of risk</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td> @if (isset($oldschedule->start_date)) {{$oldschedule->start_date}} @else {{$oldschedule->end_date}} @endif</td>
-                                            <td>{{$oldschedule->initial_risk}}</td>
-                                            <td>{{$oldschedule->comment}}</td>
-                                            <td>{{$newschedule->end_date}}</td>
-                                            <td>{{$oldschedule->achieve_date}}</td>
-                                            <td>{{$oldschedule->risk_rating_point}}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-
-
                         <div class="row">
                             <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
                                 <div class="py-3">
+                                    <p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="black" d="M15.71 12.71a6 6 0 1 0-7.42 0a10 10 0 0 0-6.22 8.18a1 1 0 0 0 2 .22a8 8 0 0 1 15.9 0a1 1 0 0 0 1 .89h.11a1 1 0 0 0 .88-1.1a10 10 0 0 0-6.25-8.19M12 12a4 4 0 1 1 4-4a4 4 0 0 1-4 4"/></svg> <b>{{ $user->name }}</b> <br>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 48 48"><path fill="#c5cae9" d="M42 42H6V9l18-7l18 7z"/><path fill="#9fa8da" d="M6 42h36v2H6z"/><path fill="black" d="M20 35h8v9h-8z"/><path fill="#1565c0" d="M31 27h6v5h-6zm-10 0h6v5h-6zm-10 0h6v5h-6zm20 8h6v5h-6zm-20 0h6v5h-6zm20-16h6v5h-6zm-10 0h6v5h-6zm-10 0h6v5h-6zm20-8h6v5h-6zm-10 0h6v5h-6zm-10 0h6v5h-6z"/></svg> <b>{{ $department->name }}</b> <br>
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 2048 2048"><path fill="black" d="M1792 993q60 41 107 93t81 114t50 131t18 141q0 119-45 224t-124 183t-183 123t-224 46q-91 0-176-27t-156-78t-126-122t-85-157H128V128h256V0h128v128h896V0h128v128h256zM256 256v256h1408V256h-128v128h-128V256H512v128H384V256zm643 1280q-3-31-3-64q0-86 24-167t73-153h-97v-128h128v86q41-51 91-90t108-67t121-42t128-15q100 0 192 33V640H256v896zm573 384q93 0 174-35t142-96t96-142t36-175q0-93-35-174t-96-142t-142-96t-175-36q-93 0-174 35t-142 96t-96 142t-36 175q0 93 35 174t96 142t142 96t175 36m64-512h192v128h-320v-384h128zM384 1024h128v128H384zm256 0h128v128H640zm0-256h128v128H640zm-256 512h128v128H384zm256 0h128v128H640zm384-384H896V768h128zm256 0h-128V768h128zm256 0h-128V768h128z"/></svg> <b>{{ \Carbon\Carbon::parse($assesment->date)->format('d/m/Y')}} </b> 
+                                        <br>
                                     
+                                    </p>
                                     
                                     <h2 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h2>
                                         <p>
@@ -161,20 +120,22 @@
                                         <div class="col-lg-12 mb-4">
                                             <h6 class="mb-3">What Software do you use? </h6>
                                             <label class="mx-2">
-                                                <input id="Msoffice" type="checkbox" name="software[]" class="form-check-input me-1" value="Msoffice" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Msoffice") checked @endif @endforeach @endif>Microsoft office suit
+                                                <input id="ms_word" type="checkbox" name="software[]" class="form-check-input me-1" value="Word" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Word") checked @endif @endforeach @endif>Word
                                             </label>
                                             <label class="mx-2">
-                                                <input id="Cerner" type="checkbox" name="software[]" class="form-check-input me-1" value="Cerner" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Cerner") checked @endif @endforeach @endif>Cerner
+                                                <input id="ms_excel" type="checkbox" name="software[]" class="form-check-input me-1" value="Excel" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Excel") checked @endif @endforeach @endif>Excel
                                             </label>
-                                            <label for="ESR" class="mx-2">
-                                                <input id="ESR" type="checkbox" name="software[]" class="form-check-input me-1" value="ESR" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "ESR") checked @endif @endforeach @endif>ESR
+                                            <label for="ms_access" class="mx-2">
+                                                <input id="ms_access" type="checkbox" name="software[]" class="form-check-input me-1" value="Access" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Access") checked @endif @endforeach @endif>Access
                                             </label>
-
+                                            <label for="ms_powerpoint" class="mx-2">
+                                                <input id="ms_powerpoint" type="checkbox" name="software[]" class="form-check-input me-1" value="Powerpoint" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Powerpoint") checked @endif @endforeach @endif>Powerpoint
+                                            </label>
                                             <label for="others" class="mx-2">
                                                 <input id="others" type="checkbox" name="software[]" class="form-check-input me-1" value="Others" @if (isset($data->software)) @foreach (json_decode($data->software) as $software) @if ($software == "Others") checked @endif @endforeach @endif>Others
                                             </label>
                                             <label class="">
-                                                <input id="others_software" type="text" name="others_software" class="form-control" placeholder="Somerset, EPT, Cerner" value="@if(isset($data)){{$data->others_software}}@endif">
+                                                <input id="others_software" type="text" name="others_software" class="form-control" placeholder="Somerset, EPT, ERS, Cerner" value="@if(isset($data)){{$data->others_software}}@endif">
                                             </label>
                                         </div>
                                 
@@ -668,6 +629,44 @@
                 </div>
 
 
+                <div class="row mt-2">
+                    <div class="col-lg-12 shadow-sm border rounded-0 bg-light p-4">
+                        <h4>DSE Risk Assessment Action Plan</h4>
+                        <h6>To be completed by Manager / Health and Safety Lead and DSE User</h6>
+                        
+                        <table class="table table-bordered table-striped p-2">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Degree of risk</th>
+                                    <th>Action needed to be taken to <br>
+                                        reduce risks <br>
+                                        whilst working with DSE</th>
+                                    <th>Review Date</th>
+                                    <th>Date Achieved</th>
+                                    <th>Degree Of risk</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> @if (isset($oldschedule->start_date)) {{$oldschedule->start_date}} @else {{$oldschedule->end_date}} @endif</td>
+                                    <td>{{$oldschedule->initial_risk}}</td>
+                                    <td>{{$oldschedule->comment}}</td>
+                                    <td>{{$newschedule->end_date}}</td>
+                                    <td>{{$oldschedule->achieve_date}}</td>
+                                    <td>{{$oldschedule->risk_rating_point}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        {{-- <p><b>User's name: </b>{{$user->name}}</p>
+                        <p><b> Line Manager's name: </b>{{\App\Models\User::where('id', $assesment->line_manager_id)->first()->name}}</p>
+                        <p><b> Department: </b>{{$department->name}}</p> --}}
+                        
+                        
+                    </div>
+                </div>
 
 
                 <div class="row mt-2">

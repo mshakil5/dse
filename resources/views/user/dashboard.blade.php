@@ -1,6 +1,10 @@
 @extends('layouts.user')
 @section('content')
-
+<style>
+  .assBtn{
+    cursor: pointer !important;
+  }
+</style>
 @php
     $danswer = \App\Models\DeterminigAnswer::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
     $nxtassesmentdate = \App\Models\AssesmentSchedule::where('user_id', Auth::user()->id)->orderby('id','DESC')->first();
@@ -41,59 +45,39 @@
                 
               <div class="col-lg-12 shadow  border p-4 rounded-0 bg-light  ">
                   <div class="row ">
-                    {{-- @if (isset($assesment))
-
-                    @foreach ($assesment as $item)
-                    <a href="{{route('user.survey',$item->program_number)}}">
-                        <div class="col-lg-4">
-                            <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                                <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt="">
-                                <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
-                                    Ongoing
-                                </div>
-                            </label>
-                        </div>
-                      </a>
-                    @endforeach
-                        
-                    @endif --}}
+                    
 
                         <div class="col-lg-4">
-                            <a href="{{route('user.determinigQn')}}">
+                            
                                 <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                                    {{-- <img src="https://picsum.photos/300/150" class="img-responsive opacity-75" alt=""> --}}
-                                    <img src="{{ asset('assesment.jpg')}}"  class="img-responsive opacity-75">
+                                  <a href="{{route('user.determinigQn')}}" class="assBtn" style="text-decoration: none;cursor: pointer;">
+                                    <img src="{{ asset('assesment.jpg')}}"  class="img-responsive opacity-75 position-relative">
                                     <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
-                                        
-                                        @if (isset($danswer))
-                                            Outstanding Task
-                                        @else
-                                            DSE Self Assesment 
-                                        @endif
+                                        DSE Self Assesment 
                                     </div>
+                                  </a>
                                 </label>
-                            </a>
+
                         </div>
                         <div class="col-lg-4">
-                            <a href="{{route('trainingModule')}}">
                               <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                                <img src="{{ asset('assets/admin/img/training.png')}}"  class="img-responsive opacity-75">
+                                <a href="{{route('trainingModule')}}">
+                                <img src="{{ asset('assets/admin/img/training.png')}}"  class="img-responsive opacity-75 w-100">
                                   <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
                                       Training Module
                                   </div>
+                                </a>
                               </label>
-                            </a>
                         </div>
                         <div class="col-lg-4">
-                          <a href="{{route('policyDocument')}}">
                             <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
-                              <img src="{{ asset('Policy.jpg')}}"  class="img-responsive opacity-75">
-
+                              <a href="{{route('policyDocument')}}">
+                              <img src="{{ asset('Policy.jpg')}}"  class="img-responsive opacity-75 w-100">
                                 <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
                                     Policy Document
                                 </div>
+                              </a>
                             </label>
-                          </a>
                         </div>
 
                     
