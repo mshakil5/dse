@@ -817,8 +817,9 @@
             </div>
             <div class="modal-body">
                 <div class="ermsgod"></div>
+                
                 <select name="health_id" id="health_id{{$data->id}}" class="form-control">
-                    <option value="">Ocupational Health</option>
+                    <option value="">Occupational Health</option>
                     @foreach (\App\Models\User::where('is_type', '3')->get() as $expert)
                     <option value="{{$expert->id}}">{{$expert->name}}</option>
                     @endforeach

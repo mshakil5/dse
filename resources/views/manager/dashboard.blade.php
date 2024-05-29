@@ -1,6 +1,26 @@
 @extends('manager.layouts.manager')
 @section('content')
+<style>
+  /* Custom CSS for Select2 Input Field */
+  .select2-container .select2-selection--single .select2-selection__rendered {
+      height: 37px; /* Adjust the height as needed */
+      line-height: 37px; /* Ensure the text is vertically centered */
+  }
 
+  .select2-container .select2-selection--single {
+      height: 37px; /* Adjust the height as needed */
+  }
+
+  .select2-container .select2-selection--single .select2-selection__arrow {
+      height: 37px; /* Match the height of the input field */
+  }
+
+  /* Custom CSS for Select2 Dropdown Options */
+  .select2-container .select2-results__option {
+      height: 37px; /* Adjust the height as needed */
+      line-height: 37px; /* Ensure the text is vertically centered */
+  }
+</style>
   <section class="header-main py-3">
     <div class="container ">
       {{-- <div class="row">
@@ -106,7 +126,7 @@
       
               <div class="dropdown">
                   <label for="user_id">User Name</label> <br>
-                  <select name="user_id" id="user_id" class="form-control select2">
+                  <select name="user_id" id="user_id" class="form-control select2" style="width: 150px;">
                     <option value="">Select</option>
                     @foreach ($userlist as $user)
                         <option value="{{$user->id}}">{{$user->name}}</option>
@@ -116,7 +136,7 @@
       
               <div class="dropdown">
                   <label for="status">Status</label>
-                  <select name="status" id="status" class="form-control">
+                  <select name="status" id="status" class="form-control" style="width: 150px;">
                     <option value="">Select</option>
                     <option value="Compiled">Compliant</option>
                     <option value="Due">Renewal  </option>
@@ -390,7 +410,7 @@ chart.render();
   $(document).ready(function() {
       // Select2 Multiple
       $('#user_id').select2({
-          placeholder: "Users",
+          placeholder: "Select Users",
           allowClear: true
       });
   
