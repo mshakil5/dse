@@ -53,7 +53,7 @@
                         
                         <td class="text-center">
 
-                            {{$risk->end_date}}
+                            {{ \Carbon\Carbon::parse($risk->end_date)->format('d/m/Y')}}
                             {{-- <div class="d-flex gap-2 align-items-center justify-content-center">
                                 <a href="{{ route('linemanager.determiniganswer', $data->id) }}">
                                     <iconify-icon class="text-primary" icon="bi:eye"></iconify-icon>

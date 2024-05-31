@@ -209,7 +209,7 @@
   
                     <tr>
                         <th scope="row">{{$data->program_number}}</th>
-                        <td>{{$data->date}}</td>
+                        <td> {{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}}</td>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
@@ -301,7 +301,7 @@
   
                   <tr>
                       <th scope="row">{{$data->program_number}}</th>
-                      <td>{{$data->date}}</td>
+                      <td> {{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}} </td>
                       <td>{{$data->user->email}}</td>
                       <td>{{$data->user->name}}</td>
                       <td>{{$data->user->surname}}</td>

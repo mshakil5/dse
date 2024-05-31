@@ -21,7 +21,7 @@
               <table class="table table-striped table-dark ">
                   <thead>
                       <tr>
-                          <th scope="col">#</th>
+                          <th scope="col">DSE ID</th>
                           <th scope="col">Date</th>
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
@@ -43,8 +43,8 @@
 
 
                     <tr>
-                        <th scope="row">{{$key+1}}</th>
-                        <td>{{$data->date}}</td>
+                        <th scope="row">{{$data->program_number}}</th>
+                        <td> {{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}}</td>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
