@@ -70,7 +70,7 @@
                                             <option value="">Line Manager</option>
                                             @foreach ($linemanagers as $linemanager)
                                                 <option value="{{$linemanager->id}}" @if (isset($data))
-                                                    @if ($data->line_manager_id == $linemanager->id) selected @endif
+                                                    @if ($data->line_manager_id == $linemanager->id) selected @endif @elseif (Auth::user()->line_manager == $linemanager->id) selected
                                                 @endif>{{$linemanager->name}}</option>
                                             @endforeach
                                         </select>
@@ -81,7 +81,7 @@
                                             <option value="">Department</option>
                                             @foreach ($departments as $department)
                                                 <option value="{{$department->id}}"  @if (isset($data))
-                                                    @if ($data->department_id == $department->id) selected @endif
+                                                    @if ($data->department_id == $department->id) selected @endif @elseif (Auth::user()->department_id == $department->id) selected
                                                 @endif>{{$department->name}}</option>
                                             @endforeach
                                         </select>
@@ -93,6 +93,7 @@
                                             @foreach ($divisions as $division)
                                                 <option value="{{$division->id}}"  @if (isset($data))
                                                     @if ($data->division_id == $division->id) selected @endif
+                                                    @elseif (Auth::user()->division_id == $division->id) selected
                                                 @endif>{{$division->name}}</option>
                                             @endforeach
                                         </select>

@@ -66,6 +66,7 @@ class SurveyController extends Controller
 
     public function determiningQuestion()
     {
+        
         $linemanagers = User::where('is_type','2')->select('id', 'name')->get();
         $departments = Department::select('id','name')->get();
         $divisions = Division::select('id','name')->get();
