@@ -300,6 +300,7 @@ class AssesmentController extends Controller
             'hand_fingers' => 'Tick to confirm location & type of health problem\'s experienced.',
             'exercise' => 'Do you do any stretching exercises during the day to prevent muscular tension?',
             'taught_exercise' => 'Would you like to be taught some exercises?',
+            'newqn' => 'Please tell us about health concern or comments',
         ];
         
         $validatedData = $request->validate([
@@ -313,6 +314,7 @@ class AssesmentController extends Controller
             'hand_fingers' => 'required',
             'exercise' => 'required',
             'taught_exercise' => 'required',
+            'newqn' => 'required_if:otherqn,Yes',
         ], $messages);
         
 
