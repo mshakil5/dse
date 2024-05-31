@@ -51,7 +51,7 @@
                             
                                 <label class="card position-relative rounded-3 shadow-sm border border-2 overflow-hidden">
                                   <a href="{{route('user.determinigQn')}}" class="assBtn" style="text-decoration: none;cursor: pointer;">
-                                    <img src="{{ asset('assesment.jpg')}}"  class="img-responsive opacity-75 position-relative">
+                                    <img src="{{ asset('assesment.jpg')}}"  class="img-responsive opacity-75 position-relative w-100">
                                     <div class="p-1 text-center fs-3 position-absolute bottom-0 w-100 bg-white">
                                         DSE Self Assesment 
                                     </div>
@@ -145,7 +145,7 @@
                       <div class="col-lg-4">
                         @if (isset($nxtassesmentdate->end_date))
                           <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
-                              {{$nxtassesmentdate->end_date}}
+                              {{ \Carbon\Carbon::parse($nxtassesmentdate->end_date)->format('d/m/Y')}}
                           </div>
                         @endif
                         
@@ -269,7 +269,7 @@
     
                     <tr>
                         <th scope="row">{{$data->program_number}}</th>
-                        <td>{{$data->date}}</td>
+                        <td>{{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}} </td>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>

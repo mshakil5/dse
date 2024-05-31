@@ -918,6 +918,15 @@ class AssesmentController extends Controller
             exit();
         }
 
+        // new DESID add
+        // Example using time and random number
+        $uniqueNumber = "1". rand(1000, 9999);
+        // Ensure uniqueness in the database
+        while (AssesmentSchedule::where('program_number', $uniqueNumber)->exists()) {
+            $uniqueNumber = "1" . rand(1000, 9999);
+        }
+        // new DESID END
+
         $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
         $closeSchedule->status = 1;
         $closeSchedule->status_title = "Approved";
@@ -928,12 +937,14 @@ class AssesmentController extends Controller
         $danswer->line_manager_notification = 0;
         $danswer->complined = 1;
         $danswer->save();
+
+
        
         // dd($request->all());
         $data = new AssesmentSchedule();
         $data->end_date = $request->date;
         $data->line_manager_id = Auth::user()->id;
-        $data->program_number = rand(100000, 9999999);
+        $data->program_number = $uniqueNumber;
         $data->user_id = $request->user_id;
         $data->assign_account = "User";
         $data->status = "0";
@@ -1052,6 +1063,15 @@ class AssesmentController extends Controller
             exit();
         }
 
+        // new DESID add
+        // Example using time and random number
+        $uniqueNumber = "1". rand(1000, 9999);
+        // Ensure uniqueness in the database
+        while (AssesmentSchedule::where('program_number', $uniqueNumber)->exists()) {
+            $uniqueNumber = "1" . rand(1000, 9999);
+        }
+        // new DESID END
+
         $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
         $closeSchedule->status = 1;
         $closeSchedule->initial_risk = $request->initial_risk;
@@ -1073,7 +1093,7 @@ class AssesmentController extends Controller
         $data = new AssesmentSchedule();
         $data->end_date = $request->date;
         $data->line_manager_id = Auth::user()->id;
-        $data->program_number = rand(100000, 9999999);
+        $data->program_number = $uniqueNumber;
         $data->user_id = $request->user_id;
         $data->assign_account = "User";
         $data->status = "0";

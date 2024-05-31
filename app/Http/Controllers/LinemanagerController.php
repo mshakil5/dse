@@ -56,12 +56,19 @@ class LinemanagerController extends Controller
             $oldSchedule->status = 1;
             $oldSchedule->save();
         }
-
+        // new DESID add
+        // Example using time and random number
+        $uniqueNumber = "1". rand(1000, 9999);
+        // Ensure uniqueness in the database
+        while (AssesmentSchedule::where('program_number', $uniqueNumber)->exists()) {
+            $uniqueNumber = "1" . rand(1000, 9999);
+        }
+        // new DESID END
         $newschedule = new AssesmentSchedule();
         $newschedule->user_id = $request->uid;
         $newschedule->line_manager_id = Auth::user()->id;
         $newschedule->start_date = $request->date;
-        $newschedule->program_number = rand(100000, 9999999);
+        $newschedule->program_number = $uniqueNumber;
         $newschedule->assign_account = "Manager";
         $newschedule->save();
 

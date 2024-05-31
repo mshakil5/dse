@@ -135,6 +135,15 @@ class OccupationalHealthController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        
+        // new DESID add
+        // Example using time and random number
+        $uniqueNumber = "1". rand(1000, 9999);
+        // Ensure uniqueness in the database
+        while (AssesmentSchedule::where('program_number', $uniqueNumber)->exists()) {
+            $uniqueNumber = "1" . rand(1000, 9999);
+        }
+        // new DESID END
 
         $closeSchedule = AssesmentSchedule::where('program_number',$request->prgmnumber)->first();
         $closeSchedule->status = 1;
@@ -151,7 +160,7 @@ class OccupationalHealthController extends Controller
         $data = new AssesmentSchedule();
         $data->end_date = $request->date;
         $data->occupational_health_id = Auth::user()->id;
-        $data->program_number = rand(100000, 9999999);
+        $data->program_number = $uniqueNumber;
         $data->user_id = $request->user_id;
         $data->assign_account = "User";
         $data->status = "0";

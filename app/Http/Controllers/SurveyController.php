@@ -119,6 +119,15 @@ class SurveyController extends Controller
             'wow_system.required' => 'Please, choose an option.'
         ]);
 
+        // new DESID add
+        // Example using time and random number
+        $uniqueNumber = "1". rand(1000, 9999);
+        // Ensure uniqueness in the database
+        while (AssesmentSchedule::where('program_number', $uniqueNumber)->exists()) {
+            $uniqueNumber = "1" . rand(1000, 9999);
+        }
+        // new DESID END
+
         $chkschedule = AssesmentSchedule::whereNotNull('end_date')->where('user_id',Auth::user()->id)->where('status',0)->orderBy('id','DESC')->first();
 
         if (empty($chkschedule)) {
@@ -126,7 +135,7 @@ class SurveyController extends Controller
             $newschedule->user_id = Auth::user()->id; 
             $newschedule->line_manager_id = $request->line_manager;
             $newschedule->start_date = date('Y-m-d');
-            $newschedule->program_number = rand(100000, 9999999);
+            $newschedule->program_number = $uniqueNumber;
             $newschedule->assign_account = "Manager";
             $newschedule->created_by = Auth::user()->id;
             $newschedule->save();
