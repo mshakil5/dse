@@ -21,7 +21,7 @@
               <table class="table table-striped table-dark ">
                   <thead>
                       <tr>
-                          <th scope="col">#</th>
+                          <th scope="col">DSE ID</th>
                           <th scope="col">Email</th>
                           <th scope="col">Name</th>
                           <th scope="col">Surname</th>
@@ -43,7 +43,7 @@
 
 
                       <tr>
-                        <th scope="row">{{$key+1}}</th>
+                        <th scope="row">{{$data->program_number}}</th>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>

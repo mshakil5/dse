@@ -86,11 +86,8 @@
             <div class="col-lg-12 ">
               <a href="{{route('expert.supportRequest')}}" style="text-decoration: none">
                 <div class="card bg-info shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
-                  <div class="col-lg-8">
+                  <div class="col-lg-12">
                     <p class="mb-0 text-light">Occupational Health Support Request</p>
-                  </div>
-                  <div class="col-lg-4">
-                    
                   </div>
                 </div>
               </a>
@@ -224,7 +221,7 @@
   
                     <tr>
                         <th scope="row">{{$data->program_number}}</th>
-                        <td>{{$data->date}}</td>
+                        <td>{{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}}</td>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
                         <td>{{$data->user->surname}}</td>
@@ -318,7 +315,7 @@
   
                   <tr>
                       <th scope="row">{{$data->program_number}}</th>
-                      <td>{{$data->date}}</td>
+                      <td>{{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}}</td>
                       <td>{{$data->user->email}}</td>
                       <td>{{$data->user->name}}</td>
                       <td>{{$data->user->surname}}</td>
@@ -381,7 +378,7 @@
 
                           <tr>
                             <th scope="row">{{$key+1}}</th>
-                            <td>{{$data->created_at}}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y')}}</td>
                             <td>{{$data->email}}</td>
                             <td>{{$data->name}}</td>
                             <td>
@@ -425,7 +422,7 @@
 
                           <tr>
                             <th scope="row">{{$key+1}}</th>
-                            <td>{{$data->created_at}}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y')}}</td>
                             <td>{{$data->email}}</td>
                             <td>{{$data->name}}</td>
                             <td>
@@ -469,7 +466,7 @@
 
                           <tr>
                             <th scope="row">{{$key+1}}</th>
-                            <td>{{$data->created_at}}</td>
+                            <td>{{ \Carbon\Carbon::parse($data->created_at)->format('d/m/Y')}}</td>
                             <td>{{$data->email}}</td>
                             <td>{{$data->name}}</td>
                             <td>
