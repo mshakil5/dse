@@ -39,7 +39,7 @@
               <div class="col-lg-12 ">
                 <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
                     <div class="col-lg-8">
-                        <p class="mb-0 text-light">New Assesment Submitted </p>
+                        <p class="mb-0 text-light">New Assessment Submitted </p>
                     </div>
                     <div class="col-lg-4">
                       <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
@@ -52,7 +52,7 @@
               <div class="col-lg-12 ">
                   <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
                     <div class="col-lg-8">
-                      <p class="mb-0 text-light">Your Team Assesment</p>
+                      <p class="mb-0 text-light">Your Team Assessment</p>
                     </div>
                     <div class="col-lg-4">
                       <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">

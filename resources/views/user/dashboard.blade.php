@@ -95,7 +95,7 @@
                     <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
 
                         <div class="col-lg-8">
-                            <p class="mb-0 text-light">1. Your Self-Assessment status </p>
+                            <p class="mb-0 text-light">Your Self-Assessment status </p>
                         </div>
                         <div class="col-lg-4">
                           <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
@@ -116,7 +116,7 @@
                     <a href="{{route('user.determinigQn')}}" style="text-decoration: none">
                       <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
                         <div class="col-lg-8">
-                          <p class="mb-0 text-light">2. Outstanding action </p>
+                          <p class="mb-0 text-light">Outstanding action </p>
                         </div>
                         <div class="col-lg-4">
                           <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
@@ -137,10 +137,10 @@
                   
                   
                   <div class="col-lg-12 ">
-                    <div class="card bg-success shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
+                    <div class="card bg-danger shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
                       
                       <div class="col-lg-8">
-                        <p class="mb-0 text-light">3. Next assessment due date </p>
+                        <p class="mb-0 text-light">Next assessment due date </p>
                       </div>
                       <div class="col-lg-4">
                         @if (isset($nxtassesmentdate->end_date))
@@ -157,15 +157,15 @@
 
 
                   <div class="col-lg-12 ">
-                    <div class="card bg-primary shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
+                    <div class="card bg-warning shadow-sm mb-2 p-3 border rounded-3 d-flex flex-row">
 
                     <div class="col-lg-8">
-                      <p class="mb-0 text-light">4. Support request </p>
+                      <p class="mb-0 text-light">Support request </p>
                     </div>
                     <div class="col-lg-4">
                       <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
                         <div class="dropdown">
-                          <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
+                          <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"> </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                               <li><a class="dropdown-item" href="{{route('supportRequestSafety')}}">Health & Safety  </a></li>
                               <li><a class="dropdown-item" href="{{route('supportRequest')}}">Occupational Health </a></li>
