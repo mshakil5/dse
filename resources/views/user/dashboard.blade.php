@@ -230,13 +230,14 @@
                           <th scope="col">DSE ID</th>
                           <th scope="col">Date</th>
                           <th scope="col">Email</th>
-                          <th scope="col">Name</th>
+                          <th scope="col">First Name</th>
                           <th scope="col">Surname</th>
-                          <th scope="col">Count</th>
+                          <th scope="col">Other Issues</th>
                           <th scope="col">Health</th>
                           <th scope="col">Rating</th>
                           <th scope="col">Assign to</th>
                           <th scope="col" class="text-center">Action</th>
+                          <th scope="col" class="text-center">Report</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -294,6 +295,10 @@
                             @endif
                             
                         
+                        </td>
+                        <td>
+                          <a href="{{ route('manager.assesment.report', $data->program_number) }}" class="nav-link text-warning d-flex align-items-center"> <iconify-icon  class="me-1 fs-3" icon="ph:gear-light"></iconify-icon> Report
+                          </a>
                         </td>
                     </tr>
                     @endforeach

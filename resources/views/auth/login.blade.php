@@ -9,9 +9,10 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <link rel="icon" type="image/x-icon" href="{{ asset('hsc.png')}}">
   <!-- Favicons -->
-  {{-- <link href="{{ asset('assets/admin/img/favicon.png')}}" rel="icon"> --}}
-  {{-- <link href="{{ asset('assets/admin/img/apple-touch-icon.png')}}" rel="apple-touch-icon"> --}}
+  {{-- <link href="{{ asset('hsc.png')}}" rel="icon"> --}}
+  {{-- <link href="{{ asset('hsc.png')}}" rel="apple-touch-icon"> --}}
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">

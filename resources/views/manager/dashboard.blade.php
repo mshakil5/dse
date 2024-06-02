@@ -78,7 +78,7 @@
             <div class="col-lg-12 ">
               <div class="card bg-warning shadow-sm mb-2  p-3 border rounded-3 d-flex flex-row">
                 <div class="col-lg-8">
-                  <p class="mb-0 text-light">DSE Self assessment Renewal Due </p>
+                  <p class="mb-0 text-light">DSE Self Assessment Renewal Due </p>
                 </div>
                 <div class="col-lg-4">
                   <div class="text-light text-center fw-bold rounded-3 p-1 border align-items-center">
@@ -166,15 +166,15 @@
               <table class="table" id="exdatatable2">
                 <thead>
                   <tr>
-                      <th scope="col">DSE ID</th>
-                      <th scope="col">Date</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Surname</th>
-                      <th scope="col">Count</th>
-                      <th scope="col">Health</th>
-                      <th scope="col">Assign to</th>
-                      <th scope="col" class="text-center">Action</th>
+                      <th style="font-size: 14px; text-align:center;">DSE ID</th>
+                      <th style="font-size: 14px; text-align:center;">Date</th>
+                      <th style="font-size: 14px; text-align:center;">Email</th>
+                      <th style="font-size: 14px; text-align:center;">First Name</th>
+                      <th style="font-size: 14px; text-align:center;">Surname</th>
+                      <th style="font-size: 14px; text-align:center;">Other Issues</th>
+                      <th style="font-size: 14px; text-align:center;">Health Issues</th>
+                      <th style="font-size: 14px; text-align:center;">Assign to</th>
+                      <th style="font-size: 14px; text-align:center;">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -208,7 +208,7 @@
   
   
                     <tr>
-                        <th scope="row">{{$data->program_number}}</th>
+                        <th>{{$data->program_number}}</th>
                         <td> {{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}}</td>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
@@ -254,20 +254,20 @@
 
             <!-- Default Table -->
             <div class="table-responsive">
-              <table class="table table-striped table-dark " id="exdatatable">
+              <table class="table" id="exdatatable">
                 <thead>
                     <tr>
-                        <th scope="col">DSE ID</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Surname</th>
-                        <th scope="col">Count</th>
-                        <th scope="col">Health</th>
-                        <th scope="col">Risk rating point</th>
-                        <th scope="col">Assign to</th>
-                        <th scope="col">Report</th>
-                        <th scope="col" class="text-center">Action</th>
+                        <th style="font-size: 14px; text-align:center;">DSE ID</th>
+                        <th style="font-size: 14px; text-align:center;">Date</th>
+                        <th style="font-size: 14px; text-align:center;">Email</th>
+                        <th style="font-size: 14px; text-align:center;">First Name</th>
+                        <th style="font-size: 14px; text-align:center;">Surname</th>
+                        <th style="font-size: 14px; text-align:center;">Other Issues</th>
+                        <th style="font-size: 14px; text-align:center;">Health Issues</th>
+                        <th style="font-size: 14px; text-align:center;">Risk rating</th>
+                        <th style="font-size: 14px; text-align:center;">Assign to</th>
+                        <th style="font-size: 14px; text-align:center;">Report</th>
+                        <th style="font-size: 14px; text-align:center;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -300,7 +300,7 @@
   
   
                   <tr>
-                      <th scope="row">{{$data->program_number}}</th>
+                      <th>{{$data->program_number}}</th>
                       <td> {{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}} </td>
                       <td>{{$data->user->email}}</td>
                       <td>{{$data->user->name}}</td>

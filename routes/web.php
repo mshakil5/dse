@@ -48,6 +48,8 @@ Route::get('/session-clear', [FrontendController::class, 'sessionClear']);
 Route::get('/switch-to-user', [FrontendController::class, 'switchToUser'])->name('switchuser');
 Route::get('/assesment-print/{id}', [AssesmentController::class, 'assesmentPrint'])->name('assesment.print');
 
+// report part start here
+Route::get('/assessment/report/{id}', [ReportController::class,'getAllAssesmentReportByManagger'])->name('manager.assesment.report');
 
 Route::get('/support-request', [SupportRequestController::class, 'supportRequest'])->name('supportRequest');
 Route::get('/safety-support-request', [SupportRequestController::class, 'supportRequestSafety'])->name('supportRequestSafety');
@@ -116,8 +118,6 @@ Route::group(['prefix' =>'manager/', 'middleware' => ['auth', 'is_manager']], fu
     Route::post('/add-new-schedule', [LinemanagerController::class, 'addNewSchedule']);
     Route::post('/transfer-to-health', [LinemanagerController::class, 'transferToHealth']);
 
-    // report part start here
-    Route::get('/assessment/report/{id}', [ReportController::class,'getAllAssesmentReportByManagger'])->name('manager.assesment.report');
 
 });
 
