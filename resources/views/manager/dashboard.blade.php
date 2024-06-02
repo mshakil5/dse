@@ -166,15 +166,15 @@
               <table class="table" id="exdatatable2">
                 <thead>
                   <tr>
-                      <th style="font-size: 14px; text-align:center;">DSE ID</th>
-                      <th style="font-size: 14px; text-align:center;">Date</th>
-                      <th style="font-size: 14px; text-align:center;">Email</th>
-                      <th style="font-size: 14px; text-align:center;">First Name</th>
-                      <th style="font-size: 14px; text-align:center;">Surname</th>
-                      <th style="font-size: 14px; text-align:center;">Other Issues</th>
-                      <th style="font-size: 14px; text-align:center;">Health Issues</th>
-                      <th style="font-size: 14px; text-align:center;">Assign to</th>
-                      <th style="font-size: 14px; text-align:center;">Action</th>
+                      <th>DSE ID</th>
+                      <th>Date</th>
+                      <th>Email</th>
+                      <th>First Name</th>
+                      <th>Surname</th>
+                      <th>Other Issues</th>
+                      <th>Health Issues</th>
+                      <th>Assign to</th>
+                      <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -208,7 +208,7 @@
   
   
                     <tr>
-                        <th>{{$data->program_number}}</th>
+                        <td>{{$data->program_number}}</td>
                         <td> {{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}}</td>
                         <td>{{$data->user->email}}</td>
                         <td>{{$data->user->name}}</td>
@@ -257,17 +257,17 @@
               <table class="table" id="exdatatable">
                 <thead>
                     <tr>
-                        <th style="font-size: 14px; text-align:center;">DSE ID</th>
-                        <th style="font-size: 14px; text-align:center;">Date</th>
-                        <th style="font-size: 14px; text-align:center;">Email</th>
-                        <th style="font-size: 14px; text-align:center;">First Name</th>
-                        <th style="font-size: 14px; text-align:center;">Surname</th>
-                        <th style="font-size: 14px; text-align:center;">Other Issues</th>
-                        <th style="font-size: 14px; text-align:center;">Health Issues</th>
-                        <th style="font-size: 14px; text-align:center;">Risk rating</th>
-                        <th style="font-size: 14px; text-align:center;">Assign to</th>
-                        <th style="font-size: 14px; text-align:center;">Report</th>
-                        <th style="font-size: 14px; text-align:center;">Action</th>
+                        <th>DSE ID</th>
+                        <th>Date</th>
+                        <th>Email</th>
+                        <th>First Name</th>
+                        <th>Surname</th>
+                        <th>Other Issues</th>
+                        <th>Health Issues</th>
+                        <th>Risk rating</th>
+                        <th>Assign to</th>
+                        <th>Report</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -300,7 +300,7 @@
   
   
                   <tr>
-                      <th>{{$data->program_number}}</th>
+                      <td>{{$data->program_number}}</td>
                       <td> {{ \Carbon\Carbon::parse($data->date)->format('d/m/Y')}} </td>
                       <td>{{$data->user->email}}</td>
                       <td>{{$data->user->name}}</td>

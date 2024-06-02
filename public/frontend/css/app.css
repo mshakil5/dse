@@ -182,3 +182,18 @@
   background: #a8b52d;
   color: #fff;
 }/*# sourceMappingURL=app.css.map */
+
+.table thead tr th{
+  text-align:center;
+  font-size:14px;
+}
+
+
+.table tbody tr td{
+  text-align:center;
+  font-size:14px;
+}
+
+p {
+  font-size:14px;
+}
