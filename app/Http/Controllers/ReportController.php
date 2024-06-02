@@ -9,6 +9,7 @@ use App\Models\AssesmentHealthProblem;
 use App\Models\AssesmentSchedule;
 use App\Models\Department;
 use App\Models\DeterminigAnswer;
+use App\Models\Division;
 use App\Models\QnCategory;
 use App\Models\Question;
 use App\Models\User;
@@ -38,6 +39,7 @@ class ReportController extends Controller
                         
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
+        $division = Division::where('id', $assesment->division_id)->first();
         $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $id)->first();
         
         $oldschedule = AssesmentSchedule::where('program_number', $id)->first();
@@ -66,7 +68,7 @@ class ReportController extends Controller
         $otherqnAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
 
         // dd($comments);
-        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category','healthans','otheranscmmnts','determiningAnswer','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns'));
+        return view('manager.assesment_report', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category','healthans','otheranscmmnts','determiningAnswer','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns','division'));
 
     }
 }

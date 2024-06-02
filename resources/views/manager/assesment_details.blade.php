@@ -1,5 +1,9 @@
 @extends('layouts.master')
 @section('content')
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.5.1/sweetalert2.all.min.js"></script>
+
 @php
     $chksts = \App\Models\DeterminigAnswer::where('program_number', $pnumber)->first();
 @endphp
@@ -825,6 +829,9 @@
                     @endforeach
                 </select>
 
+                <hr>
+                <p class="text-center">OR</p>
+                <hr>
                 <select name="safety_id" id="safety_id{{$data->id}}" class="form-control mt-2">
                     <option value="">Health & Safety</option>
                     @foreach (\App\Models\User::where('is_type', '1')->get() as $expert)
@@ -1145,7 +1152,8 @@ function backToTop() {
                     if (d.status == 303) {
                         $(".ermsgod").html(d.message);
                     }else if(d.status == 300){
-                        $(".ermsgod").html(d.message);
+                        // $(".ermsgod").html(d.message);
+                        swal.fire("Success!");
                         window.location.href = redurl;
                     }
                 },
