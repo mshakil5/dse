@@ -64,18 +64,13 @@
                     <div class="col-12">
                       <label for="email" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        {{-- <input type="text" name="username" class="form-control" id="yourUsername" required> --}}
                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"  autocomplete="email" autofocus value="{{ old('email') }}" required>
-
                               <div class="invalid-feedback">Please enter your email.</div>
-
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                             </span>
                             @enderror
-
-
                       </div>
                     </div>
 
@@ -98,7 +93,7 @@
                       <button class="btn  w-100 btn-theme " type="submit">Login</button>
                     </div>
                     <div class="col-12">
-                      {{-- <p class="small mb-0"> <a href="#" class="text-dark fw-bold">Reset Password</a></p> --}}
+                      <p class="small mb-0"> <a href="{{route('register')}}" class="text-dark fw-bold">Create an account</a></p>
                     </div>
                   </form> 
                 </div>

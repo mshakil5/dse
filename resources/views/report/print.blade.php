@@ -46,7 +46,7 @@
 
         .header, .footer {
             background-color: #f8f9fa;
-            padding: 10px 0;
+            padding: 20px 0;
             text-align: center;
         }
 
@@ -56,6 +56,9 @@
 
         .content {
             padding: 20px;
+        }
+        .pageBreak{
+            page-break-after: always;
         }
     </style>
 </head>
@@ -76,13 +79,13 @@
                         </div>
                     </td>
                 </tr>
-                <tr>
+                {{-- <tr>
                     <td colspan="2" class="" style="border :0px solid #dee2e6;width:25%;">
                     </td>
                     <td colspan="2" class="" style="border :0px solid #dee2e6 ;width:50%;"></td>
                     <td colspan="2" class="" style="border :0px solid #dee2e6 ;">
                     </td>
-                </tr>
+                </tr> --}}
             </tbody>
             
         </table>
@@ -91,7 +94,7 @@
     <div class="content">
         <!-- Content goes here -->
         
-            <div class="row mt-2">
+            <div class="row">
                 <div class="col-lg-12 p-2">
 
                     <h4>User Information</h4>
@@ -280,7 +283,7 @@
 
             <div class="row">
                 <div class="col-lg-12 border-md-end d-flex align-items-center justify-content-center">
-                    <div class="py-3">
+                    <div class="">
                         
                         
                         <h4 class="text-danger text-left ">Display screen equipment (DSE) workstation self-assessment</h4>
@@ -425,12 +428,13 @@
                 
             </div>
 
-
-            <h4>Tick to confirm location & type of health problem's experienced</h4>
+            <div class="pageBreak"></div>
+            <div class="mt-5 mb-5"></div>
 
             <div class="row mt-2">
-                <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
-                    <div class="row pt-5 px-4">
+                <h4 class="mt-5">Tick to confirm location & type of health problem's experienced</h4>
+                <div class="col-lg-12 bg-light ">
+                    <div class="row px-4">
                         <div class="col-lg-12 mb-4">
                             
                             <table class="table table-bordered table-striped">
@@ -712,7 +716,7 @@
 
             <h4>Review Audit Record</h4>
             <div class="row mt-2">
-                <div class="col-lg-12 shadow-sm border rounded-0 bg-light ">
+                <div class="col-lg-12">
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -728,7 +732,7 @@
                                     @foreach ($assanswer->assesmentAnswerComments as $comment)
                                         @if ($comment->created_by == "User")
                                             <div class="row">
-                                                <div class="col-lg-8 alert alert-secondary  rounded-3 text-dark  align-items-right"><b>{{$comment->created_by}}:</b>  {{$comment->comment}}
+                                                <div class="col-lg-8  align-items-right"><b>{{$comment->created_by}}:</b>  {{$comment->comment}}
                                                     <br>
                                                 <small>Date: {{$comment->date}}</small>
                                                 </div>
@@ -737,7 +741,7 @@
                                         @else
                                             <div class="row">
                                                 <div class="col-lg-4"></div>
-                                                <div class="col-lg-8 alert alert-secondary text-start rounded-3 text-dark"><b>{{$comment->created_by}}: </b> {{$comment->comment}}
+                                                <div class="col-lg-8  text-dark"><b>{{$comment->created_by}}: </b> {{$comment->comment}}
                                                     <br>
                                                     <small>Date: {{$comment->date}}</small>
                                                 </div>
