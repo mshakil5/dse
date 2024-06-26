@@ -1139,6 +1139,7 @@ class AssesmentController extends Controller
                         
         $user = User::where('id', $assesment->user_id)->first();
         $department = Department::where('id', $assesment->department_id)->first();
+        $division = Division::where('id', $assesment->division_id)->first();
         $opms = AssesmentHealthProblem::with('assesmentHealthComment')->where('program_number', $id)->first();
         
         $oldschedule = AssesmentSchedule::where('program_number', $id)->first();
@@ -1168,7 +1169,7 @@ class AssesmentController extends Controller
         $otherqnAns = AssesmentAnswer::where('program_number', $id)->whereIn('catname', ['otherqn'])->where('answer','!=', 'No')->count();
 
 
-        return view('report.print', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category','healthans','otheranscmmnts','determiningAnswer','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns'));
+        return view('report.print', compact('assesment','user','department','data','questionCategories','assesmentanswers','opms','oldschedule','newschedule','comments','category','healthans','otheranscmmnts','determiningAnswer','chkboxitemNone','exerciseAns','texerciseAns','otherqnAns','division'));
     }
 
 
